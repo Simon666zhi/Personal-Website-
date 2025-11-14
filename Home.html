@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mechanical Engineering Portfolio - Yiqing Zhi</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <style>
         * {
             margin: 0;
@@ -16,12 +16,12 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-attachment: fixed;
+            background: #000000;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Animated Background */
+        /* Enhanced Galaxy Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -29,81 +29,23 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: pulse 15s ease-in-out infinite;
+                radial-gradient(ellipse at 15% 25%, rgba(75, 0, 130, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(138, 43, 226, 0.4) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 30%, rgba(72, 61, 139, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, #000000 0%, #0d0221 30%, #1a0b3d 60%, #2d1b69 100%);
+            animation: galaxyRotate 60s linear infinite;
         }
 
-        .floating-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        @keyframes galaxyRotate {
+            0% { 
+                background-position: 0% 0%, 100% 100%, 50% 50%, 70% 30%, 0% 0%;
+            }
+            100% { 
+                background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%;
+            }
         }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            left: 10%;
-            top: 20%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            right: 15%;
-            top: 60%;
-            animation-delay: 3s;
-        }
-
-        .shape:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            left: 70%;
-            top: 30%;
-            animation-delay: 6s;
-        }
-
-        .shape:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            left: 30%;
-            bottom: 20%;
-            animation-delay: 9s;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-30px) rotate(120deg); }
-            66% { transform: translateY(30px) rotate(240deg); }
-        }
-
         /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.95);
@@ -830,6 +772,8 @@
             text-align: center;
             padding: 2rem;
             margin-top: 2rem;
+            z-index: 100;
+            position: relative;
         }
 
         .footer-social {
@@ -858,6 +802,195 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* Scrolling Rocket */
+        .scroll-rocket {
+            position: fixed;
+            right: 70px; 
+            width: 80px;
+            height: 120px;
+            z-index: 999;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            pointer-events: none;
+        }
+
+        .scroll-rocket svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .rocket-flame {
+            transform-origin: center;
+        }
+
+        /* NEW: Twinkling Stars */
+        .rocket-stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 997;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: twinkle 1s ease-out forwards;
+            box-shadow: 0 0 6px #ffd700, 0 0 12px #ffd700;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* NEW: Speed Lines - Left Side */
+        .speed-lines-left {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 80;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .speed-line-left {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to left, 
+                transparent 0%,
+                rgba(255, 140, 66, 0.7) 30%,
+                rgba(255, 140, 66, 0.4) 60%,
+                transparent 100%);
+            animation: speedLineMoveLeft 0.5s ease-out forwards;
+        }
+
+        @keyframes speedLineMoveLeft {
+            0% {
+                right: 0;
+                width: 0;
+                opacity: 1;
+            }
+            100% {
+                right: 0;
+                width: 400px;
+                opacity: 0;
+            }
+        }
+
+        /* NEW: Rocket Shake Effect */
+        .rocket-shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-3px) rotate(-2deg); }
+            75% { transform: translateX(3px) rotate(2deg); }
+        }
+
+        /* NEW: Progress Circle */
+        .rocket-progress {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke: rgba(255, 255, 255, 0.2);
+            fill: transparent;
+            stroke-width: 4;
+        }
+
+        .progress-ring-progress {
+            stroke: #ff6b35;
+            fill: transparent;
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s ease-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            height: 40px; 
+            width: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .nav-logo {
+                height: 25px; /* match mobile size */
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .scroll-rocket {
+                right: 15px;
+                width: 60px;
+                height: 90px;
+            }
+
+            .rocket-trail {
+                right: 40px;
+                width: 60px;
+            }
+
+            .rocket-progress {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .progress-text {
+                font-size: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-rocket {
+                right: 15px;
+                width: 60px;
+                height: 90px;
             }
         }
 
@@ -926,42 +1059,151 @@
             .timeline-item:hover .timeline-marker {
                 transform: translateX(0) scale(1.3);
             }
+
+
+            /* Navigation - Responsive with Dropdown */
+            nav {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
         }
-    </style>
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: #667eea;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Responsive Navigation - Dropdown on Small Screens */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+                padding: 0;
+                gap: 0;
+            }
+
+            nav ul.active {
+                max-height: 600px;
+                padding: 1rem 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 0;
+                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            .social-links {
+                justify-content: center;
+                padding: 1rem 0;
+            }
+        }
+    }
+</style>
 </head>
 <body>
-    <!-- Animated Background -->
+
+    <!-- Enhanced Animated Background -->
     <div class="animated-bg">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
+        <div class="blueprint-pattern"></div>
+        <div class="gear-pattern"></div>
+        <div class="wireframe-bg">
+            <div class="wireframe-car"></div>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation with Hamburger Menu -->
     <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#" class="resume-btn" onclick="downloadResume(event)">📄 Resume</a></li>
-            <li class="social-links">
-                <a href="https://www.linkedin.com/in/yiqing-zhi-9b2139266/" target="_blank" class="social-link" title="LinkedIn">in</a>
-                <a href="https://github.com/your-username" target="_blank" class="social-link" title="GitHub">GH</a>
-            </li>
-        </ul>
+        <div class="nav-container">
+            <div class="nav-brand" onclick="refreshPage(event)" style="cursor: pointer;">
+                <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#experience" onclick="closeMenu()">Experiences</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                <li><a href="#" class="resume-btn" onclick="downloadResume(event)">📄 Resume</a></li>
+                <li class="social-links">
+                    <a href="https://www.linkedin.com/in/yiqing-zhi-9b2139266/" target="_blank" class="social-link" title="LinkedIn">in</a>
+                    <a href="https://github.com/your-username" target="_blank" class="social-link" title="GitHub">GH</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Hero Section with Carousel -->
     <section id="home" class="hero-carousel">
         <div class="carousel-container">
             <div class="carousel-slide active">
-                <img src="UWFE_Group.jpg" alt="UWFE Chassis Project">
+                <img src="Images/UWFE-1.jpeg" alt="UWFE Chassis Project">
                 <div class="carousel-content">
                     <h1>Driven by Design - Waterloo Formula Electric</h1>
                     <p>Innovating high-performance CAD and mechanical systems for next-generation electric race cars</p>
@@ -970,7 +1212,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="Me100.jpeg" alt="Motorized Maze">
+                <img src="Images/Me100.jpeg" alt="Motorized Maze">
                 <div class="carousel-content">
                     <h1>Engineering a Path Through Complexity</h1>
                     <p>Exploring motion control and mechanical design through a self-powered maze mechanism</p>
@@ -979,7 +1221,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="Me101.jpeg" alt="Circadian Rhythm Regulating Device">
+                <img src="Images/Me101.jpeg" alt="Circadian Rhythm Regulating Device">
                 <div class="carousel-content">
                     <h1>Innovation & Design</h1>
                     <p>Exploring sensory stimulation through tickling and water spray to promote balanced circadian rhythms</p>
@@ -988,7 +1230,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="MechDay.jpeg" alt="Ping-ris Wheel">
+                <img src="Images/MechDay.jpeg" alt="Ping-ris Wheel">
                 <div class="carousel-content">
                     <h1>Precision in Mechanical Motion</h1>
                     <p>Innovating weight-driven system demonstrating energy transfer through mechanical design and motion control</p>
@@ -997,7 +1239,7 @@
             </div>
 
             <div class="carousel-slide">
-                <img src="Casi-1.jpg" alt="Casi Level 1 Instructor">
+                <img src="Images/Casi-1.jpg" alt="Casi Level 1 Instructor">
                 <div class="carousel-content">
                     <h1>Leadership & Applied Mechanics</h1>
                     <p>Certified snowboard instructor with hands-on understanding of motion mechanics and human-centered design</p>
@@ -1024,7 +1266,7 @@
     <section id="about">
         <h2>About Me</h2>
         <div class="about-content">
-            <img src="Profile.jpg" alt="Profile" class="profile-img">
+            <img src="Images/Profile.jpg" alt="Profile" class="profile-img">
             <div>
                 <p>Hi there! I'm Yiqing (Simon) Zhi, a passionate mechanical engineer with a love for creating innovative and functional designs. I specialize in CAD modeling, engineering analysis, and enjoy turning complex problems into simple, elegant solutions.</p>
                 <p style="margin-top: 1rem;">When I'm not designing, you can find me exploring new engineering technologies, working on personal projects, or collaborating with teams on challenging mechanical systems. I also enjoy traveling around the world with 
@@ -1078,7 +1320,7 @@
 
     <!-- Experience Section -->
     <section id="experience">
-        <h2>Experience</h2>
+        <h2>Experiences</h2>
         <div class="timeline">
             <div class="timeline-item" data-index="0">
                 <div class="timeline-marker"></div>
@@ -1100,12 +1342,8 @@
                     <h3>Production Process Engineering Co-op</h3>
                     <h4>PWO Canada Inc.</h4>
                     <h5>Kitchener, Ontario</h5>
-                    <p>Contributing to the design and development of high-performance electric race car components.</p>
-                    <ul class="achievement-list">
-                        <li>Developed CAD models for chassis components</li>
-                        <li>Collaborated with cross-functional teams</li>
-                        <li>Participated in design reviews and testing</li>
-                    </ul>
+                    <p>During this co-op, I supported the Process Engineering and Tooling teams in optimizing production systems and improving efficiency. I developed Excel VBA tools that boosted operator productivity by 20% and contributed to cross-department system integration. 
+                        Using SolidEdge and Kister 3D View Station, I optimized manufacturing equipment, increasing stamping press speed by 30%. I also conducted time studies and led cost-reduction projects, including the Glove Plan Project and tool crib optimization, improving overall efficiency and reducing expenses.</p>
                 </div>
             </div>
         </div>
@@ -1119,7 +1357,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="UWFE_CAR.jpeg" alt="Waterloo Formula Electric" class="project-img">
+                        <img src="Images/UWFE_CAR.jpeg" alt="Waterloo Formula Electric" class="project-img">
                         <div class="project-title-overlay">
                             <h3>Waterloo Formula Electric</h3>
                         </div>
@@ -1128,7 +1366,7 @@
                         <div class="project-back-content">
                             <h3>Waterloo Formula Electric</h3>
                             <p>Designed and developed high-performance CAD models and mechanical systems for next-generation electric race cars with focus on chassis optimization.</p>
-                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                            <a href="#" class="view-more-btn" onclick="window.location.href='project-uwfe.html'; return false;">View More</a>
                         </div>
                     </div>
                 </div>
@@ -1138,7 +1376,26 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
+                        <img src="Images/Part7_Bot_Body_Top1.png" alt="Four Foot Spider Robot" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Four Foot Spider Robot</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Four Foot Spider Robot</h3>
+                            <p>Collaborate with an innovation startup company in Shanghai China to design and 3D printing a four foot spider robot. </p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
                         <div class="project-title-overlay">
                             <h3>Motorized Maze</h3>
                         </div>
@@ -1153,11 +1410,11 @@
                 </div>
             </div>
 
-            <!-- Project 3 -->
+            <!-- Project 4 -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="ME101_Project-1.png" alt="Circadian Rhythm Device" class="project-img">
+                        <img src="Images/ME101_Project-1.png" alt="Circadian Rhythm Device" class="project-img">
                         <div class="project-title-overlay">
                             <h3>Circadian Rhythm Device</h3>
                         </div>
@@ -1172,11 +1429,11 @@
                 </div>
             </div>
 
-            <!-- Project 4 -->
+            <!-- Project 5 -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="MechDay_Project.jpeg" alt="Ping-ris Wheel" class="project-img">
+                        <img src="Images/MechDay_Project.jpeg" alt="Ping-ris Wheel" class="project-img">
                         <div class="project-title-overlay">
                             <h3>Ping-ris Wheel</h3>
                         </div>
@@ -1227,6 +1484,101 @@
         </div>
     </section>
 
+    <!-- Scrolling Rocket -->
+    <div class="scroll-rocket" id="scrollRocket">
+        <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rocket Body -->
+            <ellipse cx="100" cy="150" rx="40" ry="60" fill="#c41e3a"/>
+            <ellipse cx="100" cy="150" rx="35" ry="55" fill="#e63946"/>
+            
+            <!-- Rocket Nose Cone -->
+            <path d="M 60 120 L 100 70 L 140 120 Z" fill="#c41e3a"/>
+            <path d="M 70 120 L 100 80 L 130 120 Z" fill="#d32f2f"/>
+            
+            <!-- Window -->
+            <circle cx="100" cy="140" r="18" fill="#4a90e2"/>
+            <circle cx="100" cy="140" r="14" fill="#64b5f6"/>
+            <circle cx="95" cy="135" r="5" fill="#bbdefb" opacity="0.7"/>
+            
+            <!-- Fins -->
+            <path d="M 60 180 L 40 220 L 60 210 Z" fill="#c41e3a"/>
+            <path d="M 140 180 L 160 220 L 140 210 Z" fill="#c41e3a"/>
+            <path d="M 60 180 L 45 220 L 60 205 Z" fill="#e63946"/>
+            <path d="M 140 180 L 155 220 L 140 205 Z" fill="#e63946"/>
+            
+            <!-- Flames -->
+            <g class="rocket-flame">
+                <path d="M 85 210 L 80 240 L 90 225 Z" fill="#ff6b35" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 85 210 L 80 240 L 90 225 Z;
+                                     M 85 210 L 75 250 L 90 230 Z;
+                                     M 85 210 L 80 240 L 90 225 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 100 210 L 95 250 L 105 250 Z" fill="#ff8c42" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 100 210 L 95 250 L 105 250 Z;
+                                     M 100 210 L 90 265 L 110 265 Z;
+                                     M 100 210 L 95 250 L 105 250 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 115 210 L 110 240 L 120 225 Z" fill="#ff6b35" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 115 210 L 110 240 L 120 225 Z;
+                                     M 115 210 L 105 250 L 120 230 Z;
+                                     M 115 210 L 110 240 L 120 225 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 92 210 L 88 235 L 97 222 Z" fill="#ffd23f" opacity="0.8">
+                    <animate attributeName="d" 
+                             values="M 92 210 L 88 235 L 97 222 Z;
+                                     M 92 210 L 85 245 L 97 228 Z;
+                                     M 92 210 L 88 235 L 97 222 Z"
+                             dur="0.25s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 108 210 L 103 235 L 112 222 Z" fill="#ffd23f" opacity="0.8">
+                    <animate attributeName="d" 
+                             values="M 108 210 L 103 235 L 112 222 Z;
+                                     M 108 210 L 100 245 L 112 228 Z;
+                                     M 108 210 L 103 235 L 112 222 Z"
+                             dur="0.25s" repeatCount="indefinite"/>
+                </path>
+            </g>
+            
+            <!-- Smoke clouds -->
+            <g class="rocket-smoke">
+                <circle cx="100" cy="260" r="15" fill="#9e9e9e" opacity="0.4">
+                    <animate attributeName="cy" values="260;280;300" dur="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.4;0.2;0" dur="1s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="90" cy="265" r="12" fill="#bdbdbd" opacity="0.3">
+                    <animate attributeName="cy" values="265;285;305" dur="1.2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.3;0.15;0" dur="1.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="110" cy="268" r="10" fill="#9e9e9e" opacity="0.3">
+                    <animate attributeName="cy" values="268;288;308" dur="0.9s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.3;0.15;0" dur="0.9s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+        </svg>
+    </div>
+
+    <!-- NEW: Rocket Stars Container -->
+    <div class="rocket-stars" id="rocketStars"></div>
+
+    <!-- NEW: Speed Lines -->
+    <div class="speed-lines-left" id="speedLinesLeft"></div>
+
+    <!-- NEW: Progress Circle -->
+    <div class="rocket-progress">
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring-circle" cx="30" cy="30" r="26"></circle>
+            <circle class="progress-ring-progress" cx="30" cy="30" r="26" 
+                    stroke-dasharray="163.36" stroke-dashoffset="163.36" id="progressCircle"></circle>
+        </svg>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
     <!-- Closing Message -->
     <section id="closing-message" style="text-align: center; padding: 2rem; background: #f0f0f0; border-radius: 10px; margin: 2rem auto; max-width: 1000px;">
         <p style="font-size: 1.2rem; color: #333;">
@@ -1250,7 +1602,7 @@
 
         // Wait for DOM to load
         document.addEventListener('DOMContentLoaded', function() {
-            startAutoPlay();
+            startAutoPlay(); 
             
             // Pause autoplay when user hovers over carousel
             const carousel = document.querySelector('.hero-carousel');
@@ -1328,6 +1680,166 @@
                 card.classList.remove('flipped');
             }, 600);
         }
+
+
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        let lastScrollTop = 0;
+        let scrollSpeed = 0;
+        let starInterval = null;
+        let currentRocketPosition = 5;
+        let rocketVelocity = 0;
+
+        function refreshPage(event) {
+            event.preventDefault();
+            location.reload();
+        }
+
+// NEW: Enhanced Rocket Position Update with All Effects
+        function updateRocketPosition() {
+            const rocket = document.getElementById('scrollRocket');
+            const trail = document.getElementById('rocketTrail');
+            const progressCircle = document.getElementById('progressCircle');
+            const progressText = document.getElementById('progressText');
+            
+            if (!rocket) return;
+
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Calculate scroll percentage
+            const scrollPercentage = scrollTop / (documentHeight - windowHeight);
+            
+            // Calculate scroll speed and direction
+            const scrollDelta = scrollTop - lastScrollTop;
+            scrollSpeed = Math.abs(scrollDelta);
+            lastScrollTop = scrollTop;
+            
+            // Calculate target position based on scroll percentage
+            const startPosition = 5;
+            const endPosition = 70;
+            const targetRocketPosition = startPosition + (scrollPercentage * (endPosition - startPosition));
+            
+            // Physics-based smooth movement with velocity
+            const positionDiff = targetRocketPosition - currentRocketPosition;
+            rocketVelocity += positionDiff * 0.15; // Acceleration
+            rocketVelocity *= 0.85; // Damping/friction
+            currentRocketPosition += rocketVelocity;
+            
+            // Update rocket position smoothly
+            rocket.style.bottom = currentRocketPosition + '%';
+            
+            // Dynamic tilt based on velocity
+            const tiltAngle = Math.max(Math.min(rocketVelocity * 3, 20), -20);
+            rocket.style.transform = `rotate(${tiltAngle}deg)`;
+            
+            // NEW: Update Trail Effect
+            if (trail) {
+                const trailHeight = Math.min(Math.abs(rocketVelocity) * 50, 200);
+                trail.style.height = trailHeight + 'px';
+                trail.style.top = (currentRocketPosition + 12) + '%';
+                trail.style.opacity = Math.abs(rocketVelocity) > 0.5 ? '0.8' : '0';
+            }
+            
+            // NEW: Shake Effect on Fast Scroll
+            if (scrollSpeed > 5) {
+                rocket.classList.add('rocket-shake');
+                setTimeout(() => rocket.classList.remove('rocket-shake'), 300);
+            }
+            
+            // NEW: Generate Stars on Scroll
+            if (scrollSpeed > 5) {
+                createStar();
+            }
+            
+            // NEW: Speed Lines on Very Fast Scroll
+            if (scrollSpeed > 8) {
+                createSpeedLines();
+            }
+            
+            // NEW: Update Progress Circle
+            const circumference = 2 * Math.PI * 26;
+            const offset = circumference - (scrollPercentage * circumference);
+            progressCircle.style.strokeDashoffset = offset;
+            progressText.textContent = Math.round(scrollPercentage * 100) + '%';
+        }
+
+        // NEW: Create Twinkling Star
+        function createStar() {
+            const starsContainer = document.getElementById('rocketStars');
+            const rocket = document.getElementById('scrollRocket');
+            
+            if (!starsContainer || !rocket) return;
+            
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const rocketRect = rocket.getBoundingClientRect();
+            const offsetX = (Math.random() - 0.5) * 100;
+            const offsetY = (Math.random() - 0.5) * 100;
+            
+            star.style.left = (rocketRect.left + rocketRect.width / 2 + offsetX) + 'px';
+            star.style.top = (rocketRect.top + rocketRect.height / 2 + offsetY) + 'px';
+            
+            starsContainer.appendChild(star);
+            
+            setTimeout(() => star.remove(), 1000);
+        }
+
+        function createSpeedLines() {
+            const speedLinesLeft  = document.getElementById('speedLinesLeft');
+            if (!speedLinesLeft) return;
+            
+            speedLinesLeft.style.opacity  = '1';
+            
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+
+                    // Left side line
+                    const lineLeft = document.createElement('div');
+                    lineLeft.className = 'speed-line-left';
+                    lineLeft.style.top = (Math.random() * 100) + '%';
+                    lineLeft.style.left = '0';
+                    speedLinesLeft.appendChild(lineLeft);
+                    
+                    setTimeout(() => {
+                        lineLeft.remove();
+                    }, 500);
+                }, i * 50);
+            }
+            
+            setTimeout(() => {
+                speedLinesLeft.style.opacity  = '0';
+            }, 300);
+        }
+
+
+        // Initialize and use requestAnimationFrame for smooth animation
+        function animate() {
+            updateRocketPosition();
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('scroll', () => {
+            // Scroll event just triggers recalculation
+            // The animation loop handles smooth updates
+        });
+        
+        // Start the animation loop
+        animate();
     </script>
 </body>
 </html>
