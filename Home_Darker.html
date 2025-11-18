@@ -1,0 +1,4129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Engineering Portfolio - Yiqing Zhi</title>
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000000;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 74px; /* Offset for sticky nav */
+        }
+
+        /* Enhanced Galaxy Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 15% 25%, rgba(75, 0, 130, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(138, 43, 226, 0.4) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 30%, rgba(72, 61, 139, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, #000000 0%, #0d0221 30%, #1a0b3d 60%, #2d1b69 100%);
+            animation: galaxyRotate 60s linear infinite;
+        }
+
+        @keyframes galaxyRotate {
+            0% { 
+                background-position: 0% 0%, 100% 100%, 50% 50%, 70% 30%, 0% 0%;
+            }
+            100% { 
+                background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%;
+            }
+        }
+        /* Navigation */
+        nav {
+            background: linear-gradient(180deg, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(15, 20, 45, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            padding: 0;
+            box-shadow: 
+                0 4px 30px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2),
+                inset 0 -1px 0 rgba(102, 126, 234, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+            overflow: hidden;
+        }
+
+        /* Animated scan line effect */
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                transparent 100%);
+            animation: scanLine 4s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes scanLine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        /* Holographic grid overlay */
+        nav::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(102, 126, 234, 0.03) 25%, rgba(102, 126, 234, 0.03) 26%, transparent 27%, transparent 74%, rgba(102, 126, 234, 0.03) 75%, rgba(102, 126, 234, 0.03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(102, 126, 234, 0.03) 25%, rgba(102, 126, 234, 0.03) 26%, transparent 27%, transparent 74%, rgba(102, 126, 234, 0.03) 75%, rgba(102, 126, 234, 0.03) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* LEFT-CENTER-RIGHT LAYOUT */
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        /* SIMPLE LOGO - NO EXTRA TEXT */
+        .nav-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.5));
+            cursor: pointer;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 25px rgba(102, 126, 234, 0.8));
+        }
+
+        /* NAVIGATION TABS - FANCY DESIGN */
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex-wrap: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.8rem 1.4rem;
+            display: block;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+
+        /* Holographic shimmer background */
+        nav a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0) 0%,
+                rgba(102, 126, 234, 0.2) 50%,
+                rgba(118, 75, 162, 0) 100%);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border: 1px solid rgba(102, 126, 234, 0);
+            transform: translateX(-100%);
+        }
+
+        /* Animated sliding underline */
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                #667eea 25%,
+                #764ba2 50%,
+                #667eea 75%,
+                transparent 100%);
+            background-size: 200% 100%;
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            box-shadow: 
+                0 0 10px rgba(102, 126, 234, 0.6),
+                0 0 20px rgba(102, 126, 234, 0.4);
+        }
+
+        nav a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+            border-color: rgba(102, 126, 234, 0.5);
+            animation: shimmer 1.5s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { 
+                background: linear-gradient(135deg, 
+                    rgba(102, 126, 234, 0.1) 0%,
+                    rgba(102, 126, 234, 0.25) 50%,
+                    rgba(118, 75, 162, 0.1) 100%);
+            }
+            50% { 
+                background: linear-gradient(135deg, 
+                    rgba(118, 75, 162, 0.1) 0%,
+                    rgba(102, 126, 234, 0.25) 50%,
+                    rgba(102, 126, 234, 0.1) 100%);
+            }
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+            animation: borderSlide 1s ease-in-out infinite;
+        }
+
+        @keyframes borderSlide {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px rgba(102, 126, 234, 0.8),
+                0 0 20px rgba(102, 126, 234, 0.6),
+                0 0 30px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+            letter-spacing: 2px;
+        }
+
+        /* Sci-fi corner brackets */
+        nav ul li::before,
+        nav ul li::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #667eea;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        nav ul li::before {
+            top: 4px;
+            left: 4px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        nav ul li::after {
+            bottom: 4px;
+            right: 4px;
+            border-left: none;
+            border-top: none;
+        }
+
+        nav ul li:hover::before,
+        nav ul li:hover::after {
+            opacity: 1;
+            animation: cornerPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes cornerPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+            }
+            50% { 
+                transform: scale(1.2);
+                box-shadow: 0 0 15px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Vertical scan line across tabs */
+        nav ul::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                transparent 100%);
+            animation: verticalScan 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes verticalScan {
+            0%, 100% { transform: translateX(0); opacity: 0; }
+            50% { transform: translateX(600px); opacity: 1; }
+        }
+
+        /* SOCIAL LINKS CONTAINER */
+        .social-links {
+            display: flex;
+            gap: 0.6rem;
+            margin: 0;
+            padding: 0.5rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 25px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            transform: translateX(110px);
+        }
+
+        .social-links:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: none;
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-link span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 
+                0 8px 20px rgba(102, 126, 234, 0.5),
+                0 0 30px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.8);
+        }
+
+        .social-link.linkedin {
+            text-transform: lowercase !important;
+        }
+
+        /* RESUME BUTTON */
+        .resume-btn {
+            padding: 0.7rem 1.8rem !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 
+                0 4px 15px rgba(102, 126, 234, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .resume-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .resume-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(102, 126, 234, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(102, 126, 234, 0.8);
+            color: white !important;
+        }
+
+        .resume-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Make corner brackets work with resume button */
+        .resume-li {
+            position: relative;
+        }
+
+        .resume-li::before,
+        .resume-li::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 2px solid #667eea;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .resume-li::before {
+            top: -2px;
+            left: -2px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .resume-li::after {
+            bottom: -2px;
+            right: -2px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .resume-li:hover::before,
+        .resume-li:hover::after {
+            opacity: 1;
+            animation: cornerPulse 1s ease-in-out infinite;
+        }
+
+         /* Space-Themed Hero Carousel */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            height: 640px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 60px rgba(102, 126, 234, 0.4),
+                0 0 120px rgba(102, 126, 234, 0.2),
+                inset 0 0 100px rgba(102, 126, 234, 0.05);
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+        }
+
+        /* Holographic Border Animation */
+        .hero-carousel::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            opacity: 0.5; 
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Corner Decorations */
+        .carousel-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #667eea;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            box-shadow: 2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            box-shadow: -2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Animated Scan Lines */
+        .scan-line-horizontal {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                transparent 100%);
+            animation: scanHorizontal 4s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes scanHorizontal {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .scan-line-vertical {
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                transparent 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                transparent 100%);
+            animation: scanVertical 5s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes scanVertical {
+            0% { left: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        /* Floating Particles */
+        .space-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: floatParticle 20s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1) contrast(1.1); /* Full brightness! */
+        }
+
+        /* Holographic Overlay */
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                rgba(102, 126, 234, 0.2) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.2) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 90%;
+            max-width: 1000px;
+            padding: 0; /* No padding needed */
+            background: none; /* No background! */
+            border: none;
+            box-shadow: none;
+        }
+
+        .carousel-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                0 4px 10px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(102, 126, 234, 0.6);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .carousel-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            text-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(0, 0, 0, 0.7);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .see-more-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s backwards;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 25px rgba(102, 126, 234, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .see-more-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .see-more-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .see-more-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(102, 126, 234, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Futuristic Navigation Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 14, 35, 0.9);
+            backdrop-filter: blur(10px);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.6);
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .carousel-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+            color: white;
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 
+                0 12px 40px rgba(102, 126, 234, 0.6),
+                inset 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-btn.prev {
+            left: 30px;
+        }
+
+        .carousel-btn.next {
+            right: 30px;
+        }
+
+        /* Holographic Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            padding: 15px 25px;
+            background: rgba(10, 14, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(102, 126, 234, 0.05);
+        }
+
+        .indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.3);
+            border: 2px solid rgba(102, 126, 234, 0.6);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: transparent;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .indicator.active {
+            background: rgba(102, 126, 234, 0.8);
+            width: 40px;
+            border-radius: 10px;
+            border-color: #667eea;
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                inset 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .indicator.active::before {
+            background: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .indicator:hover {
+            transform: scale(1.2);
+            background: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+        }
+
+        @media (max-width: 768px) {
+
+            .skills-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+            }
+            
+            .skill-card {
+                padding: 2rem 1.5rem;
+                width:100%
+            }
+            
+            .skill-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 2.3rem;
+            }
+            
+            .skill-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .hero-carousel {
+                height: 550px;
+                border-radius: 15px;
+            }
+
+            /* ADD THESE STYLES */
+            .carousel-content {
+                width: 95%;
+                padding: 0 1rem;
+            }
+
+            .carousel-content h1 {
+                font-size: 1.8rem; /* Smaller on mobile */
+                margin-bottom: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .carousel-content p {
+                font-size: 1rem; /* Smaller on mobile */
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+            }
+
+            .see-more-btn {
+                padding: 0.8rem 2rem; /* Slightly smaller button */
+                font-size: 0.95rem;
+            }
+
+            .carousel-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .carousel-btn.prev {
+                left: 15px;
+            }
+
+            .carousel-btn.next {
+                right: 15px;
+            }
+
+            .carousel-corner {
+                width: 30px;
+                height: 30px;
+            }
+
+            .corner-tl, .corner-tr {
+                top: 10px;
+            }
+
+            .corner-bl, .corner-br {
+                bottom: 10px;
+            }
+
+            .corner-tl, .corner-bl {
+                left: 10px;
+            }
+
+            .corner-tr, .corner-br {
+                right: 10px;
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            margin-top: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        section:first-of-type {
+            margin-top: 0;
+            border-radius: 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+
+        /* About Section - Enhanced */
+        #about {
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(10, 14, 35, 0.95) 0%, 
+                rgba(20, 25, 50, 0.95) 100%);
+            border: 3px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 0 100px rgba(102, 126, 234, 0.05);
+            overflow: hidden;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+        }
+
+        #about h2 {
+            color: white;
+            text-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Profile Image - Holographic Effect */
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 40px rgba(102, 126, 234, 0.6),
+                0 0 80px rgba(102, 126, 234, 0.3),
+                inset 0 0 30px rgba(102, 126, 234, 0.1);
+            border: 4px solid rgba(102, 126, 234, 0.7);
+            position: relative;
+            animation: profileGlow 3s ease-in-out infinite;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-img:hover {
+            box-shadow: 
+                0 0 60px rgba(102, 126, 234, 0.9),
+                0 0 120px rgba(102, 126, 234, 0.5);
+        }
+
+        @keyframes profileGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 40px rgba(102, 126, 234, 0.6),
+                    0 0 80px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 60px rgba(102, 126, 234, 0.9),
+                    0 0 120px rgba(118, 75, 162, 0.5);
+            }
+        }
+
+        /* About Text Styling */
+        .about-content > div {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .about-content p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Contact Links Section - Enhanced */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .contact-card:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 15px 40px rgba(102, 126, 234, 0.5),
+                0 0 30px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.8);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 
+                0 4px 15px rgba(102, 126, 234, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .contact-card span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Skills Section - Enhanced */
+        #skills {
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(10, 14, 35, 0.95) 0%, 
+                rgba(20, 25, 50, 0.95) 100%);
+            border: 3px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 0 100px rgba(102, 126, 234, 0.05);
+            overflow: hidden;
+        }
+
+        #skills::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            opacity: 0.5;
+        }
+
+        #skills h2 {
+            color: white;
+            text-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+            gap: 1.5rem; /* Slightly smaller gap */
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .skill-card {
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem; /* Smaller padding - was 2.5rem 2rem */
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated scan line on hover */
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                transparent 100%);
+            transition: top 0.6s ease;
+        }
+
+        .skill-card:hover::before {
+            top: 100%;
+        }
+
+        /* Corner brackets appear on hover */
+        .skill-card::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            transition: border-color 0.4s ease;
+        }
+
+        .skill-card:hover::after {
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 20px 50px rgba(102, 126, 234, 0.4),
+                0 0 40px rgba(102, 126, 234, 0.2),
+                inset 0 0 30px rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.7);
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .skill-card:hover h3 {
+            color: #f093fb;
+            text-shadow: 
+                0 0 15px rgba(240, 147, 251, 0.8),
+                0 0 30px rgba(240, 147, 251, 0.4);
+        }
+
+        .skill-card p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Holographic Icon with Glow */
+        .skill-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: white;
+            transition: all 0.6s ease;
+            transform-style: preserve-3d;
+            box-shadow: 
+                0 8px 30px rgba(102, 126, 234, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(102, 126, 234, 0.3);
+            border: 3px solid rgba(102, 126, 234, 0.6);
+            position: relative;
+        }
+
+        /* Rotating ring effect */
+        .skill-icon::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: rgba(102, 126, 234, 0.8);
+            border-right-color: rgba(118, 75, 162, 0.8);
+            animation: iconRingRotate 2s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-card:hover .skill-icon::before {
+            opacity: 1;
+        }
+
+        @keyframes iconRingRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .skill-card.flipped .skill-icon {
+            animation: flip360 0.6s ease-in-out;
+        }
+
+        @keyframes flip360 {
+            0% { 
+                transform: rotateY(0deg) scale(1);
+                box-shadow: 
+                    0 8px 30px rgba(102, 126, 234, 0.5),
+                    0 0 40px rgba(102, 126, 234, 0.3);
+            }
+            50% { 
+                transform: rotateY(180deg) scale(1.15);
+                box-shadow: 
+                    0 12px 40px rgba(102, 126, 234, 0.8),
+                    0 0 60px rgba(102, 126, 234, 0.6);
+            }
+            100% { 
+                transform: rotateY(360deg) scale(1);
+                box-shadow: 
+                    0 8px 30px rgba(102, 126, 234, 0.5),
+                    0 0 40px rgba(102, 126, 234, 0.3);
+            }
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: scale(1.1);
+            box-shadow: 
+                0 15px 50px rgba(102, 126, 234, 0.8),
+                inset 0 2px 0 rgba(255, 255, 255, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.6);
+        }
+        /* Experience Section - Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeInTimeline 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes fadeInTimeline {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: calc(50% + 40px);
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: calc(50% + 40px);
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: white;
+            border: 5px solid #667eea;
+            border-radius: 50%;
+            z-index: 3;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.5);
+        }
+
+        .timeline-marker::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-item:hover .timeline-marker {
+            background: #667eea;
+            border-color: #764ba2;
+            transform: translateX(-50%) scale(1.4) rotate(180deg);
+            box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .timeline-item:hover .timeline-marker::before {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -20px;
+            border-width: 15px 0 15px 20px;
+            border-color: transparent transparent transparent #f8f9fa;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -20px;
+            border-width: 15px 20px 15px 0;
+            border-color: transparent #f8f9fa transparent transparent;
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            color: #667eea;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .achievement-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            color: #444;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .achievement-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Projects Section - Flipping Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .project-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .project-card:hover .project-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .project-card-front {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-title-overlay h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .project-card-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .project-back-content {
+            text-align: center;
+        }
+
+        .project-back-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-back-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f8f9fa;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Email Input Group with Dropdown */
+        .email-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .email-input-group input[type="text"] {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .email-separator {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .email-input-group select {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        #customDomain {
+            flex: 1;
+            min-width: 150px;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5568d3;
+        }
+
+        /* Mission Briefing Card */
+        .mission-briefing-card {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95) 0%, rgba(30, 30, 50, 0.95) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(102, 126, 234, 0.2),
+                inset 0 0 30px rgba(102, 126, 234, 0.05);
+            animation: briefingEntrance 1.5s ease-out;
+            overflow: hidden;
+        }
+
+        @keyframes briefingEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Corner Decorations */
+        .corner-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .corner-decoration.tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+            animation: cornerGlow 2s ease-in-out infinite;
+        }
+
+        .corner-decoration.tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+            animation: cornerGlow 2s ease-in-out 0.5s infinite;
+        }
+
+        .corner-decoration.bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+            animation: cornerGlow 2s ease-in-out 1s infinite;
+        }
+
+        .corner-decoration.br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+            animation: cornerGlow 2s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes cornerGlow {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Briefing Header */
+        .briefing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .mission-badge {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #667eea;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .mission-id {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .status-indicator {
+            font-size: 0.9rem;
+            color: #4ade80;
+            font-weight: 600;
+            text-align: right;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .mission-timestamp {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Courier New', monospace;
+            text-align: right;
+        }
+
+        /* Briefing Body */
+        .briefing-body {
+            margin-bottom: 2rem;
+        }
+
+        .mission-title {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .mission-title h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mission-message {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .mission-message p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Mission Stats */
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-item:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .stat-item:nth-child(1) .stat-icon { animation-delay: 0s; }
+        .stat-item:nth-child(2) .stat-icon { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) .stat-icon { animation-delay: 0.4s; }
+        .stat-item:nth-child(4) .stat-icon { animation-delay: 0.6s; }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Briefing Footer */
+        .briefing-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .coordinates, .clearance {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .clearance {
+            color: rgba(102, 126, 234, 0.8);
+        }
+
+        /* Responsive Mission Briefing */
+        @media (max-width: 768px) {
+            .mission-briefing-card {
+                padding: 1.5rem;
+                margin: 2rem 1rem;
+            }
+
+            .briefing-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                align-items: flex-start;
+            }
+
+            .status-indicator, .mission-timestamp {
+                text-align: left;
+            }
+
+            .mission-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mission-title h3 {
+                font-size: 1rem;
+            }
+
+            .mission-message p {
+                font-size: 1rem;
+            }
+
+            .briefing-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Footer - Moon Landing Scene */
+        .moon-landing-footer {
+            position: relative;
+            background: linear-gradient(180deg, #0a0e27 0%, #1a1a2e 50%, #2d2d44 100%);
+            min-height: 500px;
+            margin-top: 2rem;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 2rem;
+        }
+
+        /* Twinkling Stars Background */
+        .stars-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 80%, white, transparent),
+                radial-gradient(1px 1px at 15% 60%, white, transparent);
+            background-size: 200% 200%;
+            animation: twinkleStars 8s ease-in-out infinite;
+        }
+
+        @keyframes twinkleStars {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Earth in Background */
+        .earth-background {
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #4a90e2, #2e5c8a, #1a3a52);
+            box-shadow: 
+                inset -20px -20px 50px rgba(0,0,0,0.5),
+                0 0 80px rgba(74, 144, 226, 0.4),
+                0 0 120px rgba(74, 144, 226, 0.2);
+            animation: earthRotate 20s linear infinite;
+        }
+
+        .earth-background::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: rgba(76, 175, 80, 0.3);
+            border-radius: 50% 40% 50% 40%;
+            animation: earthClouds 15s ease-in-out infinite;
+        }
+
+        @keyframes earthRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes earthClouds {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* Moon Surface */
+        .moon-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, #5a5a6b 0%, #4a4a5a 50%, #3a3a4a 100%);
+            border-radius: 50% 50% 0 0;
+            box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .moon-surface::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: rgba(90, 90, 107, 0.5);
+            filter: blur(20px);
+        }
+
+        /* Craters */
+        .crater {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #3a3a4a, #2a2a3a);
+            box-shadow: inset 2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .crater-1 {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 15%;
+        }
+
+        .crater-2 {
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            left: 70%;
+        }
+
+        .crater-3 {
+            width: 30px;
+            height: 30px;
+            top: 35%;
+            left: 85%;
+        }
+
+        .crater-4 {
+            width: 45px;
+            height: 45px;
+            top: 60%;
+            left: 25%;
+        }
+
+        /* Footer Content */
+        .footer-content {
+            position: relative;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        /* Landed Rocket */
+        .landed-rocket {
+            position: relative;
+            width: 100px;
+            height: 180px;
+            animation: rocketLanding 3s ease-out;
+        }
+
+        @keyframes rocketLanding {
+            0% {
+                transform: translateY(-500px) rotate(-10deg);
+                opacity: 0;
+            }
+            70% {
+                transform: translateY(10px) rotate(2deg);
+            }
+            85% {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Mission Flag */
+        .mission-flag {
+            position: absolute;
+            right: 10px;
+            bottom: 40px;
+            animation: flagPlant 2s ease-out 1s backwards;
+        }
+
+        @keyframes flagPlant {
+            0% {
+                transform: translateY(-100px) rotate(-45deg);
+                opacity: 0;
+            }
+            60% {
+                transform: translateY(5px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .flag-pole {
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(180deg, #888, #555);
+            margin-left: 12px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .flag {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            animation: flagWave 3s ease-in-out infinite;
+            transform-origin: left center;
+        }
+
+        @keyframes flagWave {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(-15deg); }
+        }
+
+        /* Footprints */
+        .footprints {
+            position: absolute;
+            bottom: 120px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+        }
+
+        .footprint {
+            position: absolute;
+            width: 25px;
+            height: 35px;
+            background: rgba(42, 42, 58, 0.4);
+            border-radius: 40% 40% 50% 50%;
+            box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+            animation: footprintFade 4s ease-out backwards;
+        }
+
+        .footprint::before {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 40%;
+            background: rgba(42, 42, 58, 0.3);
+            border-radius: 50%;
+        }
+
+        @keyframes footprintFade {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Mission Control Panel */
+        .mission-control-panel {
+            background: rgba(20, 20, 40, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            box-shadow: 
+                0 0 30px rgba(102, 126, 234, 0.2),
+                inset 0 0 20px rgba(102, 126, 234, 0.05);
+            animation: panelSlideUp 1.5s ease-out 0.5s backwards;
+        }
+
+        @keyframes panelSlideUp {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .mission-status {
+            color: #4ade80;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .mission-year {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-panel {
+            position: relative;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .contact-panel:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .panel-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-panel:hover .panel-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .panel-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-panel:hover .panel-glow {
+            opacity: 1;
+        }
+
+        /* Copyright Section */
+        .copyright-section {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .copyright-section p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .tagline {
+            color: rgba(102, 126, 234, 0.8);
+            font-style: italic;
+            font-size: 0.85rem !important;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 968px) {
+            .moon-landing-footer {
+                min-height: 600px;
+            }
+
+            .earth-background {
+                width: 100px;
+                height: 100px;
+                right: 20px;
+                top: 30px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .landed-rocket {
+                width: 80px;
+                height: 150px;
+            }
+
+            .mission-control-panel {
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footprints {
+                display: none;
+            }
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrolling Rocket */
+        .scroll-rocket {
+            position: fixed;
+            right: 70px; 
+            width: 80px;
+            height: 120px;
+            z-index: 999;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            pointer-events: none;
+        }
+
+        .scroll-rocket svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .rocket-flame {
+            transform-origin: center;
+        }
+
+        /* NEW: Twinkling Stars */
+        .rocket-stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 997;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: twinkle 1s ease-out forwards;
+            box-shadow: 0 0 6px #ffd700, 0 0 12px #ffd700;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* NEW: Meteor Shower Effect - Left and Right Containers */
+        .meteor-shower-left {
+            position: fixed;
+            width: 16%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            overflow: hidden;
+        }
+
+        .meteor-shower-right {
+            position: fixed;
+            width: 14%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            overflow: hidden;
+        }
+
+        .meteor {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px 2px rgba(255, 255, 255, 0.8),
+                0 0 20px 4px rgba(135, 206, 250, 0.6),
+                0 0 30px 6px rgba(135, 206, 250, 0.4);
+        }
+
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 3px;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(135, 206, 250, 0.6) 40%,
+                transparent 100%);
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+
+        /* Left side meteors */
+        .meteor.left-side {
+            animation: meteorFallLeft 1.2s ease-out forwards;
+        }
+
+        @keyframes meteorFallLeft {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-300px, 300px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Right side meteors */
+        .meteor.right-side {
+            animation: meteorFallRight 1.2s ease-out forwards;
+        }
+
+        @keyframes meteorFallRight {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-300px, 300px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Meteor variants for variety */
+        .meteor.fast {
+            animation-duration: 0.7s;
+        }
+
+        .meteor.slow {
+            animation-duration: 1.6s;
+        }
+
+        .meteor.bright {
+            box-shadow: 
+                0 0 15px 3px rgba(255, 255, 255, 1),
+                0 0 30px 6px rgba(135, 206, 250, 0.8),
+                0 0 45px 9px rgba(135, 206, 250, 0.6);
+        }
+
+        .meteor.bright::before {
+            width: 150px;
+            background: linear-gradient(to right, 
+                rgba(255, 255, 255, 1) 0%,
+                rgba(135, 206, 250, 0.8) 30%,
+                transparent 100%);
+        }
+
+        @media (max-width: 768px) {
+            .meteor-shower-left,
+            .meteor-shower-right {
+                width: 15%;
+            }
+        }
+        /* NEW: Rocket Shake Effect */
+        .rocket-shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-3px) rotate(-2deg); }
+            75% { transform: translateX(3px) rotate(2deg); }
+        }
+
+        /* Progress Circle - positioned above landing rocket */
+        .rocket-progress {
+            position: fixed;
+            bottom: 115px; /* Positioned above the landing rocket */
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .rocket-progress.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke: rgba(255, 255, 255, 0.2);
+            fill: transparent;
+            stroke-width: 4;
+        }
+
+        .progress-ring-progress {
+            stroke: #ff6b35;
+            fill: transparent;
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s ease-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            height: 40px; 
+            width: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .nav-logo {
+                height: 25px; /* match mobile size */
+            }
+        }
+
+        /* NEW: Landing Rocket Button */
+        .landing-rocket {
+            position: fixed;
+            bottom: 30px;
+            right: 25px;
+            width: 70px;
+            height: 90px;
+            z-index: 1000;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+        }
+
+        .landing-rocket.show {
+            opacity: 1;
+            visibility: visible;
+            animation: rocketBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes rocketBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .landing-rocket:hover {
+            animation: none;
+            transform: translateY(-15px) scale(1.15);
+        }
+
+        .landing-rocket:active {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Tooltip for Landing Rocket */
+        .rocket-tooltip {
+            position: absolute;
+            bottom: 50%;
+            right: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transform: translateY(10px);
+            pointer-events: none;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .rocket-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            border: 6px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .landing-rocket:hover .rocket-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Pulsing glow effect */
+        .landing-rocket::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulseGlow 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                transform: translateX(-50%) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateX(-50%) scale(1.3);
+                opacity: 0.3;
+            }
+        }
+
+        .landing-pad {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .landing-pad::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 5px;
+            right: 5px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 2px;
+        }
+
+        .rocket-icon {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .landing-rocket:hover .rocket-icon {
+            bottom: 25px;
+        }
+
+        /* Rocket landing flames */
+        .landing-flames {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .landing-rocket:hover .landing-flames {
+            opacity: 1;
+        }
+
+        .personal-signature {
+            display: block;
+            max-width: 150px;
+            margin-top: 1rem;
+            margin-left: auto;
+            margin-right: 120px;
+            filter: invert(1) brightness(1.2); /* Makes black → white */
+            opacity: 0.9;
+        }
+
+
+        @media (max-width: 768px) {
+            .scroll-rocket {
+                right: 15px;
+                width: 60px;
+                height: 90px;
+            }
+
+            .rocket-trail {
+                right: 40px;
+                width: 60px;
+            }
+
+            .landing-rocket {
+                bottom: 20px;
+                right: 20px;
+                width: 70px;
+                height: 90px;
+            }
+
+            .rocket-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .landing-pad {
+                width: 50px;
+            }
+
+            .rocket-tooltip {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .rocket-progress {
+                bottom: 120px; /* Adjusted for mobile with taller landing rocket */
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .progress-text {
+                font-size: 10px;
+            }
+    }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-img {
+                margin: 0 auto;
+                max-width: 250px;
+            }
+            
+            .contact-card {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .contact-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .carousel-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .carousel-content p {
+                font-size: 1rem;
+            }
+
+            .hero-carousel {
+                height: 400px;
+            }
+
+            .carousel-btn {
+                font-size: 1.5rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .carousel-btn.prev {
+                left: 10px;
+            }
+
+            .carousel-btn.next {
+                right: 10px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-img {
+                margin: 0 auto;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .social-links {
+                margin-left: 0;
+            }
+
+            /* Responsive Timeline */
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+                padding-left: 2rem;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .timeline-item:hover .timeline-marker {
+                transform: translateX(0) scale(1.3);
+            }
+
+
+            /* Navigation - Responsive with Dropdown */
+            nav {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: #667eea;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Responsive Navigation - Dropdown on Small Screens */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+                padding: 0;
+                gap: 0;
+            }
+
+            nav ul.active {
+                max-height: 600px;
+                padding: 1rem 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 0;
+                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            .social-links {
+                justify-content: center;
+                padding: 1rem 0;
+            }
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Enhanced Animated Background -->
+    <div class="animated-bg">
+        <div class="blueprint-pattern"></div>
+        <div class="gear-pattern"></div>
+        <div class="wireframe-bg">
+            <div class="wireframe-car"></div>
+        </div>
+    </div>
+
+    <!-- Navigation with Hamburger Menu -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand" onclick="refreshPage(event)" style="cursor: pointer;">
+                <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#experience" onclick="closeMenu()">Experiences</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                <li class="resume-li"><a href="#" class="resume-btn" onclick="downloadResume(event)">📄 Resume</a></li>
+                <li class="social-links">
+                    <a href="https://www.linkedin.com/in/yiqing-zhi-9b2139266/" target="_blank" class="social-link linkedin" title="LinkedIn">in</a>
+                    <a href="https://github.com/your-username" target="_blank" class="social-link" title="GitHub">GH</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Carousel -->
+    <section id="home" class="hero-carousel">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        <div class="scan-line-horizontal"></div>
+        <div class="scan-line-vertical"></div>
+    <div class="space-particles" id="particles"></div>
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="Images/UWFE-1.jpeg" alt="UWFE Chassis Project">
+                <div class="carousel-content">
+                    <h1>Driven by Design - Waterloo Formula Electric</h1>
+                    <p>Innovating high-performance CAD and mechanical systems for next-generation electric race cars</p>
+                    <a href="#projects" class="see-more-btn">See More</a>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <img src="Images/Me100.jpeg" alt="Motorized Maze">
+                <div class="carousel-content">
+                    <h1>Engineering a Path Through Complexity</h1>
+                    <p>Exploring motion control and mechanical design through a self-powered maze mechanism</p>
+                    <a href="#projects" class="see-more-btn">See More</a>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <img src="Images/Me101.jpeg" alt="Circadian Rhythm Regulating Device">
+                <div class="carousel-content">
+                    <h1>Innovation & Design</h1>
+                    <p>Exploring sensory stimulation through tickling and water spray to promote balanced circadian rhythms</p>
+                    <a href="#projects" class="see-more-btn">See More</a>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <img src="Images/MechDay.jpeg" alt="Ping-ris Wheel">
+                <div class="carousel-content">
+                    <h1>Precision in Mechanical Motion</h1>
+                    <p>Innovating weight-driven system demonstrating energy transfer through mechanical design and motion control</p>
+                    <a href="#projects" class="see-more-btn">See More</a>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <img src="Images/Casi-1.jpg" alt="Casi Level 1 Instructor">
+                <div class="carousel-content">
+                    <h1>Leadership & Applied Mechanics</h1>
+                    <p>Certified snowboard instructor with hands-on understanding of motion mechanics and human-centered design</p>
+                    <a href="#projects" class="see-more-btn">See More</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carousel Navigation -->
+        <button class="carousel-btn prev" onclick="changeSlide(-1)">❮</button>
+        <button class="carousel-btn next" onclick="changeSlide(1)">❯</button>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+            <span class="indicator" onclick="goToSlide(4)"></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        <h2>About Me</h2>
+        <div class="about-content">
+            <img src="Images/Profile.jpg" alt="Profile" class="profile-img">
+            <div>
+                <p>Hi there! I'm Yiqing (Simon) Zhi, a passionate mechanical engineering student at the University of Waterloo with a love for creating innovative and functional designs. I specialize in CAD modeling, engineering analysis, and enjoy turning complex problems into simple, elegant solutions.</p>
+                <p style="margin-top: 1rem;">When I'm not designing, you can find me exploring new engineering technologies, working on personal projects, or collaborating with teams on challenging mechanical systems. I also enjoy traveling around the world with 
+                    my friends and parents, and playing sports such as snowboading, basketball, badminton, and cheering passionately for the Toronto Blue Jays - Go Jays Go! </p>
+
+                <img src="Images/signature-Yiqing Zhi.png" alt="Yiqing Zhi Signature" class="personal-signature">
+            </div>
+        </div>
+        
+        <div class="contact-links">
+            <a href="https://www.linkedin.com/in/yiqing-zhi-9b2139266/" target="_blank" class="contact-card">
+                <div class="contact-icon">in</div>
+                <span>Connect on LinkedIn</span>
+            </a>
+            <a href="mailto:y9zhi@uwaterloo.ca" class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <span>Send Email</span>
+            </a>
+            <a href="#" onclick="downloadResume(event)" class="contact-card">
+                <div class="contact-icon">📄</div>
+                <span>Download Resume</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card" onmouseenter="flipCard(this)">
+                <div class="skill-icon">🎨</div>
+                <h3>CAD & Design</h3>
+                <p>SolidWorks, AutoCAD, CATIA, Kister 3D View Station, GD&T, Technical Drawing</p>
+            </div>
+            <div class="skill-card" onmouseenter="flipCard(this)">
+                <div class="skill-icon">⚙️</div>
+                <h3>Manufacturing</h3>
+                <p>CNC Machining, 3D Printing, Prototyping, Drill Press, Bandsaw, Lathe Machining, Waterjet Cutting</p>
+            </div>
+            <div class="skill-card" onmouseenter="flipCard(this)">
+                <div class="skill-icon">🔬</div>
+                <h3>Testing</h3>
+                <p>Profile Projector, CMM, Contour Tracer, ANSYS, Stress Analysis, Nital Etch Testing, Hardness Testing(Rockwell,Brinell)</p>
+            </div>
+            <div class="skill-card" onmouseenter="flipCard(this)">
+                <div class="skill-icon">💻</div>
+                <h3>Tools & Software</h3>
+                <p>MATLAB, Python, Minitab, C++, Java, HTML, Microsoft Word, Excel(VBA), PowerPoint</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>Experiences</h2>
+        <div class="timeline">
+            <div class="timeline-item" data-index="0">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Sept 2025 - Present</div>
+                    <h3>Quality Assurance Engineering Co-op</h3>
+                    <h4>Linamar Corporation</h4>
+                    <h5>Guelph, Ontario</h5>
+                    <p>During my time as a Quality Engineering Co-op, I worked hands-on with precision inspection tools and data analysis to ensure the reliability of automotive components. 
+                        I gained experience with CMM machines, profile projectors, and gear analyzers to verify part accuracy, and used Minitab to interpret data and track process trends. 
+                        I also collaborated with engineers across departments to identify and solve production issues, supporting root cause investigations and implementing improvements that strengthened overall quality control.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-index="1">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Jan 2025 - Apr 2025</div>
+                    <h3>Production Process Engineering Co-op</h3>
+                    <h4>PWO Canada Inc.</h4>
+                    <h5>Kitchener, Ontario</h5>
+                    <p>During this co-op, I supported the Process Engineering and Tooling teams in optimizing production systems and improving efficiency. I developed Excel VBA tools that boosted operator productivity by 20% and contributed to cross-department system integration. 
+                        Using SolidEdge and Kister 3D View Station, I optimized manufacturing equipment, increasing stamping press speed by 30%. I also conducted time studies and led cost-reduction projects, including the Glove Plan Project and tool crib optimization, improving overall efficiency and reducing expenses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/UWFE_CAR.jpeg" alt="Waterloo Formula Electric" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Waterloo Formula Electric</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Waterloo Formula Electric</h3>
+                            <p>Designed and developed high-performance CAD models and mechanical systems for next-generation electric race cars with focus on chassis optimization.</p>
+                            <a href="#" class="view-more-btn" onclick="window.location.href='project-uwfe.html'; return false;">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/Part7_Bot_Body_Top1.png" alt="Four Foot Spider Robot" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Four Foot Spider Robot</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Four Foot Spider Robot</h3>
+                            <p>Collaborate with an innovation startup company in Shanghai China to design and 3D printing a four foot spider robot. </p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Motorized Maze</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Motorized Maze</h3>
+                            <p>Engineered a self-powered maze mechanism exploring motion control and mechanical design principles with precise navigation capabilities.</p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/ME101_Project-1.png" alt="Circadian Rhythm Device" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Circadian Rhythm Device</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Circadian Rhythm Device</h3>
+                            <p>Developed an innovative sensory stimulation device using tickling and water spray mechanisms to promote balanced circadian rhythms.</p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/MechDay_Project.jpeg" alt="Ping-ris Wheel" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Ping-ris Wheel</h3>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <h3>Ping-ris Wheel</h3>
+                            <p>Innovating weight-driven system demonstrating energy transfer through mechanical design and motion control.</p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!')">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="email-input-group">
+                    <input type="text" id="emailUsername" placeholder="username">
+                    <span class="email-separator">@</span>
+                    <select id="emailDomain">
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="uwaterloo.ca">uwaterloo.ca</option>
+                        <option value="outlook.com">outlook.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="custom">Other (type below)</option>
+                    </select>
+                    <input type="text" id="customDomain" placeholder="yourdomain.com" style="display: none;">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Your message here..."></textarea>
+            </div>
+            <button class="submit-btn" onclick="alert('Form submission would be handled here!')">Send Message</button>
+        </div>
+    </section>
+
+    <!-- Scrolling Rocket -->
+    <div class="scroll-rocket" id="scrollRocket">
+        <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rocket Body -->
+            <ellipse cx="100" cy="150" rx="40" ry="60" fill="#c41e3a"/>
+            <ellipse cx="100" cy="150" rx="35" ry="55" fill="#e63946"/>
+            
+            <!-- Rocket Nose Cone -->
+            <path d="M 60 120 L 100 70 L 140 120 Z" fill="#c41e3a"/>
+            <path d="M 70 120 L 100 80 L 130 120 Z" fill="#d32f2f"/>
+            
+            <!-- Window -->
+            <circle cx="100" cy="140" r="18" fill="#4a90e2"/>
+            <circle cx="100" cy="140" r="14" fill="#64b5f6"/>
+            <circle cx="95" cy="135" r="5" fill="#bbdefb" opacity="0.7"/>
+            
+            <!-- Fins -->
+            <path d="M 60 180 L 40 220 L 60 210 Z" fill="#c41e3a"/>
+            <path d="M 140 180 L 160 220 L 140 210 Z" fill="#c41e3a"/>
+            <path d="M 60 180 L 45 220 L 60 205 Z" fill="#e63946"/>
+            <path d="M 140 180 L 155 220 L 140 205 Z" fill="#e63946"/>
+            
+            <!-- Flames -->
+            <g class="rocket-flame">
+                <path d="M 85 210 L 80 240 L 90 225 Z" fill="#ff6b35" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 85 210 L 80 240 L 90 225 Z;
+                                     M 85 210 L 75 250 L 90 230 Z;
+                                     M 85 210 L 80 240 L 90 225 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 100 210 L 95 250 L 105 250 Z" fill="#ff8c42" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 100 210 L 95 250 L 105 250 Z;
+                                     M 100 210 L 90 265 L 110 265 Z;
+                                     M 100 210 L 95 250 L 105 250 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 115 210 L 110 240 L 120 225 Z" fill="#ff6b35" opacity="0.9">
+                    <animate attributeName="d" 
+                             values="M 115 210 L 110 240 L 120 225 Z;
+                                     M 115 210 L 105 250 L 120 230 Z;
+                                     M 115 210 L 110 240 L 120 225 Z"
+                             dur="0.3s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 92 210 L 88 235 L 97 222 Z" fill="#ffd23f" opacity="0.8">
+                    <animate attributeName="d" 
+                             values="M 92 210 L 88 235 L 97 222 Z;
+                                     M 92 210 L 85 245 L 97 228 Z;
+                                     M 92 210 L 88 235 L 97 222 Z"
+                             dur="0.25s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 108 210 L 103 235 L 112 222 Z" fill="#ffd23f" opacity="0.8">
+                    <animate attributeName="d" 
+                             values="M 108 210 L 103 235 L 112 222 Z;
+                                     M 108 210 L 100 245 L 112 228 Z;
+                                     M 108 210 L 103 235 L 112 222 Z"
+                             dur="0.25s" repeatCount="indefinite"/>
+                </path>
+            </g>
+            
+            <!-- Smoke clouds -->
+            <g class="rocket-smoke">
+                <circle cx="100" cy="260" r="15" fill="#9e9e9e" opacity="0.4">
+                    <animate attributeName="cy" values="260;280;300" dur="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.4;0.2;0" dur="1s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="90" cy="265" r="12" fill="#bdbdbd" opacity="0.3">
+                    <animate attributeName="cy" values="265;285;305" dur="1.2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.3;0.15;0" dur="1.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="110" cy="268" r="10" fill="#9e9e9e" opacity="0.3">
+                    <animate attributeName="cy" values="268;288;308" dur="0.9s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.3;0.15;0" dur="0.9s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+        </svg>
+    </div>
+
+    <!-- NEW: Rocket Stars Container -->
+    <div class="rocket-stars" id="rocketStars"></div>
+
+    <!-- NEW: Meteor Shower - Left and Right Sides -->
+    <div class="meteor-shower-left" id="meteorShowerLeft"></div>
+    <div class="meteor-shower-right" id="meteorShowerRight"></div>
+
+    <!-- NEW: Progress Circle -->
+<div class="rocket-progress" id="rocketProgress">
+    <svg class="progress-ring" width="60" height="60">
+        <circle class="progress-ring-circle" cx="30" cy="30" r="26"></circle>
+        <circle class="progress-ring-progress" cx="30" cy="30" r="26" 
+                stroke-dasharray="163.36" stroke-dashoffset="163.36" id="progressCircle"></circle>
+    </svg>
+    <div class="progress-text" id="progressText">0%</div>
+</div>
+
+<!-- NEW: Landing Rocket Button (Back to Top) -->
+<div class="landing-rocket" id="landingRocket" onclick="scrollToTop()">
+    <div class="rocket-tooltip">🚀 Back to Top</div>
+    <div class="landing-pad"></div>
+    <svg class="rocket-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rocket Body -->
+        <ellipse cx="100" cy="100" rx="25" ry="40" fill="#c41e3a"/>
+        <ellipse cx="100" cy="100" rx="22" ry="37" fill="#e63946"/>
+        
+        <!-- Rocket Nose Cone -->
+        <path d="M 75 75 L 100 50 L 125 75 Z" fill="#c41e3a"/>
+        <path d="M 80 75 L 100 55 L 120 75 Z" fill="#d32f2f"/>
+        
+        <!-- Window -->
+        <circle cx="100" cy="95" r="12" fill="#4a90e2"/>
+        <circle cx="100" cy="95" r="9" fill="#64b5f6"/>
+        <circle cx="97" cy="92" r="3" fill="#bbdefb" opacity="0.7"/>
+        
+        <!-- Fins -->
+        <path d="M 75 120 L 60 145 L 75 135 Z" fill="#c41e3a"/>
+        <path d="M 125 120 L 140 145 L 125 135 Z" fill="#c41e3a"/>
+    </svg>
+    
+    <!-- Landing Flames -->
+    <svg class="landing-flames" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 35 10 L 30 35 L 40 20 Z" fill="#ff6b35" opacity="0.9">
+            <animate attributeName="d" 
+                     values="M 35 10 L 30 35 L 40 20 Z;
+                             M 35 10 L 25 40 L 40 25 Z;
+                             M 35 10 L 30 35 L 40 20 Z"
+                     dur="0.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 50 10 L 45 40 L 55 40 Z" fill="#ff8c42" opacity="0.9">
+            <animate attributeName="d" 
+                     values="M 50 10 L 45 40 L 55 40 Z;
+                             M 50 10 L 40 45 L 60 45 Z;
+                             M 50 10 L 45 40 L 55 40 Z"
+                     dur="0.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 65 10 L 60 35 L 70 20 Z" fill="#ff6b35" opacity="0.9">
+            <animate attributeName="d" 
+                     values="M 65 10 L 60 35 L 70 20 Z;
+                             M 65 10 L 55 40 L 70 25 Z;
+                             M 65 10 L 60 35 L 70 20 Z"
+                     dur="0.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 45 10 L 42 30 L 50 18 Z" fill="#ffd23f" opacity="0.8">
+            <animate attributeName="d" 
+                     values="M 45 10 L 42 30 L 50 18 Z;
+                             M 45 10 L 38 35 L 50 22 Z;
+                             M 45 10 L 42 30 L 50 18 Z"
+                     dur="0.15s" repeatCount="indefinite"/>
+        </path>
+    </svg>
+</div>
+
+    <!-- Mission Briefing Card -->
+    <section id="mission-briefing" class="mission-briefing-card">
+        <div class="briefing-header">
+            <div class="header-left">
+                <span class="mission-badge">MISSION BRIEFING</span>
+                <span class="mission-id">ID: YZ-2025-PORTFOLIO</span>
+            </div>
+            <div class="header-right">
+                <span class="status-indicator">✓ SUCCESS</span>
+                <span class="mission-timestamp">2025.11.14</span>
+            </div>
+        </div>
+        
+        <div class="briefing-body">
+            <div class="mission-title">
+                <h3>MISSION OBJECTIVE: PORTFOLIO EXPLORATION</h3>
+            </div>
+            
+            <div class="mission-message">
+                <p>I truly appreciate you stopping by! Whether you are here to review projects, connect, or just browse, I hope you find something inspiring!</p>
+            </div>
+            
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-label">Projects</div>
+                    <div class="stat-value">5+</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">⚙️</div>
+                    <div class="stat-label">Skills</div>
+                    <div class="stat-value">15+</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-label">Innovation</div>
+                    <div class="stat-value">100%</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">💡</div>
+                    <div class="stat-label">Passion</div>
+                    <div class="stat-value">MAX</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="briefing-footer">
+            <div class="coordinates">
+                <span>📍 COORDINATES: 43.4643°N, 80.5204°W (Waterloo, ON)</span>
+            </div>
+            <div class="clearance">
+                <span>CLEARANCE LEVEL: PUBLIC</span>
+            </div>
+        </div>
+        
+        <div class="corner-decoration tl"></div>
+        <div class="corner-decoration tr"></div>
+        <div class="corner-decoration bl"></div>
+        <div class="corner-decoration br"></div>
+    </section>
+
+<!-- Footer - Moon Landing Scene -->
+    <footer class="moon-landing-footer">
+        <div class="stars-background"></div>
+        <div class="earth-background"></div>
+        <div class="moon-surface">
+            <div class="crater crater-1"></div>
+            <div class="crater crater-2"></div>
+            <div class="crater crater-3"></div>
+            <div class="crater crater-4"></div>
+        </div>
+        
+        <div class="footer-content">
+            <div class="landed-rocket">
+                <svg viewBox="0 0 100 180" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="50" cy="80" rx="18" ry="35" fill="#c41e3a"/>
+                    <ellipse cx="50" cy="80" rx="15" ry="32" fill="#e63946"/>
+                    <path d="M 32 55 L 50 30 L 68 55 Z" fill="#c41e3a"/>
+                    <path d="M 37 55 L 50 35 L 63 55 Z" fill="#d32f2f"/>
+                    <circle cx="50" cy="75" r="10" fill="#4a90e2"/>
+                    <circle cx="50" cy="75" r="7" fill="#64b5f6"/>
+                    <path d="M 32 100 L 22 130 L 32 120 Z" fill="#c41e3a"/>
+                    <path d="M 68 100 L 78 130 L 68 120 Z" fill="#c41e3a"/>
+                    <line x1="50" y1="130" x2="50" y2="170" stroke="#888" stroke-width="2"/>
+                </svg>
+                <div class="mission-flag">
+                    <div class="flag-pole"></div>
+                    <div class="flag">
+                        <span>YZ</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footprints">
+                <div class="footprint" style="left: 25%; top: 45%; transform: rotate(-15deg);"></div>
+                <div class="footprint" style="left: 30%; top: 50%; transform: rotate(10deg);"></div>
+                <div class="footprint" style="left: 35%; top: 48%; transform: rotate(-5deg);"></div>
+                <div class="footprint" style="left: 40%; top: 52%; transform: rotate(15deg);"></div>
+            </div>
+            
+            <div class="mission-control-panel">
+                <div class="panel-header">
+                    <span class="mission-status">● MISSION COMPLETE</span>
+                    <span class="mission-year">EST. 2025</span>
+                </div>
+                
+                <div class="contact-grid">
+                    <a href="https://www.linkedin.com/in/yiqing-zhi-9b2139266/" target="_blank" class="contact-panel linkedin-panel">
+                        <div class="panel-icon">in</div>
+                        <span>LinkedIn</span>
+                        <div class="panel-glow"></div>
+                    </a>
+                    
+                    <a href="https://github.com/your-username" target="_blank" class="contact-panel github-panel">
+                        <div class="panel-icon">GH</div>
+                        <span>GitHub</span>
+                        <div class="panel-glow"></div>
+                    </a>
+                    
+                    <a href="mailto:y9zhi@uwaterloo.ca" class="contact-panel email-panel">
+                        <div class="panel-icon">✉</div>
+                        <span>Email</span>
+                        <div class="panel-glow"></div>
+                    </a>
+                    
+                    <a href="#" onclick="downloadResume(event)" class="contact-panel resume-panel">
+                        <div class="panel-icon">📄</div>
+                        <span>Resume</span>
+                        <div class="panel-glow"></div>
+                    </a>
+                </div>
+                
+                <div class="copyright-section">
+                    <p>Copyright © 2025 Yiqing Zhi</p>
+                    <p class="tagline">Engineered with passion, launched with purpose 🚀</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        let autoPlayInterval;
+
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            startAutoPlay(); 
+            createParticles();
+            
+            // Pause autoplay when user hovers over carousel
+            const carousel = document.querySelector('.hero-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => {
+                    clearInterval(autoPlayInterval);
+                });
+                carousel.addEventListener('mouseleave', () => {
+                    startAutoPlay();
+                });
+            }
+
+            // Handle email domain dropdown - show/hide custom domain field
+            const emailDomain = document.getElementById('emailDomain');
+            const customDomain = document.getElementById('customDomain');
+            
+            emailDomain.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customDomain.style.display = 'block';
+                } else {
+                    customDomain.style.display = 'none';
+                }
+            });
+
+            window.addEventListener('beforeunload', function (e) {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('emailUsername').value;
+                const message = document.getElementById('message').value;
+                
+                if (name || email || message) {
+                    e.preventDefault();
+                    e.returnValue = ''; // Shows browser's "Are you sure you want to leave?" dialog
+                }
+            });
+        });
+
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            resetAutoPlay();
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            resetAutoPlay();
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                changeSlide(1);
+            }, 7000);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        function downloadResume(event) {
+            event.preventDefault();
+            window.open('Yiqing_Zhi_Resume.pdf', '_blank');
+        }
+
+        function flipCard(card) {
+            card.classList.add('flipped');
+            setTimeout(() => {
+                card.classList.remove('flipped');
+            }, 600);
+        }
+
+
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        let lastScrollTop = 0;
+        let scrollSpeed = 0;
+        let starInterval = null;
+        let currentRocketPosition = 5;
+        let rocketVelocity = 0;
+
+        function refreshPage(event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+// NEW: Enhanced Rocket Position Update with All Effects
+        function updateRocketPosition() {
+            const rocket = document.getElementById('scrollRocket');
+            const trail = document.getElementById('rocketTrail');
+            const landingRocket = document.getElementById('landingRocket');
+            const rocketProgress = document.getElementById('rocketProgress');
+            const progressCircle = document.getElementById('progressCircle');
+            const progressText = document.getElementById('progressText');
+            
+            if (!rocket) return;
+
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Calculate scroll percentage
+            const scrollPercentage = scrollTop / (documentHeight - windowHeight);
+            
+            // Show/hide landing rocket button and progress circle
+            if (landingRocket && rocketProgress) {
+                if (scrollTop > 300) {
+                    landingRocket.classList.add('show');
+                    rocketProgress.classList.add('show');
+                } else {
+                    landingRocket.classList.remove('show');
+                    rocketProgress.classList.remove('show');
+                }
+            }
+            
+            // Update Progress Circle
+            if (progressCircle && progressText) {
+                const circumference = 2 * Math.PI * 26;
+                const offset = circumference - (scrollPercentage * circumference);
+                progressCircle.style.strokeDashoffset = offset;
+                progressText.textContent = Math.round(scrollPercentage * 100) + '%';
+            }
+            
+            // Calculate scroll speed and direction
+            const scrollDelta = scrollTop - lastScrollTop;
+            scrollSpeed = Math.abs(scrollDelta);
+            lastScrollTop = scrollTop;
+            
+            // Calculate target position based on scroll percentage
+            const startPosition = 5;
+            const endPosition = 70;
+            const targetRocketPosition = startPosition + (scrollPercentage * (endPosition - startPosition));
+            
+            // Physics-based smooth movement with velocity
+            const positionDiff = targetRocketPosition - currentRocketPosition;
+            rocketVelocity += positionDiff * 0.15; // Acceleration
+            rocketVelocity *= 0.85; // Damping/friction
+            currentRocketPosition += rocketVelocity;
+            
+            // Update rocket position smoothly
+            rocket.style.bottom = currentRocketPosition + '%';
+            
+            // Dynamic tilt based on velocity
+            const tiltAngle = Math.max(Math.min(rocketVelocity * 3, 20), -20);
+            rocket.style.transform = `rotate(${tiltAngle}deg)`;
+            
+            // NEW: Update Trail Effect
+            if (trail) {
+                const trailHeight = Math.min(Math.abs(rocketVelocity) * 50, 200);
+                trail.style.height = trailHeight + 'px';
+                trail.style.top = (currentRocketPosition + 12) + '%';
+                trail.style.opacity = Math.abs(rocketVelocity) > 0.5 ? '0.8' : '0';
+            }
+            
+            // NEW: Shake Effect on Fast Scroll
+            if (scrollSpeed > 5) {
+                rocket.classList.add('rocket-shake');
+                setTimeout(() => rocket.classList.remove('rocket-shake'), 300);
+            }
+            
+            // NEW: Generate Stars on Scroll
+            if (scrollSpeed > 5) {
+                createStar();
+            }
+            
+            // NEW: Speed Lines on Very Fast Scroll
+            if (scrollSpeed > 8) {
+                createSpeedLines();
+            }
+            
+            // NEW: Update Progress Circle
+            const circumference = 2 * Math.PI * 26;
+            const offset = circumference - (scrollPercentage * circumference);
+            progressCircle.style.strokeDashoffset = offset;
+            progressText.textContent = Math.round(scrollPercentage * 100) + '%';
+        }
+
+        // Scroll to Top Function with Animation
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Add a little rocket boost animation
+            const landingRocket = document.getElementById('landingRocket');
+            if (landingRocket) {
+                landingRocket.style.transform = 'translateY(-20px) scale(1.2)';
+                setTimeout(() => {
+                    landingRocket.style.transform = '';
+                }, 300);
+            }
+        }
+
+        // NEW: Create Twinkling Star
+        function createStar() {
+            const starsContainer = document.getElementById('rocketStars');
+            const rocket = document.getElementById('scrollRocket');
+            
+            if (!starsContainer || !rocket) return;
+            
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const rocketRect = rocket.getBoundingClientRect();
+            const offsetX = (Math.random() - 0.5) * 100;
+            const offsetY = (Math.random() - 0.5) * 100;
+            
+            star.style.left = (rocketRect.left + rocketRect.width / 2 + offsetX) + 'px';
+            star.style.top = (rocketRect.top + rocketRect.height / 2 + offsetY) + 'px';
+            
+            starsContainer.appendChild(star);
+            
+            setTimeout(() => star.remove(), 1000);
+        }
+
+        function createSpeedLines() {
+            const meteorShowerLeft = document.getElementById('meteorShowerLeft');
+            const meteorShowerRight = document.getElementById('meteorShowerRight');
+            
+            if (!meteorShowerLeft || !meteorShowerRight) return;
+            
+            meteorShowerLeft.style.opacity = '1';
+            meteorShowerRight.style.opacity = '1';
+            
+            // Create meteors for left side
+            const leftMeteorCount = Math.floor(Math.random() * 1.5);
+            for (let i = 0; i < leftMeteorCount; i++) {
+                setTimeout(() => {
+                    const meteor = document.createElement('div');
+                    meteor.className = 'meteor left-side';
+                    
+                    // Position within left container
+                    meteor.style.left = (Math.random() * 80 + 20) + '%'; // 20-100% of left container width
+                    meteor.style.top = (Math.random() * 50) + '%';
+                    
+                    // Add random variations
+                    const variants = ['', 'fast', 'slow', 'bright'];
+                    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+                    if (randomVariant) {
+                        meteor.classList.add(randomVariant);
+                    }
+                    
+                    meteorShowerLeft.appendChild(meteor);
+                    
+                    // Remove after animation
+                    const duration = meteor.classList.contains('fast') ? 700 : 
+                                meteor.classList.contains('slow') ? 1600 : 1200;
+                    setTimeout(() => {
+                        meteor.remove();
+                    }, duration);
+                }, i * 150);
+            }
+
+            // Generate floating particles
+            function createParticles() {
+                const container = document.getElementById('particles');
+                if (!container) return;
+                
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    container.appendChild(particle);
+                }
+            }
+            
+            // Create meteors for right side
+            const rightMeteorCount = Math.floor(Math.random() * 1.5); // 2-3 meteors
+            for (let i = 0; i < rightMeteorCount; i++) {
+                setTimeout(() => {
+                    const meteor = document.createElement('div');
+                    meteor.className = 'meteor right-side';
+                    
+                    // Position within right container
+                    meteor.style.left = (Math.random() * 80 + 20) + '%'; // 20-100% of right container width
+                    meteor.style.top = (Math.random() * 50) + '%';
+                    
+                    // Add random variations
+                    const variants = ['', 'fast', 'slow', 'bright'];
+                    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+                    if (randomVariant) {
+                        meteor.classList.add(randomVariant);
+                    }
+                    
+                    meteorShowerRight.appendChild(meteor);
+                    
+                    // Remove after animation
+                    const duration = meteor.classList.contains('fast') ? 700 : 
+                                meteor.classList.contains('slow') ? 1600 : 1200;
+                    setTimeout(() => {
+                        meteor.remove();
+                    }, duration);
+                }, i * 150);
+            }
+            
+            setTimeout(() => {
+                meteorShowerLeft.style.opacity = '0';
+                meteorShowerRight.style.opacity = '0';
+            }, 2000);
+        }
+
+
+        // Initialize and use requestAnimationFrame for smooth animation
+        function animate() {
+            updateRocketPosition();
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('scroll', () => {
+            // Scroll event just triggers recalculation
+            // The animation loop handles smooth updates
+        });
+        
+        // Start the animation loop
+        animate();
+    </script>
+</body>
+</html>
