@@ -21,7 +21,11 @@
             overflow-x: hidden;
         }
 
-        /* Galaxy Background */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced Galaxy Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -43,232 +47,639 @@
             100% { background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%; }
         }
 
-        /* Navigation */
+        /* Navigation - Matching Main Portfolio */
         nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(15, 20, 45, 0.95) 100%);
+            backdrop-filter: blur(15px);
             padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 
+                0 4px 30px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
-            cursor: pointer;
-        }
-
         .nav-logo {
             height: 40px;
             width: auto;
-            transition: transform 0.3s ease;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.5));
+            cursor: pointer;
         }
 
         .nav-logo:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 25px rgba(102, 126, 234, 0.8));
         }
 
         .back-btn {
-            padding: 0.6rem 1.5rem;
-            background: #667eea;
+            padding: 0.7rem 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .back-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            color: white;
         }
 
-        /* Hero Section */
+        .back-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section with Parallax */
         .project-hero {
             position: relative;
-            width: 100%;
-            height: 500px;
+            height: 65vh;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
-            margin-bottom: 2rem;
+            margin-bottom: 4rem;
+            border-radius: 0 0 20px 20px;
         }
 
-        .project-hero img {
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: brightness(0.7);
         }
 
-        .project-hero-overlay {
+        .hero-overlay {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
             color: white;
-            padding: 3rem 2rem;
+            max-width: 900px;
+            padding: 2rem;
         }
 
-        .project-hero-overlay h1 {
-            font-size: 3rem;
+        .hero-content h1 {
+            font-size: 3.5rem;
             margin-bottom: 1rem;
+            text-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                0 4px 10px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(102, 126, 234, 0.6);
+            letter-spacing: 2px;
+            font-weight: 700;
         }
 
-        .project-hero-overlay p {
-            font-size: 1.3rem;
-            max-width: 800px;
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Corner Decorations */
+        .carousel-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #667eea;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            box-shadow: 2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            box-shadow: -2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 2px 2px 20px rgba(102, 126, 234, 0.6);
         }
 
         /* Content Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem 4rem;
         }
 
         .content-section {
-            background: white;
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 15px;
             padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .content-section h2 {
-            font-size: 2rem;
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
             color: #667eea;
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .content-section h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .content-section p {
+        .section-content {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1.1rem;
             line-height: 1.8;
-            margin-bottom: 1rem;
-            color: #555;
         }
 
-        .content-section ul {
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content h3 {
+            color: #f093fb;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
+        }
+
+        .section-content ul {
             list-style: none;
             padding-left: 0;
+            margin: 1.5rem 0;
         }
 
-        .content-section ul li {
+        .section-content ul li {
             position: relative;
             padding-left: 2rem;
-            margin-bottom: 0.8rem;
-            font-size: 1.05rem;
-            color: #555;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.3s ease;
         }
 
-        .content-section ul li::before {
+        .section-content ul li::before {
             content: '▸';
             position: absolute;
             left: 0;
             color: #667eea;
             font-size: 1.5rem;
             font-weight: bold;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
         }
 
-        /* Image Gallery */
+        .section-content ul li:hover {
+            padding-left: 2.5rem;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        /* ========================================
+           IMAGE GALLERY - ENHANCED
+           ======================================== */
+
         .image-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
             margin: 2rem 0;
         }
 
         .gallery-item {
-            border-radius: 10px;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.8);
+            height: 400px;
         }
 
         .gallery-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 
+                0 20px 50px rgba(102, 126, 234, 0.5),
+                0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Holographic overlay on images */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(102, 126, 234, 0.2) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.2) 100%);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.9);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 3;
+            border-top: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .gallery-caption p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Featured Gallery Item (larger) */
+        .gallery-item.featured {
+            grid-column: span 2;
+            height: 500px;
+        }
+
+        /* Gallery badges for project types */
+        .gallery-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 4;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Lightbox for full-size images */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #667eea;
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        /* Skills Grid */
+        .skills-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .skill-showcase-card {
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .skill-showcase-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        .skill-showcase-card h3 {
+            color: white !important;
+            margin: 0 0 1rem 0 !important;
+            font-size: 1.5rem !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .skill-showcase-card p {
+            color: rgba(255, 255, 255, 0.85) !important;
+            margin: 0 !important;
+            font-size: 1.05rem;
         }
 
         /* Specifications Table */
         .specs-table {
             width: 100%;
-            border-collapse: collapse;
             margin: 2rem 0;
+            border-collapse: collapse;
         }
 
-        .specs-table th,
-        .specs-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        .specs-table thead tr {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .specs-table th {
-            background: #667eea;
+            padding: 1.2rem;
+            text-align: left;
             color: white;
             font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.3);
         }
 
-        .specs-table tr:hover {
-            background: #f8f9fa;
+        .specs-table td {
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .specs-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .specs-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.01);
+        }
+
+        /* Lessons Learned with Icons */
+        .lesson-item {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-width: 6px;
+            padding-left: 2rem;
+        }
+
+        .lesson-item strong {
+            color: #f093fb;
+            font-size: 1.2rem;
         }
 
         /* Footer */
         footer {
-            background: rgba(51, 51, 51, 0.95);
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid rgba(102, 126, 234, 0.4);
             color: white;
             text-align: center;
             padding: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f093fb;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .project-hero {
-                height: 300px;
+                height: 400px;
+                min-height: 400px;
             }
 
-            .project-hero-overlay h1 {
+            .hero-content h1 {
                 font-size: 2rem;
             }
 
-            .project-hero-overlay p {
-                font-size: 1rem;
+            .hero-content .subtitle {
+                font-size: 1.1rem;
             }
 
             .content-section {
-                padding: 1.5rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
 
             .image-gallery {
                 grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.featured {
+                height: 350px;
+                grid-column: span 1;
+            }
+
+            .skills-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-table {
+                font-size: 0.9rem;
+            }
+
+            .specs-table th,
+            .specs-table td {
+                padding: 0.8rem;
             }
         }
     </style>
@@ -281,19 +692,27 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="nav-brand" onclick="window.location.href='index.html'">
+            <div onclick="window.location.href='Home_Darker.html'" style="cursor: pointer;">
                 <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
             </div>
-            <a href="Home.html#projects" class="back-btn">← Back to Portfolio</a>
+            <a href="Home_Darker.html#projects" class="back-btn">
+                <span>← Back to Portfolio</span>
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="project-hero">
-        <img src="Images/UWFE_Group.jpg" alt="Waterloo Formula Electric Team">
-        <div class="project-hero-overlay">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        
+        <img src="Images/UWFE_Group.jpg" alt="Waterloo Formula Electric Team" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
             <h1>Waterloo Formula Electric</h1>
-            <p>Designing the future of electric racing through innovative CAD modeling and mechanical systems optimization</p>
+            <p class="subtitle">Designing the future of electric racing through innovative CAD modeling and mechanical systems optimization</p>
         </div>
     </section>
 
@@ -302,45 +721,142 @@
         
         <!-- Project Overview -->
         <div class="content-section">
-            <h2>Project Overview</h2>
-            <p>As a member of the Waterloo Formula Electric team, I contributed to the design and development of high-performance electric race cars. My role focused on CAD modeling, mechanical system optimization, and chassis design for competition vehicles.</p>
-            <p>The team competes in Formula SAE Electric competitions, where we design, build, and race electric vehicles against universities from around the world. This experience provided hands-on engineering practice in a fast-paced, collaborative environment.</p>
+            <h2 class="section-title">
+                <span>🎯</span>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>As a member of the Waterloo Formula Electric team, I contributed to the design and development of high-performance electric race cars. My role focused on CAD modeling, mechanical system optimization, and chassis design for competition vehicles.</p>
+                <p>The team competes in Formula SAE Electric competitions, where we design, build, and race electric vehicles against universities from around the world. This experience provided hands-on engineering practice in a fast-paced, collaborative environment.</p>
+            </div>
+        </div>
+
+        <!-- PROJECT GALLERY SECTION -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>📸</span>
+                Project Gallery
+            </h2>
+            <div class="section-content">
+                <p>Browse through my key contributions to the Waterloo Formula Electric project, featuring custom-designed enclosures and mechanical systems.</p>
+            </div>
+            
+            <div class="image-gallery">
+                <!-- 3D Printed Dashboard Enclosure - Featured -->
+                <div class="gallery-item featured">
+                    <span class="gallery-badge">🖨️ 3D Printed</span>
+                    <img src="Images/Enclosure3.jpg" alt="3D Printed Dashboard Enclosure">
+                    <div class="gallery-caption">
+                        <h4>3D Printed Dashboard Enclosure</h4>
+                        <p>Final 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing through the yellow mounting bracket.</p>
+                    </div>
+                </div>
+
+                <!-- Original Dashboard Design -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">📐 Original Design</span>
+                    <img src="Images/Original_Part.png" alt="Original Dashboard Design">
+                    <div class="gallery-caption">
+                        <h4>Original Dashboard Configuration</h4>
+                        <p>Initial dashboard panel showing button layout and emergency stop mechanism. This design served as the baseline for optimization improvements.</p>
+                    </div>
+                </div>
+
+                <!-- Modified CAD Design -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💻 CAD Design</span>
+                    <img src="Images/Overall_After_Changed.png" alt="Modified CAD Dashboard Design">
+                    <div class="gallery-caption">
+                        <h4>Redesigned Dashboard Enclosure - SolidWorks</h4>
+                        <p>Modified CAD model in SolidWorks showing improved mounting geometry, button positioning, and structural enhancements for better durability and manufacturing feasibility.</p>
+                    </div>
+                </div>
+
+                <!-- Water Testing -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💧 Waterproof Test</span>
+                    <img src="Images/Water_Testing.png" alt="Water Resistance Testing">
+                    <div class="gallery-caption">
+                        <h4>Waterproofing Validation</h4>
+                        <p>Intensive water spray testing over drainage grate to ensure enclosure meets IP rating requirements for racing conditions. Critical for protecting electronics during wet weather competitions and validating seal integrity.</p>
+                    </div>
+                </div>
+
+                <!-- Strength Testing - Close-up -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💪 Strength Test</span>
+                    <img src="Images/Testing3.jpg" alt="Structural Integrity Testing">
+                    <div class="gallery-caption">
+                        <h4>Structural Load Testing</h4>
+                        <p>Close-up of cable management and structural integrity testing. The enclosure must withstand vibrations, impacts, and repeated use during racing events.</p>
+                    </div>
+                </div>
+
+                <!-- Strength Testing - Full View -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🔧 Durability Test</span>
+                    <img src="Images/Testing4.jpg" alt="Mechanical Stress Testing">
+                    <div class="gallery-caption">
+                        <h4>Mechanical Durability Validation</h4>
+                        <p>Comprehensive stress testing using weights and clamps to simulate extreme racing conditions. Validates the enclosure's ability to maintain integrity under mechanical stress and vibration.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- My Contributions -->
         <div class="content-section">
-            <h2>My Contributions</h2>
-            
-            <h3>Chassis Design & Optimization</h3>
-            <p>Led CAD modeling efforts for the chassis subsystem, focusing on weight reduction while maintaining structural integrity and safety standards.</p>
-            <ul>
-                <li>Created detailed 3D models using SolidWorks for chassis components</li>
-                <li>Conducted FEA analysis to optimize material usage and reduce weight by 15%</li>
-                <li>Collaborated with manufacturing team to ensure design feasibility</li>
-                <li>Implemented design changes based on testing feedback and competition requirements</li>
-            </ul>
+            <h2 class="section-title">
+                <span>⚡</span>
+                My Contributions
+            </h2>
+            <div class="section-content">
+                
+                <h3>🏎️ Chassis Design & Optimization</h3>
+                <p>Led CAD modeling efforts for the chassis subsystem, focusing on weight reduction while maintaining structural integrity and safety standards.</p>
+                <ul>
+                    <li>Created detailed 3D models using SolidWorks for chassis components</li>
+                    <li>Conducted FEA analysis to optimize material usage and reduce weight by 15%</li>
+                    <li>Collaborated with manufacturing team to ensure design feasibility</li>
+                    <li>Implemented design changes based on testing feedback and competition requirements</li>
+                </ul>
 
-            <h3>Mechanical Systems Integration</h3>
-            <p>Worked on integrating various mechanical systems within the vehicle architecture.</p>
-            <ul>
-                <li>Designed mounting solutions for battery packs and electrical components</li>
-                <li>Created suspension mounting points with adjustable geometry</li>
-                <li>Developed cooling system routing for optimal thermal management</li>
-                <li>Ensured compliance with Formula SAE competition rules and regulations</li>
-            </ul>
+                <h3>🖥️ Dashboard Enclosure Design & Development</h3>
+                <p>Led the complete redesign and fabrication of the driver dashboard enclosure system.</p>
+                <ul>
+                    <li>Redesigned original dashboard enclosure in SolidWorks with improved button positioning and structural geometry</li>
+                    <li>Implemented 3D printing with integrated brass inserts for secure mounting and durability</li>
+                    <li>Conducted comprehensive waterproofing tests to validate IP rating for wet racing conditions</li>
+                    <li>Performed mechanical stress testing including load, vibration, and impact resistance validation</li>
+                    <li>Optimized cable routing and ergonomic button placement for driver accessibility</li>
+                    <li>Collaborated with electrical team to ensure proper integration with vehicle systems</li>
+                </ul>
 
-            <h3>Documentation & Technical Drawings</h3>
-            <ul>
-                <li>Produced comprehensive technical drawings with GD&T specifications</li>
-                <li>Created assembly instructions for manufacturing team</li>
-                <li>Maintained design documentation and version control</li>
-                <li>Contributed to competition design reports and presentations</li>
-            </ul>
+                <h3>⚙️ Mechanical Systems Integration</h3>
+                <p>Worked on integrating various mechanical systems within the vehicle architecture.</p>
+                <ul>
+                    <li>Designed mounting solutions for battery packs and electrical components</li>
+                    <li>Created suspension mounting points with adjustable geometry</li>
+                    <li>Developed cooling system routing for optimal thermal management</li>
+                    <li>Ensured compliance with Formula SAE competition rules and regulations</li>
+                </ul>
+
+                <h3>📐 Documentation & Technical Drawings</h3>
+                <ul>
+                    <li>Produced comprehensive technical drawings with GD&T specifications</li>
+                    <li>Created assembly instructions for manufacturing team</li>
+                    <li>Maintained design documentation and version control</li>
+                    <li>Contributed to competition design reports and presentations</li>
+                </ul>
+            </div>
         </div>
 
         <!-- Technical Specifications -->
         <div class="content-section">
-            <h2>Technical Specifications</h2>
+            <h2 class="section-title">
+                <span>📊</span>
+                Technical Specifications
+            </h2>
             <table class="specs-table">
                 <thead>
                     <tr>
@@ -351,29 +867,34 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Chassis Material</td>
+                        <td><strong>Chassis Material</strong></td>
                         <td>4130 Chromoly Steel</td>
                         <td>TIG welded tubular space frame</td>
                     </tr>
                     <tr>
-                        <td>Weight</td>
+                        <td><strong>Weight</strong></td>
                         <td>~230 kg</td>
                         <td>Including driver, optimized for performance</td>
                     </tr>
                     <tr>
-                        <td>Wheelbase</td>
+                        <td><strong>Wheelbase</strong></td>
                         <td>1600 mm</td>
                         <td>Optimized for agility and stability</td>
                     </tr>
                     <tr>
-                        <td>Motor Power</td>
+                        <td><strong>Motor Power</strong></td>
                         <td>80 kW peak</td>
                         <td>Electric powertrain</td>
                     </tr>
                     <tr>
-                        <td>Battery Capacity</td>
+                        <td><strong>Battery Capacity</strong></td>
                         <td>7.2 kWh</td>
                         <td>Custom battery pack design</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enclosure Materials</strong></td>
+                        <td>ABS, Aluminum Alloy</td>
+                        <td>Weather-resistant and lightweight</td>
                     </tr>
                 </tbody>
             </table>
@@ -381,49 +902,115 @@
 
         <!-- Skills Developed -->
         <div class="content-section">
-            <h2>Skills Developed</h2>
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; color: white; height: 200px; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: white; margin: 0 0 1rem 0;">CAD Modeling</h3>
-                        <p style="color: white; margin: 0;">Advanced SolidWorks proficiency for complex assemblies and parametric design</p>
-                    </div>
+            <h2 class="section-title">
+                <span>🎓</span>
+                Skills Developed
+            </h2>
+            <div class="skills-showcase">
+                <div class="skill-showcase-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                    <h3>CAD Modeling</h3>
+                    <p>Advanced SolidWorks proficiency for complex assemblies and parametric design</p>
                 </div>
-                <div class="gallery-item">
-                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 2rem; color: white; height: 200px; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: white; margin: 0 0 1rem 0;">Team Collaboration</h3>
-                        <p style="color: white; margin: 0;">Cross-functional teamwork with electrical, software, and manufacturing teams</p>
-                    </div>
+                <div class="skill-showcase-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
+                    <h3>Enclosure Design</h3>
+                    <p>Custom protective enclosures with thermal management and ergonomic considerations</p>
                 </div>
-                <div class="gallery-item">
-                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 2rem; color: white; height: 200px; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: white; margin: 0 0 1rem 0;">Engineering Analysis</h3>
-                        <p style="color: white; margin: 0;">FEA simulation and structural optimization techniques</p>
-                    </div>
+                <div class="skill-showcase-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                    <h3>Team Collaboration</h3>
+                    <p>Cross-functional teamwork with electrical, software, and manufacturing teams</p>
+                </div>
+                <div class="skill-showcase-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔬</div>
+                    <h3>Engineering Analysis</h3>
+                    <p>FEA simulation and structural optimization techniques</p>
                 </div>
             </div>
         </div>
 
         <!-- Lessons Learned -->
         <div class="content-section">
-            <h2>Lessons Learned</h2>
-            <p>This project taught me valuable lessons about real-world engineering:</p>
-            <ul>
-                <li><strong>Design for Manufacturing:</strong> Understanding manufacturing constraints is crucial for creating practical designs</li>
-                <li><strong>Iterative Design Process:</strong> Continuous testing and refinement lead to better solutions</li>
-                <li><strong>Communication:</strong> Clear technical communication across disciplines is essential</li>
-                <li><strong>Time Management:</strong> Balancing academics with project deadlines requires careful planning</li>
-                <li><strong>Problem Solving:</strong> Creative solutions emerge from constraints and challenges</li>
-            </ul>
+            <h2 class="section-title">
+                <span>💡</span>
+                Lessons Learned
+            </h2>
+            <div class="section-content">
+                <p>This project taught me valuable lessons about real-world engineering:</p>
+                <div class="lesson-item">
+                    <strong>Design for Manufacturing:</strong> Understanding manufacturing constraints is crucial for creating practical designs
+                </div>
+                <div class="lesson-item">
+                    <strong>Iterative Design Process:</strong> Continuous testing and refinement lead to better solutions
+                </div>
+                <div class="lesson-item">
+                    <strong>Communication:</strong> Clear technical communication across disciplines is essential
+                </div>
+                <div class="lesson-item">
+                    <strong>Time Management:</strong> Balancing academics with project deadlines requires careful planning
+                </div>
+                <div class="lesson-item">
+                    <strong>Problem Solving:</strong> Creative solutions emerge from constraints and challenges
+                </div>
+            </div>
         </div>
 
+    </div>
+
+    <!-- Lightbox for full-size images -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img src="" alt="Full size image" id="lightbox-img">
     </div>
 
     <!-- Footer -->
     <footer>
         <p>Copyright © 2025 Yiqing Zhi</p>
-        <p style="margin-top: 0.5rem;"><a href="Home.html" style="color: #667eea; text-decoration: none;">← Back to Portfolio</a></p>
+        <p style="margin-top: 0.5rem;">
+            <a href="Home_Darker.html#projects">← Back to Portfolio</a>
+        </p>
     </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
 
 </body>
 </html>
