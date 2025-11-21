@@ -19,6 +19,7 @@
             background: #000000;
             position: relative;
             overflow-x: hidden;
+            font-size: 16px; 
         }
 
         html {
@@ -66,7 +67,7 @@
             top: 0;
             z-index: 100;
             border-bottom: 2px solid rgba(102, 126, 234, 0.4);
-            overflow: hidden;
+            /* overflow: hidden; */
         }
 
         /* Animated scan line effect */
@@ -817,11 +818,11 @@
         }
 
         .carousel-btn.prev {
-            left: 30px;
+            left: 35px;
         }
 
         .carousel-btn.next {
-            right: 30px;
+            right: 35px;
         }
 
         /* Holographic Indicators */
@@ -976,11 +977,11 @@
 
         /* Sections */
         section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            margin-top: 2rem;
+            margin-top: 3rem;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
@@ -1085,7 +1086,7 @@
         }
 
         .about-content p {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.95);
             line-height: 1.8;
             font-size: 1.05rem;
         }
@@ -1676,14 +1677,14 @@
         }
 
         .connection-1 {
-            top: 25%;
+            top: 20%;
             left: 50%;
             width: 200px;
             transform: rotate(-30deg);
         }
 
         .connection-2 {
-            bottom: 25%;
+            bottom: 35%;
             left: 30%;
             width: 250px;
             transform: rotate(35deg);
@@ -1962,8 +1963,8 @@
 
         .project-card-back {
             background: linear-gradient(135deg, 
-                rgba(102, 126, 234, 0.95) 0%, 
-                rgba(118, 75, 162, 0.95) 100%);
+                    rgba(10, 14, 35, 0.98) 0%,  /* Darker! */
+                    rgba(30, 30, 60, 0.98) 100%);
             transform: rotateY(180deg);
             display: flex;
             flex-direction: column;
@@ -1978,6 +1979,17 @@
             overflow: hidden;
             pointer-events: auto; /* ← Make sure this is here */
             z-index: 10; /* ← ADD THIS - ensures back is on top when flipped */
+        }
+
+        /* Add subtle overlay */
+        .project-card-back::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.15) 0%, 
+                rgba(118, 75, 162, 0.15) 100%);
+            z-index: 0;
         }
 
         .project-back-content {
@@ -2215,21 +2227,46 @@
             color: #667eea;
         }
 
-        .email-input-group select {
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1rem;
-            background: white;
-            cursor: pointer;
-            min-width: 150px;
+        /* Wrapper for email inputs */
+        .email-input-container {
+            width: 100%;
         }
 
+        .email-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0; /* Remove bottom margin */
+        }
+
+        /* Custom Domain Input Styling */
         #customDomain {
-            flex: 1;
-            min-width: 150px;
-            margin-top: 0.5rem;
+            display: none;
+            width: 100%;
+            margin-top: 10px;
+            padding: 1rem 1.2rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            color: white !important;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        #customDomain:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.8);
+            background: rgba(102, 126, 234, 0.15);
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.3),
+                inset 0 0 10px rgba(102, 126, 234, 0.1);
+        }
+
+        #customDomain::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .submit-btn {
@@ -2423,34 +2460,30 @@
             text-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
         }
 
+        /* CRITICAL FIX - Make select dropdown text visible */
         .email-input-group select {
             min-width: 180px;
             cursor: pointer;
-        }
+            color: white !important; /* ← Forces white text */
+            background-color: rgba(102, 126, 234, 0.1) !important; /* ← Ensures dark background */
+}
 
-        /* Dropdown options styling - Force dark background */
+        /* Style the dropdown when opened - Browser-specific */
         .email-input-group select option {
-            background-color: #1a1a2e !important; /* Dark background */
-            color: white !important; /* White text */
+            background-color: #1a1a2e;
+            color: white;
             padding: 0.8rem;
         }
 
-        /* Selected option */
+        /* For Firefox */
         .email-input-group select option:checked {
-            background-color: rgba(102, 126, 234, 0.6) !important;
-            color: white !important;
+            background: linear-gradient(rgba(102, 126, 234, 0.6), rgba(102, 126, 234, 0.6));
+            color: white;
         }
 
-        /* Hover state */
-        .email-input-group select option:hover {
-            background-color: rgba(102, 126, 234, 0.4) !important;
-            color: white !important;
-        }
-
-        #customDomain {
-            flex: 1;
-            min-width: 200px;
-            margin-top: 0.8rem;
+        /* For webkit browsers (Chrome/Safari) - doesn't work perfectly */
+        .email-input-group select:focus option:checked {
+            background-color: rgba(102, 126, 234, 0.6);
         }
 
         /* Character Counter */
@@ -2848,7 +2881,7 @@
         .moon-landing-footer {
             position: relative;
             background: linear-gradient(180deg, #0a0e27 0%, #1a1a2e 50%, #2d2d44 100%);
-            min-height: 500px;
+            min-height: 400px;
             margin-top: 2rem;
             overflow: hidden;
             display: flex;
@@ -2885,8 +2918,8 @@
             position: absolute;
             top: 50px;
             right: 100px;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #4a90e2, #2e5c8a, #1a3a52);
             box-shadow: 
@@ -2995,7 +3028,6 @@
             position: relative;
             width: 100px;
             height: 180px;
-            animation: rocketLanding 3s ease-out;
         }
 
         @keyframes rocketLanding {
@@ -3020,7 +3052,6 @@
             position: absolute;
             right: 10px;
             bottom: 40px;
-            animation: flagPlant 2s ease-out 1s backwards;
         }
 
         @keyframes flagPlant {
@@ -3356,7 +3387,7 @@
 
         .meteor-shower-right {
             position: fixed;
-            width: 18%;
+            width: 14%;
             height: 100%;
             top: 0;
             right: 0;
@@ -3506,7 +3537,6 @@
             fill: transparent;
             stroke-width: 4;
             stroke-linecap: round;
-            transition: stroke-dashoffset 0.1s ease-out;
         }
 
         .progress-text {
@@ -3533,7 +3563,11 @@
 
         @media (max-width: 768px) {
             .nav-logo {
-                height: 25px; /* match mobile size */
+                height: 35px;
+                width: auto;
+                border-radius: 8px;
+                filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.5));
+                cursor: pointer;
             }
         }
 
@@ -3704,7 +3738,7 @@
             position: relative;
             width: 100%;
             max-width: 1200px;  /* ← ADD THIS - limits width */
-            min-height: 3000px;
+            min-height: 2010px;
             background: transparent;
             overflow: visible;  /* ← CHANGE from hidden to visible */
             margin: 4rem auto;  /* ← CHANGE to 'auto' for centering */
@@ -3951,7 +3985,7 @@
 
         @media (max-width: 768px) {
             .parallax-journey {
-                min-height: 2500px;
+                min-height: 1600px;
                 padding: 0 1rem;
                 max-width: 100%;
             }
@@ -4140,11 +4174,10 @@
             }
 
             .nav-container {
-                max-width: 1200px;
-                margin: 0 auto;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                max-width: 100%;
             }
 
         .nav-brand {
@@ -4153,17 +4186,18 @@
             color: #667eea;
         }
 
-        /* Hamburger Menu */
+       /* Hamburger Menu */
         .hamburger {
-            display: none;
+            display: flex;
             flex-direction: column;
-            cursor: pointer;
             gap: 5px;
-            padding: 10px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 101;
         }
 
         .hamburger span {
-            width: 30px;
+            width: 28px;
             height: 3px;
             background: #667eea;
             border-radius: 3px;
@@ -4179,53 +4213,93 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* Responsive Navigation - Dropdown on Small Screens */
         @media (max-width: 968px) {
-            .hamburger {
-                display: flex;
-            }
+        nav ul {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 65%;
+            max-width: 250px;
+            height: 100vh;
+            flex-direction: column;
+            background: linear-gradient(180deg, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(15, 20, 45, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            padding: 80px 0 20px 0;
+            transition: right 0.4s ease;
+            list-style: none;
+            overflow-y: auto;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        }
 
-            nav ul {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                flex-direction: column;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-                padding: 0;
-                gap: 0;
-            }
+        nav ul.active {
+            right: 0;
+        }
 
-            nav ul.active {
-                max-height: 600px;
-                padding: 1rem 0;
-            }
+        nav ul li {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
 
-            nav ul li {
-                width: 100%;
-                text-align: center;
-                padding: 0.8rem 0;
-                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
-            }
+        nav a {
+            display: block;
+            padding: 1rem 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
 
-            nav ul li:last-child {
-                border-bottom: none;
-            }
+        nav a:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: white;
+            padding-left: 2.5rem;
+        }
 
-            .social-links {
-                justify-content: center;
-                padding: 1rem 0;
-            }
+        .resume-li {
+            margin: 1rem;
+        }
+
+        .resume-btn {
+            display: block;
+            padding: 0.8rem 1.5rem !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            border-radius: 25px;
+            text-align: center;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            color: white;
+            text-decoration: none;
+            border: 2px solid rgba(102, 126, 234, 0.4);
         }
     }
+}
 </style>
 </head>
 <body>
@@ -4275,7 +4349,6 @@
         <div class="carousel-corner corner-br"></div>
         <div class="scan-line-horizontal"></div>
         <div class="scan-line-vertical"></div>
-    <div class="space-particles" id="particles"></div>
         <div class="carousel-container">
             <div class="carousel-slide active">
                 <img src="Images/UWFE-1.jpeg" alt="UWFE Chassis Project">
@@ -4417,7 +4490,7 @@
         <div class="journey-progress" id="journeyProgress"></div>
         
         <!-- MILESTONE 1: Birth/Early Years -->
-        <div class="milestone-planet left" data-scroll="200" data-milestone="1" style="top: 300px; --planet-light: #ffd700; --planet-dark: #ff8c00; --planet-glow: rgba(255, 215, 0, 0.5);">
+        <div class="milestone-planet left" data-scroll="200" data-milestone="1" style="top: 250px; --planet-light: #ffd700; --planet-dark: #ff8c00; --planet-glow: rgba(255, 215, 0, 0.5);">
             <div class="planet-core">
                 <div class="planet-ring"></div>
             </div>
@@ -4429,7 +4502,7 @@
         </div>
         
         <!-- Achievement Star 1 -->
-        <div class="achievement-star" data-scroll="250" style="top: 250px; left: calc(50% - 200px);">
+        <div class="achievement-star" data-scroll="250" style="top: 200px; left: calc(50% - 200px);">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L61 38 L95 38 L68 58 L79 91 L50 71 L21 91 L32 58 L5 38 L39 38 Z" 
                     fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
@@ -4437,7 +4510,7 @@
         </div>
         
         <!-- MILESTONE 2: High School / Early Education -->
-        <div class="milestone-planet right" data-scroll="600" data-milestone="2" style="top: 800px; --planet-light: #4fc3f7; --planet-dark: #0288d1; --planet-glow: rgba(79, 195, 247, 0.5);">
+        <div class="milestone-planet right" data-scroll="500" data-milestone="2" style="top: 600px; --planet-light: #4fc3f7; --planet-dark: #0288d1; --planet-glow: rgba(79, 195, 247, 0.5);">
             <div class="planet-core"></div>
             <div class="planet-info">
                 <h3>📚 Education Foundation</h3>
@@ -4447,7 +4520,7 @@
         </div>
         
         <!-- Achievement Star 2 -->
-        <div class="achievement-star" data-scroll="650" style="top: 750px; left: calc(80% - 200px);">
+        <div class="achievement-star" data-scroll="550" style="top: 550px; left: calc(80% - 200px);">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L61 38 L95 38 L68 58 L79 91 L50 71 L21 91 L32 58 L5 38 L39 38 Z" 
                     fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
@@ -4458,7 +4531,7 @@
         <div class="constellation-line" data-connect="star1-star2" style="top: 250px; left: 35%; width: 0px;"></div>
         
         <!-- MILESTONE 3: University of Waterloo -->
-        <div class="milestone-planet left" data-scroll="1200" data-milestone="3" style="top: 1400px; --planet-light: #9c27b0; --planet-dark: #4a148c; --planet-glow: rgba(156, 39, 176, 0.5);">
+        <div class="milestone-planet left" data-scroll="850" data-milestone="3" style="top: 950px; --planet-light: #9c27b0; --planet-dark: #4a148c; --planet-glow: rgba(156, 39, 176, 0.5);">
             <div class="planet-core">
                 <div class="planet-ring"></div>
             </div>
@@ -4470,7 +4543,7 @@
         </div>
         
         <!-- Achievement Star 3 -->
-        <div class="achievement-star" data-scroll="1250" style="top: 1350px; left: calc(50% - 200px);">
+        <div class="achievement-star" data-scroll="900" style="top: 900px; left: calc(50% - 200px);">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L61 38 L95 38 L68 58 L79 91 L50 71 L21 91 L32 58 L5 38 L39 38 Z" 
                     fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
@@ -4478,7 +4551,7 @@
         </div>
         
         <!-- MILESTONE 4: Co-op Experiences -->
-        <div class="milestone-planet right" data-scroll="1800" data-milestone="4" style="top: 2000px; --planet-light: #4caf50; --planet-dark: #1b5e20; --planet-glow: rgba(76, 175, 80, 0.5);">
+        <div class="milestone-planet right" data-scroll="1200" data-milestone="4" style="top: 1300px; --planet-light: #4caf50; --planet-dark: #1b5e20; --planet-glow: rgba(76, 175, 80, 0.5);">
             <div class="planet-core"></div>
             <div class="planet-info">
                 <h3>💼 Professional Experience</h3>
@@ -4488,7 +4561,7 @@
         </div>
         
         <!-- Achievement Star 4 -->
-        <div class="achievement-star" data-scroll="1850" style="top: 1950px; left: calc(80% - 200px);">
+        <div class="achievement-star" data-scroll="1250" style="top: 1250px; left: calc(80% - 200px);">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L61 38 L95 38 L68 58 L79 91 L50 71 L21 91 L32 58 L5 38 L39 38 Z" 
                     fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
@@ -4496,7 +4569,7 @@
         </div>
         
         <!-- MILESTONE 5: Future / Current Goals -->
-        <div class="milestone-planet left" data-scroll="2400" data-milestone="5" style="top: 2600px; --planet-light: #ff5722; --planet-dark: #bf360c; --planet-glow: rgba(255, 87, 34, 0.5);">
+        <div class="milestone-planet left" data-scroll="1550" data-milestone="5" style="top: 1650px; --planet-light: #ff5722; --planet-dark: #bf360c; --planet-glow: rgba(255, 87, 34, 0.5);">
             <div class="planet-core">
                 <div class="planet-ring"></div>
             </div>
@@ -4508,7 +4581,7 @@
         </div>
         
         <!-- Achievement Star 5 -->
-        <div class="achievement-star" data-scroll="2450" style="top: 2550px; left: 35%;">
+        <div class="achievement-star" data-scroll="1600" style="top: 1600px; left: 35%;">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L61 38 L95 38 L68 58 L79 91 L50 71 L21 91 L32 58 L5 38 L39 38 Z" 
                     fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
@@ -4753,7 +4826,12 @@
                             <option value="custom">Other Domain</option>
                         </select>
                     </div>
-                    <input type="text" id="customDomain" placeholder="yourdomain.com" style="display: none;">
+
+                    <input 
+                        type="text" 
+                        id="customDomain" 
+                        placeholder="Enter your domain (e.g., company.com)"
+                    >
                 </div>
                 
                 <div class="form-group">
@@ -4976,7 +5054,7 @@
         
         <div class="briefing-footer">
             <div class="coordinates">
-                <span>📍 COORDINATES: 43.4643°N, 80.5204°W (Waterloo, ON)</span>
+                <span>📍 COORDINATES: 43.4723°N, 80.5449°W (Waterloo, ON)</span>
             </div>
             <div class="clearance">
                 <span>CLEARANCE LEVEL: PUBLIC</span>
@@ -5071,13 +5149,52 @@
     <script>
         let currentSlide = 0;
         let autoPlayInterval;
+        let formTouched = false;
 
-        // Wait for DOM to load
+        // Track if user has started filling the form
+        function markFormAsTouched() {
+            formTouched = true;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // ===== HANDLE EMAIL DROPDOWN =====
+            const emailDomain = document.getElementById('emailDomain');
+            const customDomain = document.getElementById('customDomain');
+            
+            if (emailDomain && customDomain) {
+                emailDomain.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customDomain.style.display = 'block';
+                    customDomain.focus();
+                } else {
+                    customDomain.style.display = 'none';
+                    customDomain.value = '';
+                }
+
+                markFormAsTouched(); 
+                });
+            }
+
+            // Generate floating particles
+            function createParticles() {
+                const container = document.getElementById('particles');
+                if (!container) return;
+                
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    container.appendChild(particle);
+                }
+            }
+
+            // ===== CAROUSEL AUTOPLAY =====
             startAutoPlay(); 
             createParticles();
             
-            // Pause autoplay when user hovers over carousel
             const carousel = document.querySelector('.hero-carousel');
             if (carousel) {
                 carousel.addEventListener('mouseenter', () => {
@@ -5087,30 +5204,41 @@
                     startAutoPlay();
                 });
             }
-
-            // Handle email domain dropdown - show/hide custom domain field
-            const emailDomain = document.getElementById('emailDomain');
-            const customDomain = document.getElementById('customDomain');
             
-            emailDomain.addEventListener('change', function() {
-                if (this.value === 'custom') {
-                    customDomain.style.display = 'block';
-                } else {
-                    customDomain.style.display = 'none';
+            
+            // Add listeners to all form fields
+            const formFields = ['name', 'emailUsername', 'message'];
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', markFormAsTouched);
+                    field.addEventListener('change', markFormAsTouched);
                 }
             });
-
+            
+            // Custom domain field
+            const customDomainField = document.getElementById('customDomain');
+            if (customDomainField) {
+                customDomainField.addEventListener('input', markFormAsTouched);
+            }
+            
+            // Prevent leaving if form has content
             window.addEventListener('beforeunload', function (e) {
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('emailUsername').value;
-                const message = document.getElementById('message').value;
+                if (!formTouched) return; // Don't warn if user never touched form
                 
-                if (name || email || message) {
+                const name = document.getElementById('name')?.value || '';
+                const emailUsername = document.getElementById('emailUsername')?.value || '';
+                const message = document.getElementById('message')?.value || '';
+                
+                // Check if any form field has content
+                if (name.trim() || emailUsername.trim() || message.trim()) {
                     e.preventDefault();
-                    e.returnValue = ''; // Shows browser's "Are you sure you want to leave?" dialog
+                    e.returnValue = ''; // Modern browsers show generic message
+                    return '';
                 }
             });
         });
+
 
         function changeSlide(direction) {
             const slides = document.querySelectorAll('.carousel-slide');
@@ -5229,6 +5357,8 @@
                 const offset = circumference - (scrollPercentage * circumference);
                 progressCircle.style.strokeDashoffset = offset;
                 progressText.textContent = Math.round(scrollPercentage * 100) + '%';
+
+                progressCircle.style.transition = 'none'; 
             }
             
             // Calculate scroll speed and direction
@@ -5277,12 +5407,6 @@
             if (scrollSpeed > 8) {
                 createSpeedLines();
             }
-            
-            // NEW: Update Progress Circle
-            const circumference = 2 * Math.PI * 26;
-            const offset = circumference - (scrollPercentage * circumference);
-            progressCircle.style.strokeDashoffset = offset;
-            progressText.textContent = Math.round(scrollPercentage * 100) + '%';
         }
 
         // Scroll to Top Function with Animation
@@ -5329,6 +5453,18 @@
             const meteorShowerRight = document.getElementById('meteorShowerRight');
             
             if (!meteorShowerLeft || !meteorShowerRight) return;
+
+            // Don't show meteors in carousel area
+            const scrollTop = window.pageYOffset;
+            const carousel = document.querySelector('.hero-carousel');
+            if (carousel) {
+                const carouselTop = carousel.offsetTop;
+                const carouselBottom = carouselTop + carousel.offsetHeight;
+                
+                if (scrollTop >= carouselTop - 200 && scrollTop <= carouselBottom + 200) {
+                    return; // Exit function - no meteors in carousel zone
+                }
+            }
             
             meteorShowerLeft.style.opacity = '1';
             meteorShowerRight.style.opacity = '1';
@@ -5360,22 +5496,6 @@
                         meteor.remove();
                     }, duration);
                 }, i * 150);
-            }
-
-            // Generate floating particles
-            function createParticles() {
-                const container = document.getElementById('particles');
-                if (!container) return;
-                
-                for (let i = 0; i < 30; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 20 + 's';
-                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                    container.appendChild(particle);
-                }
             }
             
             // Create meteors for right side
@@ -5616,6 +5736,8 @@
         
         // Success message
         alert(`🚀 Transmission Launched!\n\nFrom: ${name}\nChannel: ${fullEmail}\n\nMessage received at Mission Control. We'll respond shortly!`);
+
+        formTouched = false; 
         
         // Clear form
         document.getElementById('name').value = '';
@@ -5626,6 +5748,52 @@
         document.getElementById('message').value = '';
         document.getElementById('charCount').textContent = '0';
     }
+
+    // ========================================
+        // FOOTER ROCKET LANDING ANIMATION
+        // ========================================
+
+        function initFooterRocketAnimation() {
+            const footer = document.querySelector('.moon-landing-footer');
+            const landedRocket = document.querySelector('.landed-rocket');
+            const missionFlag = document.querySelector('.mission-flag');
+            
+            if (!footer || !landedRocket) return;
+            
+            // Create an Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Footer is visible - trigger landing animation
+                        if (!landedRocket.classList.contains('has-landed')) {
+                            landedRocket.classList.add('has-landed');
+                            landedRocket.style.animation = 'rocketLanding 3s ease-out';
+                            
+                            if (missionFlag) {
+                                missionFlag.style.animation = 'flagPlant 2s ease-out 1s backwards';
+                            }
+                        }
+                    } else {
+                        // Footer not visible - reset for re-animation
+                        landedRocket.classList.remove('has-landed');
+                        landedRocket.style.animation = 'none';
+                        
+                        if (missionFlag) {
+                            missionFlag.style.animation = 'none';
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.3 // Trigger when 30% of footer is visible
+            });
+            
+            observer.observe(footer);
+        }
+
+        // Initialize footer animation when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initFooterRocketAnimation();
+        });
 
     window.addEventListener('scroll', () => {
             // Scroll event just triggers recalculation
