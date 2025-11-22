@@ -361,6 +361,11 @@
             height: 400px;
         }
 
+        /* Make award card taller to show full vertical poster */
+        .gallery-item.award-card {
+            height: 600px;
+        }
+
         .gallery-item:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: rgba(102, 126, 234, 0.8);
@@ -397,6 +402,13 @@
             object-fit: cover;
             transition: transform 0.6s ease;
             filter: brightness(0.9);
+        }
+
+        /* Zoom out competition award image to show full vertical picture */
+        .gallery-item img[src*="Award"] {
+            object-fit: contain;
+            padding: 10px;
+            background: rgba(10, 14, 35, 0.8);
         }
 
         .gallery-item:hover img {
@@ -440,10 +452,10 @@
             margin: 0;
         }
 
-        /* Featured Gallery Item (larger) */
+        /* Featured Gallery Item (larger) - ZOOMED OUT */
         .gallery-item.featured {
             grid-column: span 2;
-            height: 500px;
+            height: 400px;
         }
 
         /* Gallery badges for project types */
@@ -610,6 +622,189 @@
             font-size: 1.2rem;
         }
 
+        /* Section Transition Header */
+        .section-transition {
+            text-align: center;
+            margin: 3rem 0 2rem 0;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .transition-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: iconPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.8));
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .transition-title {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .transition-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* Large Racing Divider - Fills Empty Space */
+        .racing-divider-large {
+            position: relative;
+            width: 100%;
+            min-height: 250px;
+            margin: 3rem 0;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.1) 0%, 
+                rgba(118, 75, 162, 0.15) 50%,
+                rgba(102, 126, 234, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .racing-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .racing-car-large {
+            font-size: 10rem;
+            animation: carBounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.8));
+        }
+
+        @keyframes carBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        .racing-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 14, 35, 0.6);
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            backdrop-filter: blur(10px);
+            animation: statPulse 3s ease-in-out infinite;
+            min-width: 120px;
+        }
+
+        .stat-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .stat-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes statPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+            }
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .racing-track-full {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(102, 126, 234, 0.4) 10%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.4) 90%,
+                transparent 100%);
+            animation: trackFlow 3s linear infinite;
+        }
+
+        @keyframes trackFlow {
+            0% {
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(102, 126, 234, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .racing-divider-large {
+                min-height: 300px;
+            }
+            
+            .racing-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .racing-car-large {
+                font-size: 8rem;
+            }
+
+            .racing-stats {
+                gap: 1rem;
+            }
+        }
+
         /* Footer */
         footer {
             background: rgba(10, 14, 35, 0.95);
@@ -712,7 +907,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Waterloo Formula Electric</h1>
-            <p class="subtitle">Designing the future of electric racing through innovative CAD modeling and mechanical systems optimization</p>
+            <p class="subtitle">Designing high-performance enclosure systems for electric racing through innovative CAD modeling, mechanical optimization, and rigorous testing</p>
         </div>
     </section>
 
@@ -726,7 +921,8 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>As a member of the Waterloo Formula Electric team, I contributed to the design and development of high-performance electric race cars. My role focused on CAD modeling, mechanical system optimization, and chassis design for competition vehicles.</p>
+                <p>As a member of the Waterloo Formula Electric team, I contributed to the design and development of high-performance electric race cars. My role focused on CAD modeling, enclosure system design, mechanical optimization, and chassis development for competition vehicles.</p>
+                <p>I designed two critical enclosure systems for the team: the driver dashboard enclosure and the electrical board enclosure. Both projects required careful consideration of environmental protection, structural integrity, and integration with vehicle systems.</p>
                 <p>The team competes in Formula SAE Electric competitions, where we design, build, and race electric vehicles against universities from around the world. This experience provided hands-on engineering practice in a fast-paced, collaborative environment.</p>
             </div>
         </div>
@@ -738,17 +934,20 @@
                 Project Gallery
             </h2>
             <div class="section-content">
-                <p>Browse through my key contributions to the Waterloo Formula Electric project, featuring custom-designed enclosures and mechanical systems.</p>
+                <p>Browse through my key contributions to the Waterloo Formula Electric project, featuring two custom-designed enclosure systems.</p>
+                
+                <h3>🖥️ Dashboard Enclosure System</h3>
+                <p>Complete redesign of the driver dashboard enclosure, from initial concept through testing to race implementation.</p>
             </div>
             
             <div class="image-gallery">
-                <!-- 3D Printed Dashboard Enclosure - Featured -->
-                <div class="gallery-item featured">
-                    <span class="gallery-badge">🖨️ 3D Printed</span>
-                    <img src="Images/Enclosure3.jpg" alt="3D Printed Dashboard Enclosure">
+                <!-- Racing Implementation -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🏁 Race Proven</span>
+                    <img src="Images/Actual_Implement.jpg" alt="Dashboard in Action During Race">
                     <div class="gallery-caption">
-                        <h4>3D Printed Dashboard Enclosure</h4>
-                        <p>Final 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing through the yellow mounting bracket.</p>
+                        <h4>Dashboard in Action - Track Testing at 74 km/h</h4>
+                        <p>The dashboard enclosure successfully deployed during competitive racing, proving real-world durability and functionality. Driver's POV shows the complete cockpit integration with all systems operational under racing conditions.</p>
                     </div>
                 </div>
 
@@ -772,33 +971,89 @@
                     </div>
                 </div>
 
+                <!-- 3D Printed Dashboard Enclosure -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🖨️ 3D Printed</span>
+                    <img src="Images/Enclosure3.jpg" alt="3D Printed Dashboard Enclosure">
+                    <div class="gallery-caption">
+                        <h4>3D Printed Dashboard Enclosure</h4>
+                        <p>Final 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing through the yellow mounting bracket.</p>
+                    </div>
+                </div>
+
                 <!-- Water Testing -->
                 <div class="gallery-item">
                     <span class="gallery-badge">💧 Waterproof Test</span>
-                    <img src="Images/Water_Testing.png" alt="Water Resistance Testing">
+                    <img src="Images/Water Testing.webp" alt="Water Resistance Testing">
                     <div class="gallery-caption">
                         <h4>Waterproofing Validation</h4>
                         <p>Intensive water spray testing over drainage grate to ensure enclosure meets IP rating requirements for racing conditions. Critical for protecting electronics during wet weather competitions and validating seal integrity.</p>
                     </div>
                 </div>
 
-                <!-- Strength Testing - Close-up -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">💪 Strength Test</span>
-                    <img src="Images/Testing3.jpg" alt="Structural Integrity Testing">
+                <!-- Competition Results -->
+                <div class="gallery-item award-card">
+                    <span class="gallery-badge">🏆 Competition Success</span>
+                    <img src="Images/Award.jpeg" alt="Formula SAE Competition Results">
                     <div class="gallery-caption">
-                        <h4>Structural Load Testing</h4>
-                        <p>Close-up of cable management and structural integrity testing. The enclosure must withstand vibrations, impacts, and repeated use during racing events.</p>
+                        <h4>Formula Hybrid Electric Competition Results</h4>
+                        <p>Team UWFE achieved outstanding results including P1 in Autocross Acceleration, P1 in Design, and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Transition Header -->
+            <div class="section-transition">
+                <div class="transition-icon">⚡</div>
+                <h2 class="transition-title">From Dashboard to Electrical</h2>
+                <p class="transition-subtitle">Expanding expertise across multiple subsystems</p>
+            </div>
+
+            <!-- Racing Divider with Large Visual -->
+            <div class="racing-divider-large">
+                <div class="racing-content">
+                    <div class="racing-car-large">🏎️</div>
+                    <div class="racing-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">74</span>
+                            <span class="stat-label">km/h</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">P1</span>
+                            <span class="stat-label">Design</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">2+</span>
+                            <span class="stat-label">Enclosures</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="racing-track-full"></div>
+            </div>
+
+            <div class="section-content" style="margin-top: 3rem;">
+                <h3>⚡ Electrical Board Enclosure System</h3>
+                <p>Custom protective enclosure designed for the electrical board assembly, ensuring component safety and optimal thermal management.</p>
+            </div>
+
+            <div class="image-gallery">
+                <!-- Electrical Board Enclosure CAD -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">⚡ Electrical Design</span>
+                    <img src="Images/Electrical_Enclosure.png" alt="Electrical Board Enclosure CAD Design">
+                    <div class="gallery-caption">
+                        <h4>Electrical Board Enclosure - SolidWorks CAD</h4>
+                        <p>Custom-designed protective enclosure for electrical board assembly. Features integrated mounting points, cable management channels, and optimized geometry for component protection and thermal dissipation during racing conditions.</p>
                     </div>
                 </div>
 
-                <!-- Strength Testing - Full View -->
+                <!-- Electrical Board Enclosure Bottom View -->
                 <div class="gallery-item">
-                    <span class="gallery-badge">🔧 Durability Test</span>
-                    <img src="Images/Testing4.jpg" alt="Mechanical Stress Testing">
+                    <span class="gallery-badge">🔧 Modular Design</span>
+                    <img src="Images/Electrical_Enclosure2.png" alt="Electrical Enclosure Bottom View">
                     <div class="gallery-caption">
-                        <h4>Mechanical Durability Validation</h4>
-                        <p>Comprehensive stress testing using weights and clamps to simulate extreme racing conditions. Validates the enclosure's ability to maintain integrity under mechanical stress and vibration.</p>
+                        <h4>Bottom View - Modular Connection System</h4>
+                        <p>Bottom surface features innovative LEGO-style connection pieces for easy assembly and disassembly. This modular approach allows quick removal for maintenance and servicing without tools, improving serviceability during competitions.</p>
                     </div>
                 </div>
             </div>
@@ -812,15 +1067,6 @@
             </h2>
             <div class="section-content">
                 
-                <h3>🏎️ Chassis Design & Optimization</h3>
-                <p>Led CAD modeling efforts for the chassis subsystem, focusing on weight reduction while maintaining structural integrity and safety standards.</p>
-                <ul>
-                    <li>Created detailed 3D models using SolidWorks for chassis components</li>
-                    <li>Conducted FEA analysis to optimize material usage and reduce weight by 15%</li>
-                    <li>Collaborated with manufacturing team to ensure design feasibility</li>
-                    <li>Implemented design changes based on testing feedback and competition requirements</li>
-                </ul>
-
                 <h3>🖥️ Dashboard Enclosure Design & Development</h3>
                 <p>Led the complete redesign and fabrication of the driver dashboard enclosure system.</p>
                 <ul>
@@ -829,7 +1075,26 @@
                     <li>Conducted comprehensive waterproofing tests to validate IP rating for wet racing conditions</li>
                     <li>Performed mechanical stress testing including load, vibration, and impact resistance validation</li>
                     <li>Optimized cable routing and ergonomic button placement for driver accessibility</li>
-                    <li>Collaborated with electrical team to ensure proper integration with vehicle systems</li>
+                    <li>Successfully deployed in competitive racing environment at speeds up to 74 km/h</li>
+                </ul>
+
+                <h3>⚡ Electrical Board Enclosure Design</h3>
+                <p>Designed protective enclosure system for critical electrical components.</p>
+                <ul>
+                    <li>Created custom CAD model in SolidWorks for electrical board protection</li>
+                    <li>Integrated mounting points and cable management channels for clean wiring</li>
+                    <li>Optimized geometry for component accessibility and thermal management</li>
+                    <li>Ensured environmental protection while maintaining serviceability</li>
+                    <li>Collaborated with electrical team to meet all technical requirements</li>
+                </ul>
+
+                <h3>🏎️ Chassis Design & Optimization</h3>
+                <p>Led CAD modeling efforts for the chassis subsystem, focusing on weight reduction while maintaining structural integrity and safety standards.</p>
+                <ul>
+                    <li>Created detailed 3D models using SolidWorks for chassis components</li>
+                    <li>Conducted FEA analysis to optimize material usage and reduce weight by 15%</li>
+                    <li>Collaborated with manufacturing team to ensure design feasibility</li>
+                    <li>Implemented design changes based on testing feedback and competition requirements</li>
                 </ul>
 
                 <h3>⚙️ Mechanical Systems Integration</h3>

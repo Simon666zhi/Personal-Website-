@@ -891,6 +891,15 @@
 
         @media (max-width: 768px) {
 
+            .personal-signature {
+                display: block;
+                max-width: 150px;
+                margin-top: 1rem;
+                margin-left: auto !important;
+                margin-right: auto !important;  /* ← Center it on mobile */
+                filter: invert(1) brightness(1.2);
+                opacity: 0.9;
+            }
             .skills-grid {
                 grid-template-columns: 1fr !important;
                 gap: 1.5rem;
@@ -4164,9 +4173,11 @@
 
             /* Navigation - Responsive with Dropdown */
             nav {
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 1rem 2rem;
+                background: linear-gradient(180deg, 
+                    rgba(10, 14, 35, 0.98) 0%,
+                    rgba(15, 20, 45, 0.95) 100%) !important;  /* ← Same as desktop */
+                backdrop-filter: blur(15px);
+                padding: 0.5rem 2rem;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
                 position: sticky;
                 top: 0;
@@ -4180,10 +4191,367 @@
                 max-width: 100%;
             }
 
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
+            .nav-brand {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #667eea;
+            }
+
+            .scroll-rocket {
+                display: none !important;
+            }
+            
+            .rocket-progress {
+                display: none !important;
+            }
+            
+            .landing-rocket {
+                display: none !important;
+            }
+            
+            .rocket-stars {
+                display: none !important;
+            }
+            
+            .meteor-shower-left {
+                display: none !important;
+            }
+            
+            .meteor-shower-right {
+                display: none !important;
+            }
+
+            .parallax-journey {
+                min-height: 2200px !important;  /* ← TALLER (was 1600px) */
+                padding: 0 0.5rem;
+                max-width: 100%;
+            }
+            
+            /* Adjust planet positions to spread them out more */
+            .milestone-planet {
+                width: 140px !important;
+                height: 140px !important;
+            }
+            
+            .milestone-planet.left {
+                margin-left: -150px !important;
+            }
+            
+            .milestone-planet.right {
+                margin-left: 150px !important;
+            }
+            
+            .milestone-planet[data-scroll="200"] {
+                top: 300px !important;  /* ← MOVED DOWN (was 300px) */
+            }
+            
+            .milestone-planet[data-scroll="500"] {
+                top: 650px !important;  /* ← Adjusted spacing */
+            }
+            
+            .milestone-planet[data-scroll="850"] {
+                top: 1100px !important; /* ← Adjusted spacing */
+            }
+            
+            .milestone-planet[data-scroll="1200"] {
+                top: 1450px !important; /* ← Adjusted spacing */
+            }
+            
+            .milestone-planet[data-scroll="1550"] {
+                top: 1800px !important; /* ← Adjusted spacing */
+            }
+
+            /* Planet 1 - The Beginning */
+            .milestone-planet[data-milestone="1"] .planet-info {
+                bottom: -130px;  /* ← Adjust this value */
+            }
+            
+            /* Planet 2 - Education Foundation */
+            .milestone-planet[data-milestone="2"] .planet-info {
+                bottom: -160px;  /* ← Lower because planet is near top */
+            }
+            
+            /* Planet 3 - University of Waterloo */
+            .milestone-planet[data-milestone="3"] .planet-info {
+                bottom: -180px;  /* ← Adjust as needed */
+            }
+            
+            /* Planet 4 - Professional Experience */
+            .milestone-planet[data-milestone="4"] .planet-info {
+                bottom: -160px;  /* ← Adjust as needed */
+            }
+            
+            /* Planet 5 - The Future */
+            .milestone-planet[data-milestone="5"] .planet-info {
+                bottom: -150px;  /* ← Adjust as needed */
+            }
+            
+            /* Adjust star positions to match */
+            .achievement-star[data-scroll="250"] {
+                top: 250px !important;  /* ← Between planet 1 & 2 */
+                left: calc(50% - 100px) !important;  /* ← Move to right side */
+            }
+            
+            .achievement-star[data-scroll="550"] {
+                top: 600px !important;
+                left: calc(50% + 50px) !important;  /* ← Left side */
+            }
+            
+            .achievement-star[data-scroll="900"] {
+                top: 1050px !important;
+                left: calc(50% - 100px) !important;  /* ← Right side */
+            }
+            
+            .achievement-star[data-scroll="1250"] {
+                top: 1400px !important;
+                left: calc(50% + 50px) !important;  /* ← Left side */
+            }
+            
+            .achievement-star[data-scroll="1600"] {
+                top: 1750px !important;
+                left: calc(50% - 100px) !important;  /* ← Right side */
+            }
+
+                /* Hide orbital decorations on mobile */
+            .orbit-center {
+                display: none;
+            }
+            
+            .orbit-ring {
+                display: none;
+            }
+            
+            .orbit-connection {
+                display: none;
+            }
+
+            /* Projects Section - Mobile Layout */
+            #projects {
+                padding: 3rem 1rem;
+            }
+            
+            #projects h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .project-card {
+                height: 400px;  /* ← Slightly shorter */
+                width: 100%;
+            }
+
+            .project-card:nth-child(1) .project-title-overlay {
+                padding-top: 3.5rem;  
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start; 
+                height: 180px;  
+                align-items: center; 
+            }
+            
+            /* Move title UP for Card 4 (Circadian Rhythm Device) */
+            .project-card:nth-child(4) .project-title-overlay {
+                padding-top: 3.5rem;  
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;  
+                height: 180px;  
+                align-items: center;
+            }
+
+            /* Reset Card 3 to match other cards */
+            .project-card:nth-child(3) .project-back-content h3 {
+                font-size: 1.3rem;  
+            }
+            
+            .project-card:nth-child(3) .project-back-content p {
+                font-size: 0.85rem;  
+                line-height: 1.5;
+            }
+            
+            .project-card:nth-child(3) .view-more-btn {
+                padding: 0.7rem 1.8rem;  
+                font-size: 0.85rem;      
+            }
+            
+            /* Make project images fit better */
+            .project-img {
+                height: 220px; 
+            }
+            
+            .project-card-front::after {
+                height: 220px; 
+            }
+
+            .project-card:nth-child(3) .project-img {
+                object-position: center 20%;  
+                transform: scale(1.1);        
+            }
+            
+            /* Shift image UP for Card 4 (Circadian Rhythm Device) */
+            .project-card:nth-child(4) .project-img {
+                object-position: center 20%;  
+                transform: scale(1.1);        
+            }
+            
+            /* Adjust title overlay */
+            .project-title-overlay {
+                padding: 1.5rem 1rem;
+            }
+            
+            .project-title-overlay h3 {
+                font-size: 1.3rem;
+            }
+            
+            .project-status {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.6rem;
+            }
+            
+            /* Back side adjustments */
+            .project-back-content {
+                padding: 1.5rem;
+            }
+            
+            .project-back-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+                font-size: 2rem;
+            }
+            
+            .project-back-content h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .project-back-content p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+            
+            .view-more-btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.85rem;
+            }
+
+            .project-card:nth-child(3) .view-more-btn {
+                padding: 0.9rem 2.2rem;  
+                font-size: 0.85rem;      
+            }
+
+            
+            /* Make corner brackets smaller on mobile */
+            .project-card::before,
+            .project-card::after {
+                width: 20px;
+                height: 20px;
+            }
+
+            .moon-landing-footer {
+                min-height: 500px;  /* ← Shorter (was 600px) */
+                padding-bottom: 1.5rem;
+            }
+
+            /* Make Earth smaller and repositioned */
+            .earth-background {
+                width: 80px;
+                height: 80px;
+                right: 15px;
+                top: 20px;
+            }
+
+            /* Make moon surface more visible */
+            .moon-surface {
+                height: 150px;  /* ← Shorter */
+            }
+
+            /* Make craters smaller */
+            .crater-1, .crater-2, .crater-3, .crater-4 {
+                transform: scale(0.7);  /* ← 70% size */
+            }
+
+            /* Center and resize the landed rocket */
+            .landed-rocket {
+                width: 70px;
+                height: 140px;
+                margin: 0 auto;
+            }
+
+            /* Make mission flag smaller */
+            .mission-flag {
+                transform: scale(0.8);  /* ← 80% size */
+                right: 8px;
+                bottom: 35px;
+            }
+
+            /* Mission Control Panel - more compact */
+            .mission-control-panel {
+                max-width: 100%;
+                padding: 1.2rem;
+                margin: 0 1rem;
+            }
+
+            .panel-header {
+                flex-direction: row;  /* ← Keep horizontal on mobile */
+                justify-content: space-between;
+                gap: 0.5rem;
+            }
+
+            .mission-status {
+                font-size: 0.75rem;
+            }
+
+            .mission-year {
+                font-size: 0.75rem;
+            }
+
+            /* Contact grid - keep 2 columns but smaller */
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .contact-panel {
+                padding: 0.8rem;
+            }
+
+            .panel-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
+            }
+
+            .contact-panel span {
+                font-size: 0.85rem;
+            }
+
+            /* Copyright section - smaller text */
+            .copyright-section p {
+                font-size: 0.8rem;
+            }
+
+            .tagline {
+                font-size: 0.75rem !important;
+            }
+
+            /* Hide footprints on mobile (already there, keep it) */
+            .footprints {
+                display: none;
+            }
+
+            /* Make stars twinkle slower on mobile */
+            .stars-background {
+                animation-duration: 10s;
+            }
         }
 
        /* Hamburger Menu */
@@ -4196,110 +4564,153 @@
             z-index: 101;
         }
 
-        .hamburger span {
-            width: 28px;
-            height: 3px;
-            background: #667eea;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
         /* Responsive Navigation - Dropdown on Small Screens */
         @media (max-width: 968px) {
-        nav ul {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 65%;
-            max-width: 250px;
-            height: 100vh;
-            flex-direction: column;
-            background: linear-gradient(180deg, 
-                rgba(10, 14, 35, 0.98) 0%,
-                rgba(15, 20, 45, 0.98) 100%);
-            backdrop-filter: blur(20px);
-            padding: 80px 0 20px 0;
-            transition: right 0.4s ease;
-            list-style: none;
-            overflow-y: auto;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-        }
 
-        nav ul.active {
-            right: 0;
-        }
+            .hamburger {
+                display: flex;  /* ← Shows on mobile screens */
+                position: relative;
+                top: -5px;
+            }
 
-        nav ul li {
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
+            .hamburger span {
+                width: 28px;
+                height: 3px;
+                background: #667eea;
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
 
-        nav a {
-            display: block;
-            padding: 1rem 2rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
-        }
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
 
-        nav a:hover {
-            background: rgba(102, 126, 234, 0.2);
-            color: white;
-            padding-left: 2.5rem;
-        }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
 
-        .resume-li {
-            margin: 1rem;
-        }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
 
-        .resume-btn {
-            display: block;
-            padding: 0.8rem 1.5rem !important;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white !important;
-            border-radius: 25px;
-            text-align: center;
-            border: 2px solid rgba(102, 126, 234, 0.5);
-        }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 60%;
+                max-width: 210px;
+                height: 100vh;
+                flex-direction: column;
+                background: linear-gradient(180deg, 
+                    rgba(10, 14, 35, 0.98) 0%,
+                    rgba(15, 20, 45, 0.98) 100%);
+                backdrop-filter: blur(20px);
+                padding: 85px 0 15px 0;
+                transition: right 0.4s ease;
+                list-style: none;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
+            nav ul.active {
+                right: 0;
+            }
 
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-            color: white;
-            text-decoration: none;
-            border: 2px solid rgba(102, 126, 234, 0.4);
+            nav ul li {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            nav a {
+                display: block;
+                padding: 0.65rem 1.2rem;
+                color: rgba(255, 255, 255, 0.9);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+                transition: all 0.3s ease;
+            }
+
+            nav a:hover {
+                background: rgba(102, 126, 234, 0.2);
+                color: white;
+                padding-left: 2.5rem;
+            }
+
+            .resume-btn {
+                display: inline-block;
+                padding: 0.55rem 1rem !important;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white !important;
+                border-radius: 25px;
+                text-align: center;
+                border: 2px solid rgba(102, 126, 234, 0.5);
+            }
+
+            .resume-li {
+                margin: 0.6rem 0.8rem;
+                text-align: center; 
+            }
+
+            .resume-li::before,
+            .resume-li::after {
+                content: '';
+                position: absolute;
+                width: 8px;                    /* ← SMALLER (was 10px on desktop) */
+                height: 8px;                   /* ← SMALLER (was 10px on desktop) */
+                border: 2px solid #667eea;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 5;
+            }
+
+            .resume-li::before {
+                top: -2px;
+                left: 30px;
+                border-right: none;
+                border-bottom: none;
+            }
+
+            .resume-li::after {
+                bottom: 10px;
+                right: 30px;
+                border-left: none;
+                border-top: none;
+            }
+
+            .resume-li:hover::before,
+            .resume-li:hover::after {
+                opacity: 1;
+                animation: cornerPulse 1s ease-in-out infinite;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 0.5rem;                           /* ← Smaller gap */
+                justify-content: flex-start;
+                padding: 0.5rem 0.6rem; /* ← Tighter padding */
+                margin: -0.5rem 0rem 0.4rem -13.8rem;
+                background: rgba(102, 126, 234, 0.05);
+                border-radius: 12px;                   /* ← Smaller radius */
+                border: 1px solid rgba(102, 126, 234, 0.2);
+                width: fit-content; 
+            }
+
+            .social-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+                color: white;
+                text-decoration: none;
+                border: 2px solid rgba(102, 126, 234, 0.4);
+            }
+
         }
-    }
-}
 </style>
 </head>
 <body>
