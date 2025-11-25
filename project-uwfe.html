@@ -47,6 +47,139 @@
             100% { background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%; }
         }
 
+        /* Progress Bar - F1 Racing Car */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(118, 75, 162, 0.3) 50%,
+                rgba(240, 147, 251, 0.3) 100%);
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%,
+                #00f2fe 100%);
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(118, 75, 162, 0.6);
+            animation: progressGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .progress-car {
+            position: absolute;
+            bottom: -15px;
+            right: -20px;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9))
+                    drop-shadow(0 0 25px rgba(240, 147, 251, 0.7));
+            animation: carBounceProgress 0.5s ease-in-out infinite;
+            transform: scaleX(-1);
+            transform-origin: center;
+        }
+
+        @keyframes carBounceProgress {
+            0%, 100% {
+                transform: scaleX(-1) translateY(0) rotate(5deg);
+            }
+            50% {
+                transform: scaleX(-1) translateY(-3px) rotate(3deg);
+            }
+        }
+
+        @keyframes progressGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 20px rgba(102, 126, 234, 0.8),
+                    0 0 40px rgba(118, 75, 162, 0.6);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(102, 126, 234, 1),
+                    0 0 60px rgba(118, 75, 162, 0.8);
+            }
+        }
+
+        /* F1-STYLE MOTION BLUR TRAIL */
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(to left,
+                rgba(102, 126, 234, 0) 0%,
+                rgba(102, 126, 234, 0.3) 20%,
+                rgba(118, 75, 162, 0.4) 40%,
+                rgba(240, 147, 251, 0.3) 60%,
+                rgba(79, 172, 254, 0.2) 80%,
+                rgba(0, 242, 254, 0.1) 100%
+            );
+            filter: blur(8px);
+            opacity: 0.8;
+            animation: trailPulse 1s ease-in-out infinite;
+        }
+
+        /* SPEED LINES EFFECT */
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            width: 200px;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                rgba(255, 255, 255, 0.6) 5px,
+                rgba(255, 255, 255, 0.4) 10px,
+                transparent 15px,
+                transparent 25px
+            );
+            transform: translateY(-50%);
+            opacity: 0.7;
+            animation: speedLines 0.3s linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes trailPulse {
+            0%, 100% {
+                opacity: 0.8;
+                filter: blur(8px);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(6px);
+            }
+        }
+
+        @keyframes speedLines {
+            0% {
+                transform: translateY(-50%) translateX(0);
+            }
+            100% {
+                transform: translateY(-50%) translateX(-25px);
+            }
+        }
+
         /* Navigation - Matching Main Portfolio */
         nav {
             background: linear-gradient(180deg, 
@@ -364,6 +497,7 @@
         /* Make award card taller to show full vertical poster */
         .gallery-item.award-card {
             height: 600px;
+            background: transparent;
         }
 
         .gallery-item:hover {
@@ -406,9 +540,9 @@
 
         /* Zoom out competition award image to show full vertical picture */
         .gallery-item img[src*="Award"] {
-            object-fit: contain;
-            padding: 10px;
-            background: rgba(10, 14, 35, 0.8);
+            object-fit: cover;
+            padding: 0;
+            background: transparent;
         }
 
         .gallery-item:hover img {
@@ -622,203 +756,381 @@
             font-size: 1.2rem;
         }
 
-        /* Section Transition Header */
-        .section-transition {
-            text-align: center;
-            margin: 3rem 0 2rem 0;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .transition-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: iconPulse 2s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.8));
-        }
-
-        @keyframes iconPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.15);
-            }
-        }
-
-        .transition-title {
-            font-size: 2.5rem;
-            color: #667eea;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .transition-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin: 0;
-            font-style: italic;
-        }
-
-        /* Large Racing Divider - Fills Empty Space */
-        .racing-divider-large {
-            position: relative;
-            width: 100%;
-            min-height: 250px;
-            margin: 3rem 0;
-            background: linear-gradient(135deg, 
-                rgba(102, 126, 234, 0.1) 0%, 
-                rgba(118, 75, 162, 0.15) 50%,
-                rgba(102, 126, 234, 0.1) 100%);
-            border-radius: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
-        }
-
-        .racing-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        .racing-car-large {
-            font-size: 10rem;
-            animation: carBounce 2s ease-in-out infinite;
-            filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.8));
-        }
-
-        @keyframes carBounce {
-            0%, 100% {
-                transform: translateY(0) rotate(-2deg);
-            }
-            50% {
-                transform: translateY(-15px) rotate(2deg);
-            }
-        }
-
-        .racing-stats {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: rgba(10, 14, 35, 0.6);
-            border-radius: 15px;
-            border: 2px solid rgba(102, 126, 234, 0.4);
-            backdrop-filter: blur(10px);
-            animation: statPulse 3s ease-in-out infinite;
-            min-width: 120px;
-        }
-
-        .stat-item:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .stat-item:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        @keyframes statPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-            }
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #667eea;
-            text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .racing-track-full {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(102, 126, 234, 0.4) 10%,
-                rgba(102, 126, 234, 0.8) 50%,
-                rgba(102, 126, 234, 0.4) 90%,
-                transparent 100%);
-            animation: trackFlow 3s linear infinite;
-        }
-
-        @keyframes trackFlow {
-            0% {
-                box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 25px rgba(102, 126, 234, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .racing-divider-large {
-                min-height: 300px;
-            }
-            
-            .racing-content {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .racing-car-large {
-                font-size: 8rem;
-            }
-
-            .racing-stats {
-                gap: 1rem;
-            }
-        }
-
-        /* Footer */
+        /* ========================================
+           F1 RACING ROAD GUIDE FOOTER
+           ======================================== */
         footer {
             background: rgba(10, 14, 35, 0.95);
             backdrop-filter: blur(15px);
-            border-top: 2px solid rgba(102, 126, 234, 0.4);
+            border-top: 3px solid rgba(102, 126, 234, 0.4);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem 2rem;
             margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Racing Background */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(102, 126, 234, 0.1) 50px,
+                    transparent 100px
+                );
+            animation: roadScroll 20s linear infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes roadScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        /* Racing Track Navigation Container */
+        .racing-track-nav {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Racing Track Line (Road) */
+        .track-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%
+            );
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        /* Track Line Dashes (Road Markings) */
+        .track-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                white 10px,
+                white 30px,
+                transparent 30px,
+                transparent 60px
+            );
+            transform: translateY(-50%);
+            animation: dashMove 2s linear infinite;
+        }
+
+        @keyframes dashMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 0; }
+        }
+
+        /* Checkpoint Boxes (Project Navigation) */
+        .track-checkpoint {
+            background: linear-gradient(135deg,
+                rgba(10, 14, 35, 0.95) 0%,
+                rgba(20, 25, 50, 0.95) 100%
+            );
+            border: 3px solid rgba(102, 126, 234, 0.4);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
+        }
+
+        /* Racing Stripes Effect */
+        .track-checkpoint::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(102, 126, 234, 0.1) 10px,
+                rgba(102, 126, 234, 0.1) 20px
+            );
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .track-checkpoint:hover::before {
+            opacity: 1;
+        }
+
+        .track-checkpoint:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.9);
+            box-shadow: 
+                0 15px 45px rgba(102, 126, 234, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.4);
+        }
+
+        .checkpoint-left {
+            justify-content: flex-start;
+        }
+
+        .checkpoint-right {
+            justify-content: flex-end;
+        }
+
+        /* Checkpoint Flags */
+        .checkpoint-flag {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            animation: flagWave 2s ease-in-out infinite;
+        }
+
+        @keyframes flagWave {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Speed Arrows */
+        .speed-arrow {
+            font-size: 2.5rem;
+            color: #667eea;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .track-checkpoint:hover .speed-arrow {
+            color: #f093fb;
+            text-shadow: 0 0 30px rgba(240, 147, 251, 0.9);
+        }
+
+        .checkpoint-left:hover .speed-arrow {
+            transform: translateX(-10px);
+        }
+
+        .checkpoint-right:hover .speed-arrow {
+            transform: translateX(10px);
+        }
+
+        /* Checkpoint Content */
+        .checkpoint-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            text-align: left;
+        }
+
+        .checkpoint-right .checkpoint-content {
+            text-align: right;
+        }
+
+        .checkpoint-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .checkpoint-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Pit Stop (All Projects Button) */
+        .pit-stop {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 60px;
+            padding: 1.5rem 3rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 40px rgba(102, 126, 234, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        .pit-stop::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%,
+                #667eea 100%);
+            background-size: 300% 300%;
+            border-radius: 60px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            filter: blur(8px);
+        }
+
+        .pit-stop:hover {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 
+                0 20px 60px rgba(102, 126, 234, 0.8),
+                0 0 80px rgba(240, 147, 251, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .pit-stop-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .pit-stop-text {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Pit Stop Lights (F1 Start Lights) */
+        .pit-stop-lights {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+        }
+
+        .light {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: lightBlink 1.5s ease-in-out infinite;
+        }
+
+        .light:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .light:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .light:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes lightBlink {
+            0%, 100% {
+                background: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                background: rgba(0, 255, 0, 0.9);
+                box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            }
+        }
+
+        /* Racing Divider */
+        .racing-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto 2rem;
+            max-width: 600px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.6) 50%,
+                transparent 100%
+            );
+            position: relative;
+        }
+
+        .divider-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                white 5px,
+                white 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: translateY(-50%);
+        }
+
+        .race-finish {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            animation: trophyGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes trophyGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1));
+            }
         }
 
         footer p {
             color: rgba(255, 255, 255, 0.8);
             margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
         }
 
         footer a {
@@ -876,10 +1188,80 @@
             .specs-table td {
                 padding: 0.8rem;
             }
+
+            /* Mobile F1 Racing Navigation */
+            .racing-track-nav {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .track-line {
+                display: none;
+            }
+
+            .track-checkpoint {
+                padding: 1.2rem 1.5rem;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .checkpoint-left,
+            .checkpoint-right {
+                justify-content: center;
+            }
+
+            .checkpoint-content {
+                text-align: center !important;
+            }
+
+            .checkpoint-flag {
+                font-size: 2rem;
+            }
+
+            .speed-arrow {
+                font-size: 2rem;
+            }
+
+            .checkpoint-title {
+                font-size: 1rem;
+            }
+
+            .checkpoint-label {
+                font-size: 0.7rem;
+            }
+
+            .pit-stop {
+                order: -1;
+                padding: 1.2rem 2rem;
+            }
+
+            .pit-stop-icon {
+                font-size: 1.5rem;
+            }
+
+            .pit-stop-text {
+                font-size: 0.95rem;
+            }
+
+            .racing-divider {
+                gap: 1rem;
+            }
+
+            .race-finish {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-car">🏎️</div>
+        </div>
+    </div>
 
     <!-- Galaxy Background -->
     <div class="animated-bg"></div>
@@ -887,7 +1269,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div onclick="window.location.href='Home_Darker.html'" style="cursor: pointer;">
+            <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">
                 <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
             </div>
             <a href="Home_Darker.html#projects" class="back-btn">
@@ -921,8 +1303,8 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>As a member of the Waterloo Formula Electric team, I contributed to the design and development of high-performance electric race cars. My role focused on CAD modeling, enclosure system design, mechanical optimization, and chassis development for competition vehicles.</p>
-                <p>I designed two critical enclosure systems for the team: the driver dashboard enclosure and the electrical board enclosure. Both projects required careful consideration of environmental protection, structural integrity, and integration with vehicle systems.</p>
+                <p>As a member of the Waterloo Formula Electric team, I contributed to chassis design and structural development for the race car. My role focused on inserts machining, CAD modeling, and mechanical optimization.</p>
+                <p>I designed two key enclosure systems for the team: the driver dashboard enclosure and the electrical board enclosure, each designed with a focus on environmental protection, structure integrity, and system integration.</p>
                 <p>The team competes in Formula SAE Electric competitions, where we design, build, and race electric vehicles against universities from around the world. This experience provided hands-on engineering practice in a fast-paced, collaborative environment.</p>
             </div>
         </div>
@@ -957,7 +1339,7 @@
                     <img src="Images/Original_Part.png" alt="Original Dashboard Design">
                     <div class="gallery-caption">
                         <h4>Original Dashboard Configuration</h4>
-                        <p>Initial dashboard panel showing button layout and emergency stop mechanism. This design served as the baseline for optimization improvements.</p>
+                        <p>Initial dashboard panel showing button layout and emergency stop mechanism served as the baseline for optimization. However, the original design posed a saftety issue where during an emergency exit, the driver could strike their knee on the side buttons while jumping out of the car.</p>
                     </div>
                 </div>
 
@@ -974,10 +1356,10 @@
                 <!-- 3D Printed Dashboard Enclosure -->
                 <div class="gallery-item">
                     <span class="gallery-badge">🖨️ 3D Printed</span>
-                    <img src="Images/Enclosure3.jpg" alt="3D Printed Dashboard Enclosure">
+                    <img src="Images/Enclosure_3DPrinted.jpg" alt="3D Printed Dashboard Enclosure">
                     <div class="gallery-caption">
                         <h4>3D Printed Dashboard Enclosure</h4>
-                        <p>Final 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing through the yellow mounting bracket.</p>
+                        <p>Final PETG 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing.</p>
                     </div>
                 </div>
 
@@ -997,43 +1379,14 @@
                     <img src="Images/Award.jpeg" alt="Formula SAE Competition Results">
                     <div class="gallery-caption">
                         <h4>Formula Hybrid Electric Competition Results</h4>
-                        <p>Team UWFE achieved outstanding results including P1 in Autocross Acceleration, P1 in Design, and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
+                        <p>Team UWFE achieved outstanding results including finished 35/44 laps of endurance, P1 in Autocross and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Section Transition Header -->
-            <div class="section-transition">
-                <div class="transition-icon">⚡</div>
-                <h2 class="transition-title">From Dashboard to Electrical</h2>
-                <p class="transition-subtitle">Expanding expertise across multiple subsystems</p>
-            </div>
-
-            <!-- Racing Divider with Large Visual -->
-            <div class="racing-divider-large">
-                <div class="racing-content">
-                    <div class="racing-car-large">🏎️</div>
-                    <div class="racing-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">74</span>
-                            <span class="stat-label">km/h</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">P1</span>
-                            <span class="stat-label">Design</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">2+</span>
-                            <span class="stat-label">Enclosures</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="racing-track-full"></div>
-            </div>
-
-            <div class="section-content" style="margin-top: 3rem;">
+            <div class="section-content">
                 <h3>⚡ Electrical Board Enclosure System</h3>
-                <p>Custom protective enclosure designed for the electrical board assembly, ensuring component safety and optimal thermal management.</p>
+                <p>Custom protective enclosure designed for the electrical board assembly, ensuring component safety and preventing damage from drops or impact.</p>
             </div>
 
             <div class="image-gallery">
@@ -1043,7 +1396,7 @@
                     <img src="Images/Electrical_Enclosure.png" alt="Electrical Board Enclosure CAD Design">
                     <div class="gallery-caption">
                         <h4>Electrical Board Enclosure - SolidWorks CAD</h4>
-                        <p>Custom-designed protective enclosure for electrical board assembly. Features integrated mounting points, cable management channels, and optimized geometry for component protection and thermal dissipation during racing conditions.</p>
+                        <p>Custom-designed protective enclosure for electrical board assembly. Features integrated mounting points, cable management channels, and optimized geometry for component protection.</p>
                     </div>
                 </div>
 
@@ -1068,13 +1421,12 @@
             <div class="section-content">
                 
                 <h3>🖥️ Dashboard Enclosure Design & Development</h3>
-                <p>Led the complete redesign and fabrication of the driver dashboard enclosure system.</p>
+                <p>Worked on complete redesign and fabrication of the driver dashboard enclosure system.</p>
                 <ul>
                     <li>Redesigned original dashboard enclosure in SolidWorks with improved button positioning and structural geometry</li>
-                    <li>Implemented 3D printing with integrated brass inserts for secure mounting and durability</li>
-                    <li>Conducted comprehensive waterproofing tests to validate IP rating for wet racing conditions</li>
-                    <li>Performed mechanical stress testing including load, vibration, and impact resistance validation</li>
-                    <li>Optimized cable routing and ergonomic button placement for driver accessibility</li>
+                    <li>Implemented PETG 3D printing with integrated brass inserts for secure mounting and durability</li>
+                    <li>Conducted waterproofing tests to validate IP rating for wet racing conditions</li>
+                    <li>Performed mechanical stress testing including load validation</li>
                     <li>Successfully deployed in competitive racing environment at speeds up to 74 km/h</li>
                 </ul>
 
@@ -1082,87 +1434,20 @@
                 <p>Designed protective enclosure system for critical electrical components.</p>
                 <ul>
                     <li>Created custom CAD model in SolidWorks for electrical board protection</li>
-                    <li>Integrated mounting points and cable management channels for clean wiring</li>
-                    <li>Optimized geometry for component accessibility and thermal management</li>
-                    <li>Ensured environmental protection while maintaining serviceability</li>
+                    <li>Integrated LEGO-style mounting points and cable management channels for clean wiring</li>
+                    <li>Optimized geometry for component accessibility and prevented from damages</li>
                     <li>Collaborated with electrical team to meet all technical requirements</li>
                 </ul>
 
-                <h3>🏎️ Chassis Design & Optimization</h3>
-                <p>Led CAD modeling efforts for the chassis subsystem, focusing on weight reduction while maintaining structural integrity and safety standards.</p>
+                <h3>🔩 Machining & Manufacturing</h3>
+                <p>Performed precision machining operations for vehicle components and mounting systems.</p>
                 <ul>
-                    <li>Created detailed 3D models using SolidWorks for chassis components</li>
-                    <li>Conducted FEA analysis to optimize material usage and reduce weight by 15%</li>
-                    <li>Collaborated with manufacturing team to ensure design feasibility</li>
-                    <li>Implemented design changes based on testing feedback and competition requirements</li>
-                </ul>
-
-                <h3>⚙️ Mechanical Systems Integration</h3>
-                <p>Worked on integrating various mechanical systems within the vehicle architecture.</p>
-                <ul>
-                    <li>Designed mounting solutions for battery packs and electrical components</li>
-                    <li>Created suspension mounting points with adjustable geometry</li>
-                    <li>Developed cooling system routing for optimal thermal management</li>
-                    <li>Ensured compliance with Formula SAE competition rules and regulations</li>
-                </ul>
-
-                <h3>📐 Documentation & Technical Drawings</h3>
-                <ul>
-                    <li>Produced comprehensive technical drawings with GD&T specifications</li>
-                    <li>Created assembly instructions for manufacturing team</li>
-                    <li>Maintained design documentation and version control</li>
-                    <li>Contributed to competition design reports and presentations</li>
+                    <li>Operated mill, lathe, and waterjet cutter to fabricate mounting brackets, spacers, and chassis components</li>
+                    <li>Machined aluminum and steel components with tight tolerances (±0.1mm) for proper fitment</li>
+                    <li>Created threaded holes and mounting interfaces for enclosure and chassis assembly</li>
+                    <li>Performed quality control measurements using calipers and micrometers to verify specifications</li>
                 </ul>
             </div>
-        </div>
-
-        <!-- Technical Specifications -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <span>📊</span>
-                Technical Specifications
-            </h2>
-            <table class="specs-table">
-                <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Specification</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Chassis Material</strong></td>
-                        <td>4130 Chromoly Steel</td>
-                        <td>TIG welded tubular space frame</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Weight</strong></td>
-                        <td>~230 kg</td>
-                        <td>Including driver, optimized for performance</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Wheelbase</strong></td>
-                        <td>1600 mm</td>
-                        <td>Optimized for agility and stability</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Motor Power</strong></td>
-                        <td>80 kW peak</td>
-                        <td>Electric powertrain</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Battery Capacity</strong></td>
-                        <td>7.2 kWh</td>
-                        <td>Custom battery pack design</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Enclosure Materials</strong></td>
-                        <td>ABS, Aluminum Alloy</td>
-                        <td>Weather-resistant and lightweight</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
 
         <!-- Skills Developed -->
@@ -1174,23 +1459,20 @@
             <div class="skills-showcase">
                 <div class="skill-showcase-card">
                     <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
-                    <h3>CAD Modeling</h3>
-                    <p>Advanced SolidWorks proficiency for complex assemblies and parametric design</p>
+                    <h3>CAD Design & Engineering</h3>
+                    <p>Advanced SolidWorks proficiency for parametric design, complex assemblies, design optimization, and design-for-manufacturing principles</p>
                 </div>
+                
                 <div class="skill-showcase-card">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
-                    <h3>Enclosure Design</h3>
-                    <p>Custom protective enclosures with thermal management and ergonomic considerations</p>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🏭</div>
+                    <h3>Manufacturing & Fabrication</h3>
+                    <p>3D printing with PETG and brass inserts, manual machining (mill, lathe, waterjet), precision measurement, and assembly with ±0.1mm tolerances</p>
                 </div>
+                
                 <div class="skill-showcase-card">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
-                    <h3>Team Collaboration</h3>
-                    <p>Cross-functional teamwork with electrical, software, and manufacturing teams</p>
-                </div>
-                <div class="skill-showcase-card">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔬</div>
-                    <h3>Engineering Analysis</h3>
-                    <p>FEA simulation and structural optimization techniques</p>
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🧪</div>
+                    <h3>Testing & Validation</h3>
+                    <p>Waterproofing tests, mechanical stress analysis, iterative design improvements, quality control, and real-world racing validation at 74 km/h</p>
                 </div>
             </div>
         </div>
@@ -1229,15 +1511,65 @@
         <img src="" alt="Full size image" id="lightbox-img">
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with F1 Racing Road Guide Navigation -->
     <footer>
-        <p>Copyright © 2025 Yiqing Zhi</p>
-        <p style="margin-top: 0.5rem;">
-            <a href="Home_Darker.html#projects">← Back to Portfolio</a>
-        </p>
+        <!-- F1 Racing Track Navigation -->
+        <div class="racing-track-nav">
+            <!-- Racing Track Line -->
+            <div class="track-line"></div>
+            
+            <!-- Previous Project Checkpoint -->
+            <a href="previous-project.html" class="track-checkpoint checkpoint-left">
+                <div class="checkpoint-flag">🏁</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">PREVIOUS PROJECT</span>
+                    <span class="checkpoint-title">Previous Project Title</span>
+                </div>
+                <div class="speed-arrow">←</div>
+            </a>
+            
+            <!-- Pit Stop (All Projects) -->
+            <a href="Home_Darker.html#projects" class="pit-stop">
+                <div class="pit-stop-icon">🏠</div>
+                <span class="pit-stop-text">ALL PROJECTS</span>
+                <div class="pit-stop-lights">
+                    <span class="light"></span>
+                    <span class="light"></span>
+                    <span class="light"></span>
+                </div>
+            </a>
+            
+            <!-- Next Project Checkpoint -->
+            <a href="next-project.html" class="track-checkpoint checkpoint-right">
+                <div class="speed-arrow">→</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">NEXT PROJECT</span>
+                    <span class="checkpoint-title">Next Project Title</span>
+                </div>
+                <div class="checkpoint-flag">🏁</div>
+            </a>
+        </div>
+
+        <!-- Racing Divider -->
+        <div class="racing-divider">
+            <div class="divider-line"></div>
+            <span class="race-finish">🏆</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Copyright Info -->
+        <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
     </footer>
 
     <script>
+        // Progress Bar Update on Scroll
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
