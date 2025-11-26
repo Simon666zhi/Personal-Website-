@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waterloo Formula Electric - Yiqing Zhi</title>
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+    <!-- Three.js 3D Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000000;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced Galaxy Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 15% 25%, rgba(75, 0, 130, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(138, 43, 226, 0.4) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 30%, rgba(72, 61, 139, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, #000000 0%, #0d0221 30%, #1a0b3d 60%, #2d1b69 100%);
+            animation: galaxyRotate 60s linear infinite;
+        }
+
+        @keyframes galaxyRotate {
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%, 70% 30%, 0% 0%; }
+            100% { background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%; }
+        }
+
+        /* Progress Bar - F1 Racing Car */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(118, 75, 162, 0.3) 50%,
+                rgba(240, 147, 251, 0.3) 100%);
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%,
+                #00f2fe 100%);
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(118, 75, 162, 0.6);
+            animation: progressGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .progress-car {
+            position: absolute;
+            bottom: -15px;
+            right: -20px;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9))
+                    drop-shadow(0 0 25px rgba(240, 147, 251, 0.7));
+            animation: carBounceProgress 0.5s ease-in-out infinite;
+            transform: scaleX(-1);
+            transform-origin: center;
+        }
+
+        @keyframes carBounceProgress {
+            0%, 100% {
+                transform: scaleX(-1) translateY(0) rotate(5deg);
+            }
+            50% {
+                transform: scaleX(-1) translateY(-3px) rotate(3deg);
+            }
+        }
+
+        @keyframes progressGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 20px rgba(102, 126, 234, 0.8),
+                    0 0 40px rgba(118, 75, 162, 0.6);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(102, 126, 234, 1),
+                    0 0 60px rgba(118, 75, 162, 0.8);
+            }
+        }
+
+        /* F1-STYLE MOTION BLUR TRAIL */
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(to left,
+                rgba(102, 126, 234, 0) 0%,
+                rgba(102, 126, 234, 0.3) 20%,
+                rgba(118, 75, 162, 0.4) 40%,
+                rgba(240, 147, 251, 0.3) 60%,
+                rgba(79, 172, 254, 0.2) 80%,
+                rgba(0, 242, 254, 0.1) 100%
+            );
+            filter: blur(8px);
+            opacity: 0.8;
+            animation: trailPulse 1s ease-in-out infinite;
+        }
+
+        /* SPEED LINES EFFECT */
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            width: 200px;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                rgba(255, 255, 255, 0.6) 5px,
+                rgba(255, 255, 255, 0.4) 10px,
+                transparent 15px,
+                transparent 25px
+            );
+            transform: translateY(-50%);
+            opacity: 0.7;
+            animation: speedLines 0.3s linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes trailPulse {
+            0%, 100% {
+                opacity: 0.8;
+                filter: blur(8px);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(6px);
+            }
+        }
+
+        @keyframes speedLines {
+            0% {
+                transform: translateY(-50%) translateX(0);
+            }
+            100% {
+                transform: translateY(-50%) translateX(-25px);
+            }
+        }
+
+        /* Navigation - Matching Main Portfolio */
+        nav {
+            background: linear-gradient(180deg, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(15, 20, 45, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            box-shadow: 
+                0 4px 30px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.5));
+            cursor: pointer;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 25px rgba(102, 126, 234, 0.8));
+        }
+
+        .back-btn {
+            padding: 0.7rem 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .back-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+        .back-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section with Parallax */
+        .project-hero {
+            position: relative;
+            height: 65vh;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Soft background image layer */
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Images/UWFE_Group.jpg') center center / cover no-repeat;
+            filter: blur(8px) brightness(0.4) contrast(0.8);
+            transform: scale(1.1); /* Prevents blur edges */
+            z-index: 0;
+        }
+
+        /* Gradient overlay for even softer look */
+        .project-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(10, 14, 35, 0.7) 0%,
+                rgba(13, 2, 33, 0.6) 25%,
+                rgba(26, 11, 61, 0.5) 50%,
+                rgba(45, 27, 105, 0.6) 75%,
+                rgba(10, 14, 35, 0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                0 4px 10px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(102, 126, 234, 0.6);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Corner Decorations */
+        .carousel-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #667eea;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            box-shadow: 2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            box-shadow: -2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content h3 {
+            color: #f093fb;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .section-content ul li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.3s ease;
+        }
+
+        .section-content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .section-content ul li:hover {
+            padding-left: 2.5rem;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        /* ========================================
+        IMAGE GALLERY - ENHANCED WITH BLUR EFFECT (NO ZOOM)
+        ======================================== */
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.8);
+            height: 400px;
+        }
+
+        /* Make award card taller to show full vertical poster */
+        .gallery-item.award-card {
+            height: 600px;
+            background: transparent;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 
+                0 20px 50px rgba(102, 126, 234, 0.5),
+                0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Holographic overlay on images */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(102, 126, 234, 0.2) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.2) 100%);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.6s ease;
+            filter: brightness(0.9);
+        }
+
+        /* Zoom out competition award image to show full vertical picture */
+        .gallery-item img[src*="Award"] {
+            object-fit: cover;
+            padding: 0;
+            background: transparent;
+        }
+
+        /* Only blur the image on hover - NO ZOOM */
+        .gallery-item:hover img {
+            filter: blur(8px) brightness(0.6);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 3;
+            border-top: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .gallery-caption p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Featured Gallery Item (larger) - ZOOMED OUT */
+        .gallery-item.featured {
+            grid-column: span 2;
+            height: 400px;
+        }
+
+        /* Gallery badges for project types */
+        .gallery-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 4;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Lightbox for full-size images */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #667eea;
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        /* Skills Grid */
+        .skills-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .skill-showcase-card {
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .skill-showcase-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        .skill-showcase-card h3 {
+            color: white !important;
+            margin: 0 0 1rem 0 !important;
+            font-size: 1.5rem !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .skill-showcase-card p {
+            color: rgba(255, 255, 255, 0.85) !important;
+            margin: 0 !important;
+            font-size: 1.05rem;
+        }
+
+        /* Specifications Table */
+        .specs-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+        }
+
+        .specs-table thead tr {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .specs-table th {
+            padding: 1.2rem;
+            text-align: left;
+            color: white;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .specs-table td {
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .specs-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .specs-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.01);
+        }
+
+        /* Lessons Learned with Icons */
+        .lesson-item {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-width: 6px;
+            padding-left: 2rem;
+        }
+
+        .lesson-item strong {
+            color: #f093fb;
+            font-size: 1.2rem;
+        }
+
+        /* ========================================
+           F1 RACING ROAD GUIDE FOOTER
+           ======================================== */
+        footer {
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 3px solid rgba(102, 126, 234, 0.4);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Racing Background */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(102, 126, 234, 0.1) 50px,
+                    transparent 100px
+                );
+            animation: roadScroll 20s linear infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes roadScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        /* Racing Track Navigation Container */
+        .racing-track-nav {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Racing Track Line (Road) */
+        .track-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%
+            );
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        /* Track Line Dashes (Road Markings) */
+        .track-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                white 10px,
+                white 30px,
+                transparent 30px,
+                transparent 60px
+            );
+            transform: translateY(-50%);
+            animation: dashMove 2s linear infinite;
+        }
+
+        @keyframes dashMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 0; }
+        }
+
+        /* Checkpoint Boxes (Project Navigation) */
+        .track-checkpoint {
+            background: linear-gradient(135deg,
+                rgba(10, 14, 35, 0.95) 0%,
+                rgba(20, 25, 50, 0.95) 100%
+            );
+            border: 3px solid rgba(102, 126, 234, 0.4);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
+        }
+
+        /* Racing Stripes Effect */
+        .track-checkpoint::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(102, 126, 234, 0.1) 10px,
+                rgba(102, 126, 234, 0.1) 20px
+            );
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .track-checkpoint:hover::before {
+            opacity: 1;
+        }
+
+        .track-checkpoint:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.9);
+            box-shadow: 
+                0 15px 45px rgba(102, 126, 234, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.4);
+        }
+
+        .checkpoint-left {
+            justify-content: flex-start;
+        }
+
+        .checkpoint-right {
+            justify-content: flex-end;
+        }
+
+        /* Checkpoint Flags */
+        .checkpoint-flag {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            animation: flagWave 2s ease-in-out infinite;
+        }
+
+        @keyframes flagWave {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Speed Arrows */
+        .speed-arrow {
+            font-size: 2.5rem;
+            color: #667eea;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .track-checkpoint:hover .speed-arrow {
+            color: #f093fb;
+            text-shadow: 0 0 30px rgba(240, 147, 251, 0.9);
+        }
+
+        .checkpoint-left:hover .speed-arrow {
+            transform: translateX(-10px);
+        }
+
+        .checkpoint-right:hover .speed-arrow {
+            transform: translateX(10px);
+        }
+
+        /* Checkpoint Content */
+        .checkpoint-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            text-align: left;
+        }
+
+        .checkpoint-right .checkpoint-content {
+            text-align: right;
+        }
+
+        .checkpoint-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .checkpoint-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Pit Stop (All Projects Button) */
+        .pit-stop {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 60px;
+            padding: 1.5rem 3rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 40px rgba(102, 126, 234, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        .pit-stop::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%,
+                #667eea 100%);
+            background-size: 300% 300%;
+            border-radius: 60px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            filter: blur(8px);
+        }
+
+        .pit-stop:hover {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 
+                0 20px 60px rgba(102, 126, 234, 0.8),
+                0 0 80px rgba(240, 147, 251, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .pit-stop-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .pit-stop-text {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Pit Stop Lights (F1 Start Lights) */
+        .pit-stop-lights {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+        }
+
+        .light {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: lightBlink 1.5s ease-in-out infinite;
+        }
+
+        .light:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .light:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .light:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes lightBlink {
+            0%, 100% {
+                background: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                background: rgba(0, 255, 0, 0.9);
+                box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            }
+        }
+
+        /* Racing Divider */
+        .racing-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto 2rem;
+            max-width: 600px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.6) 50%,
+                transparent 100%
+            );
+            position: relative;
+        }
+
+        .divider-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                white 5px,
+                white 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: translateY(-50%);
+        }
+
+        .race-finish {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            animation: trophyGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes trophyGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1));
+            }
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f093fb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-hero {
+                height: 400px;
+                min-height: 400px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.featured {
+                height: 350px;
+                grid-column: span 1;
+            }
+
+            .skills-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-table {
+                font-size: 0.9rem;
+            }
+
+            .specs-table th,
+            .specs-table td {
+                padding: 0.8rem;
+            }
+
+            /* Mobile F1 Racing Navigation */
+            .racing-track-nav {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .track-line {
+                display: none;
+            }
+
+            .track-checkpoint {
+                padding: 1.2rem 1.5rem;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .checkpoint-left,
+            .checkpoint-right {
+                justify-content: center;
+            }
+
+            .checkpoint-content {
+                text-align: center !important;
+            }
+
+            .checkpoint-flag {
+                font-size: 2rem;
+            }
+
+            .speed-arrow {
+                font-size: 2rem;
+            }
+
+            .checkpoint-title {
+                font-size: 1rem;
+            }
+
+            .checkpoint-label {
+                font-size: 0.7rem;
+            }
+
+            .pit-stop {
+                order: -1;
+                padding: 1.2rem 2rem;
+            }
+
+            .pit-stop-icon {
+                font-size: 1.5rem;
+            }
+
+            .pit-stop-text {
+                font-size: 0.95rem;
+            }
+
+            .racing-divider {
+                gap: 1rem;
+            }
+
+            .race-finish {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 3D Model Viewer Styles - UPDATE Z-INDEX */
+        #hero-3d-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; /* Above background */
+        }
+
+        .model-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10; /* Above everything */
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            display: flex;
+            gap: 0.8rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .model-control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .model-control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .model-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(10, 14, 35, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .model-loading.hidden {
+            display: none;
+        }
+
+        /* Side Info Cards */
+        .side-info-cards {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-info-cards.left {
+            left: 30px;
+        }
+
+        .side-info-cards.right {
+            right: 30px;
+        }
+
+        .info-card {
+            background: rgba(10, 14, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 15px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: slideInCard 0.8s ease forwards;
+        }
+
+        @keyframes slideInCard {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .side-info-cards.right .info-card {
+            animation: slideInCardRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInCardRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .info-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .side-info-cards.right .info-card:hover {
+            transform: translateX(-10px);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.6));
+            flex-shrink: 0;
+        }
+
+        .info-text h4 {
+            color: #667eea;
+            font-size: 0.95rem;
+            margin: 0 0 0.3rem 0;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .info-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Mobile - Stack cards at bottom */
+        @media (max-width: 1200px) {
+            .side-info-cards {
+                display: none; /* Hide on smaller screens to avoid clutter */
+            }
+        }
+
+        /* ========================================
+        ENGINEERING JOURNEY TIMELINE DESIGN
+        ======================================== */
+
+        .journey-timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+
+        /* Vertical connecting line */
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%
+            );
+            border-radius: 2px;
+        }
+
+        .journey-phase {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            align-items: flex-start;
+        }
+
+        .journey-phase:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Phase Marker (Number + Icon) */
+        .phase-marker {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .phase-number {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            border: none; 
+            box-shadow: 
+                0 8px 32px rgba(102, 126, 234, 0.6),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .phase-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .journey-phase:hover .phase-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 12px 40px rgba(102, 126, 234, 0.8),
+                inset 0 2px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Phase Content */
+        .phase-content {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                #667eea 0%,
+                #764ba2 50%,
+                #f093fb 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .phase-content:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .phase-content:hover::before {
+            opacity: 1;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin: 0 0 1.5rem 0;
+            text-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Skill Tags */
+        .phase-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.3) 0%, 
+                rgba(118, 75, 162, 0.3) 100%);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.5) 0%, 
+                rgba(118, 75, 162, 0.5) 100%);
+            border-color: rgba(102, 126, 234, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Phase Insight */
+        .phase-insight {
+            background: rgba(240, 147, 251, 0.08);
+            border-left: 4px solid #f093fb;
+            padding: 1.2rem;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .phase-insight strong {
+            color: #f093fb;
+            text-shadow: 0 0 10px rgba(240, 147, 251, 0.5);
+            font-size: 1.05rem;
+        }
+
+        /* Journey Stats */
+        .journey-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .journey-timeline::before {
+                left: 30px;
+            }
+            
+            .journey-phase {
+                gap: 1.5rem;
+            }
+            
+            .phase-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .phase-icon {
+                font-size: 2rem;
+            }
+            
+            .phase-content {
+                padding: 1.5rem;
+            }
+            
+            .phase-title {
+                font-size: 1.4rem;
+            }
+            
+            .skill-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+            
+            .journey-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-car">🏎️</div>
+        </div>
+    </div>
+
+    <!-- Galaxy Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">
+                <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
+            </div>
+            <a href="Home_Darker.html#projects" class="back-btn">
+                <span>← Back to Portfolio</span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="project-hero">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        
+        <!-- Left Side Info Cards -->
+        <div class="side-info-cards left">
+            <div class="info-card" style="animation-delay: 0.2s;">
+                <div class="info-icon">🏎️</div>
+                <div class="info-text">
+                    <h4>Racing Speed</h4>
+                    <p>74 km/h</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.4s;">
+                <div class="info-icon">🏆</div>
+                <div class="info-text">
+                    <h4>Competition</h4>
+                    <p>Formula Hybrid</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.6s;">
+                <div class="info-icon">
+                    <img src="Images/CAD_icon.png" alt="CAD" style="width: 2.5rem; height: 2.5rem;">
+                </div>
+                <div class="info-text">
+                    <h4>Design Tool</h4>
+                    <p>SolidWorks & AutoCAD</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side Info Cards -->
+        <div class="side-info-cards right">
+            <div class="info-card" style="animation-delay: 0.3s;">
+                <div class="info-icon">💧</div>
+                <div class="info-text">
+                    <h4>Waterproof</h4>
+                    <p>IP Rating Tested</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.5s;">
+                <div class="info-icon">
+                    <img src="Images/3D_Printer.png" alt="3D Printer" style="width: 2.5rem; height: 2.5rem;">
+                </div>
+                <div class="info-text">
+                    <h4>Material</h4>
+                    <p>PETG 3D Print</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.7s;">
+                <div class="info-icon">⚡</div>
+                <div class="info-text">
+                    <h4>Integration</h4>
+                    <p>Full System</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3D Canvas Container -->
+        <div id="hero-3d-canvas"></div>
+        
+        <!-- Loading Indicator -->
+        <div class="model-loading" id="modelLoading">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+            <div>Loading 3D Dashboard...</div>
+        </div>
+        
+        <!-- 3D Model Controls -->
+        <div class="model-controls">
+            <button class="model-control-btn" onclick="reset3DView()">🔄 Reset</button>
+            <button class="model-control-btn" onclick="toggle3DRotate()" id="rotateBtn">🔁 Rotate</button>
+            <button class="model-control-btn" onclick="toggle3DWireframe()" id="wireframeBtn">📐 Wire</button>
+            <button class="model-control-btn" onclick="change3DColor()">🎨 Color</button>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+        
+        <!-- Project Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>🎯</span>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>As a member of the Waterloo Formula Electric team, I contributed to chassis design and structural development for the race car. My role focused on inserts machining, CAD modeling, and mechanical optimization.</p>
+                <p>I designed two key enclosure systems for the team: the driver dashboard enclosure and the electrical board enclosure, each designed with a focus on environmental protection, structure integrity, and system integration.</p>
+                <p>The team competes in Formula SAE Electric competitions, where we design, build, and race electric vehicles against universities from around the world. This experience provided hands-on engineering practice in a fast-paced, collaborative environment.</p>
+            </div>
+        </div>
+
+        <!-- PROJECT GALLERY SECTION -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>📸</span>
+                Project Gallery
+            </h2>
+            <div class="section-content">
+                <p>Browse through my key contributions to the Waterloo Formula Electric project, featuring two custom-designed enclosure systems.</p>
+                
+                <h3>🖥️ Dashboard Enclosure System</h3>
+                <p>Complete redesign of the driver dashboard enclosure, from initial concept through testing to race implementation.</p>
+            </div>
+            
+            <div class="image-gallery">
+                <!-- Racing Implementation -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🏁 Race Proven</span>
+                    <img src="Images/Actual_Implement.jpg" alt="Dashboard in Action During Race">
+                    <div class="gallery-caption">
+                        <h4>Dashboard in Action - Track Testing at 74 km/h</h4>
+                        <p>The dashboard enclosure successfully deployed during competitive racing, proving real-world durability and functionality. Driver's POV shows the complete cockpit integration with all systems operational under racing conditions.</p>
+                    </div>
+                </div>
+
+                <!-- Original Dashboard Design -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">📐 Original Design</span>
+                    <img src="Images/Original_Part.png" alt="Original Dashboard Design">
+                    <div class="gallery-caption">
+                        <h4>Original Dashboard Configuration</h4>
+                        <p>Initial dashboard panel showing button layout and emergency stop mechanism served as the baseline for optimization. However, the original design posed a saftety issue where during an emergency exit, the driver could strike their knee on the side buttons while jumping out of the car.</p>
+                    </div>
+                </div>
+
+                <!-- Modified CAD Design -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💻 CAD Design</span>
+                    <img src="Images/Overall_After_Changed.png" alt="Modified CAD Dashboard Design">
+                    <div class="gallery-caption">
+                        <h4>Redesigned Dashboard Enclosure - SolidWorks</h4>
+                        <p>Modified CAD model in SolidWorks showing improved mounting geometry, button positioning, and structural enhancements for better durability and manufacturing feasibility.</p>
+                    </div>
+                </div>
+
+                <!-- 3D Printed Dashboard Enclosure -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🖨️ 3D Printed</span>
+                    <img src="Images/Enclosure_3DPrinted.jpg" alt="3D Printed Dashboard Enclosure">
+                    <div class="gallery-caption">
+                        <h4>3D Printed Dashboard Enclosure</h4>
+                        <p>Final PETG 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing.</p>
+                    </div>
+                </div>
+
+                <!-- Water Testing -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💧 Waterproof Test</span>
+                    <img src="Images/Water Testing.webp" alt="Water Resistance Testing">
+                    <div class="gallery-caption">
+                        <h4>Waterproofing Validation</h4>
+                        <p>Intensive water spray testing over drainage grate to ensure enclosure meets IP rating requirements for racing conditions. Critical for protecting electronics during wet weather competitions and validating seal integrity.</p>
+                    </div>
+                </div>
+
+                <!-- Competition Results -->
+                <div class="gallery-item award-card">
+                    <span class="gallery-badge">🏆 Competition Success</span>
+                    <img src="Images/Award.jpeg" alt="Formula SAE Competition Results">
+                    <div class="gallery-caption">
+                        <h4>Formula Hybrid Electric Competition Results</h4>
+                        <p>Team UWFE achieved outstanding results including finished 35/44 laps of endurance, P1 in Autocross and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-content">
+                <h3>⚡ Electrical Board Enclosure System</h3>
+                <p>Custom protective enclosure designed for the electrical board assembly, ensuring component safety and preventing damage from drops or impact.</p>
+            </div>
+
+            <div class="image-gallery">
+                <!-- Electrical Board Enclosure CAD -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">⚡ Electrical Design</span>
+                    <img src="Images/Electrical_Enclosure.png" alt="Electrical Board Enclosure CAD Design">
+                    <div class="gallery-caption">
+                        <h4>Electrical Board Enclosure - SolidWorks CAD</h4>
+                        <p>Custom-designed protective enclosure for electrical board assembly. Features integrated mounting points, cable management channels, and optimized geometry for component protection.</p>
+                    </div>
+                </div>
+
+                <!-- Electrical Board Enclosure Bottom View -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🔧 Modular Design</span>
+                    <img src="Images/Electrical_Enclosure2.png" alt="Electrical Enclosure Bottom View">
+                    <div class="gallery-caption">
+                        <h4>Bottom View - Modular Connection System</h4>
+                        <p>Bottom surface features innovative LEGO-style connection pieces for easy assembly and disassembly. This modular approach allows quick removal for maintenance and servicing without tools, improving serviceability during competitions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Contributions -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>⚡</span>
+                My Contributions
+            </h2>
+            <div class="section-content">
+                
+                <h3>🖥️ Dashboard Enclosure Design & Development</h3>
+                <p>Worked on complete redesign and fabrication of the driver dashboard enclosure system.</p>
+                <ul>
+                    <li>Redesigned original dashboard enclosure in SolidWorks with improved button positioning and structural geometry</li>
+                    <li>Implemented PETG 3D printing with integrated brass inserts for secure mounting and durability</li>
+                    <li>Conducted waterproofing tests to validate IP rating for wet racing conditions</li>
+                    <li>Performed mechanical stress testing including load validation</li>
+                    <li>Successfully deployed in competitive racing environment at speeds up to 74 km/h</li>
+                </ul>
+
+                <h3>⚡ Electrical Board Enclosure Design</h3>
+                <p>Designed protective enclosure system for critical electrical components.</p>
+                <ul>
+                    <li>Created custom CAD model in SolidWorks for electrical board protection</li>
+                    <li>Integrated LEGO-style mounting points and cable management channels for clean wiring</li>
+                    <li>Optimized geometry for component accessibility and prevented from damages</li>
+                    <li>Collaborated with electrical team to meet all technical requirements</li>
+                </ul>
+
+                <h3>🔩 Machining & Manufacturing</h3>
+                <p>Performed precision machining operations for vehicle components and mounting systems.</p>
+                <ul>
+                    <li>Operated mill, lathe, and waterjet cutter to fabricate mounting brackets, spacers, and chassis components</li>
+                    <li>Machined aluminum and steel components with tight tolerances (±0.1mm) for proper fitment</li>
+                    <li>Created threaded holes and mounting interfaces for enclosure and chassis assembly</li>
+                    <li>Performed quality control measurements using calipers and micrometers to verify specifications</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Engineering Journey -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>🚀</span>
+                Engineering Journey
+            </h2>
+            
+            <div class="section-content">
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
+                    From concept to competition - here's how this project shaped my engineering expertise
+                </p>
+            </div>
+
+            <!-- Timeline Style Journey -->
+            <div class="journey-timeline">
+                
+                <!-- Phase 1: Design -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">01</div>
+                        <div class="phase-icon">
+                            <img src="Images/CAD_icon.png" alt="CAD" style="width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));">
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Design & Modeling</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">SolidWorks CAD</span>
+                            <span class="skill-tag">Engineering Specifications</span>
+                            <span class="skill-tag">Assembly Modeling</span>
+                            <span class="skill-tag">DFM Principles</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Learned that considering manufacturing constraints during the design phase prevents costly iterations and redesigns later in the process.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Manufacturing -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">02</div>
+                        <div class="phase-icon">
+                            <img src="Images/Machining.png" alt="Machining" style="width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));">
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Fabrication & Machining</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">PETG 3D Printing</span>
+                            <span class="skill-tag">CNC Machining</span>
+                            <span class="skill-tag">Brass Insert Installation</span>
+                            <span class="skill-tag">GD&T</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Hands-on machining experience revealed the importance of proper tool selection and setup - small adjustments make huge differences in final part quality.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Testing -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">03</div>
+                        <div class="phase-icon">
+                            <img src="Images/Testing&Validating.png" alt="Testing & Validating" style="width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));">
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Testing & Validation</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Waterproof Testing</span>
+                            <span class="skill-tag">Stress Analysis</span>
+                            <span class="skill-tag">Iterative Refinement</span>
+                            <span class="skill-tag">Quality Control</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Real-world testing uncovered seal design weaknesses that weren't apparent in CAD - iterative testing is essential for reliability.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Integration -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">04</div>
+                        <div class="phase-icon">
+                            <img src="Images/System_Integration.png" alt="System Integration" style="width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));">
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">System Integration & Racing</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Cross-Team Collaboration</span>
+                            <span class="skill-tag">Electronics Integration</span>
+                            <span class="skill-tag">Race Deployment</span>
+                            <span class="skill-tag">74 km/h Validation</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Early communication with the different teams prevented integration issues - collaborative planning saves time and ensures all systems work together seamlessly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox for full-size images -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img src="" alt="Full size image" id="lightbox-img">
+    </div>
+
+    <!-- Footer with F1 Racing Road Guide Navigation -->
+    <footer>
+        <!-- F1 Racing Track Navigation -->
+        <div class="racing-track-nav">
+            <!-- Racing Track Line -->
+            <div class="track-line"></div>
+            
+            <!-- Previous Project Checkpoint -->
+            <a href="previous-project.html" class="track-checkpoint checkpoint-left">
+                <div class="checkpoint-flag">🏁</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">PREVIOUS PROJECT</span>
+                    <span class="checkpoint-title">Ping-ris Wheel</span>
+                </div>
+                <div class="speed-arrow">←</div>
+            </a>
+            
+            <!-- Pit Stop (All Projects) -->
+            <a href="Home_Darker.html#projects" class="pit-stop">
+                <div class="pit-stop-icon">🏠</div>
+                <span class="pit-stop-text">ALL PROJECTS</span>
+                <div class="pit-stop-lights">
+                    <span class="light"></span>
+                    <span class="light"></span>
+                    <span class="light"></span>
+                </div>
+            </a>
+            
+            <!-- Next Project Checkpoint -->
+            <a href="Project-four_foot_spider_robot.html" class="track-checkpoint checkpoint-right">
+                <div class="speed-arrow">→</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">NEXT PROJECT</span>
+                    <span class="checkpoint-title">Four Foot Spider Robot</span>
+                </div>
+                <div class="checkpoint-flag">🏁</div>
+            </a>
+        </div>
+
+        <!-- Racing Divider -->
+        <div class="racing-divider">
+            <div class="divider-line"></div>
+            <span class="race-finish">🏆</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Copyright Info -->
+        <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
+    </footer>
+
+    <script>
+        // Progress Bar Update on Scroll
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+
+        // 3D Dashboard Model Viewer
+        let scene3D, camera3D, renderer3D, controls3D, dashboardModel;
+        let autoRotate3D = false, wireframeMode3D = false, colorIndex = 0;
+        const modelColors = [0x808080, 0x2a2a2a]; 
+        let rotationPhase = 'horizontal'; // Track current rotation phase
+        let rotationProgress = 0; // Track rotation progress (0 to 2π)
+        let initialRotation = { x: 0, y: 0, z: 0 }; // Store initial rotation
+        let initialPosition = { x: 0, y: 0, z: 0 }; // Store initial position
+
+        function init3DDashboard() {
+            const container = document.getElementById('hero-3d-canvas');
+            if (!container) return;
+
+            scene3D = new THREE.Scene();
+            camera3D = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+            
+            // FIXED: Camera at an angle to see the horizontal dashboard better
+            camera3D.position.set(0, 80, 0); 
+            camera3D.lookAt(0, 0, 0);
+
+            renderer3D = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer3D.setSize(container.clientWidth, container.clientHeight);
+            renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer3D.domElement);
+
+            controls3D = new THREE.OrbitControls(camera3D, renderer3D.domElement);
+            controls3D.enableDamping = true;
+            controls3D.dampingFactor = 0.05;
+            controls3D.minDistance = 20;
+            controls3D.maxDistance = 200;
+            controls3D.target.set(0, 0, 0);
+
+            scene3D.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const light1 = new THREE.DirectionalLight(0x667eea, 1.2);
+            light1.position.set(50, 80, 40);
+            scene3D.add(light1);
+            const light2 = new THREE.DirectionalLight(0xf093fb, 0.9);
+            light2.position.set(-50, 40, -40);
+            scene3D.add(light2);
+
+            load3DModel();
+            window.addEventListener('resize', () => {
+                camera3D.aspect = container.clientWidth / container.clientHeight;
+                camera3D.updateProjectionMatrix();
+                renderer3D.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate3D();
+        }
+
+        function load3DModel() {
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'Images/dashboard_model.glb',
+                (gltf) => {
+                    dashboardModel = gltf.scene;
+                    const box = new THREE.Box3().setFromObject(dashboardModel);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    const scale = 60 / Math.max(size.x, size.y, size.z);
+                    
+                    dashboardModel.scale.multiplyScalar(scale);
+                    dashboardModel.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+                    
+                    // FIXED: Different rotation approach - try rotating around Z-axis first
+                    dashboardModel.rotation.x = 0;
+                    dashboardModel.rotation.y = 0;
+                    dashboardModel.rotation.z = Math.PI / 2; // Rotate 90° around Z-axis to lay flat
+
+                    // STORE INITIAL ROTATION AND POSITION
+                    initialRotation = {
+                        x: dashboardModel.rotation.x,
+                        y: dashboardModel.rotation.y,
+                        z: dashboardModel.rotation.z
+                    };
+                    initialPosition = {
+                        x: dashboardModel.position.x,
+                        y: dashboardModel.position.y,
+                        z: dashboardModel.position.z
+                    };
+                    
+                    dashboardModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+
+                            if (child.material && child.material.color) {
+                                child.userData.originalColor = child.material.color.clone();
+                            }
+                        }
+                    });
+                    
+                    scene3D.add(dashboardModel);
+                    hideModelLoading();
+                    gsap.from(dashboardModel.scale, { x: 0, y: 0, z: 0, duration: 1.5, ease: "back.out(1.7)" });
+                },
+                (xhr) => updateLoadingText(`Loading... ${Math.round((xhr.loaded / xhr.total) * 100)}%`),
+                (error) => { console.error('Error:', error); updateLoadingText('❌ Model load failed'); }
+            );
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            if (controls3D) controls3D.update();
+            
+            if (dashboardModel && autoRotate3D) {
+                const rotationSpeed = 0.005; // Adjust speed as needed
+                
+                if (rotationPhase === 'horizontal') {
+                    // Rotate around Y-axis (horizontal spin)
+                    dashboardModel.rotation.y += rotationSpeed;
+                    rotationProgress += rotationSpeed;
+                    
+                    // After 360° (2π radians), switch to vertical
+                    if (rotationProgress >= Math.PI * 2) {
+                        rotationPhase = 'vertical';
+                        rotationProgress = 0;
+                    }
+                } else if (rotationPhase === 'vertical') {
+                    // Rotate around X-axis (vertical spin)
+                    dashboardModel.rotation.x += rotationSpeed;
+                    rotationProgress += rotationSpeed;
+                    
+                    // After 360° (2π radians), switch back to horizontal
+                    if (rotationProgress >= Math.PI * 2) {
+                        rotationPhase = 'horizontal';
+                        rotationProgress = 0;
+                    }
+                }
+            }
+            
+            renderer3D.render(scene3D, camera3D);
+        }
+
+        function hideModelLoading() {
+            const loading = document.getElementById('modelLoading');
+            if (loading) setTimeout(() => loading.classList.add('hidden'), 300);
+        }
+
+        function updateLoadingText(text) {
+            const loading = document.getElementById('modelLoading');
+            if (loading) {
+                const textDiv = loading.querySelector('div:last-child');
+                if (textDiv) textDiv.textContent = text;
+            }
+        }
+
+        
+        function reset3DView() {
+            if (!camera3D || !controls3D || !dashboardModel) return;
+            
+            // Stop auto-rotation
+            if (autoRotate3D) {
+                autoRotate3D = false;
+                const btn = document.getElementById('rotateBtn');
+                if (btn) btn.textContent = '🔁 Rotate';
+            }
+            
+            // Reset rotation phase
+            rotationPhase = 'horizontal';
+            rotationProgress = 0;
+            
+            // Disable controls during animation for smoother transition
+            controls3D.enabled = false;
+            
+            // Animate model back to initial rotation
+            gsap.to(dashboardModel.rotation, {
+                x: initialRotation.x,
+                y: initialRotation.y,
+                z: initialRotation.z,
+                duration: 1.5,
+                ease: "power2.inOut"
+            });
+            
+            // Animate model back to initial position
+            gsap.to(dashboardModel.position, {
+                x: initialPosition.x,
+                y: initialPosition.y,
+                z: initialPosition.z,
+                duration: 1.5,
+                ease: "power2.inOut"
+            });
+            
+            // Reset camera position
+            gsap.to(camera3D.position, { 
+                x: 0, 
+                y: 80, 
+                z: 0, 
+                duration: 1.5, 
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    camera3D.lookAt(0, 0, 0);
+                    controls3D.update();
+                }
+            });
+            
+            // Reset camera target (OrbitControls target)
+            gsap.to(controls3D.target, { 
+                x: 0, 
+                y: 0, 
+                z: 0, 
+                duration: 1.5, 
+                ease: "power2.inOut",
+                onComplete: () => {
+                    // Re-enable controls after animation completes
+                    controls3D.enabled = true;
+                }
+            });
+        }
+
+        function toggle3DRotate() {
+            autoRotate3D = !autoRotate3D;
+            
+            // Reset rotation state when starting
+            if (autoRotate3D) {
+                rotationPhase = 'horizontal';
+                rotationProgress = 0;
+            }
+            
+            const btn = document.getElementById('rotateBtn');
+            if (btn) btn.textContent = autoRotate3D ? '⏸️ Stop' : '🔁 Rotate';
+        }
+
+        function toggle3DWireframe() {
+            if (!dashboardModel) return;
+            wireframeMode3D = !wireframeMode3D;
+            
+            dashboardModel.traverse((child) => {
+                if (child.isMesh && child.material) {
+                    if (wireframeMode3D) {
+                        child.material.wireframe = true;
+                        child.material.color.setHex(0x667eea); 
+                        child.material.opacity = 0.8;
+                        child.material.transparent = true;
+                    } else {
+                        child.material.wireframe = false;
+                        if (child.userData.originalColor) {
+                            child.material.color.copy(child.userData.originalColor);
+                        }
+                        child.material.opacity = 1.0;
+                        child.material.transparent = false;
+                    }
+                }
+            });
+            
+            const btn = document.getElementById('wireframeBtn');
+            if (btn) btn.textContent = wireframeMode3D ? '🎨 Solid' : '📐 Wire';
+        }
+
+        function change3DColor() {
+            if (!dashboardModel) return;
+            colorIndex = (colorIndex + 1) % modelColors.length;
+            const newColor = modelColors[colorIndex];
+            
+            dashboardModel.traverse((child) => {
+                if (child.isMesh && child.material) {
+                    // Skip the center window/screen area
+                    // Check if the material is too bright (likely the white center panel)
+                    const currentColor = child.material.color;
+                    const brightness = (currentColor.r + currentColor.g + currentColor.b) / 3;
+                    
+                    // Only change color if it's NOT the bright center panel (brightness < 0.8)
+                    if (brightness < 0.8) {
+                        gsap.to(child.material.color, {
+                            r: ((newColor >> 16) & 255) / 255,
+                            g: ((newColor >> 8) & 255) / 255,
+                            b: (newColor & 255) / 255,
+                            duration: 0.5
+                        });
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('load', () => setTimeout(init3DDashboard, 500));
+
+    </script>
+
+</body>
+</html>

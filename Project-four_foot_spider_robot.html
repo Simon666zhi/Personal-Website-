@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Four Foot Spider Robot - Yiqing Zhi</title>
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+    <!-- Three.js 3D Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000000;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced Galaxy Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 15% 25%, rgba(75, 0, 130, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(138, 43, 226, 0.4) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 30%, rgba(72, 61, 139, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, #000000 0%, #0d0221 30%, #1a0b3d 60%, #2d1b69 100%);
+            animation: galaxyRotate 60s linear infinite;
+        }
+
+        @keyframes galaxyRotate {
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%, 70% 30%, 0% 0%; }
+            100% { background-position: 100% 100%, 0% 0%, 60% 40%, 30% 70%, 0% 0%; }
+        }
+
+        /* Progress Bar - Spider Crawler */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(118, 75, 162, 0.3) 50%,
+                rgba(240, 147, 251, 0.3) 100%);
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%,
+                #00f2fe 100%);
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.8),
+                0 0 40px rgba(118, 75, 162, 0.6);
+            animation: progressGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .progress-spider {
+            position: absolute;
+            bottom: -8px;
+            right: -15px;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.9))
+                    drop-shadow(0 0 20px rgba(240, 147, 251, 0.7));
+            animation: spiderCrawl 0.5s ease-in-out infinite;
+            transform: scaleX(1) rotate(90deg);
+            transform-origin: center;
+        }
+
+        /* Spider silk thread trailing behind */
+        .progress-spider::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.6) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            animation: silkWave 2s ease-in-out infinite;
+        }
+
+        /* Additional web anchor point */
+        .progress-spider::after {
+            content: '•';
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: anchorGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes spiderCrawl {
+            0%, 100% {
+                transform: scaleX(1) rotate(90deg) translateX(0);
+            }
+            25% {
+                transform: scaleX(1) rotate(90deg) translateX(-1px);
+            }
+            75% {
+                transform: scaleX(1) rotate(90deg) translateX(-1px);
+            }
+        }
+
+        @keyframes silkWave {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateX(-50%) scaleY(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) scaleY(1.1);
+            }
+        }
+
+        @keyframes anchorGlow {
+            0%, 100% {
+                opacity: 0.7;
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            }
+        }
+
+        @keyframes progressGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 20px rgba(102, 126, 234, 0.8),
+                    0 0 40px rgba(118, 75, 162, 0.6);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(102, 126, 234, 1),
+                    0 0 60px rgba(118, 75, 162, 0.8);
+            }
+        }
+
+        /* SPIDER WEB TRAIL */
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent 0px,
+                rgba(255, 255, 255, 0.1) 2px,
+                transparent 4px,
+                transparent 8px
+            ),
+            repeating-linear-gradient(
+                45deg,
+                transparent 0px,
+                rgba(255, 255, 255, 0.1) 2px,
+                transparent 4px,
+                transparent 8px
+            ),
+            linear-gradient(to left,
+                rgba(102, 126, 234, 0) 0%,
+                rgba(102, 126, 234, 0.2) 20%,
+                rgba(118, 75, 162, 0.3) 40%,
+                rgba(240, 147, 251, 0.2) 60%,
+                rgba(79, 172, 254, 0.15) 80%,
+                rgba(0, 242, 254, 0.1) 100%
+            );
+            filter: blur(3px);
+            opacity: 0.6;
+            animation: webPulse 2s ease-in-out infinite;
+        }
+
+        /* SPIDER WEB PATTERN */
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            width: 180px;
+            height: 100%;
+            transform: translateY(-50%);
+            opacity: 0.4;
+            background: 
+                /* Radial web pattern */
+                repeating-radial-gradient(
+                    circle at 100% 50%,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.3) 1px,
+                    transparent 2px,
+                    transparent 15px
+                ),
+                /* Spiral web lines */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.2) 1px,
+                    transparent 2px,
+                    transparent 20px
+                );
+            animation: webShimmer 3s ease-in-out infinite;
+            filter: blur(0.5px);
+        }
+
+        @keyframes webPulse {
+            0%, 100% {
+                opacity: 0.6;
+                filter: blur(3px);
+            }
+            50% {
+                opacity: 0.8;
+                filter: blur(2px);
+            }
+        }
+
+        @keyframes webShimmer {
+            0%, 100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Navigation - Matching Main Portfolio */
+        nav {
+            background: linear-gradient(180deg, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(15, 20, 45, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            box-shadow: 
+                0 4px 30px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.5));
+            cursor: pointer;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 25px rgba(102, 126, 234, 0.8));
+        }
+
+        .back-btn {
+            padding: 0.7rem 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .back-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+        .back-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section with Parallax */
+        .project-hero {
+            position: relative;
+            height: 65vh;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Soft background image layer */
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Images/spider_robot_hero.jpg') center center / cover no-repeat;
+            filter: blur(8px) brightness(0.4) contrast(0.8);
+            transform: scale(1.1);
+            z-index: 0;
+        }
+
+        /* Gradient overlay */
+        .project-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(10, 14, 35, 0.7) 0%,
+                rgba(13, 2, 33, 0.6) 25%,
+                rgba(26, 11, 61, 0.5) 50%,
+                rgba(45, 27, 105, 0.6) 75%,
+                rgba(10, 14, 35, 0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                0 4px 10px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(102, 126, 234, 0.6);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Corner Decorations */
+        .carousel-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #667eea;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            box-shadow: 2px -2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            box-shadow: -2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 2px 2px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* 3D Model Viewer Styles */
+        #hero-3d-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .model-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            display: flex;
+            gap: 0.8rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .model-control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .model-control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .model-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(10, 14, 35, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .model-loading.hidden {
+            display: none;
+        }
+
+        /* Side Info Cards */
+        .side-info-cards {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-info-cards.left {
+            left: 30px;
+        }
+
+        .side-info-cards.right {
+            right: 30px;
+        }
+
+        .info-card {
+            background: rgba(10, 14, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 15px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: slideInCard 0.8s ease forwards;
+        }
+
+        @keyframes slideInCard {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .side-info-cards.right .info-card {
+            animation: slideInCardRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInCardRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .info-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .side-info-cards.right .info-card:hover {
+            transform: translateX(-10px);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.6));
+            flex-shrink: 0;
+        }
+
+        .info-text h4 {
+            color: #667eea;
+            font-size: 0.95rem;
+            margin: 0 0 0.3rem 0;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .info-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #667eea 75%, 
+                #764ba2 100%);
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content h3 {
+            color: #f093fb;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .section-content ul li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.3s ease;
+        }
+
+        .section-content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .section-content ul li:hover {
+            padding-left: 2.5rem;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.8);
+            height: 400px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 
+                0 20px 50px rgba(102, 126, 234, 0.5),
+                0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(102, 126, 234, 0.2) 0%,
+                transparent 50%,
+                rgba(118, 75, 162, 0.2) 100%);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.6s ease;
+            filter: brightness(0.9);
+        }
+
+        .gallery-item:hover img {
+            filter: blur(8px) brightness(0.6);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, 
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 3;
+            border-top: 2px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .gallery-caption p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .gallery-item.featured {
+            grid-column: span 2;
+            height: 400px;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 4;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #667eea;
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        /* Footer with Spider Web Theme Navigation */
+        footer {
+            background: rgba(10, 14, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 3px solid rgba(102, 126, 234, 0.4);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Spider Web Background */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0px,
+                    rgba(102, 126, 234, 0.1) 1px,
+                    transparent 2px,
+                    transparent 80px
+                ),
+                repeating-radial-gradient(
+                    circle at 30% 20%,
+                    transparent 0px,
+                    rgba(118, 75, 162, 0.08) 1px,
+                    transparent 2px,
+                    transparent 60px
+                ),
+                repeating-radial-gradient(
+                    circle at 70% 80%,
+                    transparent 0px,
+                    rgba(240, 147, 251, 0.08) 1px,
+                    transparent 2px,
+                    transparent 60px
+                );
+            animation: webShimmer 8s ease-in-out infinite;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        footer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.05) 1px,
+                    transparent 2px,
+                    transparent 100px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.05) 1px,
+                    transparent 2px,
+                    transparent 100px
+                );
+            animation: webFloat 15s ease-in-out infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes webFloat {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(-5px);
+            }
+        }
+
+        .racing-track-nav {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .track-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%
+            );
+            transform: translateY(-50%);
+            z-index: 0;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .track-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.3) 0px,
+                rgba(255, 255, 255, 0.3) 2px,
+                transparent 2px,
+                transparent 20px
+            );
+            transform: translateY(-50%);
+            animation: silkGlimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes silkGlimmer {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .track-checkpoint {
+            background: linear-gradient(135deg,
+                rgba(10, 14, 35, 0.95) 0%,
+                rgba(20, 25, 50, 0.95) 100%
+            );
+            border: 3px solid rgba(102, 126, 234, 0.4);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(102, 126, 234, 0.2);
+        }
+
+        .track-checkpoint::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0px,
+                    rgba(102, 126, 234, 0.1) 1px,
+                    transparent 2px,
+                    transparent 20px
+                ),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 15px,
+                    rgba(102, 126, 234, 0.05) 15px,
+                    rgba(102, 126, 234, 0.05) 30px
+                );
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .track-checkpoint:hover::before {
+            opacity: 1;
+        }
+
+        .track-checkpoint:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.9);
+            box-shadow: 
+                0 15px 45px rgba(102, 126, 234, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(102, 126, 234, 0.4);
+        }
+
+        .checkpoint-left {
+            justify-content: flex-start;
+        }
+
+        .checkpoint-right {
+            justify-content: flex-end;
+        }
+
+        .checkpoint-flag {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            animation: spiderWiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes spiderWiggle {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+
+        .speed-arrow {
+            font-size: 2.5rem;
+            color: #667eea;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .track-checkpoint:hover .speed-arrow {
+            color: #f093fb;
+            text-shadow: 0 0 30px rgba(240, 147, 251, 0.9);
+        }
+
+        .checkpoint-left:hover .speed-arrow {
+            transform: translateX(-10px);
+        }
+
+        .checkpoint-right:hover .speed-arrow {
+            transform: translateX(10px);
+        }
+
+        .checkpoint-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            text-align: left;
+        }
+
+        .checkpoint-right .checkpoint-content {
+            text-align: right;
+        }
+
+        .checkpoint-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .checkpoint-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .pit-stop {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 60px;
+            padding: 1.5rem 3rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 40px rgba(102, 126, 234, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        .pit-stop::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: 
+                repeating-radial-gradient(
+                    circle at 50% 50%,
+                    #667eea 0%,
+                    #764ba2 25%,
+                    #f093fb 50%,
+                    #4facfe 75%,
+                    #667eea 100%
+                );
+            background-size: 300% 300%;
+            border-radius: 60px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            filter: blur(8px);
+        }
+
+        .pit-stop:hover {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 
+                0 20px 60px rgba(102, 126, 234, 0.8),
+                0 0 80px rgba(240, 147, 251, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .pit-stop-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .pit-stop-text {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .pit-stop-lights {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+        }
+
+        .light {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: webDroplet 2s ease-in-out infinite;
+        }
+
+        .light:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .light:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .light:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes webDroplet {
+            0%, 100% {
+                background: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                background: rgba(102, 126, 234, 0.9);
+                box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
+                transform: scale(1.2);
+            }
+        }
+
+        .racing-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto 2rem;
+            max-width: 600px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.6) 50%,
+                transparent 100%
+            );
+            position: relative;
+        }
+
+        .divider-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                white 5px,
+                white 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: translateY(-50%);
+        }
+
+        .race-finish {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
+            animation: webGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes webGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 25px rgba(102, 126, 234, 1));
+            }
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f093fb;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .side-info-cards {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-hero {
+                height: 400px;
+                min-height: 400px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.featured {
+                height: 350px;
+                grid-column: span 1;
+            }
+
+            .model-controls {
+                flex-wrap: wrap;
+                padding: 0.8rem 1rem;
+                gap: 0.5rem;
+            }
+
+            .model-control-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .racing-track-nav {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .track-line {
+                display: none;
+            }
+
+            .track-checkpoint {
+                padding: 1.2rem 1.5rem;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .checkpoint-left,
+            .checkpoint-right {
+                justify-content: center;
+            }
+
+            .checkpoint-content {
+                text-align: center !important;
+            }
+
+            .checkpoint-flag {
+                font-size: 2rem;
+            }
+
+            .speed-arrow {
+                font-size: 2rem;
+            }
+
+            .checkpoint-title {
+                font-size: 1rem;
+            }
+
+            .checkpoint-label {
+                font-size: 0.7rem;
+            }
+
+            .pit-stop {
+                order: -1;
+                padding: 1.2rem 2rem;
+            }
+
+            .pit-stop-icon {
+                font-size: 1.5rem;
+            }
+
+            .pit-stop-text {
+                font-size: 0.95rem;
+            }
+
+            .racing-divider {
+                gap: 1rem;
+            }
+
+            .race-finish {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-spider">🕷️</div>
+        </div>
+    </div>
+
+    <!-- Galaxy Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">
+                <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
+            </div>
+            <a href="Home_Darker.html#projects" class="back-btn">
+                <span>← Back to Portfolio</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <div class="carousel-corner corner-tl"></div>
+        <div class="carousel-corner corner-tr"></div>
+        <div class="carousel-corner corner-bl"></div>
+        <div class="carousel-corner corner-br"></div>
+        
+        <!-- Left Side Info Cards -->
+        <div class="side-info-cards left">
+            <div class="info-card" style="animation-delay: 0.2s;">
+                <div class="info-icon">🤖</div>
+                <div class="info-text">
+                    <h4>Robot Type</h4>
+                    <p>Quadruped Spider</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.4s;">
+                <div class="info-icon">🦿</div>
+                <div class="info-text">
+                    <h4>Degrees of Freedom</h4>
+                    <p>12 DOF Total</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.6s;">
+                <div class="info-icon">🧠</div>
+                <div class="info-text">
+                    <h4>Intelligence</h4>
+                    <p>Computer Vision</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side Info Cards -->
+        <div class="side-info-cards right">
+            <div class="info-card" style="animation-delay: 0.3s;">
+                <div class="info-icon">⚙️</div>
+                <div class="info-text">
+                    <h4>Actuation</h4>
+                    <p>Servo Motors</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.5s;">
+                <div class="info-icon">🎮</div>
+                <div class="info-text">
+                    <h4>Control</h4>
+                    <p>Inverse Kinematics</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.7s;">
+                <div class="info-icon">📡</div>
+                <div class="info-text">
+                    <h4>Navigation</h4>
+                    <p>Autonomous</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3D Canvas Container -->
+        <div id="hero-3d-canvas"></div>
+        
+        <!-- Loading Indicator -->
+        <div class="model-loading" id="modelLoading">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+            <div>Loading 3D Spider Robot...</div>
+        </div>
+        
+        <!-- 3D Model Controls -->
+        <div class="model-controls">
+            <button class="model-control-btn" onclick="reset3DView()">🔄 Reset</button>
+            <button class="model-control-btn" onclick="toggle3DRotate()" id="rotateBtn">🔁 Rotate</button>
+            <button class="model-control-btn" onclick="toggle3DWireframe()" id="wireframeBtn">📐 Wire</button>
+            <button class="model-control-btn" onclick="change3DColor()">🎨 Color</button>
+        </div>
+        
+        <div class="hero-content">
+            <h1>🕷️ Four Foot Spider Robot</h1>
+            <p class="subtitle">Autonomous Quadruped Robot with Advanced Locomotion & Computer Vision</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+        
+        <!-- Project Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>🎯</span>
+                Project Overview
+            </h2>
+            <div class="section-content">
+                <p>This four-foot spider robot is a project where I designed and built a biomimetic robot. The focus was on creating a stable mechanical structure and developing leg motion that could mimic natural stepping patterns.</p>
+                <p>I designed the full mechanical layout, including the multi-joint legs, frame, and linkage system, and developed basic gait control to coordinate all four legs.</p>
+            </div>
+        </div>
+
+        <!-- Project Gallery -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>📸</span>
+                Project Gallery
+            </h2>
+            <div class="section-content">
+                <p>Explore the development journey from concept to completion.</p>
+            </div>
+            
+            <div class="image-gallery">
+                <!-- Add your gallery items here -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🤖 Prototype</span>
+                    <img src="Images/spider_robot_1.jpg" alt="Spider Robot Prototype">
+                    <div class="gallery-caption">
+                        <h4>Initial Prototype</h4>
+                        <p>First working prototype with basic locomotion capabilities.</p>
+                    </div>
+                </div>
+
+                <!-- Add more gallery items as needed -->
+            </div>
+        </div>
+
+        <!-- My Contributions -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>⚡</span>
+                My Contributions
+            </h2>
+            <div class="section-content">
+                <h3>🔧 Mechanical Design</h3>
+                <ul>
+                    <li>Add your mechanical design contributions</li>
+                    <li>CAD modeling, 3D printing, assembly</li>
+                </ul>
+
+                <h3>💻 Software Development</h3>
+                <ul>
+                    <li>Add your software contributions</li>
+                    <li>Control algorithms, vision processing</li>
+                </ul>
+
+                <h3>🧪 Testing & Validation</h3>
+                <ul>
+                    <li>Add your testing methodology</li>
+                    <li>Performance metrics and results</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img src="" alt="Full size image" id="lightbox-img">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="racing-track-nav">
+            <div class="track-line"></div>
+            
+            <a href="Project-uwfe-3D.html" class="track-checkpoint checkpoint-left">
+                <div class="checkpoint-flag">🕷️</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">PREVIOUS PROJECT</span>
+                    <span class="checkpoint-title">Waterloo Formula Electric</span>
+                </div>
+                <div class="speed-arrow">←</div>
+            </a>
+            
+            <a href="Home_Darker.html#projects" class="pit-stop">
+                <div class="pit-stop-icon">🕸️</div>
+                <span class="pit-stop-text">ALL PROJECTS</span>
+                <div class="pit-stop-lights">
+                    <span class="light"></span>
+                    <span class="light"></span>
+                    <span class="light"></span>
+                </div>
+            </a>
+            
+            <a href="next-project.html" class="track-checkpoint checkpoint-right">
+                <div class="speed-arrow">→</div>
+                <div class="checkpoint-content">
+                    <span class="checkpoint-label">NEXT PROJECT</span>
+                    <span class="checkpoint-title">Next Project Name</span>
+                </div>
+                <div class="checkpoint-flag">🕷️</div>
+            </a>
+        </div>
+
+        <div class="racing-divider">
+            <div class="divider-line"></div>
+            <span class="race-finish">🕸️</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
+    </footer>
+
+    <script>
+        // Progress Bar Update on Scroll
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // ==========================================
+        // 3D SPIDER ROBOT MODEL VIEWER
+        // ==========================================
+        let scene3D, camera3D, renderer3D, controls3D, spiderModel;
+        let autoRotate3D = false, wireframeMode3D = false, colorIndex = 0;
+        const modelColors = [0x808080, 0x2a2a2a]; 
+        let rotationPhase = 'horizontal';
+        let rotationProgress = 0;
+        let initialRotation = { x: 0, y: 0, z: 0 };
+        let initialPosition = { x: 0, y: 0, z: 0 };
+
+        function init3DSpider() {
+            const container = document.getElementById('hero-3d-canvas');
+            if (!container) return;
+
+            scene3D = new THREE.Scene();
+            camera3D = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+            
+            // Position camera to view spider robot
+            camera3D.position.set(0, 80, 100); 
+            camera3D.lookAt(0, 0, 0);
+
+            renderer3D = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer3D.setSize(container.clientWidth, container.clientHeight);
+            renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer3D.domElement);
+
+            controls3D = new THREE.OrbitControls(camera3D, renderer3D.domElement);
+            controls3D.enableDamping = true;
+            controls3D.dampingFactor = 0.05;
+            controls3D.minDistance = 20;
+            controls3D.maxDistance = 200;
+            controls3D.target.set(0, 0, 0);
+
+            // Lighting
+            scene3D.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const light1 = new THREE.DirectionalLight(0x667eea, 1.2);
+            light1.position.set(50, 80, 40);
+            scene3D.add(light1);
+            const light2 = new THREE.DirectionalLight(0xf093fb, 0.9);
+            light2.position.set(-50, 40, -40);
+            scene3D.add(light2);
+
+            load3DModel();
+            
+            window.addEventListener('resize', () => {
+                camera3D.aspect = container.clientWidth / container.clientHeight;
+                camera3D.updateProjectionMatrix();
+                renderer3D.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate3D();
+        }
+
+        function load3DModel() {
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'Images/spider_robot_model.glb',  
+                (gltf) => {
+                    spiderModel = gltf.scene;
+                    const box = new THREE.Box3().setFromObject(spiderModel);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    const scale = 60 / Math.max(size.x, size.y, size.z);
+                    
+                    spiderModel.scale.multiplyScalar(scale);
+                    spiderModel.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+                    
+                    spiderModel.rotation.x = 0;
+                    spiderModel.rotation.y = 0;
+                    spiderModel.rotation.z = 0;
+
+
+                    initialRotation = {
+                        x: spiderModel.rotation.x,
+                        y: spiderModel.rotation.y,
+                        z: spiderModel.rotation.z
+                    };
+                    initialPosition = {
+                        x: spiderModel.position.x,
+                        y: spiderModel.position.y,
+                        z: spiderModel.position.z
+                    };
+                    
+                    spiderModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            if (child.material && child.material.color) {
+                                child.userData.originalColor = child.material.color.clone();
+                            }
+                        }
+                    });
+                    
+                    scene3D.add(spiderModel);
+                    hideModelLoading();
+                    gsap.from(spiderModel.scale, { x: 0, y: 0, z: 0, duration: 1.5, ease: "back.out(1.7)" });
+                },
+                (xhr) => updateLoadingText(`Loading... ${Math.round((xhr.loaded / xhr.total) * 100)}%`),
+                (error) => { console.error('Error:', error); updateLoadingText('❌ Model load failed'); }
+            );
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            if (controls3D) controls3D.update();
+            
+            if (spiderModel && autoRotate3D) {
+                const rotationSpeed = 0.005;
+                
+                if (rotationPhase === 'horizontal') {
+                    spiderModel.rotation.y += rotationSpeed;
+                    rotationProgress += rotationSpeed;
+                    
+                    if (rotationProgress >= Math.PI * 2) {
+                        rotationPhase = 'vertical';
+                        rotationProgress = 0;
+                    }
+                } else if (rotationPhase === 'vertical') {
+                    spiderModel.rotation.x += rotationSpeed;
+                    rotationProgress += rotationSpeed;
+                    
+                    if (rotationProgress >= Math.PI * 2) {
+                        rotationPhase = 'horizontal';
+                        rotationProgress = 0;
+                    }
+                }
+            }
+            
+            renderer3D.render(scene3D, camera3D);
+        }
+
+        function hideModelLoading() {
+            const loading = document.getElementById('modelLoading');
+            if (loading) setTimeout(() => loading.classList.add('hidden'), 300);
+        }
+
+        function updateLoadingText(text) {
+            const loading = document.getElementById('modelLoading');
+            if (loading) {
+                const textDiv = loading.querySelector('div:last-child');
+                if (textDiv) textDiv.textContent = text;
+            }
+        }
+
+        function reset3DView() {
+            if (!camera3D || !controls3D || !spiderModel) return;
+            
+            if (autoRotate3D) {
+                autoRotate3D = false;
+                const btn = document.getElementById('rotateBtn');
+                if (btn) btn.textContent = '🔁 Rotate';
+            }
+            
+            rotationPhase = 'horizontal';
+            rotationProgress = 0;
+            controls3D.enabled = false;
+            
+            gsap.to(spiderModel.rotation, {
+                x: initialRotation.x,
+                y: initialRotation.y,
+                z: initialRotation.z,
+                duration: 1.5,
+                ease: "power2.inOut"
+            });
+            
+            gsap.to(spiderModel.position, {
+                x: initialPosition.x,
+                y: initialPosition.y,
+                z: initialPosition.z,
+                duration: 1.5,
+                ease: "power2.inOut"
+            });
+            
+            gsap.to(camera3D.position, { 
+                x: 0, 
+                y: 80, 
+                z: 100, 
+                duration: 1.5, 
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    camera3D.lookAt(0, 0, 0);
+                    controls3D.update();
+                }
+            });
+            
+            gsap.to(controls3D.target, { 
+                x: 0, 
+                y: 0, 
+                z: 0, 
+                duration: 1.5, 
+                ease: "power2.inOut",
+                onComplete: () => {
+                    controls3D.enabled = true;
+                }
+            });
+        }
+
+        function toggle3DRotate() {
+            autoRotate3D = !autoRotate3D;
+            
+            if (autoRotate3D) {
+                rotationPhase = 'horizontal';
+                rotationProgress = 0;
+            }
+            
+            const btn = document.getElementById('rotateBtn');
+            if (btn) btn.textContent = autoRotate3D ? '⏸️ Stop' : '🔁 Rotate';
+        }
+
+        function toggle3DWireframe() {
+            if (!spiderModel) return;
+            wireframeMode3D = !wireframeMode3D;
+            
+            spiderModel.traverse((child) => {
+                if (child.isMesh && child.material) {
+                    if (wireframeMode3D) {
+                        child.material.wireframe = true;
+                        child.material.color.setHex(0x667eea); 
+                        child.material.opacity = 0.8;
+                        child.material.transparent = true;
+                    } else {
+                        child.material.wireframe = false;
+                        if (child.userData.originalColor) {
+                            child.material.color.copy(child.userData.originalColor);
+                        }
+                        child.material.opacity = 1.0;
+                        child.material.transparent = false;
+                    }
+                }
+            });
+            
+            const btn = document.getElementById('wireframeBtn');
+            if (btn) btn.textContent = wireframeMode3D ? '🎨 Solid' : '📐 Wire';
+        }
+
+        function change3DColor() {
+            if (!spiderModel) return;
+            colorIndex = (colorIndex + 1) % modelColors.length;
+            const newColor = modelColors[colorIndex];
+            
+            spiderModel.traverse((child) => {
+                if (child.isMesh && child.material) {
+                    const currentColor = child.material.color;
+                    const brightness = (currentColor.r + currentColor.g + currentColor.b) / 3;
+                    
+                    if (brightness < 0.8) {
+                        gsap.to(child.material.color, {
+                            r: ((newColor >> 16) & 255) / 255,
+                            g: ((newColor >> 8) & 255) / 255,
+                            b: (newColor & 255) / 255,
+                            duration: 0.5
+                        });
+                    }
+                }
+            });
+        }
+
+        // Initialize 3D viewer when page loads
+        window.addEventListener('load', () => setTimeout(init3DSpider, 500));
+    </script>
+
+</body>
+</html>

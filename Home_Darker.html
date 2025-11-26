@@ -1921,16 +1921,12 @@
             z-index: 2;
         }
 
-        /* Title Overlay - Enhanced */
         .project-title-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, 
-                rgba(10, 14, 35, 0.98) 0%,
-                rgba(10, 14, 35, 0.95) 70%,
-                transparent 100%);
+            background: rgba(10, 14, 35, 0.95);  /* ← Solid, clean background */
             backdrop-filter: blur(10px);
             color: white;
             padding: 2rem 1.5rem;
@@ -1939,10 +1935,20 @@
 
         /* Move Card 2 & 3 titles UP */
         .project-card:nth-child(2) .project-title-overlay,
-        .project-card:nth-child(3) .project-title-overlay,
+        .project-card:nth-child(4) .project-title-overlay,
         .project-card:nth-child(5) .project-title-overlay{
             justify-content: flex-start;  /* ← Align to top instead of center */
             height: 155px;  /* ← Add padding to control how far from top */
+        }
+
+        /* NEW - Center Card 3 (Circadian Rhythm) */
+        .project-card:nth-child(3) .project-title-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: auto;
         }
 
         .project-title-overlay h3 {
@@ -2023,11 +2029,11 @@
         }
 
         /* Card 3 specific text sizing */
-        .project-card:nth-child(3) .project-back-content h3 {
+        .project-card:nth-child(4) .project-back-content h3 {
             font-size: 1.7rem;  /* ← Adjust title size */
         }
 
-        .project-card:nth-child(3) .project-back-content p {
+        .project-card:nth-child(4) .project-back-content p {
             font-size: 1rem;  /* ← Adjust description size */
         }
 
@@ -2071,7 +2077,7 @@
         }
 
         /* Move card 3 icon right and up using padding */
-        .project-card:nth-child(3) .project-back-icon {
+        .project-card:nth-child(4) .project-back-icon {
             padding-left: 3px;    /* ← Shifts icon RIGHT */
             padding-bottom: 3px;  /* ← Shifts icon UP */
             padding-right: 0;
@@ -4367,16 +4373,16 @@
             }
 
             /* Reset Card 3 to match other cards */
-            .project-card:nth-child(3) .project-back-content h3 {
+            .project-card:nth-child(4) .project-back-content h3 {
                 font-size: 1.3rem;  
             }
             
-            .project-card:nth-child(3) .project-back-content p {
+            .project-card:nth-child(4) .project-back-content p {
                 font-size: 0.85rem;  
                 line-height: 1.5;
             }
             
-            .project-card:nth-child(3) .view-more-btn {
+            .project-card:nth-child(4) .view-more-btn {
                 padding: 0.7rem 1.8rem;  
                 font-size: 0.85rem;      
             }
@@ -4388,11 +4394,6 @@
             
             .project-card-front::after {
                 height: 220px; 
-            }
-
-            .project-card:nth-child(3) .project-img {
-                object-position: center 20%;  
-                transform: scale(1.1);        
             }
             
             /* Shift image UP for Card 4 (Circadian Rhythm Device) */
@@ -5086,7 +5087,7 @@
                             <div class="project-back-icon">🏎️</div>
                             <h3>Formula Electric</h3>
                             <p>Designed high-performance CAD models and mechanical systems for next-generation electric race cars with chassis optimization focus.</p>
-                            <a href="project-uwfe.html" class="view-more-btn">
+                            <a href="Project-uwfe.html" class="view-more-btn">
                                 <span>View Project</span>
                                 <span>→</span>
                             </a>
@@ -5102,7 +5103,7 @@
                         <img src="Images/Part7_Bot_Body_Top1.png" alt="Four Foot Spider Robot" class="project-img">
                         <div class="project-title-overlay">
                             <h3>Four Foot Spider Robot</h3>
-                            <span class="project-status">🤖 In Development</span>
+                            <span class="project-status">✅ Completed</span>
                         </div>
                     </div>
                     <div class="project-card-back">
@@ -5110,31 +5111,7 @@
                             <div class="project-back-icon">🕷️</div>
                             <h3>Spider Robot</h3>
                             <p>Collaborated with Shanghai startup to design and 3D print a four-foot spider robot with advanced mobility systems.</p>
-                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!'); return false;">
-                                <span>Coming Soon</span>
-                                <span>→</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 3: Motorized Maze -->
-            <div class="project-card">
-                <div class="project-card-inner">
-                    <div class="project-card-front">
-                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
-                        <div class="project-title-overlay">
-                            <h3>Motorized Maze</h3>
-                            <span class="project-status">✅ Completed</span>
-                        </div>
-                    </div>
-                    <div class="project-card-back">
-                        <div class="project-back-content">
-                            <div class="project-back-icon">🎯</div>
-                            <h3>Motorized Maze</h3>
-                            <p>Engineered a self-powered maze mechanism exploring motion control and mechanical design with precise navigation.</p>
-                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!'); return false;">
+                            <a href="Project-four_foot_spider_robot.html" class="view-more-btn">
                                 <span>View Project</span>
                                 <span>→</span>
                             </a>
@@ -5143,7 +5120,7 @@
                 </div>
             </div>
 
-            <!-- Project 4: Circadian Rhythm Device -->
+            <!-- Project 3: Circadian Rhythm Device -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
@@ -5158,6 +5135,30 @@
                             <div class="project-back-icon">💤</div>
                             <h3>Sleep Device</h3>
                             <p>Developed innovative sensory stimulation device using tickling and water spray to promote balanced circadian rhythms.</p>
+                            <a href="#" class="view-more-btn" onclick="alert('More details coming soon!'); return false;">
+                                <span>View Project</span>
+                                <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Motorized Maze -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
+                        <div class="project-title-overlay">
+                            <h3>Motorized Maze</h3>
+                            <span class="project-status">✅ Completed</span>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <div class="project-back-icon">🎯</div>
+                            <h3>Motorized Maze</h3>
+                            <p>Engineered a self-powered maze mechanism exploring motion control and mechanical design with precise navigation.</p>
                             <a href="#" class="view-more-btn" onclick="alert('More details coming soon!'); return false;">
                                 <span>View Project</span>
                                 <span>→</span>
