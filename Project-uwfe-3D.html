@@ -537,6 +537,290 @@
             background: transparent;
         }
 
+        /* ========================================
+        3D ROTATING CAROUSEL GALLERY
+        ======================================== */
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 3rem 0;
+            perspective: 2000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 500px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.9);
+        }
+
+        /* Center slide - active */
+        .carousel-slide.active {
+            z-index: 10;
+            transform: translateX(0) scale(1) rotateY(0deg);
+            opacity: 1;
+            filter: brightness(1) blur(0);
+            border-color: rgba(102, 126, 234, 1);
+            box-shadow: 
+                0 30px 80px rgba(102, 126, 234, 0.6),
+                0 0 60px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Left slide - behind */
+        .carousel-slide.left {
+            z-index: 5;
+            transform: translateX(-65%) scale(0.75) rotateY(25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Right slide - behind */
+        .carousel-slide.right {
+            z-index: 5;
+            transform: translateX(65%) scale(0.75) rotateY(-25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Hidden slides */
+        .carousel-slide.hidden {
+            z-index: 1;
+            transform: translateX(0) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        /* Keep images fully zoomed (cover) even when active */
+        .carousel-slide.active img {
+            object-fit: cover;
+            background: rgba(10, 14, 35, 0.95);
+        }
+
+        .carousel-slide:hover.active img {
+            transform: scale(1.05);
+        }
+
+        /* Caption - only show on active slide */
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top,
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 20;
+        }
+
+        .carousel-slide.active:hover .carousel-caption {
+            transform: translateY(0);
+        }
+
+        .carousel-caption h4 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-caption p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .carousel-caption .short-desc {
+            display: block;
+        }
+
+        .carousel-caption .long-desc {
+            display: none;
+        }
+
+        /* When expanded, show long and hide short */
+        .carousel-caption.expanded .short-desc {
+            display: none;
+        }
+
+        .carousel-caption.expanded .long-desc {
+            display: block;
+        }
+
+        /* Expand button */
+        .caption-expand-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .caption-expand-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Change button color when expanded (but keep it visible) */
+        .carousel-caption.expanded .caption-expand-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 15;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Carousel Dots */
+        .carousel-dots {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
+            transform: scale(1.3);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(102, 126, 234, 0.6);
+            transform: scale(1.2);
+        }
+
+        /* Badge on carousel slides */
+        .carousel-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 25;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 450px;
+            }
+            
+            .carousel-slide {
+                width: 320px;
+                height: 280px;
+            }
+            
+            .carousel-slide.left,
+            .carousel-slide.right {
+                transform: translateX(0) scale(0.6);
+                opacity: 0.2;
+                filter: brightness(0.4) blur(5px);
+            }
+            
+            .carousel-slide.left {
+                transform: translateX(-85%) scale(0.6);
+            }
+            
+            .carousel-slide.right {
+                transform: translateX(85%) scale(0.6);
+            }
+            
+            .carousel-controls {
+                bottom: -70px;
+            }
+            
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }       
+
         .gallery-item:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: rgba(102, 126, 234, 0.8);
@@ -1852,66 +2136,88 @@
                 <p>Complete redesign of the driver dashboard enclosure, from initial concept through testing to race implementation.</p>
             </div>
             
-            <div class="image-gallery">
-                <!-- Racing Implementation -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">🏁 Race Proven</span>
-                    <img src="Images/Actual_Implement.jpg" alt="Dashboard in Action During Race">
-                    <div class="gallery-caption">
+        <!-- Dashboard Carousel -->
+        <div class="carousel-container" id="dashboardCarousel">
+            <div class="carousel-track">
+                <!-- Slide 1: Racing Implementation -->
+                <div class="carousel-slide" data-index="0">
+                    <span class="carousel-badge">🏁 Race Proven</span>
+                    <img src="Images/Actual_Implement.jpg" alt="Dashboard in Action">
+                    <div class="carousel-caption">
                         <h4>Dashboard in Action - Track Testing at 74 km/h</h4>
-                        <p>The dashboard enclosure successfully deployed during competitive racing, proving real-world durability and functionality. Driver's POV shows the complete cockpit integration with all systems operational under racing conditions.</p>
+                        <p class="short-desc">Successfully deployed during competitive racing, proving real-world durability.</p>
+                        <p class="long-desc" >Driver's POV captures the dashboard performing flawlessly during high-speed track testing at 74 km/h. All electronic systems remained operational throughout extended racing sessions, with the PETG enclosure withstanding vibrations, impacts, and environmental stress.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
 
-                <!-- Original Dashboard Design -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">📐 Original Design</span>
-                    <img src="Images/Original_Part.png" alt="Original Dashboard Design">
-                    <div class="gallery-caption">
+                <!-- Slide 2: Original Design -->
+                <div class="carousel-slide" data-index="1">
+                    <span class="carousel-badge">📐 Original Design</span>
+                    <img src="Images/Original_Part.png" alt="Original Dashboard">
+                    <div class="carousel-caption">
                         <h4>Original Dashboard Configuration</h4>
-                        <p>Initial dashboard panel showing button layout and emergency stop mechanism served as the baseline for optimization. However, the original design posed a saftety issue where during an emergency exit, the driver could strike their knee on the side buttons while jumping out of the car.</p>
+                        <p class="short-desc">Initial design with safety issues that required optimization.</p>
+                        <p class="long-desc" >Initial dashboard panel showing button layout and emergency stop mechanism served as the baseline for optimization. However, the original design posed a safety issue where during an emergency exit, the driver could strike their knee on the side buttons while jumping out of the car.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
 
-                <!-- Modified CAD Design -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">💻 CAD Design</span>
-                    <img src="Images/Overall_After_Changed.png" alt="Modified CAD Dashboard Design">
-                    <div class="gallery-caption">
+                <!-- Slide 3: CAD Design -->
+                <div class="carousel-slide" data-index="2">
+                    <span class="carousel-badge">💻 CAD Design</span>
+                    <img src="Images/Overall_After_Changed.png" alt="Modified CAD">
+                    <div class="carousel-caption">
                         <h4>Redesigned Dashboard Enclosure - SolidWorks</h4>
-                        <p>Modified CAD model in SolidWorks showing improved mounting geometry, button positioning, and structural enhancements for better durability and manufacturing feasibility.</p>
+                        <p class="short-desc">Improved mounting geometry and structural enhancements.</p>
+                        <p class="long-desc" >Modified CAD model in SolidWorks showing improved mounting geometry, button positioning, and structural enhancements for better durability and manufacturing feasibility.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
 
-                <!-- 3D Printed Dashboard Enclosure -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">🖨️ 3D Printed</span>
-                    <img src="Images/Enclosure_3DPrinted.jpg" alt="3D Printed Dashboard Enclosure">
-                    <div class="gallery-caption">
+                <!-- Slide 4: 3D Printed -->
+                <div class="carousel-slide" data-index="3">
+                    <span class="carousel-badge">🖨️ 3D Printed</span>
+                    <img src="Images/Enclosure_3DPrinted.jpg" alt="3D Printed Enclosure">
+                    <div class="carousel-caption">
                         <h4>3D Printed Dashboard Enclosure</h4>
-                        <p>Final PETG 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing.</p>
+                        <p class="short-desc">Final PETG print with integrated brass inserts.</p>
+                        <p class="long-desc" >Final PETG 3D printed dashboard enclosure with integrated mounting points and brass inserts. Features optimized geometry for structural rigidity and clean cable routing.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
 
-                <!-- Water Testing -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">💧 Waterproof Test</span>
-                    <img src="Images/Water Testing.webp" alt="Water Resistance Testing">
-                    <div class="gallery-caption">
+                <!-- Slide 5: Water Testing -->
+                <div class="carousel-slide" data-index="4">
+                    <span class="carousel-badge">💧 Waterproof Test</span>
+                    <img src="Images/Water Testing.webp" alt="Water Testing">
+                    <div class="carousel-caption">
                         <h4>Waterproofing Validation</h4>
-                        <p>Intensive water spray testing over drainage grate to ensure enclosure meets IP rating requirements for racing conditions. Critical for protecting electronics during wet weather competitions and validating seal integrity.</p>
+                        <p class="short-desc">Intensive testing to ensure IP rating requirements.</p>
+                        <p class="long-desc" >Intensive water spray testing over drainage grate to ensure enclosure meets IP rating requirements for racing conditions. Critical for protecting electronics during wet weather competitions and validating seal integrity.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
 
-                <!-- Competition Results -->
-                <div class="gallery-item award-card">
-                    <span class="gallery-badge">🏆 Competition Success</span>
-                    <img src="Images/Award.jpeg" alt="Formula SAE Competition Results">
-                    <div class="gallery-caption">
-                        <h4>Formula Hybrid Electric Competition Results</h4>
-                        <p>Team UWFE achieved outstanding results including finished 35/44 laps of endurance, P1 in Autocross and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
+                <!-- Slide 6: Award -->
+                <div class="carousel-slide award-slide" data-index="5" style="cursor: zoom-in;">
+                    <span class="carousel-badge">🏆 Competition Success</span>
+                    <img src="Images/Award.jpeg" alt="Competition Results">
+                    <div class="carousel-caption">
+                        <h4>Formula Hybrid Competition Results</h4>
+                        <p class="short-desc">Outstanding results including P1 in Autocross.</p>
+                        <p class="long-desc" >Team UWFE achieved outstanding results including finished 35/44 laps of endurance, P1 in Autocross and earned the Scrutineers' Award. Our engineering contributions helped secure top placements across multiple competition categories in the EV Class.</p>
+                        <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                     </div>
                 </div>
+            </div>
+        </div>
+            
+            <!-- Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide('dashboardCarousel')">❮</button>
+                <div class="carousel-dots" id="dashboardDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('dashboardCarousel')">❯</button>
             </div>
 
             <div class="section-content">
@@ -2466,6 +2772,173 @@
         }
 
         window.addEventListener('load', () => setTimeout(init3DDashboard, 500));
+
+
+        // ========================================
+        // 3D CAROUSEL GALLERY SYSTEM
+        // ========================================
+
+        const carousels = {
+            dashboardCarousel: { currentIndex: 0, totalSlides: 6 },
+        };
+
+        let autoRotateInterval = null;
+        const AUTO_ROTATE_DELAY = 5000; // 5 seconds between slides
+        let isUserInteracting = false;
+        let isMouseOverCarousel = false; 
+
+        function initCarousels() {
+            Object.keys(carousels).forEach(carouselId => {
+                updateCarousel(carouselId);
+                createDots(carouselId);
+            });
+        }
+
+        function updateCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const currentIndex = carousels[carouselId].currentIndex;
+            const total = slides.length;
+            
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'left', 'right', 'hidden');
+                
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else if (index === (currentIndex - 1 + total) % total) {
+                    slide.classList.add('left');
+                } else if (index === (currentIndex + 1) % total) {
+                    slide.classList.add('right');
+                } else {
+                    slide.classList.add('hidden');
+                }
+            });
+            
+            updateDots(carouselId);
+        }
+
+        function createDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            dotsContainer.innerHTML = '';
+            const total = carousels[carouselId].totalSlides;
+            
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(carouselId, i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carousels[carouselId].currentIndex);
+            });
+        }
+
+        function nextSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
+            updateCarousel(carouselId);
+        }
+
+        function prevSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
+            updateCarousel(carouselId);
+        }
+
+        function goToSlide(carouselId, index) {
+            pauseAutoRotate();
+            carousels[carouselId].currentIndex = index;
+            updateCarousel(carouselId);
+        }
+
+        // Click on side images to navigate
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousels();
+            
+            // 🔄 START AUTO-ROTATION
+            startAutoRotate('dashboardCarousel');
+            
+            // FIXED: Pause auto-rotation when user hovers over carousel
+            document.querySelectorAll('.carousel-container').forEach(carousel => {
+                carousel.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                    console.log('Mouse entered carousel - auto-rotation paused');
+                });
+                
+                carousel.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                    console.log('Mouse left carousel - auto-rotation resumed');
+                });
+            });
+            
+            // BONUS: Also pause when hovering over carousel controls
+            document.querySelectorAll('.carousel-controls').forEach(controls => {
+                controls.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                });
+                
+                controls.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                });
+            });
+        });
+
+        // Toggle caption expansion
+        function toggleCaption(event) {
+            event.stopPropagation(); // Prevent carousel navigation
+            const caption = event.target.closest('.carousel-caption');
+            caption.classList.toggle('expanded');
+            
+            // Change button text
+            const btn = event.target;
+            if (caption.classList.contains('expanded')) {
+                btn.textContent = '📕 Show Less';
+            } else {
+                btn.textContent = '📖 Read More';
+            }
+        }
+
+        // Start auto-rotation
+        function startAutoRotate(carouselId) {
+            // Clear any existing interval
+            stopAutoRotate();
+            
+            autoRotateInterval = setInterval(() => {
+                if (!isUserInteracting && !isMouseOverCarousel) {
+                    nextSlide(carouselId);
+                }
+            }, AUTO_ROTATE_DELAY);
+        }
+
+        // Stop auto-rotation
+        function stopAutoRotate() {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+            }
+        }
+
+        // Pause auto-rotation temporarily when user interacts
+        function pauseAutoRotate() {
+            isUserInteracting = true;
+            setTimeout(() => {
+                isUserInteracting = false;
+            }, 5000); 
+        }
 
     </script>
 

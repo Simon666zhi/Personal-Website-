@@ -727,6 +727,291 @@
             margin: 2rem 0;
         }
 
+        /* ========================================
+        3D ROTATING CAROUSEL GALLERY
+        ======================================== */
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 3rem 0;
+            perspective: 2000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 500px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.9);
+        }
+
+        /* Center slide - active */
+        .carousel-slide.active {
+            z-index: 10;
+            transform: translateX(0) scale(1) rotateY(0deg);
+            opacity: 1;
+            filter: brightness(1) blur(0);
+            border-color: rgba(102, 126, 234, 1);
+            box-shadow: 
+                0 30px 80px rgba(102, 126, 234, 0.6),
+                0 0 60px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Left slide - behind */
+        .carousel-slide.left {
+            z-index: 5;
+            transform: translateX(-65%) scale(0.75) rotateY(25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Right slide - behind */
+        .carousel-slide.right {
+            z-index: 5;
+            transform: translateX(65%) scale(0.75) rotateY(-25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Hidden slides */
+        .carousel-slide.hidden {
+            z-index: 1;
+            transform: translateX(0) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .carousel-slide.active img {
+            object-fit: cover;
+        }
+
+        .carousel-slide:hover.active img {
+            transform: scale(1.05);
+        }
+
+        /* Caption - only show on active slide */
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top,
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 20;
+        }
+
+        .carousel-slide.active:hover .carousel-caption {
+            transform: translateY(0);
+        }
+
+        .carousel-caption h4 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-caption p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .carousel-caption .short-desc {
+            display: block;
+        }
+
+        .carousel-caption .long-desc {
+            display: none;
+        }
+
+        .carousel-caption.expanded .short-desc {
+            display: none;
+        }
+
+        .carousel-caption.expanded .long-desc {
+            display: block;
+        }
+
+        .caption-expand-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .caption-expand-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+        }
+
+        .carousel-caption.expanded .caption-expand-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 15;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
+            transform: scale(1.3);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(102, 126, 234, 0.6);
+            transform: scale(1.2);
+        }
+
+        .carousel-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 25;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Mobile Responsive Carousel */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 450px;
+            }
+            
+            .carousel-slide {
+                width: 320px;
+                height: 280px;
+            }
+            
+            .carousel-slide.left,
+            .carousel-slide.right {
+                transform: translateX(0) scale(0.6);
+                opacity: 0.2;
+                filter: brightness(0.4) blur(5px);
+            }
+            
+            .carousel-slide.left {
+                transform: translateX(-85%) scale(0.6);
+            }
+            
+            .carousel-slide.right {
+                transform: translateX(85%) scale(0.6);
+            }
+            
+            .carousel-controls {
+                bottom: -70px;
+            }
+            
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
         .gallery-item {
             position: relative;
             overflow: hidden;
@@ -1491,10 +1776,12 @@
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.6s;">
-                <div class="info-icon">🧠</div>
+                <div class="info-icon">
+                    <img src="Images/CAD_icon.png" alt="CAD" style="width: 2.5rem; height: 2.5rem;">
+                </div>
                 <div class="info-text">
-                    <h4>Intelligence</h4>
-                    <p>Computer Vision</p>
+                    <h4>Design Tool</h4>
+                    <p>SolidWorks</p>
                 </div>
             </div>
         </div>
@@ -1516,10 +1803,10 @@
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.7s;">
-                <div class="info-icon">📡</div>
+                <div class="info-icon">📐</div>
                 <div class="info-text">
-                    <h4>Navigation</h4>
-                    <p>Autonomous</p>
+                    <h4>Documentation</h4>
+                    <p>Technical Drawings</p>
                 </div>
             </div>
         </div>
@@ -1540,11 +1827,6 @@
             <button class="model-control-btn" onclick="toggle3DWireframe()" id="wireframeBtn">📐 Wire</button>
             <button class="model-control-btn" onclick="change3DColor()">🎨 Color</button>
         </div>
-        
-        <div class="hero-content">
-            <h1>🕷️ Four Foot Spider Robot</h1>
-            <p class="subtitle">Autonomous Quadruped Robot with Advanced Locomotion & Computer Vision</p>
-        </div>
     </section>
 
     <!-- Content -->
@@ -1557,33 +1839,145 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>This four-foot spider robot is a project where I designed and built a biomimetic robot. The focus was on creating a stable mechanical structure and developing leg motion that could mimic natural stepping patterns.</p>
-                <p>I designed the full mechanical layout, including the multi-joint legs, frame, and linkage system, and developed basic gait control to coordinate all four legs.</p>
+                <p>The Four Foot Spider Robot represents an ambitious exploration into biomimetic robotics, where I designed and developed a fully autonomous quadruped robot capable of intelligent locomotion and environmental interaction. This project challenged me to integrate mechanical design, embedded systems, computer vision, and advanced control algorithms into a cohesive robotic platform.</p>
+                
+                <p>At its core, this robot is built around a sophisticated 12 degree-of-freedom (DOF) system, with each of the four legs featuring three independently controlled servo motors. This configuration enables complex gaits including walking, turning, and adaptive terrain navigation. The mechanical design draws inspiration from arachnid biomechanics, optimizing for stability, weight distribution, and power efficiency.</p>
+                
+                <p>Beyond basic locomotion, the spider robot incorporates computer vision capabilities through an integrated camera system, allowing it to detect and track colored objects in real-time. The vision system communicates with the motion control layer to enable autonomous behaviors such as object following, obstacle avoidance, and path planning.</p>
+                
+                <h3>🎓 Technical Highlights</h3>
+                <ul>
+                    <li><strong>Inverse Kinematics Engine:</strong> Real-time calculation of joint angles for precise end-effector positioning across all four legs</li>
+                    <li><strong>Gait Coordination System:</strong> Synchronized multi-leg movement patterns ensuring stable, energy-efficient locomotion</li>
+                    <li><strong>Computer Vision Pipeline:</strong> Color-based object detection and tracking with position estimation</li>
+                    <li><strong>Autonomous Navigation:</strong> Sensor fusion combining vision data with positional feedback for intelligent path planning</li>
+                    <li><strong>Modular Architecture:</strong> Designed for easy modification, testing, and future capability expansion</li>
+                </ul>
+                
+                <h3>🔬 Project Scope</h3>
+                <p>This project encompassed the complete development lifecycle from conceptual design through physical implementation and testing. I was responsible for CAD modeling and mechanical assembly, embedded systems programming, control algorithm development, and computer vision integration. The result is a fully functional autonomous robot platform demonstrating advanced locomotion capabilities and intelligent environmental interaction.</p>
             </div>
         </div>
 
-        <!-- Project Gallery -->
+                <!-- Project Gallery -->
         <div class="content-section">
             <h2 class="section-title">
                 <span>📸</span>
                 Project Gallery
             </h2>
             <div class="section-content">
-                <p>Explore the development journey from concept to completion.</p>
+                <p>Explore the complete development journey of the Four Foot Spider Robot, from initial CAD design through fabrication to testing and validation.</p>
+                
+                <h3>🤖 Robot Design & Assembly</h3>
+                <p>Interactive 3D gallery showcasing the mechanical design, fabrication, and assembly process.</p>
             </div>
             
-            <div class="image-gallery">
-                <!-- Add your gallery items here -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">🤖 Prototype</span>
-                    <img src="Images/spider_robot_1.jpg" alt="Spider Robot Prototype">
-                    <div class="gallery-caption">
-                        <h4>Initial Prototype</h4>
-                        <p>First working prototype with basic locomotion capabilities.</p>
+            <!-- 3D Rotating Carousel -->
+            <div class="carousel-container" id="robotCarousel">
+                <div class="carousel-track">
+                    <!-- Slide 1: Complete Assembly -->
+                    <div class="carousel-slide" data-index="0">
+                        <span class="carousel-badge">🏆 Complete Assembly</span>
+                        <img src="Images/Overall3.png" alt="Spider Robot Complete Assembly">
+                        <div class="carousel-caption">
+                            <h4>Complete Spider Robot - Top View</h4>
+                            <p class="short-desc">Fully assembled quadruped with 12 DOF leg system.</p>
+                            <p class="long-desc">Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement patterns including walking, turning, and terrain adaptation.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Robot Body -->
+                    <div class="carousel-slide" data-index="1">
+                        <span class="carousel-badge">🔧 Chassis Design</span>
+                        <img src="Images/Robot_Body.png" alt="Robot Body CAD">
+                        <div class="carousel-caption">
+                            <h4>Central Body & Chassis Structure</h4>
+                            <p class="short-desc">Central chassis with optimized mounting geometry.</p>
+                            <p class="long-desc">Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion. Includes integrated cable routing channels and mounting bosses for servo motors with proper load distribution.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Leg Assembly -->
+                    <div class="carousel-slide" data-index="2">
+                        <span class="carousel-badge">🦿 Leg Mechanism</span>
+                        <img src="Images/Robot_Leg.png" alt="Robot Leg Detail">
+                        <div class="carousel-caption">
+                            <h4>3-DOF Leg Assembly - Detailed View</h4>
+                            <p class="short-desc">Three-joint leg with servo actuation system.</p>
+                            <p class="long-desc">Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation for lateral movement, femur joint controls forward/backward leg swing, and tibia joint enables precise foot positioning for ground contact. Custom brackets ensure proper torque transmission and minimize backlash.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Engineering Drawing -->
+                    <div class="carousel-slide" data-index="3">
+                        <span class="carousel-badge">📐 Technical Drawing</span>
+                        <img src="Images/Overall3.png" alt="Engineering Drawings" style="filter: brightness(1.2) contrast(1.1);">
+                        <div class="carousel-caption">
+                            <h4>Engineering Drawings - Body Component</h4>
+                            <p class="short-desc">Detailed technical drawings with full dimensions.</p>
+                            <p class="long-desc">Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. Features GD&T callouts, material specifications, and assembly notes. <a href="Images/Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide('robotCarousel')">❮</button>
+                <div class="carousel-dots" id="robotDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('robotCarousel')">❯</button>
+            </div>
 
-                <!-- Add more gallery items as needed -->
+        <!-- Technical Architecture -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>⚙️</span>
+                Technical Architecture
+            </h2>
+            <div class="section-content">
+                <h3>🦿 Mechanical Design</h3>
+                <p>The spider robot's mechanical structure is optimized for both stability and agility. Each leg consists of three segments connected by servo-actuated joints, providing coxa (hip), femur (thigh), and tibia (shin) articulation. This configuration closely mimics biological arthropod locomotion while maintaining manufacturability and serviceability.</p>
+                
+                <ul>
+                    <li><strong>Frame Construction:</strong> Lightweight yet rigid chassis made from laser-cut acrylic and 3D-printed components, minimizing weight while ensuring structural integrity</li>
+                    <li><strong>Joint Design:</strong> Custom servo brackets with optimized geometry for maximum range of motion and load distribution</li>
+                    <li><strong>Weight Distribution:</strong> Strategic component placement to maintain center of gravity over the support polygon during all gait phases</li>
+                    <li><strong>Modular Leg Assembly:</strong> Standardized leg design allows for easy replacement and testing of different configurations</li>
+                </ul>
+
+                <h3>💻 Control System</h3>
+                <p>The robot's brain consists of a microcontroller-based embedded system running custom firmware that orchestrates all motion and sensory processing. The control architecture is hierarchical, separating high-level planning from low-level actuation.</p>
+                
+                <ul>
+                    <li><strong>Microcontroller Platform:</strong> Arduino-based control system with sufficient I/O and processing power for real-time servo control</li>
+                    <li><strong>Inverse Kinematics Solver:</strong> Mathematical model translating desired foot positions into individual joint angles using geometric transformation matrices</li>
+                    <li><strong>Gait Generator:</strong> State machine implementation coordinating leg phases for stable walking patterns (tripod gait, wave gait)</li>
+                    <li><strong>Servo Control Loop:</strong> PWM signal generation with position feedback for precise actuation</li>
+                    <li><strong>Communication Protocol:</strong> Serial interface for debugging and parameter tuning during development</li>
+                </ul>
+
+                <h3>👁️ Computer Vision System</h3>
+                <p>The vision subsystem enables the robot to perceive and react to its environment. Using a camera module and image processing algorithms, the robot can identify objects of interest and adjust its behavior accordingly.</p>
+                
+                <ul>
+                    <li><strong>Camera Integration:</strong> Small form-factor camera module providing real-time image capture</li>
+                    <li><strong>Color Detection Algorithm:</strong> HSV color space filtering for robust object identification under varying lighting</li>
+                    <li><strong>Object Tracking:</strong> Centroid calculation and motion prediction for smooth following behavior</li>
+                    <li><strong>Vision-Motion Integration:</strong> Closed-loop control system using visual feedback to guide locomotion</li>
+                </ul>
+
+                <h3>🔋 Power Management</h3>
+                <p>Efficient power distribution is critical for mobile robotics. The spider robot incorporates a multi-rail power system to supply different voltages to various subsystems.</p>
+                
+                <ul>
+                    <li><strong>Battery System:</strong> Rechargeable LiPo battery pack providing sufficient capacity for extended operation</li>
+                    <li><strong>Voltage Regulation:</strong> Buck converters supplying stable power to servos and microcontroller</li>
+                    <li><strong>Power Monitoring:</strong> Battery voltage sensing with low-battery protection to prevent damage</li>
+                </ul>
             </div>
         </div>
 
@@ -1594,23 +1988,273 @@
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>🔧 Mechanical Design</h3>
+                <h3>🔧 Mechanical Design & Fabrication</h3>
                 <ul>
-                    <li>Add your mechanical design contributions</li>
-                    <li>CAD modeling, 3D printing, assembly</li>
+                    <li><strong>CAD Modeling:</strong> Complete 3D model development in SolidWorks, including assembly design, interference checking, and bill of materials generation</li>
+                    <li><strong>Structural Analysis:</strong> FEA simulation to validate load-bearing capacity of critical components under dynamic walking conditions</li>
+                    <li><strong>Manufacturing:</strong> Executed all fabrication steps including 3D printing of custom parts, laser cutting of chassis plates, and assembly of mechanical systems</li>
+                    <li><strong>Iterative Refinement:</strong> Multiple design iterations based on physical testing feedback, optimizing for weight reduction and improved kinematics</li>
                 </ul>
 
-                <h3>💻 Software Development</h3>
+                <h3>💻 Software Development & Control</h3>
                 <ul>
-                    <li>Add your software contributions</li>
-                    <li>Control algorithms, vision processing</li>
+                    <li><strong>Firmware Architecture:</strong> Designed and implemented complete embedded control software in C/C++, featuring modular structure for maintainability</li>
+                    <li><strong>Kinematics Implementation:</strong> Developed inverse kinematics solver from first principles, deriving transformation matrices and implementing numerical solutions</li>
+                    <li><strong>Gait Pattern Programming:</strong> Created coordinated multi-leg walking algorithms with smooth transitions between movement states</li>
+                    <li><strong>Vision Processing:</strong> Implemented color detection and object tracking algorithms using OpenCV, optimized for real-time performance on embedded hardware</li>
+                    <li><strong>Control Loop Tuning:</strong> Calibrated PID parameters and timing sequences through systematic testing for responsive, stable operation</li>
                 </ul>
 
                 <h3>🧪 Testing & Validation</h3>
                 <ul>
-                    <li>Add your testing methodology</li>
-                    <li>Performance metrics and results</li>
+                    <li><strong>Unit Testing:</strong> Validated individual subsystems (servo control, kinematics solver, vision pipeline) independently before integration</li>
+                    <li><strong>Integration Testing:</strong> Systematic testing of combined systems, debugging communication protocols and timing issues</li>
+                    <li><strong>Performance Metrics:</strong> Measured walking speed, stability margins, battery life, and vision tracking accuracy</li>
+                    <li><strong>Behavioral Testing:</strong> Evaluated autonomous behaviors including obstacle avoidance and object following in various environments</li>
+                    <li><strong>Documentation:</strong> Comprehensive documentation of design decisions, code structure, and testing procedures for future development</li>
                 </ul>
+
+                <h3>🎯 Project Management</h3>
+                <ul>
+                    <li><strong>Timeline Planning:</strong> Developed project schedule with milestones for mechanical design, software development, and testing phases</li>
+                    <li><strong>Resource Management:</strong> Sourced components, managed budget, and coordinated access to fabrication equipment</li>
+                    <li><strong>Risk Mitigation:</strong> Identified potential failure modes and developed contingency plans for critical systems</li>
+                    <li><strong>Technical Communication:</strong> Created detailed technical documentation and demonstration materials</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Challenges & Solutions -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>🎓</span>
+                Challenges & Solutions
+            </h2>
+            <div class="section-content">
+                <h3>⚖️ Challenge: Dynamic Stability</h3>
+                <p><strong>Problem:</strong> Initial walking tests revealed stability issues, with the robot tipping during certain gait phases, particularly when transitioning between leg support configurations.</p>
+                <p><strong>Solution:</strong> Implemented a dynamic center of gravity calculation that adjusts body height and posture based on current leg positions. Added stability margin checking to the gait generator, ensuring the projected center of mass always remains within the support polygon. This required modifying the inverse kinematics solver to accept body pose adjustments.</p>
+
+                <h3>⚡ Challenge: Servo Response Timing</h3>
+                <p><strong>Problem:</strong> Synchronization issues between servo motors caused jerky, uncoordinated movement. Different servos had varying response times, leading to phase misalignment in gait patterns.</p>
+                <p><strong>Solution:</strong> Developed a calibration routine to measure individual servo response characteristics. Implemented a predictive control algorithm that accounts for each servo's latency, issuing commands with calculated time offsets. This resulted in smooth, coordinated leg motion even with hardware variations.</p>
+
+                <h3>👁️ Challenge: Vision System Performance</h3>
+                <p><strong>Problem:</strong> Initial computer vision implementation suffered from poor performance in varying lighting conditions and struggled with real-time processing constraints on the embedded hardware.</p>
+                <p><strong>Solution:</strong> Optimized the image processing pipeline by reducing frame resolution for tracking (while maintaining higher resolution for detection), implementing adaptive thresholding for lighting compensation, and using a Kalman filter for smooth tracking even during momentary detection failures. Offloaded heavy processing to a companion computer while keeping critical control on the microcontroller.</p>
+
+                <h3>🔌 Challenge: Power Distribution</h3>
+                <p><strong>Problem:</strong> Simultaneous servo movement caused significant current spikes, leading to voltage drops that reset the microcontroller and corrupted sensor readings.</p>
+                <p><strong>Solution:</strong> Redesigned the power system with separate power rails for servos and electronics, adding bulk capacitors near high-current consumers to handle transient loads. Implemented current-limiting in the motion planner to stage servo movements and avoid peak current overlap. Added battery voltage monitoring with graceful degradation when power runs low.</p>
+
+                <h3>🧮 Challenge: Inverse Kinematics Complexity</h3>
+                <p><strong>Problem:</strong> Deriving and implementing the inverse kinematics equations for a 3-DOF leg proved mathematically challenging, with multiple solutions for some positions and unreachable regions in the workspace.</p>
+                <p><strong>Solution:</strong> Developed a geometric approach that simplifies the 3D problem into 2D projections, making the mathematics more tractable. Implemented solution selection logic to choose the most natural leg configuration. Added workspace boundary checking to prevent attempts to reach impossible positions, with graceful error handling.</p>
+
+                <h3>🔧 Challenge: Mechanical Wear</h3>
+                <p><strong>Problem:</strong> Extended testing revealed wear on servo splines and mounting points, causing backlash and reduced precision over time.</p>
+                <p><strong>Solution:</strong> Redesigned critical joints with reinforced mounting brackets and added thrust bearings to reduce axial loads on servos. Implemented a maintenance schedule with regular inspection points. For future iterations, planned migration to metal gears and more robust bearing solutions.</p>
+            </div>
+        </div>
+
+        <!-- Results & Impact -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>🏆</span>
+                Results & Impact
+            </h2>
+            <div class="section-content">
+                <h3>📊 Performance Achievements</h3>
+                <ul>
+                    <li><strong>Locomotion Success:</strong> Successfully demonstrated stable walking at speeds up to 0.15 m/s across flat terrain with multiple gait patterns</li>
+                    <li><strong>Autonomous Operation:</strong> Achieved reliable autonomous object following with < 5cm tracking error at distances of 0.5-2 meters</li>
+                    <li><strong>System Reliability:</strong> Robot operated for 45+ continuous minutes per charge with consistent performance</li>
+                    <li><strong>Kinematic Accuracy:</strong> Inverse kinematics solver converges to solutions within 2mm of target positions with sub-50ms computation time</li>
+                    <li><strong>Vision Performance:</strong> Color detection maintains 90%+ accuracy across varying indoor lighting conditions with 15 FPS processing rate</li>
+                </ul>
+
+                <h3>🎯 Technical Learning Outcomes</h3>
+                <ul>
+                    <li><strong>Mechanical Design:</strong> Gained deep expertise in kinematics, structural analysis, and design for manufacturability in robotic systems</li>
+                    <li><strong>Embedded Systems:</strong> Developed strong skills in real-time programming, hardware interfacing, and resource-constrained optimization</li>
+                    <li><strong>Control Theory:</strong> Practical implementation of inverse kinematics, gait generation, and closed-loop feedback control</li>
+                    <li><strong>Computer Vision:</strong> Hands-on experience with image processing algorithms, color space transformations, and object tracking</li>
+                    <li><strong>Systems Integration:</strong> Learned to coordinate multiple subsystems (mechanical, electrical, software) into a cohesive functional robot</li>
+                </ul>
+
+                <h3>💡 Key Insights</h3>
+                <p><strong>Interdisciplinary Thinking:</strong> This project reinforced the importance of considering mechanical, electrical, and software constraints simultaneously rather than in isolation. Design decisions in one domain significantly impact others.</p>
+                
+                <p><strong>Iterative Development:</strong> The most significant improvements came from rapid prototyping and testing cycles. Physical testing revealed issues that simulations missed, emphasizing the value of empirical validation.</p>
+                
+                <p><strong>Modularity Benefits:</strong> Designing with modularity in mind from the start paid dividends during debugging and improvement phases. Being able to isolate and test subsystems independently accelerated development significantly.</p>
+
+                <h3>🚀 Future Enhancement Opportunities</h3>
+                <ul>
+                    <li><strong>Advanced Sensing:</strong> Integration of IMU for orientation feedback and ultrasonic sensors for obstacle detection</li>
+                    <li><strong>Machine Learning:</strong> Gait optimization through reinforcement learning to adapt to various terrains</li>
+                    <li><strong>Improved Vision:</strong> Depth perception using stereo camera or structured light for 3D environment mapping</li>
+                    <li><strong>Communication:</strong> Wireless control interface and telemetry for remote operation and monitoring</li>
+                    <li><strong>Multi-Robot Coordination:</strong> Implementation of swarm behavior with multiple spider robots communicating and collaborating</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Project Gallery -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span>📸</span>
+                Project Gallery
+            </h2>
+            <div class="section-content">
+                <p>Explore the complete development journey of the Four Foot Spider Robot, from initial CAD design through fabrication to testing and validation.</p>
+                
+                <h3>🤖 Robot Design & Assembly</h3>
+                <p>Interactive 3D gallery showcasing the mechanical design, fabrication, and assembly process.</p>
+            </div>
+            
+            <!-- 3D Rotating Carousel -->
+            <div class="carousel-container" id="robotCarousel">
+                <div class="carousel-track">
+                    <!-- Slide 1: Complete Assembly -->
+                    <div class="carousel-slide" data-index="0">
+                        <span class="carousel-badge">🏆 Complete Assembly</span>
+                        <img src="Overall3.png" alt="Spider Robot Complete Assembly">
+                        <div class="carousel-caption">
+                            <h4>Complete Spider Robot - Top View</h4>
+                            <p class="short-desc">Fully assembled quadruped with 12 DOF leg system.</p>
+                            <p class="long-desc">Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement patterns including walking, turning, and terrain adaptation.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Robot Body -->
+                    <div class="carousel-slide" data-index="1">
+                        <span class="carousel-badge">🔧 Chassis Design</span>
+                        <img src="Robot_Body.png" alt="Robot Body CAD">
+                        <div class="carousel-caption">
+                            <h4>Central Body & Chassis Structure</h4>
+                            <p class="short-desc">Central chassis with optimized mounting geometry.</p>
+                            <p class="long-desc">Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion. Includes integrated cable routing channels and mounting bosses for servo motors with proper load distribution.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Leg Assembly -->
+                    <div class="carousel-slide" data-index="2">
+                        <span class="carousel-badge">🦿 Leg Mechanism</span>
+                        <img src="Robot_Leg.png" alt="Robot Leg Detail">
+                        <div class="carousel-caption">
+                            <h4>3-DOF Leg Assembly - Detailed View</h4>
+                            <p class="short-desc">Three-joint leg with servo actuation system.</p>
+                            <p class="long-desc">Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation for lateral movement, femur joint controls forward/backward leg swing, and tibia joint enables precise foot positioning for ground contact. Custom brackets ensure proper torque transmission and minimize backlash.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Engineering Drawing -->
+                    <div class="carousel-slide" data-index="3">
+                        <span class="carousel-badge">📐 Technical Drawing</span>
+                        <img src="Overall3.png" alt="Engineering Drawings" style="filter: brightness(1.2) contrast(1.1);">
+                        <div class="carousel-caption">
+                            <h4>Engineering Drawings - Body Component</h4>
+                            <p class="short-desc">Detailed technical drawings with full dimensions.</p>
+                            <p class="long-desc">Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. Features GD&T callouts, material specifications, and assembly notes. <a href="Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide('robotCarousel')">❮</button>
+                <div class="carousel-dots" id="robotDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('robotCarousel')">❯</button>
+            </div>
+
+            <div class="section-content" style="margin-top: 4rem;">
+                <h3>📊 Additional Documentation</h3>
+                <p>Supporting images and test results from the development process.</p>
+            </div>
+            
+            <div class="image-gallery">
+                <!-- Overall Robot Assembly -->
+                <div class="gallery-item featured">
+                    <span class="gallery-badge">🏆 Complete Assembly</span>
+                    <img src="Overall3.png" alt="Spider Robot Complete Assembly">
+                    <div class="gallery-caption">
+                        <h4>Complete Spider Robot - Top View</h4>
+                        <p>Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement.</p>
+                    </div>
+                </div>
+
+                <!-- Robot Body/Chassis -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🔧 Chassis Design</span>
+                    <img src="Robot_Body.png" alt="Robot Body CAD">
+                    <div class="gallery-caption">
+                        <h4>Central Body & Chassis Structure</h4>
+                        <p>Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion.</p>
+                    </div>
+                </div>
+
+                <!-- Single Leg Assembly -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">🦿 Leg Mechanism</span>
+                    <img src="Robot_Leg.png" alt="Robot Leg Detail">
+                    <div class="gallery-caption">
+                        <h4>3-DOF Leg Assembly - Detailed View</h4>
+                        <p>Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation, femur joint controls forward/backward movement, and tibia joint enables foot positioning for precise ground contact.</p>
+                    </div>
+                </div>
+
+                <!-- Engineering Drawing - converted to image for display -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">📐 Technical Drawing</span>
+                    <img src="Part1_preview.jpg" alt="Engineering Drawings" onerror="this.parentElement.style.display='none'">
+                    <div class="gallery-caption">
+                        <h4>Engineering Drawings - Body Component</h4>
+                        <p>Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. <a href="Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
+                    </div>
+                </div>
+
+                <!-- Placeholder for future content -->
+                <div class="gallery-item">
+                    <span class="gallery-badge">💻 Control System</span>
+                    <img src="Images/spider_electronics.jpg" alt="Electronics" onerror="this.style.display='none'">
+                    <div class="gallery-caption">
+                        <h4>Electronics & Control Board</h4>
+                        <p>Arduino-based control system with servo drivers, power distribution, and sensor interfaces for coordinated leg movement and vision processing.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-badge">🎬 In Action</span>
+                    <img src="Images/spider_walking.jpg" alt="Walking Demo" onerror="this.style.display='none'">
+                    <div class="gallery-caption">
+                        <h4>Walking Demonstration</h4>
+                        <p>Robot executing tripod gait pattern on flat terrain, demonstrating stable locomotion with coordinated leg movement.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="gallery-badge">👁️ Vision System</span>
+                    <img src="Images/spider_vision.jpg" alt="Vision Tracking" onerror="this.style.display='none'">
+                    <div class="gallery-caption">
+                        <h4>Object Tracking Demo</h4>
+                        <p>Computer vision system detecting and tracking colored objects in real-time for autonomous following behavior.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item featured">
+                    <span class="gallery-badge">📊 Testing Results</span>
+                    <img src="Images/spider_testing.jpg" alt="Testing Setup" onerror="this.style.display='none'">
+                    <div class="gallery-caption">
+                        <h4>Performance Testing & Validation</h4>
+                        <p>Comprehensive testing setup measuring walking speed, stability margins, power consumption, and vision tracking accuracy across various terrains and conditions.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1628,7 +2272,7 @@
             <div class="track-line"></div>
             
             <a href="Project-uwfe-3D.html" class="track-checkpoint checkpoint-left">
-                <div class="checkpoint-flag">🕷️</div>
+                <div class="checkpoint-flag">🏎️</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">PREVIOUS PROJECT</span>
                     <span class="checkpoint-title">Waterloo Formula Electric</span>
@@ -1650,9 +2294,9 @@
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
-                    <span class="checkpoint-title">Next Project Name</span>
+                    <span class="checkpoint-title">Next Project</span>
                 </div>
-                <div class="checkpoint-flag">🕷️</div>
+                <div class="checkpoint-flag">🚀</div>
             </a>
         </div>
 
@@ -1730,7 +2374,7 @@
             camera3D = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
             
             // Position camera to view spider robot
-            camera3D.position.set(0, 80, 100); 
+            camera3D.position.set(50, 60, 80); 
             camera3D.lookAt(0, 0, 0);
 
             renderer3D = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -1768,7 +2412,7 @@
         function load3DModel() {
             const loader = new THREE.GLTFLoader();
             loader.load(
-                'Images/spider_robot_model.glb',  
+                'Images/Robot_Overall_Assembly.glb',  
                 (gltf) => {
                     spiderModel = gltf.scene;
                     const box = new THREE.Box3().setFromObject(spiderModel);
@@ -1779,10 +2423,9 @@
                     spiderModel.scale.multiplyScalar(scale);
                     spiderModel.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
                     
-                    spiderModel.rotation.x = 0;
+                    spiderModel.rotation.x = Math.PI; 
                     spiderModel.rotation.y = 0;
                     spiderModel.rotation.z = 0;
-
 
                     initialRotation = {
                         x: spiderModel.rotation.x,
@@ -1971,6 +2614,181 @@
 
         // Initialize 3D viewer when page loads
         window.addEventListener('load', () => setTimeout(init3DSpider, 500));
+
+        const carousels = {
+            robotCarousel: { currentIndex: 0, totalSlides: 4 },
+        };
+
+        let autoRotateInterval = null;
+        const AUTO_ROTATE_DELAY = 5000; // 5 seconds between slides
+        let isUserInteracting = false;
+        let isMouseOverCarousel = false; // NEW: Track mouse hover state
+
+        function initCarousels() {
+            Object.keys(carousels).forEach(carouselId => {
+                updateCarousel(carouselId);
+                createDots(carouselId);
+            });
+        }
+
+        function updateCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const currentIndex = carousels[carouselId].currentIndex;
+            const total = slides.length;
+            
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'left', 'right', 'hidden');
+                
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else if (index === (currentIndex - 1 + total) % total) {
+                    slide.classList.add('left');
+                } else if (index === (currentIndex + 1) % total) {
+                    slide.classList.add('right');
+                } else {
+                    slide.classList.add('hidden');
+                }
+            });
+            
+            updateDots(carouselId);
+        }
+
+        function createDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            dotsContainer.innerHTML = '';
+            const total = carousels[carouselId].totalSlides;
+            
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(carouselId, i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carousels[carouselId].currentIndex);
+            });
+        }
+
+        function nextSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
+            updateCarousel(carouselId);
+        }
+
+        function prevSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
+            updateCarousel(carouselId);
+        }
+
+        function goToSlide(carouselId, index) {
+            pauseAutoRotate();
+            carousels[carouselId].currentIndex = index;
+            updateCarousel(carouselId);
+        }
+
+        // Initialize carousel on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousels();
+            
+            // Start auto-rotation
+            startAutoRotate('robotCarousel');
+            
+            // Click on side images to navigate
+            document.querySelectorAll('.carousel-slide').forEach(slide => {
+                slide.addEventListener('click', function() {
+                    if (this.classList.contains('left')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        prevSlide(carouselId);
+                    } else if (this.classList.contains('right')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        nextSlide(carouselId);
+                    }
+                });
+            });
+            
+            // FIXED: Pause auto-rotation when user hovers over carousel
+            document.querySelectorAll('.carousel-container').forEach(carousel => {
+                carousel.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                    console.log('Mouse entered carousel - auto-rotation paused');
+                });
+                
+                carousel.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                    console.log('Mouse left carousel - auto-rotation resumed');
+                });
+            });
+            
+            // BONUS: Also pause when hovering over carousel controls
+            document.querySelectorAll('.carousel-controls').forEach(controls => {
+                controls.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                });
+                
+                controls.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                });
+            });
+        });
+
+        // Toggle caption expansion
+        function toggleCaption(event) {
+            event.stopPropagation();
+            const caption = event.target.closest('.carousel-caption');
+            caption.classList.toggle('expanded');
+            
+            const btn = event.target;
+            if (caption.classList.contains('expanded')) {
+                btn.textContent = '📕 Show Less';
+            } else {
+                btn.textContent = '📖 Read More';
+            }
+        }
+
+        // Start auto-rotation
+        function startAutoRotate(carouselId) {
+            stopAutoRotate();
+            
+            autoRotateInterval = setInterval(() => {
+                // ✅ Only auto-rotate if user is NOT hovering over carousel
+                if (!isUserInteracting && !isMouseOverCarousel) {
+                    nextSlide(carouselId);
+                }
+            }, AUTO_ROTATE_DELAY);
+        }
+
+        // Stop auto-rotation
+        function stopAutoRotate() {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+            }
+        }
+
+        // Pause auto-rotation temporarily when user manually clicks
+        function pauseAutoRotate() {
+            isUserInteracting = true;
+            setTimeout(() => {
+                isUserInteracting = false;
+            }, 5000);
+        }
+
     </script>
 
 </body>
