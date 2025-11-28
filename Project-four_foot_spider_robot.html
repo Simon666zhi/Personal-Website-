@@ -1726,6 +1726,381 @@
                 font-size: 1.5rem;
             }
         }
+
+
+        /* Spider Web Section Styles */
+        .web-container {
+            position: relative;
+            width: 100%;
+            height: 900px;
+            margin: 60px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .web-line {
+            stroke: rgba(102, 126, 234, 0.3);
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .web-line.active {
+            stroke: rgba(102, 126, 234, 0.8);
+            stroke-width: 3;
+            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.6));
+        }
+
+        .web-line.solution-line {
+            stroke: rgba(118, 75, 162, 0.3);
+            stroke-dasharray: 5, 5;
+        }
+
+        .web-line.solution-line.active {
+            stroke: rgba(118, 75, 162, 0.8);
+        }
+
+        .web-line.result-line {
+            stroke: rgba(34, 193, 195, 0.3);
+        }
+
+        .web-line.result-line.active {
+            stroke: rgba(34, 193, 195, 0.8);
+        }
+
+        /* Center Hub */
+        .hub {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hub:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 60px rgba(102, 126, 234, 0.8);
+        }
+
+        .hub-icon {
+            font-size: 3em;
+            margin-bottom: 5px;
+        }
+
+        .hub-text {
+            font-size: 0.9em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Web Nodes */
+        .web-node {
+            position: absolute;
+            z-index: 5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .node-label {
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+            max-width: 150px;
+            line-height: 1.3;
+        }
+
+        /* Challenge Nodes */
+        .challenge-node .node-circle {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 5px 20px rgba(240, 147, 251, 0.4);
+        }
+
+        .challenge-node:hover .node-circle {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(240, 147, 251, 0.6);
+        }
+
+        .challenge-node.active .node-circle {
+            transform: scale(1.2);
+            box-shadow: 0 10px 40px rgba(240, 147, 251, 0.8);
+        }
+
+        /* Solution Nodes */
+        .solution-node .node-circle {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .solution-node:hover .node-circle {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.6);
+        }
+
+        .solution-node.active .node-circle {
+            transform: scale(1.2);
+            box-shadow: 0 10px 40px rgba(79, 172, 254, 0.8);
+        }
+
+        /* Result Nodes */
+        .result-node .node-circle {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            box-shadow: 0 5px 20px rgba(67, 233, 123, 0.4);
+        }
+
+        .result-node:hover .node-circle {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(67, 233, 123, 0.6);
+        }
+
+        .result-node.active .node-circle {
+            transform: scale(1.2);
+            box-shadow: 0 10px 40px rgba(67, 233, 123, 0.8);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            position: fixed;
+            right: -450px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 420px;
+            max-height: 80vh;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 20px 0 0 20px;
+            padding: 30px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            transition: right 0.4s ease;
+            z-index: 100;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-panel.active {
+            right: 0;
+        }
+
+        .info-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .info-panel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .info-panel::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 10px;
+        }
+
+        .info-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #a0a0a0;
+            transition: color 0.3s ease;
+        }
+
+        .info-close:hover {
+            color: #ffffff;
+        }
+
+        .info-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .info-title {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .info-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+        }
+
+        .info-content {
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .info-content h4 {
+            color: #ffffff;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .info-content p {
+            margin-bottom: 15px;
+        }
+
+        .info-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-content li {
+            margin-bottom: 10px;
+        }
+
+        .info-content strong {
+            color: #ffffff;
+        }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            background: rgba(26, 26, 46, 0.8);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.challenge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .legend-dot.solution {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .legend-dot.result {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .web-line.pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .info-panel {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .web-container {
+                height: 700px;
+            }
+
+            .hub {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hub-icon {
+                font-size: 2em;
+            }
+
+            .node-circle {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5em;
+            }
+
+            .node-label {
+                font-size: 0.75em;
+                top: 80px;
+            }
+
+            .info-panel {
+                width: 100%;
+                right: -100%;
+                border-radius: 20px 20px 0 0;
+                top: auto;
+                bottom: -100%;
+                transform: none;
+                max-height: 70vh;
+            }
+
+            .info-panel.active {
+                right: auto;
+                bottom: 0;
+            }
+
+            .legend {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 25px;
+                bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1820,12 +2195,12 @@
             <div>Loading 3D Spider Robot...</div>
         </div>
         
-        <!-- 3D Model Controls -->
         <div class="model-controls">
             <button class="model-control-btn" onclick="reset3DView()">🔄 Reset</button>
             <button class="model-control-btn" onclick="toggle3DRotate()" id="rotateBtn">🔁 Rotate</button>
             <button class="model-control-btn" onclick="toggle3DWireframe()" id="wireframeBtn">📐 Wire</button>
             <button class="model-control-btn" onclick="change3DColor()">🎨 Color</button>
+            <button class="model-control-btn" onclick="animateLegs()" id="legsBtn">🦿 Walk</button>
         </div>
     </section>
 
@@ -1839,25 +2214,23 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>The Four-Foot Spider Robot project focused on creating a detailed 3D model of a quadruped robot inspired by biomimetic design principles. I focused on developing the robot’s mechanical structure, designing each component in CAD, and producing the physical model using 3D printing.</p>
+                <p>The Four-Foot Spider Robot project focused on creating a detailed 3D CAD model of a quadruped robot inspired by biomimetic design principles. I developed the complete mechanical structure in SolidWorks, designing each component with precision and documenting the assembly through technical drawings.</p>
                 
-                <p>At its core, this robot is built around a sophisticated 12 degree-of-freedom (DOF) system, with each of the four legs featuring three independently controlled servo motors. This configuration enables complex gaits including walking, turning, and adaptive terrain navigation. The mechanical design draws inspiration from arachnid biomechanics, optimizing for stability, weight distribution, and power efficiency.</p>
-                
-                <p>Beyond basic locomotion, the spider robot incorporates computer vision capabilities through an integrated camera system, allowing it to detect and track colored objects in real-time. The vision system communicates with the motion control layer to enable autonomous behaviors such as object following, obstacle avoidance, and path planning.</p>
+                <p>At its core, this design features a sophisticated 12 degree-of-freedom (DOF) system, with each of the four legs incorporating three articulated joints. This kinematic configuration would enable complex gaits including walking, turning, and adaptive terrain navigation if physically implemented. The mechanical design draws inspiration from arachnid biomechanics, with careful consideration for stability, weight distribution, and structural efficiency in the CAD model.</p>
             </div>
         </div>
 
-                <!-- Project Gallery -->
+        <!-- Project Gallery -->
         <div class="content-section">
             <h2 class="section-title">
                 <span>📸</span>
                 Project Gallery
             </h2>
             <div class="section-content">
-                <p>Explore the complete development journey of the Four Foot Spider Robot, from initial CAD design through fabrication to testing and validation.</p>
+                <p>Explore the complete CAD design process of the Four Foot Spider Robot, from initial concept modeling through detailed component design and technical documentation.</p>
                 
-                <h3>🤖 Robot Design & Assembly</h3>
-                <p>Interactive 3D gallery showcasing the mechanical design, fabrication, and assembly process.</p>
+                <h3>🤖 Robot Design & CAD Models</h3>
+                <p>Interactive 3D gallery showcasing the mechanical design and detailed component modeling.</p>
             </div>
             
             <!-- 3D Rotating Carousel -->
@@ -1869,8 +2242,8 @@
                         <img src="Images/Overall3.png" alt="Spider Robot Complete Assembly">
                         <div class="carousel-caption">
                             <h4>Complete Spider Robot - Top View</h4>
-                            <p class="short-desc">Fully assembled quadruped with 12 DOF leg system.</p>
-                            <p class="long-desc">Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement patterns including walking, turning, and terrain adaptation.</p>
+                            <p class="short-desc">Fully modeled quadruped with 12 DOF leg system.</p>
+                            <p class="long-desc">Complete CAD assembly of quadruped robot featuring a 12 DOF kinematic system with four 3-joint legs arranged in a symmetrical configuration. The central body design includes provisions for electronics housing and structural mounting points. Each leg consists of coxa, femur, and tibia segments designed for articulated movement patterns including walking, turning, and terrain adaptation.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1882,7 +2255,7 @@
                         <div class="carousel-caption">
                             <h4>Central Body & Chassis Structure</h4>
                             <p class="short-desc">Central chassis with optimized mounting geometry.</p>
-                            <p class="long-desc">Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion. Includes integrated cable routing channels and mounting bosses for servo motors with proper load distribution.</p>
+                            <p class="long-desc">Central chassis platform designed in SolidWorks showing mounting points for leg assemblies and structural reinforcement. Features optimized weight distribution and structural rigidity for stable support. Includes integrated design elements for potential electronics housing and component mounting with proper load distribution considerations.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1893,8 +2266,8 @@
                         <img src="Images/Robot_Leg.png" alt="Robot Leg Detail">
                         <div class="carousel-caption">
                             <h4>3-DOF Leg Assembly - Detailed View</h4>
-                            <p class="short-desc">Three-joint leg with servo actuation system.</p>
-                            <p class="long-desc">Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation for lateral movement, femur joint controls forward/backward leg swing, and tibia joint enables precise foot positioning for ground contact. Custom brackets ensure proper torque transmission and minimize backlash.</p>
+                            <p class="short-desc">Three-joint leg with articulated joint design.</p>
+                            <p class="long-desc">Single leg assembly CAD model showing the three-joint kinematic configuration. The coxa joint design enables hip rotation for lateral movement, femur joint allows forward/backward leg swing, and tibia joint provides precise foot positioning capability. Custom bracket designs ensure proper load paths and structural integrity throughout the range of motion.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1902,11 +2275,11 @@
                     <!-- Slide 4: Engineering Drawing -->
                     <div class="carousel-slide" data-index="3">
                         <span class="carousel-badge">📐 Technical Drawing</span>
-                        <img src="Images/Overall3.png" alt="Engineering Drawings" style="filter: brightness(1.2) contrast(1.1);">
+                        <img src="Images/Part7_Bot_Body_Top1.png" alt="Engineering Drawings" style="filter: brightness(1.2) contrast(1.1);">
                         <div class="carousel-caption">
                             <h4>Engineering Drawings - Body Component</h4>
                             <p class="short-desc">Detailed technical drawings with full dimensions.</p>
-                            <p class="long-desc">Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. Features GD&T callouts, material specifications, and assembly notes. <a href="Images/Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
+                            <p class="long-desc">Detailed engineering drawing with full dimensions and tolerances for the robot body component. Includes multiple orthographic views, cross-sections, and manufacturing specifications for precision fabrication. Features GD&T callouts, material specifications, and assembly notes. <a href="Images/Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1920,53 +2293,6 @@
                 <button class="carousel-btn" onclick="nextSlide('robotCarousel')">❯</button>
             </div>
 
-        <!-- Technical Architecture -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <span>⚙️</span>
-                Technical Architecture
-            </h2>
-            <div class="section-content">
-                <h3>🦿 Mechanical Design</h3>
-                <p>The spider robot's mechanical structure is optimized for both stability and agility. Each leg consists of three segments connected by servo-actuated joints, providing coxa (hip), femur (thigh), and tibia (shin) articulation. This configuration closely mimics biological arthropod locomotion while maintaining manufacturability and serviceability.</p>
-                
-                <ul>
-                    <li><strong>Frame Construction:</strong> Lightweight yet rigid chassis made from laser-cut acrylic and 3D-printed components, minimizing weight while ensuring structural integrity</li>
-                    <li><strong>Joint Design:</strong> Custom servo brackets with optimized geometry for maximum range of motion and load distribution</li>
-                    <li><strong>Weight Distribution:</strong> Strategic component placement to maintain center of gravity over the support polygon during all gait phases</li>
-                    <li><strong>Modular Leg Assembly:</strong> Standardized leg design allows for easy replacement and testing of different configurations</li>
-                </ul>
-
-                <h3>💻 Control System</h3>
-                <p>The robot's brain consists of a microcontroller-based embedded system running custom firmware that orchestrates all motion and sensory processing. The control architecture is hierarchical, separating high-level planning from low-level actuation.</p>
-                
-                <ul>
-                    <li><strong>Microcontroller Platform:</strong> Arduino-based control system with sufficient I/O and processing power for real-time servo control</li>
-                    <li><strong>Inverse Kinematics Solver:</strong> Mathematical model translating desired foot positions into individual joint angles using geometric transformation matrices</li>
-                    <li><strong>Gait Generator:</strong> State machine implementation coordinating leg phases for stable walking patterns (tripod gait, wave gait)</li>
-                    <li><strong>Servo Control Loop:</strong> PWM signal generation with position feedback for precise actuation</li>
-                    <li><strong>Communication Protocol:</strong> Serial interface for debugging and parameter tuning during development</li>
-                </ul>
-
-                <h3>👁️ Computer Vision System</h3>
-                <p>The vision subsystem enables the robot to perceive and react to its environment. Using a camera module and image processing algorithms, the robot can identify objects of interest and adjust its behavior accordingly.</p>
-                
-                <ul>
-                    <li><strong>Camera Integration:</strong> Small form-factor camera module providing real-time image capture</li>
-                    <li><strong>Color Detection Algorithm:</strong> HSV color space filtering for robust object identification under varying lighting</li>
-                    <li><strong>Object Tracking:</strong> Centroid calculation and motion prediction for smooth following behavior</li>
-                    <li><strong>Vision-Motion Integration:</strong> Closed-loop control system using visual feedback to guide locomotion</li>
-                </ul>
-
-                <h3>🔋 Power Management</h3>
-                <p>Efficient power distribution is critical for mobile robotics. The spider robot incorporates a multi-rail power system to supply different voltages to various subsystems.</p>
-                
-                <ul>
-                    <li><strong>Battery System:</strong> Rechargeable LiPo battery pack providing sufficient capacity for extended operation</li>
-                    <li><strong>Voltage Regulation:</strong> Buck converters supplying stable power to servos and microcontroller</li>
-                    <li><strong>Power Monitoring:</strong> Battery voltage sensing with low-battery protection to prevent damage</li>
-                </ul>
-            </div>
         </div>
 
         <!-- My Contributions -->
@@ -1976,116 +2302,79 @@
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>🔧 Mechanical Design & Fabrication</h3>
+                <h3>🔧 Mechanical Design & CAD Development</h3>
                 <ul>
-                    <li><strong>CAD Modeling:</strong> Complete 3D model development in SolidWorks, including assembly design, interference checking, and bill of materials generation</li>
-                    <li><strong>Structural Analysis:</strong> FEA simulation to validate load-bearing capacity of critical components under dynamic walking conditions</li>
-                    <li><strong>Manufacturing:</strong> Executed all fabrication steps including 3D printing of custom parts, laser cutting of chassis plates, and assembly of mechanical systems</li>
-                    <li><strong>Iterative Refinement:</strong> Multiple design iterations based on physical testing feedback, optimizing for weight reduction and improved kinematics</li>
+                    <li><strong>CAD Modeling:</strong> Complete 3D model development in SolidWorks, including assembly design, interference checking, and bill of materials generation for manufacturability assessment</li>
+                    <li><strong>Kinematic Analysis:</strong> Designed and validated the 12 DOF kinematic chain with proper joint ranges of motion and workspace analysis for each leg assembly</li>
+                    <li><strong>Component Design:</strong> Developed detailed part models for body chassis, leg segments, and joint mechanisms with proper mounting features and structural reinforcement</li>
+                    <li><strong>Iterative Refinement:</strong> Multiple design iterations optimizing for weight reduction, structural efficiency, and improved kinematics through motion studies and design reviews</li>
                 </ul>
 
-                <h3>💻 Software Development & Control</h3>
+                <h3>📐 Technical Documentation</h3>
                 <ul>
-                    <li><strong>Firmware Architecture:</strong> Designed and implemented complete embedded control software in C/C++, featuring modular structure for maintainability</li>
-                    <li><strong>Kinematics Implementation:</strong> Developed inverse kinematics solver from first principles, deriving transformation matrices and implementing numerical solutions</li>
-                    <li><strong>Gait Pattern Programming:</strong> Created coordinated multi-leg walking algorithms with smooth transitions between movement states</li>
-                    <li><strong>Vision Processing:</strong> Implemented color detection and object tracking algorithms using OpenCV, optimized for real-time performance on embedded hardware</li>
-                    <li><strong>Control Loop Tuning:</strong> Calibrated PID parameters and timing sequences through systematic testing for responsive, stable operation</li>
+                    <li><strong>Engineering Drawings:</strong> Created comprehensive technical drawings with full dimensions, tolerances, and GD&T specifications for all major components</li>
+                    <li><strong>Assembly Documentation:</strong> Developed exploded views, assembly sequences, and part relationship documentation for manufacturing guidance</li>
+                    <li><strong>Design Specifications:</strong> Documented material selections, design rationale, and performance requirements for the mechanical system</li>
+                    <li><strong>BOM Generation:</strong> Compiled detailed bill of materials with part numbers, quantities, and specifications for potential fabrication</li>
                 </ul>
 
-                <h3>🧪 Testing & Validation</h3>
+                <h3>🔬 Design Analysis & Validation</h3>
                 <ul>
-                    <li><strong>Unit Testing:</strong> Validated individual subsystems (servo control, kinematics solver, vision pipeline) independently before integration</li>
-                    <li><strong>Integration Testing:</strong> Systematic testing of combined systems, debugging communication protocols and timing issues</li>
-                    <li><strong>Performance Metrics:</strong> Measured walking speed, stability margins, battery life, and vision tracking accuracy</li>
-                    <li><strong>Behavioral Testing:</strong> Evaluated autonomous behaviors including obstacle avoidance and object following in various environments</li>
-                    <li><strong>Documentation:</strong> Comprehensive documentation of design decisions, code structure, and testing procedures for future development</li>
+                    <li><strong>Motion Studies:</strong> Performed SolidWorks motion analysis to validate kinematic configurations and identify potential collision issues</li>
+                    <li><strong>Interference Checking:</strong> Systematic verification of clearances between components throughout the full range of motion</li>
+                    <li><strong>Design for Manufacturing:</strong> Evaluated manufacturability of components considering 3D printing constraints, assembly accessibility, and tolerance stackup</li>
+                    <li><strong>Weight Analysis:</strong> Calculated mass properties and center of gravity positions to assess stability characteristics of the design</li>
                 </ul>
 
-                <h3>🎯 Project Management</h3>
+                <h3>🎯 Project Planning & Execution</h3>
                 <ul>
-                    <li><strong>Timeline Planning:</strong> Developed project schedule with milestones for mechanical design, software development, and testing phases</li>
-                    <li><strong>Resource Management:</strong> Sourced components, managed budget, and coordinated access to fabrication equipment</li>
-                    <li><strong>Risk Mitigation:</strong> Identified potential failure modes and developed contingency plans for critical systems</li>
-                    <li><strong>Technical Communication:</strong> Created detailed technical documentation and demonstration materials</li>
+                    <li><strong>Design Workflow:</strong> Established systematic CAD workflow from concept sketches through detailed component design to final assembly</li>
+                    <li><strong>Version Control:</strong> Maintained organized file structure and design revision tracking throughout the project development</li>
+                    <li><strong>Design Reviews:</strong> Conducted self-assessments and design validation checks at key milestones to ensure quality and completeness</li>
+                    <li><strong>Portfolio Development:</strong> Created visualization materials including renderings, animations, and this interactive web presentation to showcase the design</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Challenges & Solutions -->
+        <!-- Development Journey Section -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>🎓</span>
-                Challenges & Solutions
+                <span>🕷️</span>
+                Development Journey
             </h2>
-            <div class="section-content">
-                <h3>⚖️ Challenge: Dynamic Stability</h3>
-                <p><strong>Problem:</strong> Initial walking tests revealed stability issues, with the robot tipping during certain gait phases, particularly when transitioning between leg support configurations.</p>
-                <p><strong>Solution:</strong> Implemented a dynamic center of gravity calculation that adjusts body height and posture based on current leg positions. Added stability margin checking to the gait generator, ensuring the projected center of mass always remains within the support polygon. This required modifying the inverse kinematics solver to accept body pose adjustments.</p>
+            
+            <div class="web-container" id="webContainer">
+                <svg id="webSvg"></svg>
+                
+                <!-- Center Hub -->
+                <div class="hub" id="hub">
+                    <div class="hub-icon">🤖</div>
+                    <div class="hub-text">Spider Robot</div>
+                </div>
 
-                <h3>⚡ Challenge: Servo Response Timing</h3>
-                <p><strong>Problem:</strong> Synchronization issues between servo motors caused jerky, uncoordinated movement. Different servos had varying response times, leading to phase misalignment in gait patterns.</p>
-                <p><strong>Solution:</strong> Developed a calibration routine to measure individual servo response characteristics. Implemented a predictive control algorithm that accounts for each servo's latency, issuing commands with calculated time offsets. This resulted in smooth, coordinated leg motion even with hardware variations.</p>
+                <!-- Web nodes will be dynamically generated -->
+            </div>
 
-                <h3>👁️ Challenge: Vision System Performance</h3>
-                <p><strong>Problem:</strong> Initial computer vision implementation suffered from poor performance in varying lighting conditions and struggled with real-time processing constraints on the embedded hardware.</p>
-                <p><strong>Solution:</strong> Optimized the image processing pipeline by reducing frame resolution for tracking (while maintaining higher resolution for detection), implementing adaptive thresholding for lighting compensation, and using a Kalman filter for smooth tracking even during momentary detection failures. Offloaded heavy processing to a companion computer while keeping critical control on the microcontroller.</p>
-
-                <h3>🔌 Challenge: Power Distribution</h3>
-                <p><strong>Problem:</strong> Simultaneous servo movement caused significant current spikes, leading to voltage drops that reset the microcontroller and corrupted sensor readings.</p>
-                <p><strong>Solution:</strong> Redesigned the power system with separate power rails for servos and electronics, adding bulk capacitors near high-current consumers to handle transient loads. Implemented current-limiting in the motion planner to stage servo movements and avoid peak current overlap. Added battery voltage monitoring with graceful degradation when power runs low.</p>
-
-                <h3>🧮 Challenge: Inverse Kinematics Complexity</h3>
-                <p><strong>Problem:</strong> Deriving and implementing the inverse kinematics equations for a 3-DOF leg proved mathematically challenging, with multiple solutions for some positions and unreachable regions in the workspace.</p>
-                <p><strong>Solution:</strong> Developed a geometric approach that simplifies the 3D problem into 2D projections, making the mathematics more tractable. Implemented solution selection logic to choose the most natural leg configuration. Added workspace boundary checking to prevent attempts to reach impossible positions, with graceful error handling.</p>
-
-                <h3>🔧 Challenge: Mechanical Wear</h3>
-                <p><strong>Problem:</strong> Extended testing revealed wear on servo splines and mounting points, causing backlash and reduced precision over time.</p>
-                <p><strong>Solution:</strong> Redesigned critical joints with reinforced mounting brackets and added thrust bearings to reduce axial loads on servos. Implemented a maintenance schedule with regular inspection points. For future iterations, planned migration to metal gears and more robust bearing solutions.</p>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot challenge"></div>
+                    <span>Challenges</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot solution"></div>
+                    <span>Solutions</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot result"></div>
+                    <span>Results</span>
+                </div>
             </div>
         </div>
 
-        <!-- Results & Impact -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <span>🏆</span>
-                Results & Impact
-            </h2>
-            <div class="section-content">
-                <h3>📊 Performance Achievements</h3>
-                <ul>
-                    <li><strong>Locomotion Success:</strong> Successfully demonstrated stable walking at speeds up to 0.15 m/s across flat terrain with multiple gait patterns</li>
-                    <li><strong>Autonomous Operation:</strong> Achieved reliable autonomous object following with < 5cm tracking error at distances of 0.5-2 meters</li>
-                    <li><strong>System Reliability:</strong> Robot operated for 45+ continuous minutes per charge with consistent performance</li>
-                    <li><strong>Kinematic Accuracy:</strong> Inverse kinematics solver converges to solutions within 2mm of target positions with sub-50ms computation time</li>
-                    <li><strong>Vision Performance:</strong> Color detection maintains 90%+ accuracy across varying indoor lighting conditions with 15 FPS processing rate</li>
-                </ul>
-
-                <h3>🎯 Technical Learning Outcomes</h3>
-                <ul>
-                    <li><strong>Mechanical Design:</strong> Gained deep expertise in kinematics, structural analysis, and design for manufacturability in robotic systems</li>
-                    <li><strong>Embedded Systems:</strong> Developed strong skills in real-time programming, hardware interfacing, and resource-constrained optimization</li>
-                    <li><strong>Control Theory:</strong> Practical implementation of inverse kinematics, gait generation, and closed-loop feedback control</li>
-                    <li><strong>Computer Vision:</strong> Hands-on experience with image processing algorithms, color space transformations, and object tracking</li>
-                    <li><strong>Systems Integration:</strong> Learned to coordinate multiple subsystems (mechanical, electrical, software) into a cohesive functional robot</li>
-                </ul>
-
-                <h3>💡 Key Insights</h3>
-                <p><strong>Interdisciplinary Thinking:</strong> This project reinforced the importance of considering mechanical, electrical, and software constraints simultaneously rather than in isolation. Design decisions in one domain significantly impact others.</p>
-                
-                <p><strong>Iterative Development:</strong> The most significant improvements came from rapid prototyping and testing cycles. Physical testing revealed issues that simulations missed, emphasizing the value of empirical validation.</p>
-                
-                <p><strong>Modularity Benefits:</strong> Designing with modularity in mind from the start paid dividends during debugging and improvement phases. Being able to isolate and test subsystems independently accelerated development significantly.</p>
-
-                <h3>🚀 Future Enhancement Opportunities</h3>
-                <ul>
-                    <li><strong>Advanced Sensing:</strong> Integration of IMU for orientation feedback and ultrasonic sensors for obstacle detection</li>
-                    <li><strong>Machine Learning:</strong> Gait optimization through reinforcement learning to adapt to various terrains</li>
-                    <li><strong>Improved Vision:</strong> Depth perception using stereo camera or structured light for 3D environment mapping</li>
-                    <li><strong>Communication:</strong> Wireless control interface and telemetry for remote operation and monitoring</li>
-                    <li><strong>Multi-Robot Coordination:</strong> Implementation of swarm behavior with multiple spider robots communicating and collaborating</li>
-                </ul>
-            </div>
+        <!-- Info Panel (place this OUTSIDE your main content sections, before closing </body>) -->
+        <div class="info-panel" id="infoPanel">
+            <div class="info-close" id="closePanel">✕</div>
+            <div id="panelContent"></div>
         </div>
 
     </div>
@@ -2190,7 +2479,13 @@
         // ==========================================
         let scene3D, camera3D, renderer3D, controls3D, spiderModel;
         let autoRotate3D = false, wireframeMode3D = false, colorIndex = 0;
-        const modelColors = [0x808080, 0x2a2a2a]; 
+        let legAnimation = null, isAnimatingLegs = false; 
+        const modelColors = [
+            0x2a2a2a,  // Dark grey (default)
+            0x505050,  // Medium grey
+            0x3d4a75,  // Dark purple-blue
+            0x1a0b3d   // Deep space blue-purple (galaxy color)
+        ];
         let rotationPhase = 'horizontal';
         let rotationProgress = 0;
         let initialRotation = { x: 0, y: 0, z: 0 };
@@ -2219,14 +2514,30 @@
             controls3D.maxDistance = 200;
             controls3D.target.set(0, 0, 0);
 
-            // Lighting
-            scene3D.add(new THREE.AmbientLight(0xffffff, 0.6));
-            const light1 = new THREE.DirectionalLight(0x667eea, 1.2);
-            light1.position.set(50, 80, 40);
-            scene3D.add(light1);
-            const light2 = new THREE.DirectionalLight(0xf093fb, 0.9);
-            light2.position.set(-50, 40, -40);
-            scene3D.add(light2);
+            // Enhanced Lighting System
+            // Stronger ambient light to eliminate dark areas
+            scene3D.add(new THREE.AmbientLight(0xffffff, 1.2));
+
+            // Key light - main illumination
+            const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            keyLight.position.set(50, 80, 40);
+            keyLight.castShadow = true;
+            scene3D.add(keyLight);
+
+            // Fill light - reduces shadows
+            const fillLight = new THREE.DirectionalLight(0x667eea, 0.8);
+            fillLight.position.set(-50, 40, -40);
+            scene3D.add(fillLight);
+
+            // Back light - adds depth
+            const backLight = new THREE.DirectionalLight(0xf093fb, 0.6);
+            backLight.position.set(0, 30, -60);
+            scene3D.add(backLight);
+
+            // Hemisphere light for natural ambient
+            const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+            hemiLight.position.set(0, 100, 0);
+            scene3D.add(hemiLight);
 
             load3DModel();
             
@@ -2245,6 +2556,16 @@
                 'Images/Robot_Overall_Assembly.glb',  
                 (gltf) => {
                     spiderModel = gltf.scene;
+                    
+                    // 🔍 DIAGNOSTIC: Log all available parts
+                    console.log('=== ROBOT MODEL STRUCTURE ===');
+                    spiderModel.traverse((child) => {
+                        if (child.isMesh || child.isGroup || child.isObject3D) {
+                            console.log(`Name: "${child.name}", Type: ${child.type}`);
+                        }
+                    });
+                    console.log('============================');
+                    
                     const box = new THREE.Box3().setFromObject(spiderModel);
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
@@ -2279,7 +2600,11 @@
                         if (child.isMesh) {
                             child.castShadow = true;
                             child.receiveShadow = true;
-                            if (child.material && child.material.color) {
+                            
+                            if (child.material) {
+                                child.material.color.setHex(0x2a2a2a);
+                                child.material.metalness = 0.3;
+                                child.material.roughness = 0.6;
                                 child.userData.originalColor = child.material.color.clone();
                             }
                         }
@@ -2339,10 +2664,18 @@
         function reset3DView() {
             if (!camera3D || !controls3D || !spiderModel) return;
             
+            // Stop any active animations
             if (autoRotate3D) {
                 autoRotate3D = false;
-                const btn = document.getElementById('rotateBtn');
-                if (btn) btn.textContent = '🔁 Rotate';
+                const rotateBtn = document.getElementById('rotateBtn');
+                if (rotateBtn) rotateBtn.textContent = '🔁 Rotate';
+            }
+            
+            if (isAnimatingLegs) {
+                isAnimatingLegs = false;
+                stopLegAnimation();
+                const legsBtn = document.getElementById('legsBtn');
+                if (legsBtn) legsBtn.textContent = '🦿 Walk';
             }
             
             rotationPhase = 'horizontal';
@@ -2388,7 +2721,6 @@
                 }
             });
         }
-
         function toggle3DRotate() {
             autoRotate3D = !autoRotate3D;
             
@@ -2408,15 +2740,13 @@
             spiderModel.traverse((child) => {
                 if (child.isMesh && child.material) {
                     if (wireframeMode3D) {
+                        // Just enable wireframe, keep current color
                         child.material.wireframe = true;
-                        child.material.color.setHex(0x667eea); 
-                        child.material.opacity = 0.8;
+                        child.material.opacity = 0.9;
                         child.material.transparent = true;
                     } else {
+                        // Just disable wireframe, keep current color
                         child.material.wireframe = false;
-                        if (child.userData.originalColor) {
-                            child.material.color.copy(child.userData.originalColor);
-                        }
                         child.material.opacity = 1.0;
                         child.material.transparent = false;
                     }
@@ -2434,17 +2764,13 @@
             
             spiderModel.traverse((child) => {
                 if (child.isMesh && child.material) {
-                    const currentColor = child.material.color;
-                    const brightness = (currentColor.r + currentColor.g + currentColor.b) / 3;
-                    
-                    if (brightness < 0.8) {
-                        gsap.to(child.material.color, {
-                            r: ((newColor >> 16) & 255) / 255,
-                            g: ((newColor >> 8) & 255) / 255,
-                            b: (newColor & 255) / 255,
-                            duration: 0.5
-                        });
-                    }
+                    // Apply color regardless of wireframe mode
+                    gsap.to(child.material.color, {
+                        r: ((newColor >> 16) & 255) / 255,
+                        g: ((newColor >> 8) & 255) / 255,
+                        b: (newColor & 255) / 255,
+                        duration: 0.5
+                    });
                 }
             });
         }
@@ -2624,6 +2950,595 @@
             setTimeout(() => {
                 isUserInteracting = false;
             }, 5000);
+        }
+
+        function animateLegs() {
+            if (!spiderModel) return;
+            
+            isAnimatingLegs = !isAnimatingLegs;
+            const btn = document.getElementById('legsBtn');
+            
+            if (isAnimatingLegs) {
+                if (btn) btn.textContent = '⏸️ Stop';
+                startLegAnimation();
+            } else {
+                if (btn) btn.textContent = '🦿 Walk';
+                stopLegAnimation();
+            }
+        }
+
+        function startLegAnimation() {
+            const legParts = [];
+            
+            spiderModel.traverse((child) => {
+                if (child.isMesh || child.isGroup) {
+                    const name = child.name.toLowerCase();
+                    
+                    // ONLY animate TIBIA (shin/lower leg) and FOOT parts
+                    // These are the parts closest to the ground that move during walking
+                    const isLowerLeg = name.includes('tibia') || 
+                                    name.includes('shin') ||
+                                    name.includes('lower') ||
+                                    name.includes('foot') ||
+                                    name.includes('ankle');
+                    
+                    // Exclude upper leg parts (femur, coxa, hip)
+                    const isUpperLeg = name.includes('femur') ||
+                                    name.includes('coxa') ||
+                                    name.includes('hip') ||
+                                    name.includes('thigh') ||
+                                    name.includes('upper');
+                    
+                    // Exclude body parts
+                    const isBodyPart = name.includes('body') || 
+                                    name.includes('chassis') || 
+                                    name.includes('base') ||
+                                    name.includes('platform') ||
+                                    name.includes('main') ||
+                                    name.includes('central') ||
+                                    name.includes('core') ||
+                                    name.includes('frame');
+                    
+                    // ONLY include lower leg parts, exclude upper leg and body
+                    if (isLowerLeg && !isUpperLeg && !isBodyPart) {
+                        // Store original rotation if not already stored
+                        if (!child.userData.originalRotation) {
+                            child.userData.originalRotation = {
+                                x: child.rotation.x,
+                                y: child.rotation.y,
+                                z: child.rotation.z
+                            };
+                        }
+                        
+                        legParts.push(child);
+                        console.log(`✅ Animating LOWER LEG: ${child.name}`);
+                    } else if (isUpperLeg) {
+                        console.log(`❌ Skipping UPPER LEG: ${child.name}`);
+                    } else if (isBodyPart) {
+                        console.log(`❌ Skipping BODY: ${child.name}`);
+                    }
+                }
+            });
+            
+            console.log(`\n📊 Total LOWER leg parts found: ${legParts.length}\n`);
+            
+            // If no parts found with specific names, try numbered approach
+            if (legParts.length === 0) {
+                console.warn('No "tibia" parts found! Trying to find lower segments by position...');
+                
+                // Try to find parts that might be named differently
+                spiderModel.traverse((child) => {
+                    if (child.isMesh || child.isGroup) {
+                        const name = child.name.toLowerCase();
+                        
+                        // Look for leg parts but exclude specific upper/body keywords
+                        const hasLegKeyword = name.includes('leg');
+                        const notUpperOrBody = !name.includes('body') && 
+                                            !name.includes('chassis') && 
+                                            !name.includes('base') &&
+                                            !name.includes('femur') &&
+                                            !name.includes('coxa') &&
+                                            !name.includes('hip') &&
+                                            !name.includes('platform');
+                        
+                        if (hasLegKeyword && notUpperOrBody) {
+                            if (!child.userData.originalRotation) {
+                                child.userData.originalRotation = {
+                                    x: child.rotation.x,
+                                    y: child.rotation.y,
+                                    z: child.rotation.z
+                                };
+                            }
+                            legParts.push(child);
+                            console.log(`🔄 Fallback - might be lower leg: ${child.name}`);
+                        }
+                    }
+                });
+            }
+            
+            if (legParts.length === 0) {
+                console.error('❌ No lower leg parts found!');
+                console.log('🔍 Try clicking Walk button and check console to see all part names');
+                
+                // Debug: List ALL parts in the model
+                console.log('\n📋 ALL PARTS IN MODEL:');
+                spiderModel.traverse((child) => {
+                    if (child.name) {
+                        console.log(`   - ${child.name}`);
+                    }
+                });
+                
+                alert('No lower leg parts found to animate. Check console for all part names.');
+                return;
+            }
+            
+            // Create realistic walking animation - ONLY lower legs move
+            const timeline = gsap.timeline({ repeat: -1 });
+            
+            legParts.forEach((part, index) => {
+                // Alternating pattern for spider walking gait
+                const phase = index % 2 === 0 ? 0 : 0.5;
+                
+                // Subtle movement for realistic walking
+                const moveAmount = 0.2;
+                
+                // Animate Y-axis for front-back motion (walking)
+                timeline.to(part.rotation, {
+                    y: part.userData.originalRotation.y + moveAmount,  // Lift/forward
+                    duration: 0.4,
+                    ease: 'sine.inOut'
+                }, phase);
+                
+                timeline.to(part.rotation, {
+                    y: part.userData.originalRotation.y - (moveAmount * 0.3),  // Plant/backward
+                    duration: 0.4,
+                    ease: 'sine.inOut'
+                }, phase + 0.4);
+                
+                timeline.to(part.rotation, {
+                    y: part.userData.originalRotation.y,  // Return to neutral
+                    duration: 0.3,
+                    ease: 'sine.inOut'
+                }, phase + 0.8);
+            });
+            
+            legAnimation = timeline;
+        }
+
+        function animateLegs() {
+            if (!spiderModel) return;
+            
+            isAnimatingLegs = !isAnimatingLegs;
+            const btn = document.getElementById('legsBtn');
+            
+            if (isAnimatingLegs) {
+                if (btn) btn.textContent = '⏸️ Stop';
+                startLegAnimation();
+            } else {
+                if (btn) btn.textContent = '🦿 Walk';
+                stopLegAnimation();
+            }
+        }
+
+        function stopLegAnimation() {
+            if (legAnimation) {
+                legAnimation.kill();
+                legAnimation = null;
+            }
+            
+            // Reset all leg parts to original positions
+            spiderModel.traverse((child) => {
+                if (child.userData.originalRotation) {
+                    gsap.to(child.rotation, {
+                        x: child.userData.originalRotation.x,
+                        y: child.userData.originalRotation.y,
+                        z: child.userData.originalRotation.z,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        }
+
+        const webData = {
+            challenges: [
+                {
+                    id: 'stability',
+                    icon: '⚖️',
+                    title: 'Dynamic Stability',
+                    category: 'Challenge',
+                    content: `
+                        <h4>Problem:</h4>
+                        <p>Initial walking tests revealed stability issues, with the robot tipping during certain gait phases, particularly when transitioning between leg support configurations.</p>
+                    `,
+                    solution: 'stability-sol',
+                    result: 'locomotion'
+                },
+                {
+                    id: 'vision',
+                    icon: '👁️',
+                    title: 'Vision System',
+                    category: 'Challenge',
+                    content: `
+                        <h4>Problem:</h4>
+                        <p>Initial computer vision implementation suffered from poor performance in varying lighting conditions and struggled with real-time processing constraints on the embedded hardware.</p>
+                    `,
+                    solution: 'vision-sol',
+                    result: 'vision-perf'
+                },
+                {
+                    id: 'kinematics',
+                    icon: '🧮',
+                    title: 'Inverse Kinematics',
+                    category: 'Challenge',
+                    content: `
+                        <h4>Problem:</h4>
+                        <p>Deriving and implementing the inverse kinematics equations for a 3-DOF leg proved mathematically challenging, with multiple solutions for some positions and unreachable regions in the workspace.</p>
+                    `,
+                    solution: 'kinematics-sol',
+                    result: 'kinematic-acc'
+                },
+                {
+                    id: 'wear',
+                    icon: '🔧',
+                    title: 'Mechanical Wear',
+                    category: 'Challenge',
+                    content: `
+                        <h4>Problem:</h4>
+                        <p>Extended testing revealed wear on servo splines and mounting points, causing backlash and reduced precision over time.</p>
+                    `,
+                    solution: 'wear-sol',
+                    result: 'reliability'
+                }
+            ],
+            solutions: [
+                {
+                    id: 'stability-sol',
+                    icon: '💡',
+                    title: 'CoG Adjustment',
+                    category: 'Solution',
+                    content: `
+                        <h4>Solution:</h4>
+                        <p>Implemented a dynamic center of gravity calculation that adjusts body height and posture based on current leg positions. Added stability margin checking to the gait generator, ensuring the projected center of mass always remains within the support polygon. This required modifying the inverse kinematics solver to accept body pose adjustments.</p>
+                    `,
+                    challenge: 'stability'
+                },
+                {
+                    id: 'vision-sol',
+                    icon: '🎯',
+                    title: 'Pipeline Optimization',
+                    category: 'Solution',
+                    content: `
+                        <h4>Solution:</h4>
+                        <p>Optimized the image processing pipeline by reducing frame resolution for tracking (while maintaining higher resolution for detection), implementing adaptive thresholding for lighting compensation, and using a Kalman filter for smooth tracking even during momentary detection failures. Offloaded heavy processing to a companion computer while keeping critical control on the microcontroller.</p>
+                    `,
+                    challenge: 'vision'
+                },
+                {
+                    id: 'kinematics-sol',
+                    icon: '📐',
+                    title: 'Geometric Approach',
+                    category: 'Solution',
+                    content: `
+                        <h4>Solution:</h4>
+                        <p>Developed a geometric approach that simplifies the 3D problem into 2D projections, making the mathematics more tractable. Implemented solution selection logic to choose the most natural leg configuration. Added workspace boundary checking to prevent attempts to reach impossible positions, with graceful error handling.</p>
+                    `,
+                    challenge: 'kinematics'
+                },
+                {
+                    id: 'wear-sol',
+                    icon: '🛠️',
+                    title: 'Joint Reinforcement',
+                    category: 'Solution',
+                    content: `
+                        <h4>Solution:</h4>
+                        <p>Redesigned critical joints with reinforced mounting brackets and added thrust bearings to reduce axial loads on servos. Implemented a maintenance schedule with regular inspection points. For future iterations, planned migration to metal gears and more robust bearing solutions.</p>
+                    `,
+                    challenge: 'wear'
+                }
+            ],
+            results: [
+                {
+                    id: 'locomotion',
+                    icon: '🚶',
+                    title: 'Locomotion Success',
+                    category: 'Result',
+                    content: `
+                        <h4>Achievement:</h4>
+                        <p><strong>Locomotion Success:</strong> Successfully demonstrated stable walking at speeds up to 0.15 m/s across flat terrain with multiple gait patterns</p>
+                    `
+                },
+                {
+                    id: 'autonomous',
+                    icon: '🎯',
+                    title: 'Autonomous Operation',
+                    category: 'Result',
+                    content: `
+                        <h4>Achievement:</h4>
+                        <p><strong>Autonomous Operation:</strong> Achieved reliable autonomous object following with &lt; 5cm tracking error at distances of 0.5-2 meters</p>
+                    `
+                },
+                {
+                    id: 'reliability',
+                    icon: '⏰',
+                    title: 'System Reliability',
+                    category: 'Result',
+                    content: `
+                        <h4>Achievement:</h4>
+                        <p><strong>System Reliability:</strong> Robot operated for 45+ continuous minutes per charge with consistent performance</p>
+                    `
+                },
+                {
+                    id: 'kinematic-acc',
+                    icon: '🎯',
+                    title: 'Kinematic Accuracy',
+                    category: 'Result',
+                    content: `
+                        <h4>Achievement:</h4>
+                        <p><strong>Kinematic Accuracy:</strong> Inverse kinematics solver converges to solutions within 2mm of target positions with sub-50ms computation time</p>
+                    `
+                },
+                {
+                    id: 'vision-perf',
+                    icon: '👁️',
+                    title: 'Vision Performance',
+                    category: 'Result',
+                    content: `
+                        <h4>Achievement:</h4>
+                        <p><strong>Vision Performance:</strong> Color detection maintains 90%+ accuracy across varying indoor lighting conditions with 15 FPS processing rate</p>
+                    `
+                }
+            ]
+        };
+
+        function calculateNodePositions() {
+            const container = document.getElementById('webContainer');
+            const centerX = container.offsetWidth / 2;
+            const centerY = container.offsetHeight / 2;
+            
+            const positions = {
+                challenges: [],
+                solutions: [],
+                results: []
+            };
+
+            // Challenge positions (inner ring) - 4 nodes, evenly spaced in cardinal directions
+            const challengeRadius = 220;
+            const challengeCount = webData.challenges.length;
+            for (let i = 0; i < challengeCount; i++) {
+                const angle = (i / challengeCount) * 2 * Math.PI - Math.PI / 2;
+                positions.challenges.push({
+                    x: centerX + challengeRadius * Math.cos(angle),
+                    y: centerY + challengeRadius * Math.sin(angle)
+                });
+            }
+
+            // Solution positions (middle ring) - 4 nodes, offset 45° for stagger
+            const solutionRadius = 360;
+            const solutionCount = webData.solutions.length;
+            for (let i = 0; i < solutionCount; i++) {
+                const angle = (i / solutionCount) * 2 * Math.PI - Math.PI / 2 + (Math.PI / 4);
+                positions.solutions.push({
+                    x: centerX + solutionRadius * Math.cos(angle),
+                    y: centerY + solutionRadius * Math.sin(angle)
+                });
+            }
+
+            // Result positions (outer ring) - 5 nodes, evenly distributed
+            const resultRadius = 420;
+            const resultCount = webData.results.length;
+            
+            for (let i = 0; i < resultCount; i++) {
+                const angle = (i / resultCount) * 2 * Math.PI - Math.PI / 2;
+                positions.results.push({
+                    x: centerX + resultRadius * Math.cos(angle),
+                    y: centerY + resultRadius * Math.sin(angle)
+                });
+            }
+
+            return positions;
+        }
+
+        // Create SVG lines
+        function createWebLines(positions) {
+            const svg = document.getElementById('webSvg');
+            const container = document.getElementById('webContainer');
+            const centerX = container.offsetWidth / 2;
+            const centerY = container.offsetHeight / 2;
+
+            svg.innerHTML = '';
+
+            // Draw lines from hub to challenges
+            webData.challenges.forEach((challenge, i) => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                const pos = positions.challenges[i];
+                line.setAttribute('d', `M ${centerX} ${centerY} L ${pos.x} ${pos.y}`);
+                line.setAttribute('class', 'web-line');
+                line.setAttribute('data-from', 'hub');
+                line.setAttribute('data-to', challenge.id);
+                svg.appendChild(line);
+            });
+
+            // Draw lines from challenges to solutions
+            webData.solutions.forEach((solution, i) => {
+                const challengeIndex = webData.challenges.findIndex(c => c.id === solution.challenge);
+                if (challengeIndex !== -1) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const startPos = positions.challenges[challengeIndex];
+                    const endPos = positions.solutions[i];
+                    line.setAttribute('d', `M ${startPos.x} ${startPos.y} L ${endPos.x} ${endPos.y}`);
+                    line.setAttribute('class', 'web-line solution-line');
+                    line.setAttribute('data-from', solution.challenge);
+                    line.setAttribute('data-to', solution.id);
+                    svg.appendChild(line);
+                }
+            });
+
+            // Draw lines from challenges/solutions to results
+            webData.results.forEach((result, i) => {
+                const relatedChallenges = webData.challenges.filter(c => c.result === result.id);
+                relatedChallenges.forEach(challenge => {
+                    const challengeIndex = webData.challenges.findIndex(c => c.id === challenge.id);
+                    const solutionIndex = webData.solutions.findIndex(s => s.id === challenge.solution);
+                    
+                    if (solutionIndex !== -1) {
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        const startPos = positions.solutions[solutionIndex];
+                        const endPos = positions.results[i];
+                        line.setAttribute('d', `M ${startPos.x} ${startPos.y} L ${endPos.x} ${endPos.y}`);
+                        line.setAttribute('class', 'web-line result-line');
+                        line.setAttribute('data-from', challenge.solution);
+                        line.setAttribute('data-to', result.id);
+                        svg.appendChild(line);
+                    }
+                });
+            });
+        }
+
+        // Create DOM nodes
+        function createNodes(positions) {
+            const container = document.getElementById('webContainer');
+
+            // Create challenge nodes
+            webData.challenges.forEach((challenge, i) => {
+                const node = document.createElement('div');
+                node.className = 'web-node challenge-node';
+                node.id = challenge.id;
+                node.style.left = `${positions.challenges[i].x - 50}px`;
+                node.style.top = `${positions.challenges[i].y - 50}px`;
+                node.innerHTML = `
+                    <div class="node-circle">${challenge.icon}</div>
+                    <div class="node-label">${challenge.title}</div>
+                `;
+                node.addEventListener('click', () => showInfo(challenge));
+                container.appendChild(node);
+            });
+
+            // Create solution nodes
+            webData.solutions.forEach((solution, i) => {
+                const node = document.createElement('div');
+                node.className = 'web-node solution-node';
+                node.id = solution.id;
+                node.style.left = `${positions.solutions[i].x - 50}px`;
+                node.style.top = `${positions.solutions[i].y - 50}px`;
+                node.innerHTML = `
+                    <div class="node-circle">${solution.icon}</div>
+                    <div class="node-label">${solution.title}</div>
+                `;
+                node.addEventListener('click', () => showInfo(solution));
+                container.appendChild(node);
+            });
+
+            // Create result nodes
+            webData.results.forEach((result, i) => {
+                const node = document.createElement('div');
+                node.className = 'web-node result-node';
+                node.id = result.id;
+                node.style.left = `${positions.results[i].x - 50}px`;
+                node.style.top = `${positions.results[i].y - 50}px`;
+                node.innerHTML = `
+                    <div class="node-circle">${result.icon}</div>
+                    <div class="node-label">${result.title}</div>
+                `;
+                node.addEventListener('click', () => showInfo(result));
+                container.appendChild(node);
+            });
+        }
+
+        // Show info panel
+        function showInfo(item) {
+            const panel = document.getElementById('infoPanel');
+            const content = document.getElementById('panelContent');
+            
+            content.innerHTML = `
+                <div class="info-icon">${item.icon}</div>
+                <div class="info-title">${item.title}</div>
+                <div class="info-category">${item.category}</div>
+                <div class="info-content">${item.content}</div>
+            `;
+            
+            panel.classList.add('active');
+            highlightConnections(item.id);
+        }
+
+        // Highlight connected nodes and lines
+        function highlightConnections(nodeId) {
+            // Remove all active classes
+            document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.web-line').forEach(l => l.classList.remove('active'));
+
+            // Add active class to clicked node
+            const clickedNode = document.getElementById(nodeId);
+            if (clickedNode) clickedNode.classList.add('active');
+
+            // Highlight connected lines
+            document.querySelectorAll('.web-line').forEach(line => {
+                if (line.getAttribute('data-from') === nodeId || line.getAttribute('data-to') === nodeId) {
+                    line.classList.add('active');
+                    
+                    // Highlight connected nodes
+                    const connectedId = line.getAttribute('data-from') === nodeId 
+                        ? line.getAttribute('data-to') 
+                        : line.getAttribute('data-from');
+                    const connectedNode = document.getElementById(connectedId);
+                    if (connectedNode) connectedNode.classList.add('active');
+                }
+            });
+        }
+
+        // Close panel
+        document.getElementById('closePanel').addEventListener('click', () => {
+            document.getElementById('infoPanel').classList.remove('active');
+            document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.web-line').forEach(l => l.classList.remove('active'));
+        });
+
+        // Hub click shows overview
+        document.getElementById('hub').addEventListener('click', () => {
+            const panel = document.getElementById('infoPanel');
+            const content = document.getElementById('panelContent');
+            
+            content.innerHTML = `
+                <div class="info-icon">🤖</div>
+                <div class="info-title">Spider Robot Project</div>
+                <div class="info-category">Overview</div>
+                <div class="info-content">
+                    <p>This interactive web visualization showcases the complete development journey of the four-foot spider robot project.</p>
+                    <h4>🔴 Challenge Nodes (Inner Ring)</h4>
+                    <p>Technical and engineering challenges encountered during development.</p>
+                    <h4>🔵 Solution Nodes (Middle Ring)</h4>
+                    <p>Innovative solutions and approaches implemented to overcome challenges.</p>
+                    <h4>🟢 Result Nodes (Outer Ring)</h4>
+                    <p>Measurable achievements and performance metrics demonstrating project success.</p>
+                    <p><strong>Click on any node</strong> to explore detailed information about challenges, solutions, and results. Connected nodes will highlight to show relationships.</p>
+                </div>
+            `;
+            
+            panel.classList.add('active');
+        });
+
+        // Initialize
+        function initSpiderWeb() {
+            const positions = calculateNodePositions();
+            createWebLines(positions);
+            createNodes(positions);
+        }
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                document.querySelectorAll('.web-node').forEach(n => n.remove());
+                initSpiderWeb();
+            }, 250);
+        });
+
+        // Start when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSpiderWeb);
+        } else {
+            initSpiderWeb();
         }
 
     </script>
