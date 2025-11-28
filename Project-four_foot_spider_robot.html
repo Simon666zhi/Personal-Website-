@@ -1839,23 +1839,11 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>The Four Foot Spider Robot represents an ambitious exploration into biomimetic robotics, where I designed and developed a fully autonomous quadruped robot capable of intelligent locomotion and environmental interaction. This project challenged me to integrate mechanical design, embedded systems, computer vision, and advanced control algorithms into a cohesive robotic platform.</p>
+                <p>The Four-Foot Spider Robot project focused on creating a detailed 3D model of a quadruped robot inspired by biomimetic design principles. I focused on developing the robot’s mechanical structure, designing each component in CAD, and producing the physical model using 3D printing.</p>
                 
                 <p>At its core, this robot is built around a sophisticated 12 degree-of-freedom (DOF) system, with each of the four legs featuring three independently controlled servo motors. This configuration enables complex gaits including walking, turning, and adaptive terrain navigation. The mechanical design draws inspiration from arachnid biomechanics, optimizing for stability, weight distribution, and power efficiency.</p>
                 
                 <p>Beyond basic locomotion, the spider robot incorporates computer vision capabilities through an integrated camera system, allowing it to detect and track colored objects in real-time. The vision system communicates with the motion control layer to enable autonomous behaviors such as object following, obstacle avoidance, and path planning.</p>
-                
-                <h3>🎓 Technical Highlights</h3>
-                <ul>
-                    <li><strong>Inverse Kinematics Engine:</strong> Real-time calculation of joint angles for precise end-effector positioning across all four legs</li>
-                    <li><strong>Gait Coordination System:</strong> Synchronized multi-leg movement patterns ensuring stable, energy-efficient locomotion</li>
-                    <li><strong>Computer Vision Pipeline:</strong> Color-based object detection and tracking with position estimation</li>
-                    <li><strong>Autonomous Navigation:</strong> Sensor fusion combining vision data with positional feedback for intelligent path planning</li>
-                    <li><strong>Modular Architecture:</strong> Designed for easy modification, testing, and future capability expansion</li>
-                </ul>
-                
-                <h3>🔬 Project Scope</h3>
-                <p>This project encompassed the complete development lifecycle from conceptual design through physical implementation and testing. I was responsible for CAD modeling and mechanical assembly, embedded systems programming, control algorithm development, and computer vision integration. The result is a fully functional autonomous robot platform demonstrating advanced locomotion capabilities and intelligent environmental interaction.</p>
             </div>
         </div>
 
@@ -2100,164 +2088,6 @@
             </div>
         </div>
 
-        <!-- Project Gallery -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <span>📸</span>
-                Project Gallery
-            </h2>
-            <div class="section-content">
-                <p>Explore the complete development journey of the Four Foot Spider Robot, from initial CAD design through fabrication to testing and validation.</p>
-                
-                <h3>🤖 Robot Design & Assembly</h3>
-                <p>Interactive 3D gallery showcasing the mechanical design, fabrication, and assembly process.</p>
-            </div>
-            
-            <!-- 3D Rotating Carousel -->
-            <div class="carousel-container" id="robotCarousel">
-                <div class="carousel-track">
-                    <!-- Slide 1: Complete Assembly -->
-                    <div class="carousel-slide" data-index="0">
-                        <span class="carousel-badge">🏆 Complete Assembly</span>
-                        <img src="Overall3.png" alt="Spider Robot Complete Assembly">
-                        <div class="carousel-caption">
-                            <h4>Complete Spider Robot - Top View</h4>
-                            <p class="short-desc">Fully assembled quadruped with 12 DOF leg system.</p>
-                            <p class="long-desc">Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement patterns including walking, turning, and terrain adaptation.</p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2: Robot Body -->
-                    <div class="carousel-slide" data-index="1">
-                        <span class="carousel-badge">🔧 Chassis Design</span>
-                        <img src="Robot_Body.png" alt="Robot Body CAD">
-                        <div class="carousel-caption">
-                            <h4>Central Body & Chassis Structure</h4>
-                            <p class="short-desc">Central chassis with optimized mounting geometry.</p>
-                            <p class="long-desc">Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion. Includes integrated cable routing channels and mounting bosses for servo motors with proper load distribution.</p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3: Leg Assembly -->
-                    <div class="carousel-slide" data-index="2">
-                        <span class="carousel-badge">🦿 Leg Mechanism</span>
-                        <img src="Robot_Leg.png" alt="Robot Leg Detail">
-                        <div class="carousel-caption">
-                            <h4>3-DOF Leg Assembly - Detailed View</h4>
-                            <p class="short-desc">Three-joint leg with servo actuation system.</p>
-                            <p class="long-desc">Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation for lateral movement, femur joint controls forward/backward leg swing, and tibia joint enables precise foot positioning for ground contact. Custom brackets ensure proper torque transmission and minimize backlash.</p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 4: Engineering Drawing -->
-                    <div class="carousel-slide" data-index="3">
-                        <span class="carousel-badge">📐 Technical Drawing</span>
-                        <img src="Overall3.png" alt="Engineering Drawings" style="filter: brightness(1.2) contrast(1.1);">
-                        <div class="carousel-caption">
-                            <h4>Engineering Drawings - Body Component</h4>
-                            <p class="short-desc">Detailed technical drawings with full dimensions.</p>
-                            <p class="long-desc">Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. Features GD&T callouts, material specifications, and assembly notes. <a href="Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carousel Controls -->
-            <div class="carousel-controls">
-                <button class="carousel-btn" onclick="prevSlide('robotCarousel')">❮</button>
-                <div class="carousel-dots" id="robotDots"></div>
-                <button class="carousel-btn" onclick="nextSlide('robotCarousel')">❯</button>
-            </div>
-
-            <div class="section-content" style="margin-top: 4rem;">
-                <h3>📊 Additional Documentation</h3>
-                <p>Supporting images and test results from the development process.</p>
-            </div>
-            
-            <div class="image-gallery">
-                <!-- Overall Robot Assembly -->
-                <div class="gallery-item featured">
-                    <span class="gallery-badge">🏆 Complete Assembly</span>
-                    <img src="Overall3.png" alt="Spider Robot Complete Assembly">
-                    <div class="gallery-caption">
-                        <h4>Complete Spider Robot - Top View</h4>
-                        <p>Fully assembled quadruped robot featuring 12 DOF leg system with four 3-joint legs arranged in a symmetrical configuration. The central body houses the microcontroller, power distribution, and control electronics. Each leg consists of coxa, femur, and tibia segments for complex articulated movement.</p>
-                    </div>
-                </div>
-
-                <!-- Robot Body/Chassis -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">🔧 Chassis Design</span>
-                    <img src="Robot_Body.png" alt="Robot Body CAD">
-                    <div class="gallery-caption">
-                        <h4>Central Body & Chassis Structure</h4>
-                        <p>Central chassis platform designed in SolidWorks showing mounting points for leg assemblies, electronics enclosure, and power system. Features optimized weight distribution and structural rigidity for stable locomotion.</p>
-                    </div>
-                </div>
-
-                <!-- Single Leg Assembly -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">🦿 Leg Mechanism</span>
-                    <img src="Robot_Leg.png" alt="Robot Leg Detail">
-                    <div class="gallery-caption">
-                        <h4>3-DOF Leg Assembly - Detailed View</h4>
-                        <p>Single leg assembly showing the three-joint configuration with servo motor placement. The coxa joint provides hip rotation, femur joint controls forward/backward movement, and tibia joint enables foot positioning for precise ground contact.</p>
-                    </div>
-                </div>
-
-                <!-- Engineering Drawing - converted to image for display -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">📐 Technical Drawing</span>
-                    <img src="Part1_preview.jpg" alt="Engineering Drawings" onerror="this.parentElement.style.display='none'">
-                    <div class="gallery-caption">
-                        <h4>Engineering Drawings - Body Component</h4>
-                        <p>Detailed technical drawing with full dimensions and tolerances for the robot body component. Includes multiple views, cross-sections, and manufacturing specifications for precision fabrication. <a href="Part1.pdf" target="_blank" style="color: #667eea; text-decoration: underline;">View Full PDF</a></p>
-                    </div>
-                </div>
-
-                <!-- Placeholder for future content -->
-                <div class="gallery-item">
-                    <span class="gallery-badge">💻 Control System</span>
-                    <img src="Images/spider_electronics.jpg" alt="Electronics" onerror="this.style.display='none'">
-                    <div class="gallery-caption">
-                        <h4>Electronics & Control Board</h4>
-                        <p>Arduino-based control system with servo drivers, power distribution, and sensor interfaces for coordinated leg movement and vision processing.</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <span class="gallery-badge">🎬 In Action</span>
-                    <img src="Images/spider_walking.jpg" alt="Walking Demo" onerror="this.style.display='none'">
-                    <div class="gallery-caption">
-                        <h4>Walking Demonstration</h4>
-                        <p>Robot executing tripod gait pattern on flat terrain, demonstrating stable locomotion with coordinated leg movement.</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <span class="gallery-badge">👁️ Vision System</span>
-                    <img src="Images/spider_vision.jpg" alt="Vision Tracking" onerror="this.style.display='none'">
-                    <div class="gallery-caption">
-                        <h4>Object Tracking Demo</h4>
-                        <p>Computer vision system detecting and tracking colored objects in real-time for autonomous following behavior.</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item featured">
-                    <span class="gallery-badge">📊 Testing Results</span>
-                    <img src="Images/spider_testing.jpg" alt="Testing Setup" onerror="this.style.display='none'">
-                    <div class="gallery-caption">
-                        <h4>Performance Testing & Validation</h4>
-                        <p>Comprehensive testing setup measuring walking speed, stability margins, power consumption, and vision tracking accuracy across various terrains and conditions.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <!-- Lightbox -->
@@ -2374,7 +2204,7 @@
             camera3D = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
             
             // Position camera to view spider robot
-            camera3D.position.set(50, 60, 80); 
+            camera3D.position.set(40, 70, 45); 
             camera3D.lookAt(0, 0, 0);
 
             renderer3D = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -2419,11 +2249,18 @@
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
                     const scale = 60 / Math.max(size.x, size.y, size.z);
-                    
+
                     spiderModel.scale.multiplyScalar(scale);
+
+                    // Create a wrapper group for proper rotation pivot
+                    const modelGroup = new THREE.Group();
                     spiderModel.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+                    modelGroup.add(spiderModel);
+
+                    // Update the reference to use the group instead
+                    spiderModel = modelGroup;
                     
-                    spiderModel.rotation.x = Math.PI; 
+                    spiderModel.rotation.x = Math.PI;
                     spiderModel.rotation.y = 0;
                     spiderModel.rotation.z = 0;
 
@@ -2529,9 +2366,9 @@
             });
             
             gsap.to(camera3D.position, { 
-                x: 0, 
-                y: 80, 
-                z: 100, 
+                x: 40, 
+                y: 70, 
+                z: 45, 
                 duration: 1.5, 
                 ease: "power2.inOut",
                 onUpdate: () => {
