@@ -1812,6 +1812,7 @@
             font-size: 0.9em;
             font-weight: bold;
             text-align: center;
+            color: white; 
         }
 
         /* Web Nodes */
@@ -1819,7 +1820,7 @@
             position: absolute;
             z-index: 5;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; 
         }
 
         .node-circle {
@@ -1845,6 +1846,7 @@
             text-align: center;
             max-width: 150px;
             line-height: 1.3;
+            color: white; 
         }
 
         /* Challenge Nodes */
@@ -2013,6 +2015,7 @@
             align-items: center;
             gap: 10px;
             font-size: 0.9em;
+            color: white; 
         }
 
         .legend-dot {
@@ -3291,7 +3294,30 @@
             ]
         };
 
-        // ENHANCED SPIDER WEB POSITIONING - Replace your calculateNodePositions function
+        // 🎯 SPIDER WEB NODE CONFIGURATION
+        // Adjust these values to control exact positioning
+        // All values are offsets from center in pixels
+        const SPIDER_WEB_CONFIG = {
+            challenges: {
+                stability: { x: 0, y: -180, label: "TOP" },
+                vision: { x: 180, y: 0, label: "RIGHT" },
+                kinematics: { x: 0, y: 180, label: "BOTTOM" },
+                wear: { x: -180, y: 0, label: "LEFT" }
+            },
+            solutions: {
+                'stability-sol': { x: 210, y: -210, label: "TOP-RIGHT" },
+                'vision-sol': { x: 210, y: 210, label: "BOTTOM-RIGHT" },
+                'kinematics-sol': { x: -210, y: 210, label: "BOTTOM-LEFT" },
+                'wear-sol': { x: -210, y: -210, label: "TOP-LEFT" }
+            },
+            results: {
+                locomotion: { x: 0, y: -400, label: "TOP" },
+                autonomous: { x: 350, y: -300, label: "TOP-RIGHT" },
+                reliability: { x: 350, y: 240, label: "BOTTOM-RIGHT" },
+                'kinematic-acc': { x: -350, y: 240, label: "BOTTOM-LEFT" },
+                'vision-perf': { x: -350, y: -300, label: "TOP-LEFT" }
+            }
+        };
 
         function calculateNodePositions() {
             const container = document.getElementById('webContainer');
@@ -3303,52 +3329,32 @@
                 solutions: [],
                 results: []
             };
-
-            // Challenge positions (inner ring) - 4 nodes at cardinal points
-            const challengeRadius = 180;
-            const challengeAngles = [
-                -Math.PI / 2,        // Top (stability)
-                0,                   // Right (vision)
-                Math.PI / 2,         // Bottom (kinematics)
-                Math.PI              // Left (wear)
-            ];
             
-            challengeAngles.forEach(angle => {
+            // Convert config to position arrays (maintaining order from webData)
+            webData.challenges.forEach(challenge => {
+                const config = SPIDER_WEB_CONFIG.challenges[challenge.id];
                 positions.challenges.push({
-                    x: centerX + challengeRadius * Math.cos(angle),
-                    y: centerY + challengeRadius * Math.sin(angle)
+                    x: centerX + config.x,
+                    y: centerY + config.y
                 });
             });
-
-            // Solution positions (middle ring) - 4 nodes at diagonal positions
-            const solutionRadius = 300;
-            const solutionAngles = [
-                -Math.PI / 4,        // Top-right
-                Math.PI / 4,         // Bottom-right
-                3 * Math.PI / 4,     // Bottom-left
-                -3 * Math.PI / 4     // Top-left
-            ];
             
-            solutionAngles.forEach(angle => {
+            webData.solutions.forEach(solution => {
+                const config = SPIDER_WEB_CONFIG.solutions[solution.id];
                 positions.solutions.push({
-                    x: centerX + solutionRadius * Math.cos(angle),
-                    y: centerY + solutionRadius * Math.sin(angle)
+                    x: centerX + config.x,
+                    y: centerY + config.y
                 });
             });
-
-            // Result positions (outer ring) - 5 nodes evenly distributed
-            const resultRadius = 380;
-            const resultCount = 5;
-            const startAngle = -Math.PI / 2; // Start from top
             
-            for (let i = 0; i < resultCount; i++) {
-                const angle = startAngle + (i * 2 * Math.PI / resultCount);
+            webData.results.forEach(result => {
+                const config = SPIDER_WEB_CONFIG.results[result.id];
                 positions.results.push({
-                    x: centerX + resultRadius * Math.cos(angle),
-                    y: centerY + resultRadius * Math.sin(angle)
+                    x: centerX + config.x,
+                    y: centerY + config.y
                 });
-            }
-
+            });
+            
             return positions;
         }
 
