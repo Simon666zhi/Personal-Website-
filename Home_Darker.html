@@ -5194,77 +5194,85 @@
         </div>
     </section>
 
-    <!-- Contact Section - Space Communication Terminal -->
-    <section id="contact">
-        <div class="carousel-corner corner-tl"></div>
-        <div class="carousel-corner corner-tr"></div>
-        <div class="carousel-corner corner-bl"></div>
-        <div class="carousel-corner corner-br"></div>
-        
-        <h2>Contact Me</h2>
-        
-        <div class="contact-terminal">
-            <div class="terminal-header">
-                <div class="terminal-status">
-                    <span class="status-dot"></span>
-                    <span>TRANSMISSION READY</span>
-                </div>
-                <div class="terminal-id">COMM-ID: YZ-2025</div>
+<!-- Contact Section - Space Communication Terminal -->
+<section id="contact">
+    <div class="carousel-corner corner-tl"></div>
+    <div class="carousel-corner corner-tr"></div>
+    <div class="carousel-corner corner-bl"></div>
+    <div class="carousel-corner corner-br"></div>
+    
+    <h2>Contact Me</h2>
+    
+    <div class="contact-terminal">
+        <div class="terminal-header">
+            <div class="terminal-status">
+                <span class="status-dot"></span>
+                <span>TRANSMISSION READY</span>
+            </div>
+            <div class="terminal-id">COMM-ID: YZ-2025</div>
+        </div>
+
+        <form class="contact-form" action="https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio">
+            <input type="hidden" name="_template" value="box">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_timezone" value="America/Toronto">
+            
+            <div class="form-group">
+                <label for="name">
+                    <span class="label-icon">👤</span>
+                    Agent Identification
+                </label>
+                <input type="text" id="name" name="Name" placeholder="Enter your name..." required>
             </div>
             
-            <div class="contact-form">
-                <div class="form-group">
-                    <label for="name">
-                        <span class="label-icon">👤</span>
-                        Agent Identification
-                    </label>
-                    <input type="text" id="name" placeholder="Enter your name...">
+            <div class="form-group">
+                <label for="email">
+                    <span class="label-icon">📡</span>
+                    Communication Channel
+                </label>
+                <div class="email-input-group">
+                    <input type="text" id="emailUsername" placeholder="username" required>
+                    <span class="email-separator">@</span>
+                    <select id="emailDomain">
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="uwaterloo.ca">uwaterloo.ca</option>
+                        <option value="outlook.com">outlook.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="custom">Other Domain</option>
+                    </select>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">
-                        <span class="label-icon">📡</span>
-                        Communication Channel
-                    </label>
-                    <div class="email-input-group">
-                        <input type="text" id="emailUsername" placeholder="username">
-                        <span class="email-separator">@</span>
-                        <select id="emailDomain">
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="uwaterloo.ca">uwaterloo.ca</option>
-                            <option value="outlook.com">outlook.com</option>
-                            <option value="yahoo.com">yahoo.com</option>
-                            <option value="hotmail.com">hotmail.com</option>
-                            <option value="custom">Other Domain</option>
-                        </select>
-                    </div>
-
-                    <input 
-                        type="text" 
-                        id="customDomain" 
-                        placeholder="Enter your domain (e.g., company.com)"
-                    >
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">
-                        <span class="label-icon">💬</span>
-                        Transmission Message
-                    </label>
-                    <textarea id="message" placeholder="Compose your message..."></textarea>
-                    <div class="char-counter">
-                        <span id="charCount">0</span> / 500 characters
-                    </div>
-                </div>
-                
-                <button class="submit-btn" onclick="sendMessage()">
-                    <span class="btn-icon">🚀</span>
-                    <span>Launch Transmission</span>
-                    <div class="btn-glow"></div>
-                </button>
+                <input 
+                    type="text" 
+                    id="customDomain" 
+                    placeholder="Enter your domain (e.g., company.com)"
+                    style="display: none;"
+                >
+                <!-- Hidden field for the complete email -->
+                <input type="hidden" id="email" name="Email">
             </div>
-        </div>
-    </section>
+            
+            <div class="form-group">
+                <label for="message">
+                    <span class="label-icon">💬</span>
+                    Transmission Message
+                </label>
+                <textarea id="message" name="Message" placeholder="Compose your message..." maxlength="500" required></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span> / 500 characters
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <span class="btn-icon">🚀</span>
+                <span>Launch Transmission</span>
+                <div class="btn-glow"></div>
+            </button>
+        </form>
+    </div>
+</section>
 
     <!-- Scrolling Rocket -->
     <div class="scroll-rocket" id="scrollRocket">
@@ -6107,60 +6115,116 @@
                     charCount.style.color = '#667eea';
                 }
             });
-            
-            // Max length
-            messageArea.setAttribute('maxlength', '500');
         }
+        
+        // Handle custom domain visibility
+        const emailDomain = document.getElementById('emailDomain');
+        const customDomain = document.getElementById('customDomain');
+        
+        if (emailDomain && customDomain) {
+            emailDomain.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customDomain.style.display = 'block';
+                    customDomain.required = true;
+                } else {
+                    customDomain.style.display = 'none';
+                    customDomain.required = false;
+                }
+                markFormAsTouched();
+            });
+        }
+        
+        // Handle form submission with AJAX (no redirect)
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim();
+                const emailUsername = document.getElementById('emailUsername').value.trim();
+                const emailDomainSelect = document.getElementById('emailDomain');
+                const customDomainInput = document.getElementById('customDomain');
+                const message = document.getElementById('message').value.trim();
+                
+                // Validation
+                if (!name) {
+                    alert('⚠️ Agent identification required!');
+                    return false;
+                }
+                
+                if (!emailUsername) {
+                    alert('⚠️ Communication channel username required!');
+                    return false;
+                }
+                
+                const finalDomain = emailDomainSelect.value === 'custom' 
+                    ? customDomainInput.value.trim() 
+                    : emailDomainSelect.value;
+                
+                if (!finalDomain) {
+                    alert('⚠️ Communication channel domain required!');
+                    return false;
+                }
+                
+                if (!message) {
+                    alert('⚠️ Transmission message cannot be empty!');
+                    return false;
+                }
+                
+                const fullEmail = `${emailUsername}@${finalDomain}`;
+                
+                // Disable submit button during submission
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span>Launching...</span><div class="btn-glow"></div>';
+                
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('Name', name);
+                formData.append('Email', fullEmail);
+                formData.append('Message', message);
+                formData.append('_subject', 'New Contact Form Submission - Portfolio');
+                formData.append('_template', 'table');
+                formData.append('_captcha', 'false');
+                formData.append('_timezone', 'America/Toronto');
+                
+                // Submit via AJAX
+                fetch('https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Success!
+                        alert(`🚀 Transmission Launched!\n\nFrom: ${name}\nChannel: ${fullEmail}\n\nMessage received at Mission Control. We'll respond shortly!`);
+                        
+                        // Reset form
+                        this.reset();
+                        document.getElementById('charCount').textContent = '0';
+                        document.getElementById('customDomain').style.display = 'none';
+                        
+                        // Reset form touched flag
+                        formTouched = false;
+                    } else {
+                        throw new Error('Transmission failed');
+                    }
+                })
+                .catch(error => {
+                    alert('⚠️ Transmission error! Please try again or email directly at y9zhi@uwaterloo.ca');
+                    console.error('Form submission error:', error);
+                })
+                .finally(() => {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                });
+            });
+}
     });
-
-    // Send message function
-    function sendMessage() {
-        const name = document.getElementById('name').value.trim();
-        const emailUsername = document.getElementById('emailUsername').value.trim();
-        const emailDomain = document.getElementById('emailDomain').value;
-        const customDomain = document.getElementById('customDomain').value.trim();
-        const message = document.getElementById('message').value.trim();
-        
-        // Validation
-        if (!name) {
-            alert('⚠️ Agent identification required!');
-            return;
-        }
-        
-        if (!emailUsername) {
-            alert('⚠️ Communication channel username required!');
-            return;
-        }
-        
-        const finalDomain = emailDomain === 'custom' ? customDomain : emailDomain;
-        
-        if (!finalDomain) {
-            alert('⚠️ Communication channel domain required!');
-            return;
-        }
-        
-        if (!message) {
-            alert('⚠️ Transmission message cannot be empty!');
-            return;
-        }
-        
-        const fullEmail = `${emailUsername}@${finalDomain}`;
-        
-        // Success message
-        alert(`🚀 Transmission Launched!\n\nFrom: ${name}\nChannel: ${fullEmail}\n\nMessage received at Mission Control. We'll respond shortly!`);
-
-        formTouched = false; 
-        
-        // Clear form
-        document.getElementById('name').value = '';
-        document.getElementById('emailUsername').value = '';
-        document.getElementById('emailDomain').selectedIndex = 0;
-        document.getElementById('customDomain').value = '';
-        document.getElementById('customDomain').style.display = 'none';
-        document.getElementById('message').value = '';
-        document.getElementById('charCount').textContent = '0';
-    }
-
     // ========================================
         // FOOTER ROCKET LANDING ANIMATION
         // ========================================

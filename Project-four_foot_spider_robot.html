@@ -3291,6 +3291,8 @@
             ]
         };
 
+        // ENHANCED SPIDER WEB POSITIONING - Replace your calculateNodePositions function
+
         function calculateNodePositions() {
             const container = document.getElementById('webContainer');
             const centerX = container.offsetWidth / 2;
@@ -3302,34 +3304,45 @@
                 results: []
             };
 
-            // Challenge positions (inner ring) - 4 nodes, evenly spaced in cardinal directions
-            const challengeRadius = 220;
-            const challengeCount = webData.challenges.length;
-            for (let i = 0; i < challengeCount; i++) {
-                const angle = (i / challengeCount) * 2 * Math.PI - Math.PI / 2;
+            // Challenge positions (inner ring) - 4 nodes at cardinal points
+            const challengeRadius = 180;
+            const challengeAngles = [
+                -Math.PI / 2,        // Top (stability)
+                0,                   // Right (vision)
+                Math.PI / 2,         // Bottom (kinematics)
+                Math.PI              // Left (wear)
+            ];
+            
+            challengeAngles.forEach(angle => {
                 positions.challenges.push({
                     x: centerX + challengeRadius * Math.cos(angle),
                     y: centerY + challengeRadius * Math.sin(angle)
                 });
-            }
+            });
 
-            // Solution positions (middle ring) - 4 nodes, offset 45° for stagger
-            const solutionRadius = 360;
-            const solutionCount = webData.solutions.length;
-            for (let i = 0; i < solutionCount; i++) {
-                const angle = (i / solutionCount) * 2 * Math.PI - Math.PI / 2 + (Math.PI / 4);
+            // Solution positions (middle ring) - 4 nodes at diagonal positions
+            const solutionRadius = 300;
+            const solutionAngles = [
+                -Math.PI / 4,        // Top-right
+                Math.PI / 4,         // Bottom-right
+                3 * Math.PI / 4,     // Bottom-left
+                -3 * Math.PI / 4     // Top-left
+            ];
+            
+            solutionAngles.forEach(angle => {
                 positions.solutions.push({
                     x: centerX + solutionRadius * Math.cos(angle),
                     y: centerY + solutionRadius * Math.sin(angle)
                 });
-            }
+            });
 
-            // Result positions (outer ring) - 5 nodes, evenly distributed
-            const resultRadius = 420;
-            const resultCount = webData.results.length;
+            // Result positions (outer ring) - 5 nodes evenly distributed
+            const resultRadius = 380;
+            const resultCount = 5;
+            const startAngle = -Math.PI / 2; // Start from top
             
             for (let i = 0; i < resultCount; i++) {
-                const angle = (i / resultCount) * 2 * Math.PI - Math.PI / 2;
+                const angle = startAngle + (i * 2 * Math.PI / resultCount);
                 positions.results.push({
                     x: centerX + resultRadius * Math.cos(angle),
                     y: centerY + resultRadius * Math.sin(angle)
