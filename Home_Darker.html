@@ -4968,7 +4968,7 @@
             <div class="planet-info">
                 <h3>💼 Professional Experience</h3>
                 <p>PWO Canada - Process Engineering Linamar - Quality Assurance</p>
-                <div class="date">2025</div>
+                <div class="date">2025+</div>
             </div>
         </div>
         
@@ -5214,10 +5214,12 @@
 
         <form class="contact-form" action="https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b" method="POST">
             <!-- FormSubmit Configuration -->
-            <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio">
+            <input type="hidden" name="_subject" value="🚀 New Mission Contact from Yiqing's Portfolio">
             <input type="hidden" name="_template" value="box">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_timezone" value="America/Toronto">
+            
+            <!-- Toronto timestamp -->
+            <input type="hidden" name="📅_Submission_Time_(Toronto_EST)" id="torontoTime">
             
             <div class="form-group">
                 <label for="name">
@@ -5742,7 +5744,7 @@
             });
         }
 
-// NEW: Enhanced Rocket Position Update with All Effects
+        // NEW: Enhanced Rocket Position Update with All Effects
         function updateRocketPosition() {
             const rocket = document.getElementById('scrollRocket');
             const trail = document.getElementById('rocketTrail');
@@ -6098,6 +6100,29 @@
 
     // Character counter for message textarea
     document.addEventListener('DOMContentLoaded', function() {
+
+        // Toronto Timezone Function
+        function updateTorontoTime() {
+            const torontoTimeInput = document.getElementById('torontoTime');
+            if (torontoTimeInput) {
+                const now = new Date();
+                const options = {
+                    timeZone: 'America/Toronto',
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZoneName: 'short'
+                };
+                const torontoTime = now.toLocaleString('en-US', options);
+                torontoTimeInput.value = torontoTime;
+            }
+        }
+
+
         const messageArea = document.getElementById('message');
         const charCount = document.getElementById('charCount');
         
@@ -6139,6 +6164,8 @@
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+
+                updateTorontoTime();
                 
                 const name = document.getElementById('name').value.trim();
                 const emailUsername = document.getElementById('emailUsername').value.trim();
@@ -6179,15 +6206,14 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span>Launching...</span><div class="btn-glow"></div>';
                 
-                // Prepare form data
                 const formData = new FormData();
                 formData.append('Name', name);
                 formData.append('Email', fullEmail);
                 formData.append('Message', message);
-                formData.append('_subject', 'New Contact Form Submission - Portfolio');
+                formData.append('Submission Time', document.getElementById('torontoTime').value);
+                formData.append('_subject', '🚀 New Mission Contact from Yiqing\'s Portfolio');
                 formData.append('_template', 'table');
                 formData.append('_captcha', 'false');
-                formData.append('_timezone', 'America/Toronto');
                 
                 // Submit via AJAX
                 fetch('https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b', {
@@ -6223,7 +6249,7 @@
                     submitBtn.innerHTML = originalBtnText;
                 });
             });
-}
+        }
     });
     // ========================================
         // FOOTER ROCKET LANDING ANIMATION

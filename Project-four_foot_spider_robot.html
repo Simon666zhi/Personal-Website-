@@ -1727,383 +1727,222 @@
             }
         }
 
+        /* ========================================
+        ENGINEERING JOURNEY TIMELINE DESIGN
+        ======================================== */
 
-        /* Spider Web Section Styles */
-        .web-container {
+        .journey-timeline {
             position: relative;
-            width: 100%;
-            height: 900px;
-            margin: 60px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 2rem 0;
+            margin: 2rem 0;
         }
 
-        svg {
+        /* Vertical connecting line */
+        .journey-timeline::before {
+            content: '';
             position: absolute;
+            left: 50px;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%
+            );
+            border-radius: 2px;
         }
 
-        .web-line {
-            stroke: rgba(102, 126, 234, 0.3);
-            stroke-width: 2;
-            fill: none;
-            transition: all 0.3s ease;
+        .journey-phase {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            align-items: flex-start;
         }
 
-        .web-line.active {
-            stroke: rgba(102, 126, 234, 0.8);
-            stroke-width: 3;
-            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.6));
+        .journey-phase:last-child {
+            margin-bottom: 0;
         }
 
-        .web-line.solution-line {
-            stroke: rgba(118, 75, 162, 0.3);
-            stroke-dasharray: 5, 5;
+        /* Phase Marker (Number + Icon) */
+        .phase-marker {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
         }
 
-        .web-line.solution-line.active {
-            stroke: rgba(118, 75, 162, 0.8);
-        }
-
-        .web-line.result-line {
-            stroke: rgba(34, 193, 195, 0.3);
-        }
-
-        .web-line.result-line.active {
-            stroke: rgba(34, 193, 195, 0.8);
-        }
-
-        /* Center Hub */
-        .hub {
-            position: absolute;
-            width: 140px;
-            height: 140px;
+        .phase-number {
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            z-index: 10;
-            box-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .hub:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 0 60px rgba(102, 126, 234, 0.8);
-        }
-
-        .hub-icon {
-            font-size: 3em;
-            margin-bottom: 5px;
-        }
-
-        .hub-text {
-            font-size: 0.9em;
-            font-weight: bold;
-            text-align: center;
-            color: white; 
-        }
-
-        /* Web Nodes */
-        .web-node {
-            position: absolute;
-            z-index: 5;
-            cursor: pointer;
-            transition: all 0.3s ease; 
-        }
-
-        .node-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            transition: all 0.3s ease;
-            position: relative;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            border: none; 
+            box-shadow: 
+                0 8px 32px rgba(102, 126, 234, 0.6),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
         }
 
-        .node-label {
-            position: absolute;
-            top: 110px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.85em;
-            font-weight: 600;
-            white-space: nowrap;
-            text-align: center;
-            max-width: 150px;
-            line-height: 1.3;
-            color: white; 
+        .phase-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));
+            animation: iconFloat 3s ease-in-out infinite;
         }
 
-        /* Challenge Nodes */
-        .challenge-node .node-circle {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 5px 20px rgba(240, 147, 251, 0.4);
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
 
-        .challenge-node:hover .node-circle {
-            transform: scale(1.15);
-            box-shadow: 0 8px 30px rgba(240, 147, 251, 0.6);
+        .journey-phase:hover .phase-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 12px 40px rgba(102, 126, 234, 0.8),
+                inset 0 2px 8px rgba(255, 255, 255, 0.3);
         }
 
-        .challenge-node.active .node-circle {
-            transform: scale(1.2);
-            box-shadow: 0 10px 40px rgba(240, 147, 251, 0.8);
-        }
-
-        /* Solution Nodes */
-        .solution-node .node-circle {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
-        }
-
-        .solution-node:hover .node-circle {
-            transform: scale(1.15);
-            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.6);
-        }
-
-        .solution-node.active .node-circle {
-            transform: scale(1.2);
-            box-shadow: 0 10px 40px rgba(79, 172, 254, 0.8);
-        }
-
-        /* Result Nodes */
-        .result-node .node-circle {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            box-shadow: 0 5px 20px rgba(67, 233, 123, 0.4);
-        }
-
-        .result-node:hover .node-circle {
-            transform: scale(1.15);
-            box-shadow: 0 8px 30px rgba(67, 233, 123, 0.6);
-        }
-
-        .result-node.active .node-circle {
-            transform: scale(1.2);
-            box-shadow: 0 10px 40px rgba(67, 233, 123, 0.8);
-        }
-
-        /* Info Panel */
-        .info-panel {
-            position: fixed;
-            right: -450px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 420px;
-            max-height: 80vh;
-            background: rgba(26, 26, 46, 0.95);
-            border-radius: 20px 0 0 20px;
-            padding: 30px;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
-            transition: right 0.4s ease;
-            z-index: 100;
-            overflow-y: auto;
+        /* Phase Content */
+        .phase-content {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.05);
             backdrop-filter: blur(10px);
-        }
-
-        .info-panel.active {
-            right: 0;
-        }
-
-        .info-panel::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .info-panel::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .info-panel::-webkit-scrollbar-thumb {
-            background: rgba(102, 126, 234, 0.6);
-            border-radius: 10px;
-        }
-
-        .info-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: #a0a0a0;
-            transition: color 0.3s ease;
-        }
-
-        .info-close:hover {
-            color: #ffffff;
-        }
-
-        .info-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .info-title {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #667eea;
-        }
-
-        .info-category {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 20px;
-            font-size: 0.85em;
-            margin-bottom: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .info-content {
-            line-height: 1.8;
-            color: #d0d0d0;
-        }
-
-        .info-content h4 {
-            color: #ffffff;
-            margin: 20px 0 10px 0;
-            font-size: 1.1em;
-        }
-
-        .info-content p {
-            margin-bottom: 15px;
-        }
-
-        .info-content ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .info-content li {
-            margin-bottom: 10px;
-        }
-
-        .info-content strong {
-            color: #ffffff;
-        }
-
-        /* Legend */
-        .legend {
+        .phase-content::before {
+            content: '';
             position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                #667eea 0%,
+                #764ba2 50%,
+                #f093fb 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .phase-content:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .phase-content:hover::before {
+            opacity: 1;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin: 0 0 1.5rem 0;
+            text-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Skill Tags */
+        .phase-skills {
             display: flex;
-            gap: 30px;
-            background: rgba(26, 26, 46, 0.8);
-            padding: 20px 40px;
-            border-radius: 50px;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.3) 0%, 
+                rgba(118, 75, 162, 0.3) 100%);
             backdrop-filter: blur(10px);
-            z-index: 10;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9em;
-            color: white; 
+        .skill-tag:hover {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.5) 0%, 
+                rgba(118, 75, 162, 0.5) 100%);
+            border-color: rgba(102, 126, 234, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .legend-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+        /* Phase Insight */
+        .phase-insight {
+            background: rgba(240, 147, 251, 0.08);
+            border-left: 4px solid #f093fb;
+            padding: 1.2rem;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
         }
 
-        .legend-dot.challenge {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .phase-insight strong {
+            color: #f093fb;
+            text-shadow: 0 0 10px rgba(240, 147, 251, 0.5);
+            font-size: 1.05rem;
         }
 
-        .legend-dot.solution {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .legend-dot.result {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        /* Pulse Animation */
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .web-line.pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .info-panel {
-                width: 350px;
-            }
-        }
-
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .web-container {
-                height: 700px;
+            .journey-timeline::before {
+                left: 30px;
             }
-
-            .hub {
-                width: 100px;
-                height: 100px;
+            
+            .journey-phase {
+                gap: 1.5rem;
             }
-
-            .hub-icon {
-                font-size: 2em;
+            
+            .phase-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
             }
-
-            .node-circle {
-                width: 70px;
-                height: 70px;
-                font-size: 1.5em;
+            
+            .phase-icon {
+                font-size: 2rem;
             }
-
-            .node-label {
-                font-size: 0.75em;
-                top: 80px;
+            
+            .phase-content {
+                padding: 1.5rem;
             }
-
-            .info-panel {
-                width: 100%;
-                right: -100%;
-                border-radius: 20px 20px 0 0;
-                top: auto;
-                bottom: -100%;
-                transform: none;
-                max-height: 70vh;
+            
+            .phase-title {
+                font-size: 1.4rem;
             }
-
-            .info-panel.active {
-                right: auto;
-                bottom: 0;
-            }
-
-            .legend {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 25px;
-                bottom: 20px;
+            
+            .skill-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
             }
         }
+
     </style>
 </head>
 <body>
@@ -2167,10 +2006,10 @@
         <!-- Right Side Info Cards -->
         <div class="side-info-cards right">
             <div class="info-card" style="animation-delay: 0.3s;">
-                <div class="info-icon">⚙️</div>
+                <div class="info-icon">🖨️</div>
                 <div class="info-text">
-                    <h4>Actuation</h4>
-                    <p>Servo Motors</p>
+                    <h4>Manufacturing</h4>
+                    <p>3D Printed PPS-CF</p>
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.5s;">
@@ -2217,7 +2056,7 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>The Four-Foot Spider Robot project focused on creating a detailed 3D CAD model of a quadruped robot inspired by biomimetic design principles. I developed the complete mechanical structure in SolidWorks, designing each component with precision and documenting the assembly through technical drawings.</p>
+                <p>The Four-Foot Spider Robot project focused on creating a detailed 3D CAD model of a quadruped robot inspired by biomimetic design principles. I worked with a company in Shanghai to develope the complete mechanical structure in SolidWorks, designing each component with precision and documenting the assembly through technical drawings.</p>
                 
                 <p>At its core, this design features a sophisticated 12 degree-of-freedom (DOF) system, with each of the four legs incorporating three articulated joints. This kinematic configuration would enable complex gaits including walking, turning, and adaptive terrain navigation if physically implemented. The mechanical design draws inspiration from arachnid biomechanics, with careful consideration for stability, weight distribution, and structural efficiency in the CAD model.</p>
             </div>
@@ -2286,6 +2125,44 @@
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
+
+                    <!-- NEW SLIDE 5: Workspace Analysis -->
+                    <div class="carousel-slide" data-index="4">
+                        <span class="carousel-badge">📊 IK Analysis</span>
+                        <img src="Images/Inverse_Kin_Workspace.jpg" alt="Workspace Analysis">
+                        <div class="carousel-caption">
+                            <h4>Inverse Kinematics - Workspace Analysis</h4>
+                            <p class="short-desc">MATLAB analysis of reachable positions (8-10L volume).</p>
+                            <p class="long-desc">3D workspace visualization computed using MATLAB inverse kinematics. Generated from 12,500+ sample points across joint ranges showing all achievable foot positions. Color represents Z-height. Analysis validates 225mm reach with coxa (45mm), femur (90mm), and tibia (90mm) segments. Used geometric IK solver with &lt;0.01mm accuracy for motion planning validation.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- NEW SLIDE 6: Walking Gait -->
+                    <div class="carousel-slide" data-index="5">
+                        <span class="carousel-badge">🎬 Gait Simulation</span>
+                        <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="Images/Spider_Leg_Walking.mp4" type="video/mp4">
+                        </video>
+                        <div class="carousel-caption">
+                            <h4>Walking Gait Generation & Simulation</h4>
+                            <p class="short-desc">MATLAB-generated tripod gait (50mm stride, 35mm step height).</p>
+                            <p class="long-desc">Real-time animation of parametric walking trajectory generated in MATLAB. Implements tripod gait pattern with 50mm stride length and 35mm step height. Magenta trace shows foot path through complete cycle featuring swing phase (lift and forward) and stance phase (ground contact). All joint angles validated within mechanical limits (θ₁: ±60°, θ₂: ±90°, θ₃: -135° to +30°).</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- NEW SLIDE 7: Joint Trajectories -->
+                    <div class="carousel-slide" data-index="6">
+                        <span class="carousel-badge">📈 Motion Analysis</span>
+                        <img src="Images/Inverse_Kin_Joint.jpg" alt="Joint Angle Profiles">
+                        <div class="carousel-caption">
+                            <h4>Joint Angle Trajectory Analysis</h4>
+                            <p class="short-desc">Time-series joint angle profiles during walking cycle.</p>
+                            <p class="long-desc">MATLAB-generated plots showing coxa (θ₁), femur (θ₂), and tibia (θ₃) angular positions throughout complete gait cycle. Smooth trajectories confirm continuous motion without singularities or joint limit violations. Forward kinematics verification validates IK solutions with &lt;0.01mm position error. Analysis validates real-time computational performance (~0.1ms per solution) suitable for embedded control. <a href="Inverse_Kinematics.m" download style="color: #667eea; text-decoration: underline;">Download MATLAB Code</a></p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -2336,50 +2213,156 @@
                     <li><strong>Design Reviews:</strong> Conducted self-assessments and design validation checks at key milestones to ensure quality and completeness</li>
                     <li><strong>Portfolio Development:</strong> Created visualization materials including renderings, animations, and this interactive web presentation to showcase the design</li>
                 </ul>
+
+                <h3>🔬 Kinematic Analysis & MATLAB Programming</h3>
+                <ul>
+                    <li><strong>Inverse Kinematics:</strong> Developed analytical IK solver in MATLAB using geometric approach (law of cosines), achieving &lt;0.01mm accuracy across 225mm workspace</li>
+                    <li><strong>Workspace Visualization:</strong> Computed 12,500+ sample configurations to generate 3D reachable workspace (~8-10L volume) with color-coded height mapping</li>
+                    <li><strong>Gait Generation:</strong> Programmed parametric walking trajectory (50mm stride, 35mm step height) with swing/stance phase separation validated within joint limits</li>
+                    <li><strong>Motion Validation:</strong> Implemented forward kinematics verification and real-time 3D animation showing joint angles, foot trajectories, and motion profiles</li>
+                </ul>
             </div>
         </div>
 
-        <!-- Development Journey Section -->
+        <!-- Design Journey -->
         <div class="content-section">
             <h2 class="section-title">
                 <span>🕷️</span>
-                Development Journey
+                Design Journey
             </h2>
             
-            <div class="web-container" id="webContainer">
-                <svg id="webSvg"></svg>
+            <div class="section-content">
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
+                    From concept sketches to fully detailed CAD model - here's how this project developed my mechanical design expertise
+                </p>
+            </div>
+
+            <!-- Timeline Style Journey -->
+            <div class="journey-timeline">
                 
-                <!-- Center Hub -->
-                <div class="hub" id="hub">
-                    <div class="hub-icon">🤖</div>
-                    <div class="hub-text">Spider Robot</div>
+                <!-- Phase 1: Concept -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">01</div>
+                        <div class="phase-icon">💡</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Initial Concept & Research</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Biomimetic Design</span>
+                            <span class="skill-tag">Kinematic Analysis</span>
+                            <span class="skill-tag">DOF Planning</span>
+                            <span class="skill-tag">Concept Sketching</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Established the foundation for a biomimetic quadruped robot design inspired by arachnid locomotion principles. Initial research focused on spider leg kinematics and efficient 12 DOF configurations.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Web nodes will be dynamically generated -->
-            </div>
+                <!-- Phase 2: CAD Development -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">02</div>
+                        <div class="phase-icon">
+                            <img src="Images/CAD_icon.png" alt="CAD" style="width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));">
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">CAD Modeling & Assembly</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">SolidWorks 3D Modeling</span>
+                            <span class="skill-tag">Part Design</span>
+                            <span class="skill-tag">Assembly Creation</span>
+                            <span class="skill-tag">Interference Checking</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Complete 3D model development in SolidWorks, designing each component with precision including the central chassis, leg assemblies, and joint mechanisms. Learned that proper mating relationships prevent assembly errors later.
+                        </p>
+                    </div>
+                </div>
 
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-dot challenge"></div>
-                    <span>Challenges</span>
+                <!-- Phase 3: Kinematic Validation -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">03</div>
+                        <div class="phase-icon">⚙️</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Kinematic Analysis & Motion Studies</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Joint Range Calculation</span>
+                            <span class="skill-tag">Workspace Analysis</span>
+                            <span class="skill-tag">Motion Simulation</span>
+                            <span class="skill-tag">Collision Detection</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Designed and validated the 12 DOF kinematic chain with proper joint ranges of motion. Motion studies revealed clearance issues that weren't obvious in static assemblies - dynamic validation is crucial.
+                        </p>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <div class="legend-dot solution"></div>
-                    <span>Solutions</span>
+
+                <!-- Phase 4: Design Iteration -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">04</div>
+                        <div class="phase-icon">🔄</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Design Optimization & Refinement</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Weight Reduction</span>
+                            <span class="skill-tag">Structural Analysis</span>
+                            <span class="skill-tag">Design Reviews</span>
+                            <span class="skill-tag">Material Selection</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Multiple design iterations optimizing for weight reduction and structural efficiency. Learned that removing material strategically (ribs, cutouts) maintains strength while reducing mass significantly.
+                        </p>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <div class="legend-dot result"></div>
-                    <span>Results</span>
+
+                <!-- Phase 5: Documentation -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">05</div>
+                        <div class="phase-icon">📐</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Technical Documentation & Drawings</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Engineering Drawings</span>
+                            <span class="skill-tag">GD&T Specifications</span>
+                            <span class="skill-tag">BOM Creation</span>
+                            <span class="skill-tag">Manufacturing Notes</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Created comprehensive engineering drawings with full dimensions, tolerances, and GD&T specifications. Discovered that clear documentation is just as important as the design itself for manufacturing readiness.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 6: Final Validation -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">06</div>
+                        <div class="phase-icon">✅</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Validation & Presentation</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Mass Properties Analysis</span>
+                            <span class="skill-tag">Assembly Verification</span>
+                            <span class="skill-tag">3D Visualization</span>
+                            <span class="skill-tag">Portfolio Development</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Conducted final design validation including mass properties analysis and assembly verification. Created presentation materials and this interactive web showcase to effectively communicate the design process and results.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Info Panel (place this OUTSIDE your main content sections, before closing </body>) -->
-        <div class="info-panel" id="infoPanel">
-            <div class="info-close" id="closePanel">✕</div>
-            <div id="panelContent"></div>
-        </div>
-
     </div>
 
     <!-- Lightbox -->
@@ -2412,7 +2395,7 @@
                 </div>
             </a>
             
-            <a href="next-project.html" class="track-checkpoint checkpoint-right">
+            <a href="Project-circadian_rhythm_device.html" class="track-checkpoint checkpoint-right">
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
@@ -2782,13 +2765,68 @@
         window.addEventListener('load', () => setTimeout(init3DSpider, 500));
 
         const carousels = {
-            robotCarousel: { currentIndex: 0, totalSlides: 4 },
+            robotCarousel: { currentIndex: 0, totalSlides: 7 },
         };
 
-        let autoRotateInterval = null;
-        const AUTO_ROTATE_DELAY = 5000; // 5 seconds between slides
+        // AUTO-ROTATION SETTINGS
+        let autoRotateTimer = null;
+        const AUTO_ROTATE_DELAY = 5000;     // normal slides
+        const VIDEO_ROTATE_DELAY = 15000;   // how long to stay on video slide (ms)
+        const VIDEO_SLIDE_INDEX = 5;        // your video slide is data-index="5"
         let isUserInteracting = false;
-        let isMouseOverCarousel = false; // NEW: Track mouse hover state
+        let isMouseOverCarousel = false;
+
+        // Decide how long to wait before rotating away from current slide
+        function getCurrentSlideDelay(carouselId) {
+            const current = carousels[carouselId].currentIndex;
+
+            // If we're on the video slide in robotCarousel, use longer delay
+            if (carouselId === 'robotCarousel' && current === VIDEO_SLIDE_INDEX) {
+                return VIDEO_ROTATE_DELAY;
+            }
+
+            // Otherwise, normal delay
+            return AUTO_ROTATE_DELAY;
+        }
+
+        function scheduleNextAutoRotate(carouselId) {
+            // Clear any existing timer
+            if (autoRotateTimer) {
+                clearTimeout(autoRotateTimer);
+                autoRotateTimer = null;
+            }
+
+            const delay = getCurrentSlideDelay(carouselId);
+
+            autoRotateTimer = setTimeout(() => {
+                // Only auto-rotate if user is not interacting or hovering
+                if (!isUserInteracting && !isMouseOverCarousel) {
+                    nextSlide(carouselId);
+                }
+                // Schedule the next rotation based on the NEW current slide
+                scheduleNextAutoRotate(carouselId);
+            }, delay);
+        }
+
+        function startAutoRotate(carouselId) {
+            stopAutoRotate();
+            scheduleNextAutoRotate(carouselId);
+        }
+
+        function stopAutoRotate() {
+            if (autoRotateTimer) {
+                clearTimeout(autoRotateTimer);
+                autoRotateTimer = null;
+            }
+        }
+
+        // Pause auto-rotation temporarily when user manually clicks
+        function pauseAutoRotate() {
+            isUserInteracting = true;
+            setTimeout(() => {
+                isUserInteracting = false;
+            }, 5000);
+        }
 
         function initCarousels() {
             Object.keys(carousels).forEach(carouselId => {
@@ -2820,6 +2858,14 @@
             });
             
             updateDots(carouselId);
+            
+            // ✅ FIXED: Pause inactive videos first, then play active one
+            pauseInactiveVideos(carouselId);
+            
+            // Small delay to ensure slide transition completes
+            setTimeout(() => {
+                playVideoInActiveSlide(carouselId);
+            }, 100);
         }
 
         function createDots(carouselId) {
@@ -2853,6 +2899,7 @@
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
             updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
         }
 
         function prevSlide(carouselId) {
@@ -2860,12 +2907,14 @@
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
             updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
         }
 
         function goToSlide(carouselId, index) {
             pauseAutoRotate();
             carousels[carouselId].currentIndex = index;
             updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
         }
 
         // Initialize carousel on page load
@@ -2874,6 +2923,7 @@
             
             // Start auto-rotation
             startAutoRotate('robotCarousel');
+            playVideoInActiveSlide('robotCarousel');
             
             // Click on side images to navigate
             document.querySelectorAll('.carousel-slide').forEach(slide => {
@@ -3143,422 +3193,57 @@
             });
         }
 
-        const webData = {
-            challenges: [
-                {
-                    id: 'stability',
-                    icon: '⚖️',
-                    title: 'Dynamic Stability',
-                    category: 'Challenge',
-                    content: `
-                        <h4>Problem:</h4>
-                        <p>Initial walking tests revealed stability issues, with the robot tipping during certain gait phases, particularly when transitioning between leg support configurations.</p>
-                    `,
-                    solution: 'stability-sol',
-                    result: 'locomotion'
-                },
-                {
-                    id: 'vision',
-                    icon: '👁️',
-                    title: 'Vision System',
-                    category: 'Challenge',
-                    content: `
-                        <h4>Problem:</h4>
-                        <p>Initial computer vision implementation suffered from poor performance in varying lighting conditions and struggled with real-time processing constraints on the embedded hardware.</p>
-                    `,
-                    solution: 'vision-sol',
-                    result: 'vision-perf'
-                },
-                {
-                    id: 'kinematics',
-                    icon: '🧮',
-                    title: 'Inverse Kinematics',
-                    category: 'Challenge',
-                    content: `
-                        <h4>Problem:</h4>
-                        <p>Deriving and implementing the inverse kinematics equations for a 3-DOF leg proved mathematically challenging, with multiple solutions for some positions and unreachable regions in the workspace.</p>
-                    `,
-                    solution: 'kinematics-sol',
-                    result: 'kinematic-acc'
-                },
-                {
-                    id: 'wear',
-                    icon: '🔧',
-                    title: 'Mechanical Wear',
-                    category: 'Challenge',
-                    content: `
-                        <h4>Problem:</h4>
-                        <p>Extended testing revealed wear on servo splines and mounting points, causing backlash and reduced precision over time.</p>
-                    `,
-                    solution: 'wear-sol',
-                    result: 'reliability'
-                }
-            ],
-            solutions: [
-                {
-                    id: 'stability-sol',
-                    icon: '💡',
-                    title: 'CoG Adjustment',
-                    category: 'Solution',
-                    content: `
-                        <h4>Solution:</h4>
-                        <p>Implemented a dynamic center of gravity calculation that adjusts body height and posture based on current leg positions. Added stability margin checking to the gait generator, ensuring the projected center of mass always remains within the support polygon. This required modifying the inverse kinematics solver to accept body pose adjustments.</p>
-                    `,
-                    challenge: 'stability'
-                },
-                {
-                    id: 'vision-sol',
-                    icon: '🎯',
-                    title: 'Pipeline Optimization',
-                    category: 'Solution',
-                    content: `
-                        <h4>Solution:</h4>
-                        <p>Optimized the image processing pipeline by reducing frame resolution for tracking (while maintaining higher resolution for detection), implementing adaptive thresholding for lighting compensation, and using a Kalman filter for smooth tracking even during momentary detection failures. Offloaded heavy processing to a companion computer while keeping critical control on the microcontroller.</p>
-                    `,
-                    challenge: 'vision'
-                },
-                {
-                    id: 'kinematics-sol',
-                    icon: '📐',
-                    title: 'Geometric Approach',
-                    category: 'Solution',
-                    content: `
-                        <h4>Solution:</h4>
-                        <p>Developed a geometric approach that simplifies the 3D problem into 2D projections, making the mathematics more tractable. Implemented solution selection logic to choose the most natural leg configuration. Added workspace boundary checking to prevent attempts to reach impossible positions, with graceful error handling.</p>
-                    `,
-                    challenge: 'kinematics'
-                },
-                {
-                    id: 'wear-sol',
-                    icon: '🛠️',
-                    title: 'Joint Reinforcement',
-                    category: 'Solution',
-                    content: `
-                        <h4>Solution:</h4>
-                        <p>Redesigned critical joints with reinforced mounting brackets and added thrust bearings to reduce axial loads on servos. Implemented a maintenance schedule with regular inspection points. For future iterations, planned migration to metal gears and more robust bearing solutions.</p>
-                    `,
-                    challenge: 'wear'
-                }
-            ],
-            results: [
-                {
-                    id: 'locomotion',
-                    icon: '🚶',
-                    title: 'Locomotion Success',
-                    category: 'Result',
-                    content: `
-                        <h4>Achievement:</h4>
-                        <p><strong>Locomotion Success:</strong> Successfully demonstrated stable walking at speeds up to 0.15 m/s across flat terrain with multiple gait patterns</p>
-                    `
-                },
-                {
-                    id: 'autonomous',
-                    icon: '🎯',
-                    title: 'Autonomous Operation',
-                    category: 'Result',
-                    content: `
-                        <h4>Achievement:</h4>
-                        <p><strong>Autonomous Operation:</strong> Achieved reliable autonomous object following with &lt; 5cm tracking error at distances of 0.5-2 meters</p>
-                    `
-                },
-                {
-                    id: 'reliability',
-                    icon: '⏰',
-                    title: 'System Reliability',
-                    category: 'Result',
-                    content: `
-                        <h4>Achievement:</h4>
-                        <p><strong>System Reliability:</strong> Robot operated for 45+ continuous minutes per charge with consistent performance</p>
-                    `
-                },
-                {
-                    id: 'kinematic-acc',
-                    icon: '🎯',
-                    title: 'Kinematic Accuracy',
-                    category: 'Result',
-                    content: `
-                        <h4>Achievement:</h4>
-                        <p><strong>Kinematic Accuracy:</strong> Inverse kinematics solver converges to solutions within 2mm of target positions with sub-50ms computation time</p>
-                    `
-                },
-                {
-                    id: 'vision-perf',
-                    icon: '👁️',
-                    title: 'Vision Performance',
-                    category: 'Result',
-                    content: `
-                        <h4>Achievement:</h4>
-                        <p><strong>Vision Performance:</strong> Color detection maintains 90%+ accuracy across varying indoor lighting conditions with 15 FPS processing rate</p>
-                    `
-                }
-            ]
-        };
+        function playVideoInActiveSlide(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
 
-        // 🎯 SPIDER WEB NODE CONFIGURATION
-        // Adjust these values to control exact positioning
-        // All values are offsets from center in pixels
-        const SPIDER_WEB_CONFIG = {
-            challenges: {
-                stability: { x: 0, y: -180, label: "TOP" },
-                vision: { x: 180, y: 0, label: "RIGHT" },
-                kinematics: { x: 0, y: 180, label: "BOTTOM" },
-                wear: { x: -180, y: 0, label: "LEFT" }
-            },
-            solutions: {
-                'stability-sol': { x: 210, y: -210, label: "TOP-RIGHT" },
-                'vision-sol': { x: 210, y: 210, label: "BOTTOM-RIGHT" },
-                'kinematics-sol': { x: -210, y: 210, label: "BOTTOM-LEFT" },
-                'wear-sol': { x: -210, y: -210, label: "TOP-LEFT" }
-            },
-            results: {
-                locomotion: { x: 0, y: -400, label: "TOP" },
-                autonomous: { x: 350, y: -300, label: "TOP-RIGHT" },
-                reliability: { x: 350, y: 240, label: "BOTTOM-RIGHT" },
-                'kinematic-acc': { x: -350, y: 240, label: "BOTTOM-LEFT" },
-                'vision-perf': { x: -350, y: -300, label: "TOP-LEFT" }
-            }
-        };
-
-        function calculateNodePositions() {
-            const container = document.getElementById('webContainer');
-            const centerX = container.offsetWidth / 2;
-            const centerY = container.offsetHeight / 2;
-            
-            const positions = {
-                challenges: [],
-                solutions: [],
-                results: []
-            };
-            
-            // Convert config to position arrays (maintaining order from webData)
-            webData.challenges.forEach(challenge => {
-                const config = SPIDER_WEB_CONFIG.challenges[challenge.id];
-                positions.challenges.push({
-                    x: centerX + config.x,
-                    y: centerY + config.y
-                });
-            });
-            
-            webData.solutions.forEach(solution => {
-                const config = SPIDER_WEB_CONFIG.solutions[solution.id];
-                positions.solutions.push({
-                    x: centerX + config.x,
-                    y: centerY + config.y
-                });
-            });
-            
-            webData.results.forEach(result => {
-                const config = SPIDER_WEB_CONFIG.results[result.id];
-                positions.results.push({
-                    x: centerX + config.x,
-                    y: centerY + config.y
-                });
-            });
-            
-            return positions;
-        }
-
-        // Create SVG lines
-        function createWebLines(positions) {
-            const svg = document.getElementById('webSvg');
-            const container = document.getElementById('webContainer');
-            const centerX = container.offsetWidth / 2;
-            const centerY = container.offsetHeight / 2;
-
-            svg.innerHTML = '';
-
-            // Draw lines from hub to challenges
-            webData.challenges.forEach((challenge, i) => {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                const pos = positions.challenges[i];
-                line.setAttribute('d', `M ${centerX} ${centerY} L ${pos.x} ${pos.y}`);
-                line.setAttribute('class', 'web-line');
-                line.setAttribute('data-from', 'hub');
-                line.setAttribute('data-to', challenge.id);
-                svg.appendChild(line);
+            // Pause + reset all videos in this carousel
+            const allVideos = carousel.querySelectorAll('video');
+            allVideos.forEach(video => {
+                video.pause();
+                video.currentTime = 0;   // reset when leaving slide
             });
 
-            // Draw lines from challenges to solutions
-            webData.solutions.forEach((solution, i) => {
-                const challengeIndex = webData.challenges.findIndex(c => c.id === solution.challenge);
-                if (challengeIndex !== -1) {
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    const startPos = positions.challenges[challengeIndex];
-                    const endPos = positions.solutions[i];
-                    line.setAttribute('d', `M ${startPos.x} ${startPos.y} L ${endPos.x} ${endPos.y}`);
-                    line.setAttribute('class', 'web-line solution-line');
-                    line.setAttribute('data-from', solution.challenge);
-                    line.setAttribute('data-to', solution.id);
-                    svg.appendChild(line);
-                }
-            });
+            // Now find the active slide’s video
+            const activeSlide = carousel.querySelector('.carousel-slide.active');
+            if (!activeSlide) return;
 
-            // Draw lines from challenges/solutions to results
-            webData.results.forEach((result, i) => {
-                const relatedChallenges = webData.challenges.filter(c => c.result === result.id);
-                relatedChallenges.forEach(challenge => {
-                    const challengeIndex = webData.challenges.findIndex(c => c.id === challenge.id);
-                    const solutionIndex = webData.solutions.findIndex(s => s.id === challenge.solution);
-                    
-                    if (solutionIndex !== -1) {
-                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        const startPos = positions.solutions[solutionIndex];
-                        const endPos = positions.results[i];
-                        line.setAttribute('d', `M ${startPos.x} ${startPos.y} L ${endPos.x} ${endPos.y}`);
-                        line.setAttribute('class', 'web-line result-line');
-                        line.setAttribute('data-from', challenge.solution);
-                        line.setAttribute('data-to', result.id);
-                        svg.appendChild(line);
-                    }
-                });
+            const video = activeSlide.querySelector('video');
+            if (!video) return;
+
+            // Configure playback
+            video.loop = true;          // keep walking forever
+            video.muted = true;         // for autoplay policies
+            video.currentTime = 0;      // start from the beginning
+            video.playbackRate = 2.0;   // 1.0 = normal speed (change if you want)
+
+            video.play().catch(err => {
+                console.log('Autoplay prevented:', err);
+                video.muted = true;
+                video.play();
             });
         }
 
-        // Create DOM nodes
-        function createNodes(positions) {
-            const container = document.getElementById('webContainer');
 
-            // Create challenge nodes
-            webData.challenges.forEach((challenge, i) => {
-                const node = document.createElement('div');
-                node.className = 'web-node challenge-node';
-                node.id = challenge.id;
-                node.style.left = `${positions.challenges[i].x - 50}px`;
-                node.style.top = `${positions.challenges[i].y - 50}px`;
-                node.innerHTML = `
-                    <div class="node-circle">${challenge.icon}</div>
-                    <div class="node-label">${challenge.title}</div>
-                `;
-                node.addEventListener('click', () => showInfo(challenge));
-                container.appendChild(node);
-            });
+       function pauseInactiveVideos(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
 
-            // Create solution nodes
-            webData.solutions.forEach((solution, i) => {
-                const node = document.createElement('div');
-                node.className = 'web-node solution-node';
-                node.id = solution.id;
-                node.style.left = `${positions.solutions[i].x - 50}px`;
-                node.style.top = `${positions.solutions[i].y - 50}px`;
-                node.innerHTML = `
-                    <div class="node-circle">${solution.icon}</div>
-                    <div class="node-label">${solution.title}</div>
-                `;
-                node.addEventListener('click', () => showInfo(solution));
-                container.appendChild(node);
-            });
-
-            // Create result nodes
-            webData.results.forEach((result, i) => {
-                const node = document.createElement('div');
-                node.className = 'web-node result-node';
-                node.id = result.id;
-                node.style.left = `${positions.results[i].x - 50}px`;
-                node.style.top = `${positions.results[i].y - 50}px`;
-                node.innerHTML = `
-                    <div class="node-circle">${result.icon}</div>
-                    <div class="node-label">${result.title}</div>
-                `;
-                node.addEventListener('click', () => showInfo(result));
-                container.appendChild(node);
+            // Only pause/reset videos that are NOT in the active slide
+            carousel.querySelectorAll('.carousel-slide:not(.active) video').forEach(video => {
+                video.pause();
+                video.currentTime = 0;   // so when you come back, it starts fresh
             });
         }
 
-        // Show info panel
-        function showInfo(item) {
-            const panel = document.getElementById('infoPanel');
-            const content = document.getElementById('panelContent');
-            
-            content.innerHTML = `
-                <div class="info-icon">${item.icon}</div>
-                <div class="info-title">${item.title}</div>
-                <div class="info-category">${item.category}</div>
-                <div class="info-content">${item.content}</div>
-            `;
-            
-            panel.classList.add('active');
-            highlightConnections(item.id);
-        }
 
-        // Highlight connected nodes and lines
-        function highlightConnections(nodeId) {
-            // Remove all active classes
-            document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
-            document.querySelectorAll('.web-line').forEach(l => l.classList.remove('active'));
-
-            // Add active class to clicked node
-            const clickedNode = document.getElementById(nodeId);
-            if (clickedNode) clickedNode.classList.add('active');
-
-            // Highlight connected lines
-            document.querySelectorAll('.web-line').forEach(line => {
-                if (line.getAttribute('data-from') === nodeId || line.getAttribute('data-to') === nodeId) {
-                    line.classList.add('active');
-                    
-                    // Highlight connected nodes
-                    const connectedId = line.getAttribute('data-from') === nodeId 
-                        ? line.getAttribute('data-to') 
-                        : line.getAttribute('data-from');
-                    const connectedNode = document.getElementById(connectedId);
-                    if (connectedNode) connectedNode.classList.add('active');
-                }
-            });
-        }
-
-        // Close panel
-        document.getElementById('closePanel').addEventListener('click', () => {
-            document.getElementById('infoPanel').classList.remove('active');
-            document.querySelectorAll('.web-node').forEach(n => n.classList.remove('active'));
-            document.querySelectorAll('.web-line').forEach(l => l.classList.remove('active'));
+        // Initialize video autoplay when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a bit for carousel to initialize
+            setTimeout(() => {
+                initVideoAutoplay();
+            }, 500);
         });
-
-        // Hub click shows overview
-        document.getElementById('hub').addEventListener('click', () => {
-            const panel = document.getElementById('infoPanel');
-            const content = document.getElementById('panelContent');
-            
-            content.innerHTML = `
-                <div class="info-icon">🤖</div>
-                <div class="info-title">Spider Robot Project</div>
-                <div class="info-category">Overview</div>
-                <div class="info-content">
-                    <p>This interactive web visualization showcases the complete development journey of the four-foot spider robot project.</p>
-                    <h4>🔴 Challenge Nodes (Inner Ring)</h4>
-                    <p>Technical and engineering challenges encountered during development.</p>
-                    <h4>🔵 Solution Nodes (Middle Ring)</h4>
-                    <p>Innovative solutions and approaches implemented to overcome challenges.</p>
-                    <h4>🟢 Result Nodes (Outer Ring)</h4>
-                    <p>Measurable achievements and performance metrics demonstrating project success.</p>
-                    <p><strong>Click on any node</strong> to explore detailed information about challenges, solutions, and results. Connected nodes will highlight to show relationships.</p>
-                </div>
-            `;
-            
-            panel.classList.add('active');
-        });
-
-        // Initialize
-        function initSpiderWeb() {
-            const positions = calculateNodePositions();
-            createWebLines(positions);
-            createNodes(positions);
-        }
-
-        // Handle window resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                document.querySelectorAll('.web-node').forEach(n => n.remove());
-                initSpiderWeb();
-            }, 250);
-        });
-
-        // Start when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initSpiderWeb);
-        } else {
-            initSpiderWeb();
-        }
 
     </script>
 

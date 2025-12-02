@@ -2865,7 +2865,6 @@
             updateCarousel(carouselId);
         }
 
-        // Click on side images to navigate
         document.addEventListener('DOMContentLoaded', () => {
             initCarousels();
             
@@ -2893,6 +2892,25 @@
                 
                 controls.addEventListener('mouseleave', () => {
                     isMouseOverCarousel = false;
+                });
+            });
+            
+            // ✨ NEW: Click on left/right slides to navigate to them
+            document.querySelectorAll('.carousel-slide').forEach(slide => {
+                slide.addEventListener('click', function(e) {
+                    // Don't navigate if clicking on caption expand button
+                    if (e.target.classList.contains('caption-expand-btn')) {
+                        return;
+                    }
+                    
+                    // Only navigate if slide is left or right (not active or hidden)
+                    if (this.classList.contains('left')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        prevSlide(carouselId);
+                    } else if (this.classList.contains('right')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        nextSlide(carouselId);
+                    }
                 });
             });
         });
