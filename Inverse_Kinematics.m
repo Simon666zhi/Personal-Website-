@@ -1,4 +1,3 @@
-
 %  Author: Yiqing Zhi
 %  Institution: University of Waterloo
 %  Project: Four-Foot Spider Robot - Kinematic Analysis
@@ -147,61 +146,65 @@ function visualize_workspace_fancy(L1, L2, L3)
     end
     close(h_wait);
     
-    % Create beautiful 3D scatter with gradient
+    % Create beautiful 3D scatter with BRIGHT gradient (key fix!)
     scatter3(workspace_points(:,1), workspace_points(:,2), workspace_points(:,3), ...
-             25, colors_z, 'filled', 'MarkerFaceAlpha', 0.4, 'MarkerEdgeAlpha', 0.6);
+             35, colors_z, 'filled', 'MarkerFaceAlpha', 0.6, 'MarkerEdgeAlpha', 0.8);
     
     hold on;
     
-    % Add robot base representation
+    % Add robot base representation (lighter gray for visibility)
     [X_base, Y_base, Z_base] = sphere(20);
-    surf(X_base*15, Y_base*15, Z_base*15, 'FaceColor', [0.3 0.3 0.3], ...
-         'EdgeColor', 'none', 'FaceAlpha', 0.8);
+    surf(X_base*15, Y_base*15, Z_base*15, 'FaceColor', [0.6 0.6 0.6], ...
+         'EdgeColor', 'none', 'FaceAlpha', 0.9);
     
-    % Coordinate frame arrows
-    quiver3(0, 0, 0, 80, 0, 0, 'r', 'LineWidth', 3, 'MaxHeadSize', 0.5);
-    quiver3(0, 0, 0, 0, 80, 0, 'g', 'LineWidth', 3, 'MaxHeadSize', 0.5);
-    quiver3(0, 0, 0, 0, 0, 80, 'b', 'LineWidth', 3, 'MaxHeadSize', 0.5);
+    % Coordinate frame arrows (BRIGHTER colors)
+    quiver3(0, 0, 0, 80, 0, 0, 'r', 'LineWidth', 4, 'MaxHeadSize', 0.5);
+    quiver3(0, 0, 0, 0, 80, 0, 'Color', [0 1 0], 'LineWidth', 4, 'MaxHeadSize', 0.5);
+    quiver3(0, 0, 0, 0, 0, 80, 'Color', [0.3 0.7 1], 'LineWidth', 4, 'MaxHeadSize', 0.5);
     
-    text(90, 0, 0, 'X', 'FontSize', 16, 'Color', 'r', 'FontWeight', 'bold');
-    text(0, 90, 0, 'Y', 'FontSize', 16, 'Color', 'g', 'FontWeight', 'bold');
-    text(0, 0, 90, 'Z', 'FontSize', 16, 'Color', 'b', 'FontWeight', 'bold');
+    text(90, 0, 0, 'X', 'FontSize', 18, 'Color', [1 0.3 0.3], 'FontWeight', 'bold');
+    text(0, 90, 0, 'Y', 'FontSize', 18, 'Color', [0.3 1 0.3], 'FontWeight', 'bold');
+    text(0, 0, 90, 'Z', 'FontSize', 18, 'Color', [0.3 0.7 1], 'FontWeight', 'bold');
 
     set(gca, 'Color', [0 0 0]);  % BLACK WORKSPACE BACKGROUND
-    set(gca, 'XColor', 'white', 'YColor', 'white', 'ZColor', 'white');  % White axis labels
-    set(gca, 'GridColor', [0.5 0.5 0.5]);  % Gray grid
-
+    set(gca, 'XColor', [0.9 0.9 0.9], 'YColor', [0.9 0.9 0.9], 'ZColor', [0.9 0.9 0.9]);  
+    set(gca, 'GridColor', [0.7 0.7 0.7], 'GridAlpha', 0.3);  % Brighter grid
     
-    % Ground plane
+    % Ground plane (darker, semi-transparent for black theme)
     [X_ground, Y_ground] = meshgrid(-50:50:300, -150:50:150);
     Z_ground = -150 * ones(size(X_ground));
-    surf(X_ground, Y_ground, Z_ground, 'FaceColor', [0.85 0.85 0.9], ...
-         'EdgeColor', [0.7 0.7 0.75], 'FaceAlpha', 0.3, 'LineWidth', 0.5);
+    surf(X_ground, Y_ground, Z_ground, 'FaceColor', [0.15 0.15 0.2], ...
+         'EdgeColor', [0.4 0.4 0.5], 'FaceAlpha', 0.3, 'LineWidth', 0.5);
     
     % Calculate and display workspace volume
     [~, vol] = convhull(workspace_points(:,1), workspace_points(:,2), workspace_points(:,3));
     
     % Styling
-    xlabel('X Position [mm]', 'FontSize', 13, 'FontWeight', 'bold');
-    ylabel('Y Position [mm]', 'FontSize', 13, 'FontWeight', 'bold');
-    zlabel('Z Position [mm]', 'FontSize', 13, 'FontWeight', 'bold');
+    xlabel('X Position [mm]', 'FontSize', 13, 'FontWeight', 'bold', 'Color', 'white');
+    ylabel('Y Position [mm]', 'FontSize', 13, 'FontWeight', 'bold', 'Color', 'white');
+    zlabel('Z Position [mm]', 'FontSize', 13, 'FontWeight', 'bold', 'Color', 'white');
     title(sprintf('🕷️ Spider Leg Reachable Workspace | Volume: %.0f cm³', vol/1000), ...
-          'FontSize', 15, 'FontWeight', 'bold');
+          'FontSize', 15, 'FontWeight', 'bold', 'Color', 'white');
     
     grid on;
     axis equal;
-    colormap(jet);
+    
+    % Use HOT colormap instead of JET for better visibility on black!
+    colormap(hot);  % or try: parula, turbo, hot, spring
+    
     c = colorbar;
     c.Label.String = 'Height (Z) [mm]';
     c.Label.FontSize = 11;
     c.Label.FontWeight = 'bold';
+    c.Label.Color = 'white';
+    c.Color = 'white';
     
     view(135, 25);
     lighting gouraud;
     camlight('headlight');
     set(gca, 'FontSize', 11, 'LineWidth', 1.5);
     
-    % Add workspace statistics
+    % Add workspace statistics (with black theme styling)
     dim = [0.15 0.7 0.2 0.15];
     str = {sprintf('📊 Workspace Statistics:'), ...
            sprintf('• Max Reach: %.0f mm', max(sqrt(workspace_points(:,1).^2 + workspace_points(:,2).^2 + workspace_points(:,3).^2))), ...
@@ -209,8 +212,9 @@ function visualize_workspace_fancy(L1, L2, L3)
            sprintf('• Points: %d', size(workspace_points, 1)), ...
            sprintf('• DOF: 3')};
     annotation('textbox', dim, 'String', str, 'FitBoxToText', 'on', ...
-               'BackgroundColor', 'white', 'EdgeColor', [0.3 0.3 0.8], ...
-               'LineWidth', 2, 'FontSize', 10, 'FontWeight', 'bold');
+               'BackgroundColor', [0.1 0.1 0.15], 'EdgeColor', [0.5 0.5 0.8], ...
+               'LineWidth', 2, 'FontSize', 10, 'FontWeight', 'bold', ...
+               'Color', 'white');
     
     hold off;
     
@@ -334,7 +338,7 @@ end
 %  📈 JOINT ANGLE TRAJECTORY PLOTS
 %% ========================================================================
 function plot_joint_trajectories(trajectory, title_text)
-    figure('Name', 'Joint Angle Trajectories', 'Position', [100 100 1200 700]);
+    figure('Name', 'Joint Angle Trajectories', 'Position', [100 100 900 700]);
     
     time = linspace(0, 1, size(trajectory, 1));
     

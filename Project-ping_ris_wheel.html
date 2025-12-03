@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circadian Rhythm Regulating Device - Yiqing Zhi</title>
+    <title>Ping-ris Wheel - Yiqing Zhi</title>
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
@@ -1557,7 +1557,7 @@
     <!-- Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar">
-            <div class="progress-car">⏰</div>
+            <div class="progress-car">🎡</div>
         </div>
     </div>
 
@@ -1583,67 +1583,68 @@
         <div class="carousel-corner corner-bl"></div>
         <div class="carousel-corner corner-br"></div>
         
-    <!-- Left Side Info Cards -->
-    <div class="side-info-cards left">
-        <div class="info-card" style="animation-delay: 0.2s;">
-            <div class="info-icon">⚙️</div>
-            <div class="info-text">
-                <h4>Total Weight</h4>
-                <p>6.3 kg</p>
+        <!-- Left Side Info Cards -->
+        <div class="side-info-cards left">
+            <div class="info-card" style="animation-delay: 0.2s;">
+                <div class="info-icon">🎡</div>
+                <div class="info-text">
+                    <h4>Wheel Diameter</h4>
+                    <p>1.2m (4 feet)</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.4s;">
+                <div class="info-icon">💡</div>
+                <div class="info-text">
+                    <h4>LED Matrix</h4>
+                    <p>32×32 RGB (1024)</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.6s;">
+                <div class="info-icon">🎮</div>
+                <div class="info-text">
+                    <h4>Games</h4>
+                    <p>Pong + Tetris</p>
+                </div>
             </div>
         </div>
-        <div class="info-card" style="animation-delay: 0.4s;">
-            <div class="info-icon">📏</div>
-            <div class="info-text">
-                <h4>Arm Length</h4>
-                <p>60 cm (12 segments)</p>
-            </div>
-        </div>
-        <div class="info-card" style="animation-delay: 0.6s;">
-            <div class="info-icon">🔄</div>
-            <div class="info-text">
-                <h4>Rotation Range</h4>
-                <p>135° coverage arc</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Side Info Cards -->
-    <div class="side-info-cards right">
-        <div class="info-card" style="animation-delay: 0.3s;">
-            <div class="info-icon">📐</div>
-            <div class="info-text">
-                <h4>Height Adjust</h4>
-                <p>10 cm range</p>
-            </div>
-        </div>
-        <div class="info-card" style="animation-delay: 0.5s;">
-            <div class="info-icon">⏱️</div>
-            <div class="info-text">
-                <h4>Setup Time</h4>
-                <p>< 2 minutes</p>
-            </div>
-        </div>
-        <div class="info-card" style="animation-delay: 0.7s;">
-            <div class="info-icon">✅</div>
-            <div class="info-text">
-                <h4>Success Rate</h4>
-                <p>100% (10/10 trials)</p>
-            </div>
-        </div>
-    </div>
         
-        <!-- Video Background (replace with your actual video) -->
+        <!-- Right Side Info Cards -->
+        <div class="side-info-cards right">
+            <div class="info-card" style="animation-delay: 0.3s;">
+                <div class="info-icon">🔄</div>
+                <div class="info-text">
+                    <h4>Rotation Speed</h4>
+                    <p>0-12 RPM Variable</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.5s;">
+                <div class="info-icon">⚡</div>
+                <div class="info-text">
+                    <h4>Power</h4>
+                    <p>120W (5V 24A)</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.7s;">
+                <div class="info-icon">👥</div>
+                <div class="info-text">
+                    <h4>Players</h4>
+                    <p>Up to 4 Concurrent</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Video Background -->
         <video id="hero-video" autoplay loop muted playsinline>
-            <source src="Images/circadian-demo.mp4" type="video/mp4">
+            <source src="Images/pingris-wheel-demo.mp4" type="video/mp4">
         </video>
         
         <!-- Gradient Overlay -->
         <div class="hero-overlay"></div>
         
+        <!-- Hero Content -->
         <div class="hero-content">
-            <h1>Circadian Rhythm Regulating Device</h1>
-            <p class="subtitle">A Mechanical Wake-Up Solution Using Physical Stimulation to Enforce Healthy Sleep Schedules</p>
+            <h1>Ping-ris Wheel</h1>
+            <p class="subtitle">An Interactive LED Ferris Wheel Gaming Platform Combining Pong & Tetris</p>
         </div>
     </section>
 
@@ -1657,33 +1658,8 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>Traditional alarm clocks fail 43% of users who develop snooze habits, leading to unhealthy sleep cycles and morning tiredness. The Circadian Rhythm Regulating Device tackles this challenge with a mechanical solution that eliminates the snooze option entirely.</p>
-                
-                <p>This ME 101 team project uses gentle physical stimulation—tickling combined with water spraying—to force users out of bed. The device features a rotating arm with a paintbrush end effector, ultrasonic sensor for presence detection, and a gravity-fed water system, all controlled by an EV3 microcontroller.</p>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">Spec Compliance</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">10/10</div>
-                        <div class="stat-label">Safety Tests Passed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">6.3kg</div>
-                        <div class="stat-label">Total Device Weight</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">< 2min</div>
-                        <div class="stat-label">Average Setup Time</div>
-                    </div>
-                </div>
-
-                <h3>🔑 Need Statement</h3>
-                <p><em>"A need exists to develop a mechanical solution that enforces wake-up routines while ensuring safe user operation."</em></p>
-
-                <p>The device addresses this through four main subsystems working in concert: the segmented arm and carriage for motion coverage, the bearing-supported arm axle housing for smooth rotation, the gravity-fed water system for secondary stimulation, and the adjustable body structure for accommodation of different bed heights.</p>
+                <p>The Ping-ris Wheel is a unique interactive art installation that transforms a 1.2-meter diameter Ferris wheel into a dynamic gaming platform. By mounting a 32×32 RGB LED matrix display on the rotating structure and implementing real-time game physics that account for rotation and gravity, this project creates an engaging multiplayer gaming experience unlike traditional flat-screen displays.</p>
+                <p>The name "Ping-ris" combines Pong (the classic arcade game) and Tetris, as the platform supports both games with physics adjusted for the circular, rotating display. Players control their games using wireless controllers while the wheel rotates, creating a challenging and visually spectacular experience. The project showcases integration of mechanical design, LED matrix control, real-time embedded programming, and game physics adaptation.</p>
             </div>
         </div>
 
@@ -1691,83 +1667,86 @@
         <div class="content-section">
             <h2 class="section-title">
                 <span>📸</span>
-                Design & Development Gallery
+                Project Gallery
             </h2>
             <div class="section-content">
-                <p>Explore the mechanical systems, CAD designs, and testing process behind the Circadian Rhythm Regulating Device.</p>
+                <p>Explore the complete design and build process of the Ping-ris Wheel—from structural fabrication to LED integration and game development.</p>
+                
+                <h3>🎡 Design, Build & Interactive Gameplay</h3>
+                <p>Interactive gallery showcasing the mechanical structure, electronics integration, game programming, and public demonstration.</p>
             </div>
             
             <!-- 3D Rotating Carousel -->
-            <div class="carousel-container" id="circadianCarousel">
+            <div class="carousel-container" id="wheelCarousel">
                 <div class="carousel-track">
-                    <!-- Slide 1: Complete Device -->
+                    <!-- Slide 1: Complete Wheel in Action -->
                     <div class="carousel-slide" data-index="0">
-                        <span class="carousel-badge">🏆 Complete Assembly</span>
-                        <img src="Images/circadian-complete-device.jpg" alt="Complete Circadian Regulating Device">
+                        <span class="carousel-badge">🏆 Complete System</span>
+                        <img src="Images/pingris-complete-night.jpg" alt="Ping-ris Wheel at Night">
                         <div class="carousel-caption">
-                            <h4>Complete Device Assembly</h4>
-                            <p class="short-desc">Fully assembled wake-up system with all four major subsystems integrated.</p>
-                            <p class="long-desc">The complete device weighing 6.3kg features four major subsystems working in concert: (1) 12-segment modular arm with paintbrush end effector providing 60cm reach, (2) bearing-supported arm axle housing enabling smooth 135° rotation with minimal motor power, (3) gravity-fed water system with motor-controlled valve for leak-proof secondary stimulation, and (4) adjustable body structure with 10cm height range accommodating different bed configurations. The device successfully enforces wake-up routines through multi-phase operation: initial tickling for 45 seconds, followed by tickling plus water spray until touch sensor deactivation, with ultrasonic sensor monitoring for user relapse.</p>
+                            <h4>Ping-ris Wheel in Operation</h4>
+                            <p class="short-desc">1.2m diameter Ferris wheel with 32×32 RGB LED matrix display.</p>
+                            <p class="long-desc">The completed Ping-ris Wheel features a 1.2-meter diameter structure with six evenly-spaced gondolas and a central 32×32 RGB LED matrix (1024 individually addressable LEDs). The wheel rotates continuously at variable speeds from 0-12 RPM via a DC gear motor with encoder feedback for precise position tracking. The LED matrix displays classic arcade games (Pong and Tetris) with game physics dynamically adjusted to account for the rotating reference frame and effective gravity vector that changes with wheel position. Structural components are powder-coated steel for weather resistance, enabling both indoor and outdoor installations. The entire system draws 120W at peak brightness and supports wireless controller connectivity for up to four simultaneous players.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Arm Subsystem -->
+                    <!-- Slide 2: Structural Design -->
                     <div class="carousel-slide" data-index="1">
-                        <span class="carousel-badge">🦾 Arm Mechanism</span>
-                        <img src="Images/circadian-arm-closeup.jpg" alt="Segmented Arm with Rack Teeth">
+                        <span class="carousel-badge">🔧 Structure</span>
+                        <img src="Images/pingris-structure-build.jpg" alt="Ferris Wheel Structure">
                         <div class="carousel-caption">
-                            <h4>Modular Segmented Arm Design</h4>
-                            <p class="short-desc">12 PLA segments with LEGO-compatible rack teeth and aluminum reinforcement.</p>
-                            <p class="long-desc">The segmented arm represents a key engineering innovation balancing cost, manufacturability, and performance. Each of the 12 segments measures 5cm long and features precision rack teeth dimensioned to mesh with LEGO pinion gears. Two aluminum tubes run the full 60cm length providing structural support while keeping total arm cost under $10. This modular design offers multiple advantages: variable length configuration, rapid fabrication via 3D printing, easy repair by replacing individual segments, reduced weight through strategic gaps between segments (also minimizing friction during assembly), and simple assembly without specialized tools. The rack-and-pinion mechanism driven by an EV3 medium motor enables the carriage to traverse the full arm length, delivering the paintbrush end effector across a 135° arc over the bed surface.</p>
+                            <h4>Mechanical Structure & Fabrication</h4>
+                            <p class="short-desc">Steel frame construction with precision hub and spoke design.</p>
+                            <p class="long-desc">The Ferris wheel structure was fabricated from 1-inch square steel tubing for the rim and spokes, with a custom-machined aluminum hub providing the central mounting point and motor attachment. The six-spoke radial design distributes loads evenly and provides mounting points for gondolas at 60° intervals. Critical design considerations included: balancing the structure by placing the heavy LED matrix opposite the motor and electronics gondola, ensuring sufficient rigidity to prevent wobble at maximum RPM (12), and maintaining clearances for 360° rotation without cable interference. The rim was constructed in six curved segments TIG-welded together, with precision jigs ensuring true circular geometry. All structural components were powder-coated matte black for a professional appearance and corrosion resistance. Total structural weight: 18kg, carefully balanced to minimize vibration.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 3: Housing & Bearings -->
+                    <!-- Slide 3: LED Matrix Integration -->
                     <div class="carousel-slide" data-index="2">
-                        <span class="carousel-badge">⚙️ Bearing Housing</span>
-                        <img src="Images/circadian-bearing-housing.jpg" alt="Arm Axle Housing with Bearings">
+                        <span class="carousel-badge">💡 LED System</span>
+                        <img src="Images/pingris-led-matrix.jpg" alt="32×32 RGB LED Matrix">
                         <div class="carousel-caption">
-                            <h4>Bearing-Supported Arm Axle Housing</h4>
-                            <p class="short-desc">Two 6202Z radial bearings dramatically reduce friction for smooth rotation.</p>
-                            <p class="long-desc">The arm axle housing subsystem represents critical mechanical engineering that enables smooth arm rotation while supporting the full weight of the extended arm. The 3D-printed PLA housing mounts to the underside of the device roof and contains two 6202Z radial bearings press-fit into precisely dimensioned bores. These bearings support a machined aluminum arm axle featuring a drilled hole for the locking pin (securing rotational orientation to the anchoring segment) and a protruding feature that mates with a slot in the axle gear (transferring motor torque to arm rotation). The bearing implementation reduced friction so significantly that testing revealed minimal motor power requirements—the original 3:1 gear ratio proved more than adequate. A LEGO EV3 large motor drives a LEGO gear meshing with the 3D-printed axle gear, with mounting hole positions determined precisely through SolidWorks modeling using imported STEP files and published LEGO stud dimensions.</p>
+                            <h4>LED Matrix Display System</h4>
+                            <p class="short-desc">32×32 RGB addressable LED matrix with real-time game rendering.</p>
+                            <p class="long-desc">The display uses four 16×16 RGB LED matrix panels (WS2812B-based) arranged in a 32×32 configuration, totaling 1024 individually addressable LEDs. Each LED contains an integrated driver chip enabling independent color control (16.7 million colors) via a single data line. The panels are mounted in a custom aluminum frame with a frosted diffuser to soften individual pixel visibility and improve viewing angles. Power distribution required careful design—at maximum brightness (white), the entire display draws 60A at 5V. This is managed through: a high-capacity 5V 24A power supply, multiple parallel power injection points across the matrix to prevent voltage drop, and programmatic brightness limiting to keep average current draw below 20A during gameplay. Data is driven by a Teensy 4.1 microcontroller (600 MHz ARM Cortex-M7) running the FastLED library, capable of achieving 120 FPS refresh rates for smooth animation even during wheel rotation.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 4: Water System -->
+                    <!-- Slide 4: Game Logic & Physics -->
                     <div class="carousel-slide" data-index="3">
-                        <span class="carousel-badge">💧 Water System</span>
-                        <img src="Images/circadian-water-system.jpg" alt="Gravity-Fed Water System">
+                        <span class="carousel-badge">🎮 Software</span>
+                        <img src="Images/pingris-game-code.jpg" alt="Game Code on Screen">
                         <div class="carousel-caption">
-                            <h4>Gravity-Fed Water Delivery System</h4>
-                            <p class="short-desc">Elevated tank with motor-controlled valve ensures leak-proof water release.</p>
-                            <p class="long-desc">The water system provides secondary wake-up stimulation through precise, leak-free water delivery. A large 3D-printed base integrates mounting points for the EV3 large motor, valve assembly, and LEGO gear, while featuring an elevated water tower with lid allowing gravity-fed operation. Water flows from the tank through a tube connected via a custom 3D-printed connector to a commercially available valve. The valve control mechanism represents elegant mechanical design: an EV3 motor drives a LEGO gear, which meshes with a second gear connected to a custom 3D-printed connector. This connector features holes on one side engaging the gear and a specialized shape on the other side gripping the valve switch handle. Motor rotation thus directly translates to valve opening/closing through pure mechanical linkage. The system underwent extensive leak testing and alignment verification, with zip-tie clamps securing the valve at two points preventing any motion or rotation under operation.</p>
+                            <h4>Rotation-Aware Game Physics</h4>
+                            <p class="short-desc">Custom game engines accounting for rotating reference frame.</p>
+                            <p class="long-desc">The most technically challenging aspect was adapting classic game physics to work correctly on a rotating display. For Pong: the ball's trajectory must account for Coriolis effects in the rotating frame—when the wheel rotates, the ball's apparent path curves. This required implementing physics that calculates ball position in both the rotating frame (for display) and inertial frame (for true motion), then applies appropriate coordinate transformations. For Tetris: gravity direction changes continuously as the wheel rotates—when the LED matrix is at the top of the rotation, "down" points toward the hub; at the side, "down" points radially. The game logic uses encoder feedback to determine current wheel orientation and applies gravity vector accordingly. Additional features include: difficulty scaling (faster rotation = harder gameplay), score tracking across rotations, and game state persistence through full wheel revolutions. All game logic runs at 60 FPS independent of display refresh rate to ensure consistent physics behavior.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 5: Height Adjustment -->
+                    <!-- Slide 5: Multiplayer Controllers -->
                     <div class="carousel-slide" data-index="4">
-                        <span class="carousel-badge">📐 Adjustability</span>
-                        <img src="Images/circadian-height-mechanism.jpg" alt="Pin-Based Height Adjustment">
+                        <span class="carousel-badge">🕹️ Controllers</span>
+                        <img src="Images/pingris-controllers.jpg" alt="Wireless Game Controllers">
                         <div class="carousel-caption">
-                            <h4>Height Adjustment Mechanism</h4>
-                            <p class="short-desc">Gym weight stack-inspired pin system provides 10cm adjustment range.</p>
-                            <p class="long-desc">The body structure features an innovative height adjustment mechanism directly inspired by pin-and-weight-stack systems commonly found in gym exercise equipment. The device consists of two main parts: an outer foot containing a vertical series of pre-drilled holes, and an inner body structure with a single hole at the bottom. Users adjust height by selecting which hole in the outer foot aligns with the inner body's fixed hole, then inserting a removable pin to lock the configuration. This simple yet effective system provides 10cm of adjustment range—double the 5cm specification requirement—allowing accommodation of beds ranging from low platform frames to high traditional bedframes. 3D-printed spacers prevent pin wobbling, ensuring structural stability even under the dynamic loads of arm rotation. The 10lb weight placed in the foot provides additional stability and counteracts torque from the rotating arm, yet doesn't impact usability since users only lift the lighter upper body structure during height adjustment. The design successfully validated that all height settings can support the device's full operational loading without deflection or instability.</p>
+                            <h4>Wireless Controller System</h4>
+                            <p class="short-desc">Custom wireless controllers supporting 4-player simultaneous gameplay.</p>
+                            <p class="long-desc">Player control is handled through four custom-built wireless controllers communicating via 2.4 GHz RF (using nRF24L01+ modules). Each controller features: a joystick for directional input, action buttons for game-specific controls (ball serve in Pong, rotate/drop in Tetris), RGB LED status indicators showing controller pairing and battery level, and a rechargeable LiPo battery providing 8+ hours of continuous use. The wireless communication protocol implements: low-latency polling (1000 Hz) to ensure responsive controls, automatic controller pairing via unique IDs, and redundant packet transmission to prevent input drops. The base station (mounted on the wheel structure) receives all controller inputs and forwards them to the Teensy microcontroller. Controller enclosures were 3D printed in ergonomic designs with rubberized grips. The system supports hot-swapping controllers during gameplay, allowing players to join or leave without interrupting others.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 6: Testing Validation -->
+                    <!-- Slide 6: Public Demonstration -->
                     <div class="carousel-slide" data-index="5">
-                        <span class="carousel-badge">🔬 Testing</span>
-                        <img src="Images/circadian-testing-setup.jpg" alt="Device Testing with Participant">
+                        <span class="carousel-badge">🌟 Demo</span>
+                        <img src="Images/pingris-public-demo.jpg" alt="Crowd Playing Ping-ris">
                         <div class="carousel-caption">
-                            <h4>Testing & Validation Results</h4>
-                            <p class="short-desc">10 trials across diverse body types confirmed 100% spec compliance.</p>
-                            <p class="long-desc">Comprehensive testing validated all ten engineering specifications through a combination of user trials, demonstrations, measurements, and analysis. Ten participants with diverse body types each completed full wake-up cycles while wearing safety glasses for eye protection. Results showed perfect performance: 100% of users reported safe and suitable tickling force (exceeding the 80% target), zero water contact with eyes (safety glasses showed no water particles), all users completed setup in under 2 minutes following instructions, and the ultrasonic sensor achieved 100% body detection accuracy across various sleeping positions. Physical measurements confirmed device weight of 6.3kg (well under the 10kg limit), arm segment length of 5cm each (totaling 60cm), 135° arm rotation range (far exceeding the 40cm arc length requirement calculated to need only 42°), and 10cm height adjustment range (double the 5cm specification). The arm rotation stops clearly visible in testing photos demonstrate the device's mechanical constraints. Demonstrations verified complete electronics isolation from water with no leaks during normal operation, no device interference with sleep (arm fully retracted), and reliable EV3-controlled water valve operation.</p>
+                            <h4>Public Exhibition & User Experience</h4>
+                            <p class="short-desc">Successfully demonstrated at campus events with hundreds of players.</p>
+                            <p class="long-desc">The Ping-ris Wheel has been showcased at multiple university events and public demonstrations, engaging over 500 players across various installations. User testing revealed fascinating insights: players initially struggled with the rotating reference frame but quickly adapted after 30-60 seconds of play. The constantly changing gravity direction in Tetris proved more challenging than anticipated, with even experienced Tetris players needing practice to master the rotation-aware gameplay. Most popular mode: competitive 2-player Pong where rotation speed increases with each rally, creating increasingly chaotic physics. The installation proved highly photogenic, with the illuminated spinning wheel creating striking visual effects in evening demonstrations. Lessons learned include: the importance of clear on-screen instructions (added an attract mode with gameplay tutorials), need for variable difficulty settings to accommodate skill ranges, and value of real-time score displays visible to spectators. Future enhancements planned include additional game modes, online leaderboards, and smartphone controller support via Bluetooth.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1776,9 +1755,9 @@
             
             <!-- Carousel Controls -->
             <div class="carousel-controls">
-                <button class="carousel-btn" onclick="prevSlide('circadianCarousel')">❮</button>
-                <div class="carousel-dots" id="circadianDots"></div>
-                <button class="carousel-btn" onclick="nextSlide('circadianCarousel')">❯</button>
+                <button class="carousel-btn" onclick="prevSlide('wheelCarousel')">❮</button>
+                <div class="carousel-dots" id="wheelDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('wheelCarousel')">❯</button>
             </div>
 
         </div>
@@ -1790,45 +1769,51 @@
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>🖥️ CAD Design & Component Modeling</h3>
+                <h3>🔧 Mechanical Design & Structural Fabrication</h3>
+                <p>Designed and built the entire Ferris wheel structure from raw materials to working installation.</p>
                 <ul>
-                    <li>Designed water system base in SolidWorks integrating motor mounting, valve holders, gear housing, and elevated water tower with lid—ensuring proper component spacing and structural integrity</li>
-                    <li>Created 3D models for multiple critical components including the valve-gear connector with specialized geometry for mechanical linkage, screw-on clamps for secure valve mounting, and spacers preventing pin wobble in height adjustment system</li>
-                    <li>Modeled ultrasonic sensor enclosure in SolidWorks with precise cutouts for sensor placement and LEGO pin mounting holes for adjustable rail attachment</li>
-                    <li>Utilized imported STEP files of LEGO components and published dimensional standards to ensure precise fit and compatibility with existing EV3 ecosystem</li>
+                    <li>Designed 1.2m diameter Ferris wheel structure with six-spoke radial layout providing gondola mounting points at 60° intervals.</li>
+                    <li>Fabricated rim from curved steel tubing sections TIG-welded with precision jigs to maintain true circular geometry.</li>
+                    <li>Machined custom aluminum hub providing central mounting point, motor attachment, and slip-ring electrical connection for rotating components.</li>
+                    <li>Balanced entire structure by strategically positioning counterweights opposite LED matrix and electronics to minimize vibration at operating speeds.</li>
                 </ul>
 
-                <h3>🏗️ Manufacturing & Assembly</h3>
+                <h3>💡 LED Matrix Integration & Power Distribution</h3>
+                <p>Engineered the complete LED display system with power management for 1024 addressable RGB LEDs.</p>
                 <ul>
-                    <li>Executed fabrication of body structure using laser-cut HDF sheets with carefully planned joint locations and assembly sequence</li>
-                    <li>3D printed all custom components (water system base, connectors, clamps, sensor housing, spacers) with optimized print settings balancing strength, print time, and material usage</li>
-                    <li>Assembled complete water system integrating motor, valve, gearing, tubing, and tank—troubleshooting alignment issues and implementing zip-tie reinforcement for valve stability</li>
-                    <li>Led full device integration combining all four major subsystems (arm, housing, water, body) and coordinated component positioning for optimal functionality</li>
+                    <li>Integrated four 16×16 WS2812B LED matrix panels into unified 32×32 display with custom mounting frame and frosted diffuser.</li>
+                    <li>Designed power distribution system with multiple parallel injection points handling peak currents of 60A at 5V without voltage drop.</li>
+                    <li>Implemented brightness limiting and current monitoring to prevent power supply overload during peak usage scenarios.</li>
+                    <li>Created LED driver interface using Teensy 4.1 with FastLED library achieving 120 FPS refresh rates for smooth animation.</li>
                 </ul>
 
-                <h3>💻 Software Development & Control Logic</h3>
+                <h3>💻 Game Development & Physics Programming</h3>
+                <p>Programmed rotation-aware game engines adapting classic arcade physics to rotating reference frame.</p>
                 <ul>
-                    <li>Programmed valve control function in RobotC implementing motor rotation to open/close valve based on Boolean state parameter and gear ratio, with encoder-based position tracking ensuring precise 90° valve actuation</li>
-                    <li>Developed robust error handling and state management ensuring valve returns to known positions and preventing water system failures during multi-phase operation</li>
-                    <li>Integrated valve control into larger program flow coordinating with arm motion, sensor inputs, and phase transitions for seamless wake-up cycle execution</li>
-                    <li>Contributed to system-level debugging and testing, identifying and resolving integration issues between mechanical systems and software control</li>
+                    <li>Developed Pong game engine accounting for Coriolis effects in rotating frame—implemented coordinate transformations between inertial and rotating reference frames.</li>
+                    <li>Created Tetris game engine with dynamic gravity vector that adjusts based on wheel orientation using encoder position feedback.</li>
+                    <li>Programmed 60 FPS game logic independent of display refresh to ensure consistent physics across variable rotation speeds.</li>
+                    <li>Implemented difficulty scaling algorithms where gameplay challenge increases with wheel rotation speed, creating dynamic competitive environment.</li>
                 </ul>
 
-                <h3>🔬 Testing & Documentation</h3>
+                <h3>🎮 Wireless Controller System & Multiplayer Infrastructure</h3>
+                <p>Designed and built complete wireless controller system supporting 4-player simultaneous gameplay.</p>
                 <ul>
-                    <li>Conducted water system leak testing under various operating conditions including continuous maximum flow, rapid valve cycling, and extended duration tests—implementing improvements based on observed failure modes</li>
-                    <li>Performed component fit verification for all custom-designed parts ensuring proper clearances, alignment, and assembly sequence before final integration</li>
-                    <li>Participated in full-system user testing trials collecting data on setup time, safety, and device performance across diverse body types and sleeping positions</li>
-                    <li>Contributed to final engineering report documentation including technical drawings, system descriptions, testing procedures, and results analysis</li>
+                    <li>Designed custom wireless controllers with joysticks, buttons, status LEDs, and rechargeable batteries providing 8+ hours operation.</li>
+                    <li>Implemented low-latency 2.4 GHz RF communication protocol (1000 Hz polling) using nRF24L01+ modules for responsive controls.</li>
+                    <li>Created controller pairing system with automatic device recognition and hot-swap capability allowing join/leave without gameplay interruption.</li>
+                    <li>Designed and 3D printed ergonomic controller enclosures with rubberized grips optimized for extended play sessions.</li>
                 </ul>
 
-                <h3>🤝 Project Management & Collaboration</h3>
+                <h3>🔬 Testing, Public Demonstration & User Experience</h3>
+                <p>Conducted extensive testing and public demonstrations to refine gameplay and validate user engagement.</p>
                 <ul>
-                    <li>Coordinated closely with teammates working on arm design, housing systems, and software development to ensure compatible interfaces and integrated functionality</li>
-                    <li>Maintained organized work breakdown structure tracking water system tasks including design (3 hrs), CAD (3 hrs), assembly (4 hrs), programming (1.5 hrs), and testing/refinement (2 hrs)</li>
-                    <li>Adapted to schedule revisions when primary subsystems encountered delays, shifting water system development timeline while maintaining project milestones</li>
-                    <li>Participated in design reviews and team meetings providing technical input on mechanical feasibility, manufacturing constraints, and integration challenges</li>
+                    <li>Performed mechanical stress testing at various rotation speeds to validate structural integrity and identify resonant frequencies.</li>
+                    <li>Conducted user experience testing with 500+ players across multiple public demonstrations at campus events.</li>
+                    <li>Analyzed player learning curves and difficulty progression, implementing tutorial modes and difficulty adjustments based on feedback.</li>
+                    <li>Documented installation setup procedures and maintenance requirements for reliable operation across multiple deployment locations.</li>
                 </ul>
+
             </div>
         </div>
 
@@ -1841,108 +1826,128 @@
             
             <div class="section-content">
                 <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    From biological research to working prototype - the evolution of a circadian-optimized lighting system
+                    From arcade classics to rotating reality - the evolution of an interactive LED gaming platform
                 </p>
             </div>
 
             <div class="journey-timeline">
 
-                <!-- Phase 1: Needs Analysis & Concept Development -->
+                <!-- Phase 1 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">01</div>
-                        <div class="phase-icon">🎯</div>
+                        <div class="phase-icon">💡</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Needs Analysis & Concept Development</h3>
+                        <h3 class="phase-title">Concept Development & Physics Analysis</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">User Research</span>
-                            <span class="skill-tag">Requirements Definition</span>
-                            <span class="skill-tag">Morphological Matrix</span>
-                            <span class="skill-tag">Decision Matrix</span>
+                            <span class="skill-tag">Concept Design</span>
+                            <span class="skill-tag">Physics Modeling</span>
+                            <span class="skill-tag">Rotating Frames</span>
+                            <span class="skill-tag">Feasibility Study</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Research revealed that 43% of British adults who use alarms also snooze regularly, leading to disrupted circadian rhythms and morning tiredness. The team developed a comprehensive need statement: "A need exists to develop a mechanical solution that enforces wake-up routines while ensuring safe user operation." Three concepts were evaluated using a decision-making matrix—Concept 1 (rotating arm with feather and gravity-fed shower head) scored highest for user convenience, ease of fabrication, and cost, despite slightly lower effectiveness scores compared to more complex gantry system designs.
+                            <strong>💡 Key Insight:</strong> Initial concept simply displayed static images on a rotating LED matrix. However, analyzing the physics revealed that with position tracking, we could create games where the rotation itself becomes part of the gameplay mechanics. Realizing that gravity direction (from the player's perspective) changes continuously as the wheel rotates led to the breakthrough idea of implementing rotation-aware game physics where the challenge scales with rotation speed. This transformed the concept from passive art installation into interactive gaming platform.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Detailed Mechanical Design -->
+                <!-- Phase 2 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">02</div>
-                        <div class="phase-icon">📐</div>
-                    </div>
-                    <div class="phase-content">
-                        <h3 class="phase-title">Detailed Mechanical Design & CAD</h3>
-                        <div class="phase-skills">
-                            <span class="skill-tag">SolidWorks Modeling</span>
-                            <span class="skill-tag">Mechanism Design</span>
-                            <span class="skill-tag">Material Selection</span>
-                            <span class="skill-tag">DFM Analysis</span>
-                        </div>
-                        <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The segmented arm design emerged as a breakthrough solution balancing multiple constraints. Rather than machining a single 60cm arm (expensive, time-consuming, inflexible), the team designed 12 modular 5cm PLA segments with rack teeth matching LEGO pinion gear specifications. This approach reduced cost to under $10, enabled rapid 3D printing fabrication, allowed variable length configuration, and simplified repair. The bearing-supported housing required precise SolidWorks modeling using imported STEP files to ensure proper LEGO gear mounting—testing later confirmed that the bearing implementation reduced friction so dramatically that minimal motor power was needed.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Phase 3: Fabrication & Assembly -->
-                <div class="journey-phase">
-                    <div class="phase-marker">
-                        <div class="phase-number">03</div>
                         <div class="phase-icon">🔧</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Fabrication, Manufacturing & Integration</h3>
+                        <h3 class="phase-title">Structural Design & Fabrication</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">3D Printing (PLA)</span>
-                            <span class="skill-tag">Laser Cutting (HDF)</span>
-                            <span class="skill-tag">Machining (Aluminum)</span>
-                            <span class="skill-tag">System Integration</span>
+                            <span class="skill-tag">Steel Fabrication</span>
+                            <span class="skill-tag">Welding</span>
+                            <span class="skill-tag">Load Analysis</span>
+                            <span class="skill-tag">Balancing</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Manufacturing revealed critical integration challenges, particularly with the water system. Initial valve mounting proved unstable during operation, requiring redesign of clamping system with zip-tie reinforcement at two points. The valve-gear connector required multiple iterations to achieve reliable mechanical linkage—the final design used a specialized shape gripping the valve switch on one side and holes engaging the gear on the other. Assembly sequence proved crucial: certain components had to be installed before others were mounted, requiring disassembly and reassembly when this wasn't planned correctly. The team learned to thoroughly validate component fit and assembly order before final integration.
+                            <strong>💡 Key Insight:</strong> First structural prototype used a four-spoke design which proved insufficient—the structure flexed noticeably during rotation causing LED matrix misalignment. Switching to six spokes dramatically improved rigidity with minimal weight penalty. More critically, initial assembly had severe vibration at 8 RPM—discovered this was due to LED matrix weight creating imbalance. Solving this required strategic placement of battery packs and electronics as counterweights, followed by dynamic balancing with the wheel spinning. The final balanced structure runs smoothly across entire 0-12 RPM range.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 4: Software Development -->
+                <!-- Phase 3 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">03</div>
+                        <div class="phase-icon">💡</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">LED Matrix Integration & Power Management</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">WS2812B LEDs</span>
+                            <span class="skill-tag">Power Distribution</span>
+                            <span class="skill-tag">Current Management</span>
+                            <span class="skill-tag">FastLED Library</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Initial LED wiring used single power injection point at corner—this caused severe brightness fall-off across the matrix and warm LEDs at the far end. Measuring voltage revealed 0.8V drop across 1 meter of power bus at 15A. Solution required multiple power injection points (one per 16×16 panel) with heavy gauge wire (12 AWG) forming a power distribution grid. Additionally, discovered that enabling all LEDs at full white would draw 60A—way beyond power supply capacity. Implemented intelligent brightness limiting that monitors total current draw and dynamically adjusts per-pixel brightness to stay within 24A limit while maintaining good visual appearance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">04</div>
-                        <div class="phase-icon">💻</div>
+                        <div class="phase-icon">🎮</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Software Development & Control Algorithms</h3>
+                        <h3 class="phase-title">Game Physics & Rotation-Aware Algorithms</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">RobotC Programming</span>
-                            <span class="skill-tag">Sensor Integration</span>
-                            <span class="skill-tag">Motor Control</span>
-                            <span class="skill-tag">State Machine Logic</span>
+                            <span class="skill-tag">C++ Programming</span>
+                            <span class="skill-tag">Coordinate Transforms</span>
+                            <span class="skill-tag">Real-time Systems</span>
+                            <span class="skill-tag">Game Logic</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The arm's axle rotation didn't maintain a 1:1 ratio with motor encoder values due to gear backlash and mechanical tolerances, causing overswing issues. The team implemented physical arm rotation stops (bumpers) to mechanically constrain the 135° swing arc, then added time-based constraints in software rather than relying solely on encoder values. This hybrid mechanical-software approach proved more reliable. The multi-phase program structure (timer setup → probe state → initiation phase 1 with tickling → initiation phase 2 with water → relapse detection) required careful state management and void function returns to enable touch sensor interruption at any point in the cycle.
+                            <strong>💡 Key Insight:</strong> First Pong implementation simply drew the game on rotating display—but ball trajectory looked wrong, it curved unnaturally. The issue: wasn't accounting for the rotating reference frame. Ball moves in straight lines in inertial frame, but appears to curve when viewed from rotating frame (Coriolis effect). Solution required implementing dual coordinate systems: calculating physics in inertial frame, then transforming to rotating frame for display. For Tetris, the big challenge was dynamically rotating gravity—tried applying gravity relative to wheel position but pieces moved erratically during fast rotation. Final solution: smooth gravity vector interpolation that gradually rotates as wheel turns, giving players predictable piece motion even at 12 RPM.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 5: Testing & Validation -->
+                <!-- Phase 5 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">05</div>
-                        <div class="phase-icon">🔬</div>
+                        <div class="phase-icon">🕹️</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Testing, Validation & Performance Verification</h3>
+                        <h3 class="phase-title">Wireless Controllers & Multiplayer System</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">User Testing (n=10)</span>
-                            <span class="skill-tag">Safety Validation</span>
-                            <span class="skill-tag">Performance Metrics</span>
-                            <span class="skill-tag">Specification Compliance</span>
+                            <span class="skill-tag">RF Communication</span>
+                            <span class="skill-tag">nRF24L01+</span>
+                            <span class="skill-tag">Protocol Design</span>
+                            <span class="skill-tag">3D Printing</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Comprehensive testing with 10 participants of varying body types validated perfect specification compliance: 100% reported safe tickling force (exceeding the 80% target), zero eye contact with water (validated via safety glasses inspection), all users completed setup in under 2 minutes, and ultrasonic sensor achieved 100% detection accuracy across various sleeping positions. Physical measurements confirmed 6.3kg weight (37% under limit), 135° rotation (delivering 60cm arc vs. 40cm requirement), and 10cm height adjustment (2× specification). The paintbrush end effector proved superior to initial feather concept—stiff enough to avoid deformation yet soft enough for safety, with naturally ticklish bristles. Device successfully met need statement by enforcing wake-up routines through persistent physical stimulation while maintaining complete safety.
+                            <strong>💡 Key Insight:</strong> Initial controller design used Bluetooth for simplicity—but Bluetooth latency (50-100ms) made gameplay feel sluggish, especially during fast wheel rotation where input timing is critical. Switching to 2.4 GHz RF with nRF24L01+ modules reduced latency to <5ms, dramatically improving responsiveness. However, discovered packet loss issues when multiple controllers transmitted simultaneously. Solution: implemented time-division multiplexing where each controller transmits in designated time slots, coordinated by base station. This eliminated collisions while maintaining low latency. Also learned that ergonomic controller design matters—early 3D printed enclosures were uncomfortable for extended play; final iteration includes rounded edges, rubberized grips, and thumb-rest contouring based on user feedback.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 6 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">06</div>
+                        <div class="phase-icon">🌟</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">User Testing & Public Demonstrations</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">User Experience</span>
+                            <span class="skill-tag">Public Installation</span>
+                            <span class="skill-tag">Feedback Analysis</span>
+                            <span class="skill-tag">Feature Iteration</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Public demonstrations revealed surprising user behavior: first-time players struggled significantly more than expected with the rotating gameplay, often taking 2-3 minutes before understanding how gravity direction changes. This led to implementing an interactive tutorial mode that slows rotation initially and uses on-screen arrows showing current gravity direction. Also discovered that spectators found it difficult to follow gameplay from ground level—added large score displays and player indicators that remain readable from any viewing angle. Most valuable feedback: players wanted competitive modes with escalating difficulty. Implemented "rally mode" for Pong where rotation speed increases with each successful hit, and "survival mode" for Tetris where gravity strength increases over time. These modes dramatically increased engagement and replayability.
                         </p>
                     </div>
                 </div>
@@ -1958,18 +1963,18 @@
             <div class="track-line"></div>
             
             <!-- Previous Project Checkpoint -->
-            <a href="Project-four_foot_spider_robot.html" class="track-checkpoint checkpoint-left">
-                <div class="checkpoint-flag">🕷️</div>
+            <a href="Project-motorized_maze.html" class="track-checkpoint checkpoint-left">
+                <div class="checkpoint-flag">🧩</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">PREVIOUS PROJECT</span>
-                    <span class="checkpoint-title">Four Foot Spider Robot</span>
+                    <span class="checkpoint-title">Motorized Maze</span>
                 </div>
                 <div class="speed-arrow">←</div>
             </a>
             
             <!-- Pit Stop (All Projects) -->
             <a href="Home_Darker.html#projects" class="pit-stop">
-                <div class="pit-stop-icon">⏰</div>
+                <div class="pit-stop-icon">🎡</div>
                 <span class="pit-stop-text">ALL PROJECTS</span>
                 <div class="pit-stop-lights">
                     <span class="light"></span>
@@ -1979,20 +1984,20 @@
             </a>
             
             <!-- Next Project Checkpoint -->
-            <a href="Project-motorized_maze.html" class="track-checkpoint checkpoint-right">
+            <a href="Project-uwfe-3D.html" class="track-checkpoint checkpoint-right">
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
-                    <span class="checkpoint-title">Motorized Maze</span>
+                    <span class="checkpoint-title">Waterloo Formula Electric</span>
                 </div>
-                <div class="checkpoint-flag">🧩</div>
+                <div class="checkpoint-flag">🏎️</div>
             </a>
         </div>
 
         <!-- Racing Divider -->
         <div class="racing-divider">
             <div class="divider-line"></div>
-            <span class="race-finish">⏰</span>
+            <span class="race-finish">🎡</span>
             <div class="divider-line"></div>
         </div>
 
@@ -2023,12 +2028,11 @@
             });
         });
 
-        // Video error handling - show placeholder if video fails to load
+        // Video error handling
         const heroVideo = document.getElementById('hero-video');
         if (heroVideo) {
             heroVideo.addEventListener('error', function() {
                 console.log('Video failed to load');
-                // Fallback - the gradient overlay will still look good
                 this.style.display = 'none';
             });
         }
@@ -2056,7 +2060,7 @@
         // ========================================
         
         const carousels = {
-            circadianCarousel: { currentIndex: 0, totalSlides: 6 },
+            wheelCarousel: { currentIndex: 0, totalSlides: 6 },
         };
 
         // AUTO-ROTATION SETTINGS
@@ -2184,7 +2188,7 @@
             initCarousels();
             
             // Start auto-rotation
-            startAutoRotate('circadianCarousel');
+            startAutoRotate('wheelCarousel');
             
             // Click on side images to navigate
             document.querySelectorAll('.carousel-slide').forEach(slide => {

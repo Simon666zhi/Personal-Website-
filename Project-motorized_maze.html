@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circadian Rhythm Regulating Device - Yiqing Zhi</title>
+    <title>Motorized Maze - Yiqing Zhi</title>
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
@@ -1557,7 +1557,7 @@
     <!-- Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar">
-            <div class="progress-car">⏰</div>
+            <div class="progress-car">🧩</div>
         </div>
     </div>
 
@@ -1583,67 +1583,68 @@
         <div class="carousel-corner corner-bl"></div>
         <div class="carousel-corner corner-br"></div>
         
-    <!-- Left Side Info Cards -->
-    <div class="side-info-cards left">
-        <div class="info-card" style="animation-delay: 0.2s;">
-            <div class="info-icon">⚙️</div>
-            <div class="info-text">
-                <h4>Total Weight</h4>
-                <p>6.3 kg</p>
+        <!-- Left Side Info Cards -->
+        <div class="side-info-cards left">
+            <div class="info-card" style="animation-delay: 0.2s;">
+                <div class="info-icon">📏</div>
+                <div class="info-text">
+                    <h4>Board Size</h4>
+                    <p>300mm × 300mm</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.4s;">
+                <div class="info-icon">🎯</div>
+                <div class="info-text">
+                    <h4>Target Age</h4>
+                    <p>8-12 years</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.6s;">
+                <div class="info-icon">🔄</div>
+                <div class="info-text">
+                    <h4>Revolving Wall</h4>
+                    <p>2-4 cycles/sec</p>
+                </div>
             </div>
         </div>
-        <div class="info-card" style="animation-delay: 0.4s;">
-            <div class="info-icon">📏</div>
-            <div class="info-text">
-                <h4>Arm Length</h4>
-                <p>60 cm (12 segments)</p>
-            </div>
-        </div>
-        <div class="info-card" style="animation-delay: 0.6s;">
-            <div class="info-icon">🔄</div>
-            <div class="info-text">
-                <h4>Rotation Range</h4>
-                <p>135° coverage arc</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Right Side Info Cards -->
-    <div class="side-info-cards right">
-        <div class="info-card" style="animation-delay: 0.3s;">
-            <div class="info-icon">📐</div>
-            <div class="info-text">
-                <h4>Height Adjust</h4>
-                <p>10 cm range</p>
+        <!-- Right Side Info Cards -->
+        <div class="side-info-cards right">
+            <div class="info-card" style="animation-delay: 0.3s;">
+                <div class="info-icon">⚙️</div>
+                <div class="info-text">
+                    <h4>Motors</h4>
+                    <p>Stepper + DC</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.5s;">
+                <div class="info-icon">⬆️⬇️</div>
+                <div class="info-text">
+                    <h4>Vertical Walls</h4>
+                    <p>0.5-1 cycle/sec</p>
+                </div>
+            </div>
+            <div class="info-card" style="animation-delay: 0.7s;">
+                <div class="info-icon">🎵</div>
+                <div class="info-text">
+                    <h4>Victory Sound</h4>
+                    <p>2-5 dB</p>
+                </div>
             </div>
         </div>
-        <div class="info-card" style="animation-delay: 0.5s;">
-            <div class="info-icon">⏱️</div>
-            <div class="info-text">
-                <h4>Setup Time</h4>
-                <p>< 2 minutes</p>
-            </div>
-        </div>
-        <div class="info-card" style="animation-delay: 0.7s;">
-            <div class="info-icon">✅</div>
-            <div class="info-text">
-                <h4>Success Rate</h4>
-                <p>100% (10/10 trials)</p>
-            </div>
-        </div>
-    </div>
         
-        <!-- Video Background (replace with your actual video) -->
+        <!-- Video Background -->
         <video id="hero-video" autoplay loop muted playsinline>
-            <source src="Images/circadian-demo.mp4" type="video/mp4">
+            <source src="Images/motorized-maze-demo.mp4" type="video/mp4">
         </video>
         
         <!-- Gradient Overlay -->
         <div class="hero-overlay"></div>
         
+        <!-- Hero Content -->
         <div class="hero-content">
-            <h1>Circadian Rhythm Regulating Device</h1>
-            <p class="subtitle">A Mechanical Wake-Up Solution Using Physical Stimulation to Enforce Healthy Sleep Schedules</p>
+            <h1>Motorized Wooden Maze</h1>
+            <p class="subtitle">A Competitive 2-Player Board Game with Mechanized Moving Walls Inspired by The Maze Runner</p>
         </div>
     </section>
 
@@ -1657,33 +1658,11 @@
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>Traditional alarm clocks fail 43% of users who develop snooze habits, leading to unhealthy sleep cycles and morning tiredness. The Circadian Rhythm Regulating Device tackles this challenge with a mechanical solution that eliminates the snooze option entirely.</p>
+                <p>The Motorized Wooden Maze is a competitive 2-player board game inspired by The Maze Runner series, transforming traditional maze gameplay through mechanically moving walls. Players race their figurines through a wooden labyrinth where obstacles constantly shift position, requiring strategic timing and quick reflexes to reach the center first.</p>
                 
-                <p>This ME 101 team project uses gentle physical stimulation—tickling combined with water spraying—to force users out of bed. The device features a rotating arm with a paintbrush end effector, ultrasonic sensor for presence detection, and a gravity-fed water system, all controlled by an EV3 microcontroller.</p>
+                <p>This ME 100 design project integrates mechanical engineering principles with engaging gameplay. The maze features a continuously rotating central wall powered by a stepper motor and two vertically moving wall segments driven by a DC motor with crankshaft-inspired mechanism. Ultrasonic sensors detect when players reach the goal, triggering celebratory sound effects.</p>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">Spec Compliance</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">10/10</div>
-                        <div class="stat-label">Safety Tests Passed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">6.3kg</div>
-                        <div class="stat-label">Total Device Weight</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">< 2min</div>
-                        <div class="stat-label">Average Setup Time</div>
-                    </div>
-                </div>
-
-                <h3>🔑 Need Statement</h3>
-                <p><em>"A need exists to develop a mechanical solution that enforces wake-up routines while ensuring safe user operation."</em></p>
-
-                <p>The device addresses this through four main subsystems working in concert: the segmented arm and carriage for motion coverage, the bearing-supported arm axle housing for smooth rotation, the gravity-fed water system for secondary stimulation, and the adjustable body structure for accommodation of different bed heights.</p>
+                <p>Unlike traditional static mazes or manual tilt-based puzzles, this motorized version automates obstacle movement through Arduino-controlled motors, creating dynamic gameplay that challenges players' dexterity and strategic thinking. The final wooden construction provides durability and smooth figurine movement through precision-cut tracks.</p>
             </div>
         </div>
 
@@ -1691,83 +1670,86 @@
         <div class="content-section">
             <h2 class="section-title">
                 <span>📸</span>
-                Design & Development Gallery
+                Project Gallery
             </h2>
             <div class="section-content">
-                <p>Explore the mechanical systems, CAD designs, and testing process behind the Circadian Rhythm Regulating Device.</p>
+                <p>Explore the complete design and development process of the Motorized Maze—from initial concept sketches to final working prototype with various maze configurations.</p>
+                
+                <h3>🎮 Mechanical Design & Control System</h3>
+                <p>Interactive gallery showcasing the mechanical design, servo integration, electronics, and testing phases.</p>
             </div>
             
             <!-- 3D Rotating Carousel -->
-            <div class="carousel-container" id="circadianCarousel">
+            <div class="carousel-container" id="mazeCarousel">
                 <div class="carousel-track">
-                    <!-- Slide 1: Complete Device -->
+                    <!-- Slide 1: Complete Maze -->
                     <div class="carousel-slide" data-index="0">
-                        <span class="carousel-badge">🏆 Complete Assembly</span>
-                        <img src="Images/circadian-complete-device.jpg" alt="Complete Circadian Regulating Device">
+                        <span class="carousel-badge">🏆 Final Build</span>
+                        <img src="Images/maze-complete-system.jpg" alt="Complete Motorized Wooden Maze">
                         <div class="carousel-caption">
-                            <h4>Complete Device Assembly</h4>
-                            <p class="short-desc">Fully assembled wake-up system with all four major subsystems integrated.</p>
-                            <p class="long-desc">The complete device weighing 6.3kg features four major subsystems working in concert: (1) 12-segment modular arm with paintbrush end effector providing 60cm reach, (2) bearing-supported arm axle housing enabling smooth 135° rotation with minimal motor power, (3) gravity-fed water system with motor-controlled valve for leak-proof secondary stimulation, and (4) adjustable body structure with 10cm height range accommodating different bed configurations. The device successfully enforces wake-up routines through multi-phase operation: initial tickling for 45 seconds, followed by tickling plus water spray until touch sensor deactivation, with ultrasonic sensor monitoring for user relapse.</p>
+                            <h4>Complete Motorized Wooden Maze</h4>
+                            <p class="short-desc">Fully assembled 2-player board game with motorized rotating and vertical wall mechanisms.</p>
+                            <p class="long-desc">The completed 300mm × 300mm wooden maze features three primary subsystems working in concert: (1) central revolving wall driven by 28BYJ-48 stepper motor providing continuous rotation at 2-4 cycles/second creating dynamic path blocking, (2) two vertically moving wall segments powered by 9V DC gearmotor through crankshaft-inspired piston mechanism moving at 0.5-1 cycle/second in synchronized series motion, and (3) ultrasonic sensor detection system with active buzzer celebration sound. Players navigate figurines through precision-cut slots racing to reach the protected center goal area first. The plywood construction provides smooth low-friction movement while 3D-printed "bridges" support the stationary goal area above the rotating center wall. All electronics (Arduino Uno, Arduino Mega, motor drivers, sensors) are integrated within the structure with proper insulation and cable management ensuring child-safe operation for the 8-12 year target demographic.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Arm Subsystem -->
+                    <!-- Slide 2: Revolving Wall Mechanism -->
                     <div class="carousel-slide" data-index="1">
-                        <span class="carousel-badge">🦾 Arm Mechanism</span>
-                        <img src="Images/circadian-arm-closeup.jpg" alt="Segmented Arm with Rack Teeth">
+                        <span class="carousel-badge">🔄 Rotating Center</span>
+                        <img src="Images/maze-revolving-mechanism.jpg" alt="Stepper Motor Revolving Wall">
                         <div class="carousel-caption">
-                            <h4>Modular Segmented Arm Design</h4>
-                            <p class="short-desc">12 PLA segments with LEGO-compatible rack teeth and aluminum reinforcement.</p>
-                            <p class="long-desc">The segmented arm represents a key engineering innovation balancing cost, manufacturability, and performance. Each of the 12 segments measures 5cm long and features precision rack teeth dimensioned to mesh with LEGO pinion gears. Two aluminum tubes run the full 60cm length providing structural support while keeping total arm cost under $10. This modular design offers multiple advantages: variable length configuration, rapid fabrication via 3D printing, easy repair by replacing individual segments, reduced weight through strategic gaps between segments (also minimizing friction during assembly), and simple assembly without specialized tools. The rack-and-pinion mechanism driven by an EV3 medium motor enables the carriage to traverse the full arm length, delivering the paintbrush end effector across a 135° arc over the bed surface.</p>
+                            <h4>Revolving Center Wall Mechanism</h4>
+                            <p class="short-desc">Stepper motor-driven rotating wall with Arduino speed control.</p>
+                            <p class="long-desc">The revolving mechanism represents the primary gameplay challenge—a continuously rotating wall segment that players must time their movement through. The 28BYJ-48 stepper motor offers precise positioning control impossible with AC or standard DC motors, with 32 steps per revolution in full-step mode and 64:1 gear reduction providing 2048 steps per complete rotation. The Arduino Uno executes programmed code setting motor speed at 4 RPM (programmable between 2-4 cycles/second per specifications), using the ULN2003 motor driver to interface with stepper motor coils. Initial prototypes used AC motors (insufficient speed control) and DC motors (unstable, inconsistent), but stepper motors proved ideal for smooth predictable rotation essential for fair gameplay. The rotating wall is firmly mounted to the stepper motor shaft and enclosed in protective housing preventing player contact with moving mechanical parts. This design ensures consistent challenging obstacle speed throughout extended play sessions without motor wear issues encountered in early DC motor testing.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 3: Housing & Bearings -->
+                    <!-- Slide 3: Vertical Wall Mechanism -->
                     <div class="carousel-slide" data-index="2">
-                        <span class="carousel-badge">⚙️ Bearing Housing</span>
-                        <img src="Images/circadian-bearing-housing.jpg" alt="Arm Axle Housing with Bearings">
+                        <span class="carousel-badge">⬆️⬇️ Piston System</span>
+                        <img src="Images/maze-vertical-mechanism.jpg" alt="Crankshaft Vertical Moving Walls">
                         <div class="carousel-caption">
-                            <h4>Bearing-Supported Arm Axle Housing</h4>
-                            <p class="short-desc">Two 6202Z radial bearings dramatically reduce friction for smooth rotation.</p>
-                            <p class="long-desc">The arm axle housing subsystem represents critical mechanical engineering that enables smooth arm rotation while supporting the full weight of the extended arm. The 3D-printed PLA housing mounts to the underside of the device roof and contains two 6202Z radial bearings press-fit into precisely dimensioned bores. These bearings support a machined aluminum arm axle featuring a drilled hole for the locking pin (securing rotational orientation to the anchoring segment) and a protruding feature that mates with a slot in the axle gear (transferring motor torque to arm rotation). The bearing implementation reduced friction so significantly that testing revealed minimal motor power requirements—the original 3:1 gear ratio proved more than adequate. A LEGO EV3 large motor drives a LEGO gear meshing with the 3D-printed axle gear, with mounting hole positions determined precisely through SolidWorks modeling using imported STEP files and published LEGO stud dimensions.</p>
+                            <h4>Vertical Moving Wall Mechanism</h4>
+                            <p class="short-desc">Crankshaft-inspired piston system driven by DC gearmotor.</p>
+                            <p class="long-desc">The vertical movement mechanism employs engineering principles adapted from automotive crankshaft systems to convert rotary motor motion into linear vertical displacement. A 9V DC motor with attached gearbox (modifying speed/torque to match load requirements) drives a rotating platform with two offset connection points. These "piston" points connect via linkages to two separate wall segments, creating alternating up-down motion as the platform rotates—when one wall rises, the other descends. This series configuration provides synchronized motion using only one motor (reducing cost and complexity versus independent motor per wall). The mechanism is supported by cardboard stilts maintaining platform stability while minimizing friction during rotation. Circular cardboard pieces visible in assembly photos show the crankshaft-inspired rotating elements. Initial prototypes experienced piston instability and falling issues, resolved through addition of cardboard support structures that constrain motion without introducing friction. The final wooden construction's rigidity required careful calibration to prevent mechanism binding—a challenge noted in remaining work. This elegant mechanical solution demonstrates efficient motion conversion appropriate for the target age group's understanding of cause-effect relationships.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 4: Water System -->
+                    <!-- Slide 4: Arduino Control System -->
                     <div class="carousel-slide" data-index="3">
-                        <span class="carousel-badge">💧 Water System</span>
-                        <img src="Images/circadian-water-system.jpg" alt="Gravity-Fed Water System">
+                        <span class="carousel-badge">🎛️ Electronics</span>
+                        <img src="Images/maze-arduino-setup.jpg" alt="Arduino and Motor Control Electronics">
                         <div class="carousel-caption">
-                            <h4>Gravity-Fed Water Delivery System</h4>
-                            <p class="short-desc">Elevated tank with motor-controlled valve ensures leak-proof water release.</p>
-                            <p class="long-desc">The water system provides secondary wake-up stimulation through precise, leak-free water delivery. A large 3D-printed base integrates mounting points for the EV3 large motor, valve assembly, and LEGO gear, while featuring an elevated water tower with lid allowing gravity-fed operation. Water flows from the tank through a tube connected via a custom 3D-printed connector to a commercially available valve. The valve control mechanism represents elegant mechanical design: an EV3 motor drives a LEGO gear, which meshes with a second gear connected to a custom 3D-printed connector. This connector features holes on one side engaging the gear and a specialized shape on the other side gripping the valve switch handle. Motor rotation thus directly translates to valve opening/closing through pure mechanical linkage. The system underwent extensive leak testing and alignment verification, with zip-tie clamps securing the valve at two points preventing any motion or rotation under operation.</p>
+                            <h4>Arduino Control System & Programming</h4>
+                            <p class="short-desc">Dual Arduino setup controlling motors and sensors with custom firmware.</p>
+                            <p class="long-desc">The electronics architecture employs two Arduino microcontrollers for distinct functions: Arduino Uno R3 controls the stepper motor driving the revolving center wall through ULN2003 driver, while Arduino Mega 2560 R3 manages ultrasonic sensors and victory buzzer. The Arduino Uno executes programmed code (Arduino IDE) setting stepper motor parameters: 2048 steps per revolution (accounting for 32-step motor with 64:1 gear reduction), pins 8/10/9/11 initialized for motor driver interface, and speed set to 4 RPM in continuous loop. The Arduino Mega processes HC-SR04 ultrasonic sensor inputs by triggering ultrasound waves, measuring return time via pulseIn() function, calculating distance using speed of sound (34 cm/ms divided by 2 for round-trip), and activating the active buzzer when figurines come within 3cm of goal locations. Separate power supplies prevent voltage sag—motors use dedicated power while Arduinos use USB/battery logic power with proper insulation. The Fritzing electrical schematics document all connections for reproducibility. This embedded software/electrical integration transforms mechanical motion into intelligent responsive gameplay, demonstrating interdisciplinary engineering appropriate for ME 100 course objectives.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 5: Height Adjustment -->
+                    <!-- Slide 5: Wooden Construction -->
                     <div class="carousel-slide" data-index="4">
-                        <span class="carousel-badge">📐 Adjustability</span>
-                        <img src="Images/circadian-height-mechanism.jpg" alt="Pin-Based Height Adjustment">
+                        <span class="carousel-badge">🪵 Materials</span>
+                        <img src="Images/maze-wood-construction.jpg" alt="Plywood Structure and Tracks">
                         <div class="carousel-caption">
-                            <h4>Height Adjustment Mechanism</h4>
-                            <p class="short-desc">Gym weight stack-inspired pin system provides 10cm adjustment range.</p>
-                            <p class="long-desc">The body structure features an innovative height adjustment mechanism directly inspired by pin-and-weight-stack systems commonly found in gym exercise equipment. The device consists of two main parts: an outer foot containing a vertical series of pre-drilled holes, and an inner body structure with a single hole at the bottom. Users adjust height by selecting which hole in the outer foot aligns with the inner body's fixed hole, then inserting a removable pin to lock the configuration. This simple yet effective system provides 10cm of adjustment range—double the 5cm specification requirement—allowing accommodation of beds ranging from low platform frames to high traditional bedframes. 3D-printed spacers prevent pin wobbling, ensuring structural stability even under the dynamic loads of arm rotation. The 10lb weight placed in the foot provides additional stability and counteracts torque from the rotating arm, yet doesn't impact usability since users only lift the lighter upper body structure during height adjustment. The design successfully validated that all height settings can support the device's full operational loading without deflection or instability.</p>
+                            <h4>Wooden Structure & Fabrication</h4>
+                            <p class="short-desc">Plywood construction with laser-cut precision tracks and sanded finish.</p>
+                            <p class="long-desc">The final design transitioned from cardboard prototypes to plywood construction for enhanced durability, aesthetic appeal, and improved gameplay experience. Plywood offers consistent material properties compared to cardboard's tendency to warp, crush, or delaminate under repeated use. All maze walls and tracks were laser-cut ensuring precise slot widths for figurine movement—consistency critical for fair competitive gameplay where both players must experience identical friction/resistance. The track surfaces underwent extensive sanding to minimize friction to 0-5N range (per specifications with ±3N tolerance), enabling smooth figurine sliding without excessive resistance that would frustrate younger players. The wooden surface provides natural aesthetic appeal appropriate for the 8-12 year target demographic, contrasting with the "toy-like" appearance of cardboard while maintaining cost-effectiveness versus injection-molded plastic alternatives. 3D-printed bridges support the stationary goal area above the rotating center wall, demonstrating hybrid manufacturing approach combining traditional woodworking with additive manufacturing. Cable routing channels and motor mounting platforms were integrated into the wooden structure maintaining clean appearance while ensuring child safety through proper insulation and component enclosure. This material selection successfully balances manufacturing feasibility, safety requirements, durability needs, and cost constraints typical of undergraduate design projects.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 6: Testing Validation -->
+                    <!-- Slide 6: Ultrasonic Sensors & Victory System -->
                     <div class="carousel-slide" data-index="5">
-                        <span class="carousel-badge">🔬 Testing</span>
-                        <img src="Images/circadian-testing-setup.jpg" alt="Device Testing with Participant">
+                        <span class="carousel-badge">🎵 Goal Detection</span>
+                        <img src="Images/maze-sensor-system.jpg" alt="Ultrasonic Sensors and Buzzer">
                         <div class="carousel-caption">
-                            <h4>Testing & Validation Results</h4>
-                            <p class="short-desc">10 trials across diverse body types confirmed 100% spec compliance.</p>
-                            <p class="long-desc">Comprehensive testing validated all ten engineering specifications through a combination of user trials, demonstrations, measurements, and analysis. Ten participants with diverse body types each completed full wake-up cycles while wearing safety glasses for eye protection. Results showed perfect performance: 100% of users reported safe and suitable tickling force (exceeding the 80% target), zero water contact with eyes (safety glasses showed no water particles), all users completed setup in under 2 minutes following instructions, and the ultrasonic sensor achieved 100% body detection accuracy across various sleeping positions. Physical measurements confirmed device weight of 6.3kg (well under the 10kg limit), arm segment length of 5cm each (totaling 60cm), 135° arm rotation range (far exceeding the 40cm arc length requirement calculated to need only 42°), and 10cm height adjustment range (double the 5cm specification). The arm rotation stops clearly visible in testing photos demonstrate the device's mechanical constraints. Demonstrations verified complete electronics isolation from water with no leaks during normal operation, no device interference with sleep (arm fully retracted), and reliable EV3-controlled water valve operation.</p>
+                            <h4>Goal Detection & Celebration Sound</h4>
+                            <p class="short-desc">HC-SR04 ultrasonic sensors trigger active buzzer for victory feedback.</p>
+                            <p class="long-desc">The goal detection system employs HC-SR04 ultrasonic sensors positioned at maze finish locations to automatically detect player victory. These sensors operate by emitting ultrasonic pulses and measuring echo return time, calculating distance via speed of sound (34cm/ms). When a figurine enters within 3cm proximity, the Arduino Mega triggers an active buzzer producing celebration sound at safe 2-5dB volume level (within specified 2-5dB range, ±1dB tolerance). This audio feedback provides immediate positive reinforcement enhancing players' sense of accomplishment without excessive noise that could annoy caregivers or violate toy safety standards. Two sensors enable independent detection for 2-player competitive races, clearly signaling which player reached the goal first. The current implementation has identified areas for refinement: buzzer duration extends longer than ideal, and sound continues if figurine remains at finish (requiring logic improvement to trigger only once). Despite these minor issues noted in constraints validation, the system successfully demonstrates sensor integration and provides core victory detection functionality. Future improvements could include adjustable volume control, varied celebration sounds for replay value, and LED visual feedback (planned but not implemented due to time constraints). The ultrasonic sensor choice over alternatives (pressure switches, optical sensors) provides non-contact detection suitable for wooden maze construction without complex track modifications.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1776,9 +1758,9 @@
             
             <!-- Carousel Controls -->
             <div class="carousel-controls">
-                <button class="carousel-btn" onclick="prevSlide('circadianCarousel')">❮</button>
-                <div class="carousel-dots" id="circadianDots"></div>
-                <button class="carousel-btn" onclick="nextSlide('circadianCarousel')">❯</button>
+                <button class="carousel-btn" onclick="prevSlide('mazeCarousel')">❮</button>
+                <div class="carousel-dots" id="mazeDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('mazeCarousel')">❯</button>
             </div>
 
         </div>
@@ -1790,44 +1772,44 @@
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>🖥️ CAD Design & Component Modeling</h3>
+                <h3>🔧 Mechanical Design & CAD Modeling</h3>
                 <ul>
-                    <li>Designed water system base in SolidWorks integrating motor mounting, valve holders, gear housing, and elevated water tower with lid—ensuring proper component spacing and structural integrity</li>
-                    <li>Created 3D models for multiple critical components including the valve-gear connector with specialized geometry for mechanical linkage, screw-on clamps for secure valve mounting, and spacers preventing pin wobble in height adjustment system</li>
-                    <li>Modeled ultrasonic sensor enclosure in SolidWorks with precise cutouts for sensor placement and LEGO pin mounting holes for adjustable rail attachment</li>
-                    <li>Utilized imported STEP files of LEGO components and published dimensional standards to ensure precise fit and compatibility with existing EV3 ecosystem</li>
+                    <li>Contributed to maze layout design planning track paths, wall placement, and obstacle positioning to create engaging gameplay balancing challenge with achievability for 8-12 year demographic</li>
+                    <li>Participated in material selection evaluation comparing cardboard prototyping versus final plywood construction, analyzing tradeoffs in cost, durability, manufacturability, and aesthetic appeal</li>
+                    <li>Assisted with dimensional planning ensuring 300mm × 300mm board size accommodated motor mechanisms, electronics housing, and player movement space within manufacturing constraints</li>
+                    <li>Supported integration of 3D-printed bridge components connecting stationary goal area above rotating center wall, validating structural support under gameplay loading conditions</li>
                 </ul>
 
-                <h3>🏗️ Manufacturing & Assembly</h3>
+                <h3>🏗️ Fabrication & Assembly</h3>
                 <ul>
-                    <li>Executed fabrication of body structure using laser-cut HDF sheets with carefully planned joint locations and assembly sequence</li>
-                    <li>3D printed all custom components (water system base, connectors, clamps, sensor housing, spacers) with optimized print settings balancing strength, print time, and material usage</li>
-                    <li>Assembled complete water system integrating motor, valve, gearing, tubing, and tank—troubleshooting alignment issues and implementing zip-tie reinforcement for valve stability</li>
-                    <li>Led full device integration combining all four major subsystems (arm, housing, water, body) and coordinated component positioning for optimal functionality</li>
+                    <li>Executed laser cutting of plywood maze walls, tracks, and structural components following CAD specifications with precision tolerances ensuring consistent slot widths for figurine movement</li>
+                    <li>Performed extensive sanding of track surfaces reducing friction to specified 0-5N range (±3N tolerance) through iterative testing with figurines and force measurement</li>
+                    <li>Assembled motor mounting structures integrating stepper motor housing for revolving wall and DC motor platform for vertical wall mechanism, ensuring secure attachment preventing vibration-induced loosening</li>
+                    <li>Implemented cable management routing wiring through wooden structure maintaining clean appearance while ensuring proper insulation and child-safe operation meeting toy safety standards</li>
                 </ul>
 
-                <h3>💻 Software Development & Control Logic</h3>
+                <h3>💻 Electronics & Programming</h3>
                 <ul>
-                    <li>Programmed valve control function in RobotC implementing motor rotation to open/close valve based on Boolean state parameter and gear ratio, with encoder-based position tracking ensuring precise 90° valve actuation</li>
-                    <li>Developed robust error handling and state management ensuring valve returns to known positions and preventing water system failures during multi-phase operation</li>
-                    <li>Integrated valve control into larger program flow coordinating with arm motion, sensor inputs, and phase transitions for seamless wake-up cycle execution</li>
-                    <li>Contributed to system-level debugging and testing, identifying and resolving integration issues between mechanical systems and software control</li>
+                    <li>Wired electrical connections between Arduino Uno, ULN2003 stepper motor driver, and 28BYJ-48 stepper motor following Fritzing schematics, validating continuity and proper pin assignments</li>
+                    <li>Configured Arduino Mega circuit integrating two HC-SR04 ultrasonic sensors and active buzzer with appropriate power distribution and signal conditioning</li>
+                    <li>Tested and validated Arduino IDE code for stepper motor control verifying 2048 steps per revolution calculation, pin initialization (8, 10, 9, 11), and 4 RPM speed setting produced specified 2-4 cycles/second rotation</li>
+                    <li>Debugged ultrasonic sensor firmware troubleshooting distance calculation algorithms (speed of sound 34cm/ms, halving for round-trip), trigger logic (3cm proximity threshold), and buzzer activation timing</li>
                 </ul>
 
-                <h3>🔬 Testing & Documentation</h3>
+                <h3>🔬 Testing & Validation</h3>
                 <ul>
-                    <li>Conducted water system leak testing under various operating conditions including continuous maximum flow, rapid valve cycling, and extended duration tests—implementing improvements based on observed failure modes</li>
-                    <li>Performed component fit verification for all custom-designed parts ensuring proper clearances, alignment, and assembly sequence before final integration</li>
-                    <li>Participated in full-system user testing trials collecting data on setup time, safety, and device performance across diverse body types and sleeping positions</li>
-                    <li>Contributed to final engineering report documentation including technical drawings, system descriptions, testing procedures, and results analysis</li>
+                    <li>Conducted friction testing measuring force required for figurine movement through tracks using spring scales, iterating sanding process until achieving 0-5N specification across all track sections</li>
+                    <li>Performed motor speed calibration timing revolving wall rotation cycles and vertical wall movement cycles, adjusting Arduino code and mechanical gearing to meet 2-4 cycles/second and 0.5-1 cycle/second specifications respectively</li>
+                    <li>Validated ultrasonic sensor accuracy testing detection range, response time, and false-positive/negative rates across various figurine positions and orientations at goal locations</li>
+                    <li>Executed gameplay testing with multiple users from target demographic (8-12 years) gathering feedback on difficulty balance, clarity of rules, movement smoothness, and overall engagement level</li>
                 </ul>
 
-                <h3>🤝 Project Management & Collaboration</h3>
+                <h3>📋 Documentation & Project Management</h3>
                 <ul>
-                    <li>Coordinated closely with teammates working on arm design, housing systems, and software development to ensure compatible interfaces and integrated functionality</li>
-                    <li>Maintained organized work breakdown structure tracking water system tasks including design (3 hrs), CAD (3 hrs), assembly (4 hrs), programming (1.5 hrs), and testing/refinement (2 hrs)</li>
-                    <li>Adapted to schedule revisions when primary subsystems encountered delays, shifting water system development timeline while maintaining project milestones</li>
-                    <li>Participated in design reviews and team meetings providing technical input on mechanical feasibility, manufacturing constraints, and integration challenges</li>
+                    <li>Contributed to ME 100 final report documentation including technical drawings, mechanism descriptions, constraints/criteria validation, and remaining challenges assessment</li>
+                    <li>Participated in team meetings coordinating task assignments across revolving wall subsystem, vertical wall subsystem, electronics integration, and structural fabrication workstreams</li>
+                    <li>Maintained component inventory tracking Arduino boards, motors, sensors, power supplies, hardware fasteners, and material stock ensuring availability for iterative prototyping cycles</li>
+                    <li>Assisted with timeline management adapting to challenges including motor selection changes (AC → DC → stepper), piston instability issues requiring support structure additions, and roof sturdiness concerns addressed through 3D-printed bridges</li>
                 </ul>
             </div>
         </div>
@@ -1841,88 +1823,88 @@
             
             <div class="section-content">
                 <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    From biological research to working prototype - the evolution of a circadian-optimized lighting system
+                    From mechanical puzzle to precision control system - the evolution of an interactive motorized maze
                 </p>
             </div>
 
             <div class="journey-timeline">
 
-                <!-- Phase 1: Needs Analysis & Concept Development -->
+                <!-- Phase 1: Concept & Requirements -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">01</div>
-                        <div class="phase-icon">🎯</div>
+                        <div class="phase-icon">🎬</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Needs Analysis & Concept Development</h3>
+                        <h3 class="phase-title">Concept Development & Requirements Definition</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">User Research</span>
-                            <span class="skill-tag">Requirements Definition</span>
-                            <span class="skill-tag">Morphological Matrix</span>
-                            <span class="skill-tag">Decision Matrix</span>
+                            <span class="skill-tag">Maze Runner Inspiration</span>
+                            <span class="skill-tag">Target Demographics</span>
+                            <span class="skill-tag">Constraints & Criteria</span>
+                            <span class="skill-tag">Function Prioritization</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Research revealed that 43% of British adults who use alarms also snooze regularly, leading to disrupted circadian rhythms and morning tiredness. The team developed a comprehensive need statement: "A need exists to develop a mechanical solution that enforces wake-up routines while ensuring safe user operation." Three concepts were evaluated using a decision-making matrix—Concept 1 (rotating arm with feather and gravity-fed shower head) scored highest for user convenience, ease of fabrication, and cost, despite slightly lower effectiveness scores compared to more complex gantry system designs.
+                            <strong>💡 Key Insight:</strong> The team drew inspiration from The Maze Runner series to create a competitive 2-player board game where mechanically moving walls create dynamic obstacles unlike traditional static mazes. The target demographic of 8-12 years informed design decisions prioritizing safety (no sharp edges, insulated electronics, safe sound/light levels) while maintaining engaging challenge. Key required functions were prioritized: revolving center wall (primary), vertical moving walls (secondary), goal detection sensors, and celebration sound, with LED lights deprioritized due to time constraints. The constraints table established measurable targets: 0-5N friction for smooth movement, 2-4 cycles/second for revolving wall, 0.5-1 cycle/second for vertical walls, 2-5dB sound level, and less than 3Hz flashing lights (safety). This structured requirements definition provided clear success criteria guiding subsequent design decisions.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Detailed Mechanical Design -->
+                <!-- Phase 2: Motor Selection & Mechanism Design -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">02</div>
-                        <div class="phase-icon">📐</div>
+                        <div class="phase-icon">⚙️</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Detailed Mechanical Design & CAD</h3>
+                        <h3 class="phase-title">Motor Selection & Mechanism Design</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">SolidWorks Modeling</span>
-                            <span class="skill-tag">Mechanism Design</span>
-                            <span class="skill-tag">Material Selection</span>
-                            <span class="skill-tag">DFM Analysis</span>
+                            <span class="skill-tag">Motor Evaluation</span>
+                            <span class="skill-tag">Stepper vs DC Motors</span>
+                            <span class="skill-tag">Crankshaft Mechanics</span>
+                            <span class="skill-tag">Arduino Integration</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The segmented arm design emerged as a breakthrough solution balancing multiple constraints. Rather than machining a single 60cm arm (expensive, time-consuming, inflexible), the team designed 12 modular 5cm PLA segments with rack teeth matching LEGO pinion gear specifications. This approach reduced cost to under $10, enabled rapid 3D printing fabrication, allowed variable length configuration, and simplified repair. The bearing-supported housing required precise SolidWorks modeling using imported STEP files to ensure proper LEGO gear mounting—testing later confirmed that the bearing implementation reduced friction so dramatically that minimal motor power was needed.
+                            <strong>💡 Key Insight:</strong> Initial revolving wall prototypes using AC motors failed due to insufficient speed control precision, while DC motors proved unstable with inconsistent rotation speeds—critical failures for fair competitive gameplay. Switching to 28BYJ-48 stepper motor with ULN2003 driver solved these issues providing 2048 steps per revolution (32-step motor × 64:1 gear reduction) enabling precise Arduino-controlled speed. For vertical walls, the team adapted crankshaft principles from automotive engines: a 9V DC gearmotor drives rotating platform with offset connection points, converting rotary motion to linear vertical displacement in two wall segments connected in series. This elegant solution uses one motor for two obstacles, reducing cost/complexity. Early piston mechanism suffered instability (falling off platform), resolved by adding cardboard support structures constraining motion without introducing friction. The motor selection and mechanical design iteration demonstrated engineering problem-solving: recognizing failures, analyzing root causes (lack of control precision, mechanical instability), and implementing targeted solutions.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 3: Fabrication & Assembly -->
+                <!-- Phase 3: Material Transition & Fabrication -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">03</div>
-                        <div class="phase-icon">🔧</div>
+                        <div class="phase-icon">🪵</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Fabrication, Manufacturing & Integration</h3>
+                        <h3 class="phase-title">Material Transition & Fabrication</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">3D Printing (PLA)</span>
-                            <span class="skill-tag">Laser Cutting (HDF)</span>
-                            <span class="skill-tag">Machining (Aluminum)</span>
-                            <span class="skill-tag">System Integration</span>
+                            <span class="skill-tag">Cardboard Prototyping</span>
+                            <span class="skill-tag">Plywood Construction</span>
+                            <span class="skill-tag">Laser Cutting</span>
+                            <span class="skill-tag">Friction Reduction</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Manufacturing revealed critical integration challenges, particularly with the water system. Initial valve mounting proved unstable during operation, requiring redesign of clamping system with zip-tie reinforcement at two points. The valve-gear connector required multiple iterations to achieve reliable mechanical linkage—the final design used a specialized shape gripping the valve switch on one side and holes engaging the gear on the other. Assembly sequence proved crucial: certain components had to be installed before others were mounted, requiring disassembly and reassembly when this wasn't planned correctly. The team learned to thoroughly validate component fit and assembly order before final integration.
+                            <strong>💡 Key Insight:</strong> Cardboard prototypes enabled rapid iteration and mechanism testing but exhibited warping, crushing, and inconsistent friction—unsuitable for final product durability and gameplay fairness. Transitioning to plywood provided dimensional stability, smooth consistent surface finish, and professional aesthetic appealing to 8-12 year target demographic. Laser cutting ensured precision slot widths critical for fair gameplay (both players experience identical resistance). However, wood's rigidity introduced new challenges: the piston mechanism had higher binding/sticking potential compared to flexible cardboard, requiring careful calibration documented as "remaining challenge." Extensive track sanding reduced friction to specified 0-5N range, a labor-intensive but essential step for smooth figurine movement. The roof sturdiness concern (rotating wall torque causing flex/wobble) was addressed through 3D-printed bridge supports connecting stationary goal area above moving center wall—demonstrating hybrid manufacturing combining woodworking with additive manufacturing. This material evolution illustrates engineering iteration: prototyping with accessible materials, identifying limitations, and upgrading to production-appropriate materials while managing new constraints introduced.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 4: Software Development -->
+                <!-- Phase 4: Electronics Integration & Programming -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">04</div>
                         <div class="phase-icon">💻</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Software Development & Control Algorithms</h3>
+                        <h3 class="phase-title">Electronics Integration & Arduino Programming</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">RobotC Programming</span>
-                            <span class="skill-tag">Sensor Integration</span>
-                            <span class="skill-tag">Motor Control</span>
-                            <span class="skill-tag">State Machine Logic</span>
+                            <span class="skill-tag">Arduino IDE</span>
+                            <span class="skill-tag">Stepper Motor Control</span>
+                            <span class="skill-tag">Ultrasonic Sensors</span>
+                            <span class="skill-tag">Circuit Design</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The arm's axle rotation didn't maintain a 1:1 ratio with motor encoder values due to gear backlash and mechanical tolerances, causing overswing issues. The team implemented physical arm rotation stops (bumpers) to mechanically constrain the 135° swing arc, then added time-based constraints in software rather than relying solely on encoder values. This hybrid mechanical-software approach proved more reliable. The multi-phase program structure (timer setup → probe state → initiation phase 1 with tickling → initiation phase 2 with water → relapse detection) required careful state management and void function returns to enable touch sensor interruption at any point in the cycle.
+                            <strong>💡 Key Insight:</strong> The dual-Arduino architecture separated motor control (Arduino Uno + stepper motor) from sensor/sound functions (Arduino Mega + ultrasonics + buzzer) enabling parallel development and troubleshooting. Programming the stepper motor required understanding motor specifications: 32 steps per revolution in full-step mode with 64:1 gear reduction yielding 2048 steps per complete rotation. Arduino IDE code initializes pins (8, 10, 9, 11) for ULN2003 driver communication and sets speed to 4 RPM producing specified 2-4 cycles/second rotation. The ultrasonic sensor code demonstrates distance calculation: trigger 10μs pulse, measure echo return time with pulseIn(), calculate distance using speed of sound (34cm/ms), divide by 2 for round-trip, activate buzzer when figurine within 3cm. Power management proved critical: separate motor power supply prevents voltage sag affecting Arduino logic, with proper insulation ensuring child safety. The Fritzing electrical schematics document all connections for reproducibility. Two buzzer issues identified during testing (duration too long, continuous sound if figurine remains at finish) represent software refinement opportunities but don't compromise core victory detection functionality demonstrating practical engineering: delivering working solution acknowledging areas for improvement.
                         </p>
                     </div>
                 </div>
@@ -1931,18 +1913,18 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">05</div>
-                        <div class="phase-icon">🔬</div>
+                        <div class="phase-icon">🎮</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Testing, Validation & Performance Verification</h3>
+                        <h3 class="phase-title">Testing, Validation & Gameplay Refinement</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">User Testing (n=10)</span>
+                            <span class="skill-tag">Constraints Verification</span>
+                            <span class="skill-tag">User Testing</span>
                             <span class="skill-tag">Safety Validation</span>
-                            <span class="skill-tag">Performance Metrics</span>
-                            <span class="skill-tag">Specification Compliance</span>
+                            <span class="skill-tag">Performance Tuning</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Comprehensive testing with 10 participants of varying body types validated perfect specification compliance: 100% reported safe tickling force (exceeding the 80% target), zero eye contact with water (validated via safety glasses inspection), all users completed setup in under 2 minutes, and ultrasonic sensor achieved 100% detection accuracy across various sleeping positions. Physical measurements confirmed 6.3kg weight (37% under limit), 135° rotation (delivering 60cm arc vs. 40cm requirement), and 10cm height adjustment (2× specification). The paintbrush end effector proved superior to initial feather concept—stiff enough to avoid deformation yet soft enough for safety, with naturally ticklish bristles. Device successfully met need statement by enforcing wake-up routines through persistent physical stimulation while maintaining complete safety.
+                            <strong>💡 Key Insight:</strong> Comprehensive testing validated that most constraints/criteria were met: friction achieved 0-5N specification through iterative sanding, revolving wall maintained consistent 2-4 cycles/second speed via stepper motor precision, vertical walls operated at 0.5-1 cycle/second through DC motor gearbox tuning, and sensors reliably detected figurine arrival triggering celebration sound at safe 2-5dB level. The team successfully demonstrated all primary functions (revolving wall, vertical walls, sensors, sound) with smooth player movement through precision-sanded wooden tracks. However, testing identified areas for improvement: buzzer duration extended beyond ideal length and continued sounding if figurine remained at finish (annoying rather than celebratory)—representing software logic refinement opportunity. LED lights were not implemented due to time constraints but deemed non-critical since they wouldn't affect core gameplay. User testing with target demographic revealed the "sweet spot" between challenging and achievable: motor speeds fast enough to create tension but slow enough to allow success with practice. Safety validation confirmed no sharp edges (all sanded), proper electrical insulation, and appropriate sound levels. The team documented "remaining challenges" honestly: piston mechanism binding potential in wood (versus flexible cardboard), wire routing/hiding for cleaner appearance, and buzzer logic improvements—demonstrating mature engineering: delivering functional product while identifying opportunities for next iteration.
                         </p>
                     </div>
                 </div>
@@ -1958,18 +1940,18 @@
             <div class="track-line"></div>
             
             <!-- Previous Project Checkpoint -->
-            <a href="Project-four_foot_spider_robot.html" class="track-checkpoint checkpoint-left">
-                <div class="checkpoint-flag">🕷️</div>
+            <a href="Project-circadian_rhythm_device.html" class="track-checkpoint checkpoint-left">
+                <div class="checkpoint-flag">⏰</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">PREVIOUS PROJECT</span>
-                    <span class="checkpoint-title">Four Foot Spider Robot</span>
+                    <span class="checkpoint-title">Circadian Rhythm Regulating Device</span>
                 </div>
                 <div class="speed-arrow">←</div>
             </a>
             
             <!-- Pit Stop (All Projects) -->
             <a href="Home_Darker.html#projects" class="pit-stop">
-                <div class="pit-stop-icon">⏰</div>
+                <div class="pit-stop-icon">🧩</div>
                 <span class="pit-stop-text">ALL PROJECTS</span>
                 <div class="pit-stop-lights">
                     <span class="light"></span>
@@ -1979,20 +1961,20 @@
             </a>
             
             <!-- Next Project Checkpoint -->
-            <a href="Project-motorized_maze.html" class="track-checkpoint checkpoint-right">
+            <a href="Project-ping_ris_wheel.html" class="track-checkpoint checkpoint-right">
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
-                    <span class="checkpoint-title">Motorized Maze</span>
+                    <span class="checkpoint-title">Ping-ris Wheel</span>
                 </div>
-                <div class="checkpoint-flag">🧩</div>
+                <div class="checkpoint-flag">🎡</div>
             </a>
         </div>
 
         <!-- Racing Divider -->
         <div class="racing-divider">
             <div class="divider-line"></div>
-            <span class="race-finish">⏰</span>
+            <span class="race-finish">🧩</span>
             <div class="divider-line"></div>
         </div>
 
@@ -2023,12 +2005,11 @@
             });
         });
 
-        // Video error handling - show placeholder if video fails to load
+        // Video error handling
         const heroVideo = document.getElementById('hero-video');
         if (heroVideo) {
             heroVideo.addEventListener('error', function() {
                 console.log('Video failed to load');
-                // Fallback - the gradient overlay will still look good
                 this.style.display = 'none';
             });
         }
@@ -2056,7 +2037,7 @@
         // ========================================
         
         const carousels = {
-            circadianCarousel: { currentIndex: 0, totalSlides: 6 },
+            mazeCarousel: { currentIndex: 0, totalSlides: 6 },
         };
 
         // AUTO-ROTATION SETTINGS
@@ -2184,7 +2165,7 @@
             initCarousels();
             
             // Start auto-rotation
-            startAutoRotate('circadianCarousel');
+            startAutoRotate('mazeCarousel');
             
             // Click on side images to navigate
             document.querySelectorAll('.carousel-slide').forEach(slide => {
