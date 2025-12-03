@@ -112,7 +112,7 @@ function visualize_workspace_fancy(L1, L2, L3)
     
     fig = figure('Name', 'Spider Leg Workspace - Professional Analysis', ...
                  'Position', [50 50 1400 900], ...
-                 'Color', [0.95 0.95 0.97]);
+                 'Color', [0 0 0]);
     
     % Create tiled layout
     tiledlayout(2, 2, 'Padding', 'compact', 'TileSpacing', 'compact');
@@ -166,6 +166,11 @@ function visualize_workspace_fancy(L1, L2, L3)
     text(90, 0, 0, 'X', 'FontSize', 16, 'Color', 'r', 'FontWeight', 'bold');
     text(0, 90, 0, 'Y', 'FontSize', 16, 'Color', 'g', 'FontWeight', 'bold');
     text(0, 0, 90, 'Z', 'FontSize', 16, 'Color', 'b', 'FontWeight', 'bold');
+
+    set(gca, 'Color', [0 0 0]);  % BLACK WORKSPACE BACKGROUND
+    set(gca, 'XColor', 'white', 'YColor', 'white', 'ZColor', 'white');  % White axis labels
+    set(gca, 'GridColor', [0.5 0.5 0.5]);  % Gray grid
+
     
     % Ground plane
     [X_ground, Y_ground] = meshgrid(-50:50:300, -150:50:150);

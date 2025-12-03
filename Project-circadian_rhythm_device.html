@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circadian Rhythm Device - Yiqing Zhi</title>
+    <title>Circadian Rhythm Regulating Device - Yiqing Zhi</title>
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
@@ -84,22 +84,21 @@
 
         .progress-car {
             position: absolute;
-            bottom: -15px;
-            right: -20px;
-            font-size: 3rem;
+            bottom: -12px;
+            right: -15px;
+            font-size: 2rem;
             filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9))
                     drop-shadow(0 0 25px rgba(240, 147, 251, 0.7));
             animation: carBounceProgress 0.5s ease-in-out infinite;
-            transform: scaleX(-1);
             transform-origin: center;
         }
 
         @keyframes carBounceProgress {
             0%, 100% {
-                transform: scaleX(-1) translateY(0) rotate(5deg);
+                transform: translateY(0) rotate(-5deg);
             }
             50% {
-                transform: scaleX(-1) translateY(-3px) rotate(3deg);
+                transform: translateY(-3px) rotate(5deg);
             }
         }
 
@@ -581,6 +580,463 @@
             transform: scale(1.01);
         }
 
+        /* ========================================
+        3D ROTATING CAROUSEL GALLERY
+        ======================================== */
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 3rem 0;
+            perspective: 2000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 500px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: rgba(10, 14, 35, 0.9);
+        }
+
+        /* Center slide - active */
+        .carousel-slide.active {
+            z-index: 10;
+            transform: translateX(0) scale(1) rotateY(0deg);
+            opacity: 1;
+            filter: brightness(1) blur(0);
+            border-color: rgba(102, 126, 234, 1);
+            box-shadow: 
+                0 30px 80px rgba(102, 126, 234, 0.6),
+                0 0 60px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Left slide - behind */
+        .carousel-slide.left {
+            z-index: 5;
+            transform: translateX(-65%) scale(0.75) rotateY(25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Right slide - behind */
+        .carousel-slide.right {
+            z-index: 5;
+            transform: translateX(65%) scale(0.75) rotateY(-25deg);
+            opacity: 0.4;
+            filter: brightness(0.6) blur(3px);
+        }
+
+        /* Hidden slides */
+        .carousel-slide.hidden {
+            z-index: 1;
+            transform: translateX(0) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .carousel-slide.active img {
+            object-fit: cover;
+        }
+
+        .carousel-slide:hover.active img {
+            transform: scale(1.05);
+        }
+
+        /* Caption - only show on active slide */
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top,
+                rgba(10, 14, 35, 0.98) 0%,
+                rgba(10, 14, 35, 0.95) 70%,
+                transparent 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 20;
+        }
+
+        .carousel-slide.active:hover .carousel-caption {
+            transform: translateY(0);
+        }
+
+        .carousel-caption h4 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-caption p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .carousel-caption .short-desc {
+            display: block;
+        }
+
+        .carousel-caption .long-desc {
+            display: none;
+        }
+
+        .carousel-caption.expanded .short-desc {
+            display: none;
+        }
+
+        .carousel-caption.expanded .long-desc {
+            display: block;
+        }
+
+        .caption-expand-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .caption-expand-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+        }
+
+        .carousel-caption.expanded .caption-expand-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 15;
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.8);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
+            transform: scale(1.3);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(102, 126, 234, 0.6);
+            transform: scale(1.2);
+        }
+
+        .carousel-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 25;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Mobile Responsive Carousel */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 450px;
+            }
+            
+            .carousel-slide {
+                width: 320px;
+                height: 280px;
+            }
+            
+            .carousel-slide.left,
+            .carousel-slide.right {
+                transform: translateX(0) scale(0.6);
+                opacity: 0.2;
+                filter: brightness(0.4) blur(5px);
+            }
+            
+            .carousel-slide.left {
+                transform: translateX(-85%) scale(0.6);
+            }
+            
+            .carousel-slide.right {
+                transform: translateX(85%) scale(0.6);
+            }
+            
+            .carousel-controls {
+                bottom: -70px;
+            }
+            
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ========================================
+        ENGINEERING JOURNEY TIMELINE DESIGN
+        ======================================== */
+
+        .journey-timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+
+        /* Vertical connecting line */
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.3) 100%);
+            border-radius: 2px;
+        }
+
+        .journey-phase {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            align-items: flex-start;
+        }
+
+        .journey-phase:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Phase Marker (Number + Icon) */
+        .phase-marker {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .phase-number {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            border: none; 
+            box-shadow: 
+                0 8px 32px rgba(102, 126, 234, 0.6),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .phase-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 4px 15px rgba(102, 126, 234, 0.6));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .journey-phase:hover .phase-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 12px 40px rgba(102, 126, 234, 0.8),
+                inset 0 2px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Phase Content */
+        .phase-content {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                #667eea 0%,
+                #764ba2 50%,
+                #f093fb 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .phase-content:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .phase-content:hover::before {
+            opacity: 1;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin: 0 0 1.5rem 0;
+            text-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Skill Tags */
+        .phase-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.3) 0%, 
+                rgba(118, 75, 162, 0.3) 100%);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.5) 0%, 
+                rgba(118, 75, 162, 0.5) 100%);
+            border-color: rgba(102, 126, 234, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Phase Insight */
+        .phase-insight {
+            background: rgba(240, 147, 251, 0.08);
+            border-left: 4px solid #f093fb;
+            padding: 1.2rem;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .phase-insight strong {
+            color: #f093fb;
+            text-shadow: 0 0 10px rgba(240, 147, 251, 0.5);
+            font-size: 1.05rem;
+        }
+
         /* Footer */
         footer {
             background: rgba(10, 14, 35, 0.95);
@@ -922,18 +1378,18 @@
 
         .race-finish {
             font-size: 2rem;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
             animation: trophyGlow 2s ease-in-out infinite;
         }
 
         @keyframes trophyGlow {
             0%, 100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+                transform: scale(1) rotate(-5deg);
+                filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
             }
             50% {
-                transform: scale(1.1);
-                filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1));
+                transform: scale(1.1) rotate(5deg);
+                filter: drop-shadow(0 0 25px rgba(102, 126, 234, 1));
             }
         }
 
@@ -1062,6 +1518,37 @@
             .race-finish {
                 font-size: 1.5rem;
             }
+            
+            .journey-timeline::before {
+                left: 30px;
+            }
+            
+            .journey-phase {
+                gap: 1.5rem;
+            }
+            
+            .phase-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .phase-icon {
+                font-size: 2rem;
+            }
+            
+            .phase-content {
+                padding: 1.5rem;
+            }
+            
+            .phase-title {
+                font-size: 1.4rem;
+            }
+            
+            .skill-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
         }
     </style>
 </head>
@@ -1070,7 +1557,7 @@
     <!-- Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar">
-            <div class="progress-car">🏎️</div>
+            <div class="progress-car">⏰</div>
         </div>
     </div>
 
@@ -1099,7 +1586,7 @@
         <!-- Left Side Info Cards -->
         <div class="side-info-cards left">
             <div class="info-card" style="animation-delay: 0.2s;">
-                <div class="info-icon">☀️</div>
+                <div class="info-icon">🌡️</div>
                 <div class="info-text">
                     <h4>Color Temp</h4>
                     <p>2700K - 6500K</p>
@@ -1113,7 +1600,7 @@
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.6s;">
-                <div class="info-icon">📱</div>
+                <div class="info-icon">📡</div>
                 <div class="info-text">
                     <h4>Connectivity</h4>
                     <p>WiFi MQTT</p>
@@ -1131,7 +1618,7 @@
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.5s;">
-                <div class="info-icon">🔆</div>
+                <div class="info-icon">👁️</div>
                 <div class="info-text">
                     <h4>Sensor</h4>
                     <p>BH1750 Ambient</p>
@@ -1176,151 +1663,267 @@
             </div>
         </div>
 
-        <!-- Key Features -->
+        <!-- Project Gallery -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>✨</span>
-                Key Features
-            </h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">☀️</div>
-                    <h3>Dynamic Light Control</h3>
-                    <p>Automatically adjusts color temperature (2700K-6500K) and brightness throughout the day to match natural sunlight patterns.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌙</div>
-                    <h3>Sleep Mode</h3>
-                    <p>Gradual dimming with warm tones in the evening to promote natural melatonin production and prepare for sleep.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Smart Connectivity</h3>
-                    <p>WiFi-enabled for remote control and scheduling through a custom mobile app interface.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔆</div>
-                    <h3>Ambient Sensing</h3>
-                    <p>Built-in light sensor adapts output based on surrounding lighting conditions for optimal effectiveness.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
-                    <h3>Customizable Schedules</h3>
-                    <p>User-defined routines to match individual sleep patterns and lifestyle requirements.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Minimalist Design</h3>
-                    <p>Clean, modern enclosure designed in SolidWorks with focus on aesthetics and functionality.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technical Specifications -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <span>⚙️</span>
-                Technical Specifications
+                <span>📸</span>
+                Project Gallery
             </h2>
             <div class="section-content">
-                <table class="specs-table">
-                    <thead>
-                        <tr>
-                            <th>Component</th>
-                            <th>Specification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Microcontroller</td>
-                            <td>ESP32 (WiFi + Bluetooth)</td>
-                        </tr>
-                        <tr>
-                            <td>LED Configuration</td>
-                            <td>Dual-channel warm white (2700K) + cool white (6500K)</td>
-                        </tr>
-                        <tr>
-                            <td>Light Output</td>
-                            <td>500 lumens maximum, continuously adjustable</td>
-                        </tr>
-                        <tr>
-                            <td>Power Supply</td>
-                            <td>12V DC, 15W maximum consumption</td>
-                        </tr>
-                        <tr>
-                            <td>Sensors</td>
-                            <td>BH1750 ambient light sensor, DHT22 temperature/humidity</td>
-                        </tr>
-                        <tr>
-                            <td>Connectivity</td>
-                            <td>WiFi 802.11 b/g/n, MQTT protocol</td>
-                        </tr>
-                        <tr>
-                            <td>Dimensions</td>
-                            <td>180mm × 180mm × 45mm</td>
-                        </tr>
-                        <tr>
-                            <td>Enclosure Material</td>
-                            <td>ABS plastic with frosted acrylic diffuser</td>
-                        </tr>
-                        <tr>
-                            <td>Software</td>
-                            <td>Arduino framework with custom lighting algorithms</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>System Architecture</h3>
-                <p>The device operates using a time-based control algorithm that calculates optimal color temperature and brightness values based on the current time and user-configured schedule. The ESP32 maintains accurate time synchronization via NTP servers and adjusts light output smoothly throughout the day using high-frequency PWM signals.</p>
-
-                <p>The ambient light sensor provides feedback to prevent over-illumination in bright environments while maintaining effectiveness in dark conditions. All settings and schedules are stored in non-volatile memory, ensuring the device maintains functionality even after power cycles.</p>
+                <p>Explore the complete design and development process of the Circadian Rhythm Device—from initial concept to final prototype and testing validation.</p>
+                
+                <h3>💡 Device Design & Development</h3>
+                <p>Interactive 3D gallery showcasing the hardware design, electronics integration, and testing process.</p>
             </div>
+            
+            <!-- 3D Rotating Carousel -->
+            <div class="carousel-container" id="circadianCarousel">
+                <div class="carousel-track">
+                    <!-- Slide 1: Complete Device -->
+                    <div class="carousel-slide" data-index="0">
+                        <span class="carousel-badge">🏆 Final Product</span>
+                        <img src="Images/circadian-device-complete.jpg" alt="Complete Circadian Device">
+                        <div class="carousel-caption">
+                            <h4>Complete Circadian Rhythm Device</h4>
+                            <p class="short-desc">Fully assembled smart lighting system with WiFi control.</p>
+                            <p class="long-desc">The finished device features a clean, minimalist design with a frosted acrylic diffuser for even light distribution. The ABS enclosure houses dual-channel LED arrays (warm white 2700K and cool white 6500K), ESP32 microcontroller, BH1750 ambient light sensor, and DHT22 temperature/humidity sensor. The compact 180mm × 180mm × 45mm form factor is optimized for bedside placement while providing sufficient light output for effective circadian rhythm regulation.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: CAD Design -->
+                    <div class="carousel-slide" data-index="1">
+                        <span class="carousel-badge">📐 CAD Model</span>
+                        <img src="Images/circadian-cad-design.jpg" alt="SolidWorks CAD Model">
+                        <div class="carousel-caption">
+                            <h4>SolidWorks Enclosure Design</h4>
+                            <p class="short-desc">3D CAD model with optimized thermal management.</p>
+                            <p class="long-desc">The enclosure was designed in SolidWorks with careful attention to light diffusion, heat dissipation, and manufacturability. Key features include: strategic ventilation slots for passive cooling, modular snap-fit assembly for easy maintenance, mounting points for internal electronics, and a two-piece design separating the light diffuser from the base housing. Material selection focused on ABS plastic for the housing (good dimensional stability and machinability) and frosted acrylic for the diffuser (optimal light transmission and diffusion properties).</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Electronics -->
+                    <div class="carousel-slide" data-index="2">
+                        <span class="carousel-badge">⚡ Electronics</span>
+                        <img src="Images/circadian-electronics.jpg" alt="Circuit Board and Components">
+                        <div class="carousel-caption">
+                            <h4>Electronics Integration</h4>
+                            <p class="short-desc">ESP32-based control system with dual-channel LED drivers.</p>
+                            <p class="long-desc">The electronics design centers around an ESP32 microcontroller providing WiFi connectivity and PWM control. Custom LED driver circuits enable independent control of warm and cool white LED channels with 16-bit resolution for smooth color temperature transitions. The BH1750 ambient light sensor uses I2C communication for environmental monitoring, while the DHT22 provides temperature and humidity data. Power regulation includes a 12V to 5V buck converter for the ESP32 and 3.3V LDO for sensors. All components are laid out on a custom PCB for compact integration and reliable operation.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Light Output Testing -->
+                    <div class="carousel-slide" data-index="3">
+                        <span class="carousel-badge">🔬 Testing</span>
+                        <img src="Images/circadian-light-testing.jpg" alt="Light Output Measurement">
+                        <div class="carousel-caption">
+                            <h4>Light Output Validation</h4>
+                            <p class="short-desc">Spectral analysis and lux measurements across color temperature range.</p>
+                            <p class="long-desc">Comprehensive testing validated the device's light output characteristics using calibrated instruments. A lux meter confirmed brightness levels from 50 to 500 lumens across the operating range. Spectral analysis with a spectrometer verified accurate color temperature mixing from 2700K (warm white) to 6500K (cool white) with smooth transitions between settings. The frosted diffuser provides uniform light distribution with minimal hot-spotting. Measurements were taken at multiple distances and angles to ensure consistent performance for typical bedside placement scenarios.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Mobile App Interface -->
+                    <div class="carousel-slide" data-index="4">
+                        <span class="carousel-badge">📱 Software</span>
+                        <img src="Images/circadian-app-interface.jpg" alt="Mobile App Control">
+                        <div class="carousel-caption">
+                            <h4>WiFi Control & Mobile App</h4>
+                            <p class="short-desc">Custom interface for schedule programming and manual control.</p>
+                            <p class="long-desc">The device connects to home WiFi networks and communicates via MQTT protocol for reliable control. A custom mobile app interface provides intuitive controls for: manual brightness and color temperature adjustment, automated schedule programming based on sunrise/sunset times, customizable sleep and wake routines, ambient light sensor calibration, and real-time device status monitoring. The app includes preset modes for common scenarios like reading, relaxing, and sleeping. All settings are stored in non-volatile memory on the ESP32 to maintain functionality during network outages.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Thermal Testing -->
+                    <div class="carousel-slide" data-index="5">
+                        <span class="carousel-badge">🌡️ Validation</span>
+                        <img src="Images/circadian-thermal-testing.jpg" alt="Thermal Camera Analysis">
+                        <div class="carousel-caption">
+                            <h4>Thermal Management Validation</h4>
+                            <p class="short-desc">Long-term temperature testing ensures safe operation and LED longevity.</p>
+                            <p class="long-desc">Thermal testing used infrared imaging and embedded temperature sensors to validate heat dissipation under continuous maximum power operation. Peak temperatures remained well below critical thresholds: LED junction temperature stayed under 70°C (safe for 50,000+ hour lifespan), enclosure external temperature reached only 45°C (safe to touch), and internal component temperatures remained within specifications. The passive cooling design with strategic ventilation slots proved sufficient, eliminating the need for active cooling. Extended 72-hour burn-in testing confirmed thermal stability with no performance degradation or safety concerns.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide('circadianCarousel')">❮</button>
+                <div class="carousel-dots" id="circadianDots"></div>
+                <button class="carousel-btn" onclick="nextSlide('circadianCarousel')">❯</button>
+            </div>
+
         </div>
 
-        <!-- Design Process -->
+        <!-- My Contributions -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>🔧</span>
-                Design & Development Process
+                <span>⚡</span>
+                My Contributions
             </h2>
             <div class="section-content">
-                <h3>Research & Concept</h3>
-                <p>The project began with research into circadian biology and the effects of light on human physiology. Studies show that exposure to blue-rich light in the evening suppresses melatonin production, while warm, dim lighting promotes natural sleep preparation. This informed the core design requirements for the device.</p>
-
-                <h3>CAD Design & Enclosure</h3>
-                <p>The enclosure was modeled in SolidWorks with careful attention to several key factors: effective light diffusion for even illumination, heat dissipation for LED longevity, compact form factor for bedside placement, and an aesthetic that complements modern interior design. The housing features a matte finish to reduce glare and a modular design for easy assembly and maintenance.</p>
-
-                <h3>Electronics & Integration</h3>
-                <p>Electronic design focused on precise PWM control for smooth color temperature transitions, low-power operation for energy efficiency, and reliable WiFi connectivity. The ambient light sensor placement was carefully optimized to avoid interference from the device's own output.</p>
-
-                <h3>Testing & Validation</h3>
+                <h3>🔧 Hardware Design & Mechanical Engineering</h3>
+                <p>Developed the complete physical design from concept to production-ready enclosure.</p>
                 <ul>
-                    <li>Light output measured with calibrated lux meter to verify target brightness levels</li>
-                    <li>Color temperature validated using spectrometer across full range</li>
-                    <li>Long-term thermal testing to ensure safe operating temperatures</li>
-                    <li>WiFi reliability tested under various network conditions</li>
-                    <li>User experience testing with multiple individuals over several weeks</li>
+                    <li>Designed custom enclosure in SolidWorks optimized for light diffusion, thermal management, and aesthetic appeal.</li>
+                    <li>Selected and specified materials: ABS plastic for housing, frosted acrylic for diffuser, ensuring optimal light transmission properties.</li>
+                    <li>Implemented passive cooling strategy with strategic ventilation to maintain safe operating temperatures.</li>
+                    <li>Created modular snap-fit assembly design enabling easy maintenance and component access.</li>
                 </ul>
+
+                <h3>⚡ Electronics Design & Circuit Integration</h3>
+                <p>Engineered the complete electronics system for precise LED control and sensor integration.</p>
+                <ul>
+                    <li>Designed custom PCB layout integrating ESP32 microcontroller, dual-channel LED drivers, and sensor interfaces.</li>
+                    <li>Implemented high-resolution PWM control (16-bit) for smooth color temperature transitions across 2700K-6500K range.</li>
+                    <li>Integrated BH1750 ambient light sensor and DHT22 temperature/humidity sensor via I2C communication.</li>
+                    <li>Developed power management system with 12V to 5V/3.3V regulation ensuring stable operation across all components.</li>
+                </ul>
+
+                <h3>💻 Firmware & Software Development</h3>
+                <p>Programmed embedded firmware and control algorithms for autonomous operation.</p>
+                <ul>
+                    <li>Developed Arduino-based firmware implementing time-based lighting control algorithms synchronized with NTP time servers.</li>
+                    <li>Created MQTT communication protocol for WiFi control and mobile app integration.</li>
+                    <li>Programmed ambient light sensing feedback loops to adapt output based on environmental conditions.</li>
+                    <li>Implemented non-volatile memory storage for user schedules and preferences, ensuring settings persist through power cycles.</li>
+                </ul>
+
+                <h3>🔬 Testing & Validation</h3>
+                <p>Conducted comprehensive testing to validate performance, safety, and user experience.</p>
+                <ul>
+                    <li>Performed spectral analysis validation using calibrated spectrometer to verify accurate color temperature mixing across full range.</li>
+                    <li>Conducted long-term thermal testing (72+ hour burn-in) with infrared imaging to validate heat dissipation and component safety.</li>
+                    <li>Measured light output uniformity and intensity at multiple distances/angles to optimize diffuser design.</li>
+                    <li>Executed user experience testing with multiple individuals over several weeks to refine scheduling algorithms and default settings.</li>
+                </ul>
+
             </div>
         </div>
 
-        <!-- Lessons Learned -->
+        <!-- Design Journey -->
         <div class="content-section">
             <h2 class="section-title">
                 <span>💡</span>
-                Key Takeaways
+                Design Journey
             </h2>
+            
             <div class="section-content">
-                <ul>
-                    <li><strong>User-Centered Design:</strong> Initial prototypes were too bright and distracting. User feedback led to refinements in diffuser design and default brightness levels.</li>
-                    <li><strong>Heat Management:</strong> Early LED configurations generated excessive heat. Adding proper heat sinks and optimizing airflow paths prevented thermal issues.</li>
-                    <li><strong>Seamless Integration:</strong> The device needed to "disappear" into daily routines. Automatic scheduling and silent operation were essential to achieving this.</li>
-                    <li><strong>Software Reliability:</strong> Implementing watchdog timers and error handling ensured the device remained operational even during WiFi outages or unexpected conditions.</li>
-                    <li><strong>Manufacturing Considerations:</strong> Designing for 3D printing required iterative adjustments to wall thickness, support structures, and part tolerances.</li>
-                </ul>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
+                    From biological research to working prototype - the evolution of a circadian-optimized lighting system
+                </p>
+            </div>
+
+            <div class="journey-timeline">
+
+                <!-- Phase 1 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">01</div>
+                        <div class="phase-icon">🔬</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Research & Concept Development</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Circadian Biology</span>
+                            <span class="skill-tag">Light Spectrum Analysis</span>
+                            <span class="skill-tag">Human Factors</span>
+                            <span class="skill-tag">Requirements Definition</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Research revealed that blue light (450-480nm) suppresses melatonin production most effectively. This informed the dual-channel LED design using 2700K warm white (minimal blue content) for evening use and 6500K cool white (high blue content) for daytime alertness. Target color temperature range and brightness levels were defined based on published circadian rhythm studies.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">02</div>
+                        <div class="phase-icon">📐</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Mechanical Design & CAD Modeling</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">SolidWorks CAD</span>
+                            <span class="skill-tag">Thermal Analysis</span>
+                            <span class="skill-tag">Light Diffusion</span>
+                            <span class="skill-tag">DFM Principles</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Initial prototypes had significant hot-spotting and uneven light distribution. Switching to a two-layer diffuser design (frosted acrylic primary + internal reflector) solved this issue. Added ventilation slots after thermal testing showed LEDs exceeding 80°C - the revised passive cooling design maintains junction temperature below 70°C for optimal lifespan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">03</div>
+                        <div class="phase-icon">⚡</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Electronics Design & Integration</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Circuit Design</span>
+                            <span class="skill-tag">PCB Layout</span>
+                            <span class="skill-tag">PWM Control</span>
+                            <span class="skill-tag">Sensor Integration</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Early firmware used 8-bit PWM control, resulting in visible flicker at low brightness levels. Upgrading to 16-bit PWM (via ESP32's LEDC peripheral) eliminated flicker completely and enabled imperceptible color temperature transitions. Ambient light sensor placement required iteration - mounting it on the back panel (facing away from LEDs) prevented self-interference while still accurately measuring room lighting conditions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">04</div>
+                        <div class="phase-icon">💻</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Firmware Development & Control Algorithms</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Arduino Framework</span>
+                            <span class="skill-tag">MQTT Protocol</span>
+                            <span class="skill-tag">Time Synchronization</span>
+                            <span class="skill-tag">Algorithm Development</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> User feedback revealed that abrupt lighting changes were disruptive and unnatural. Implemented smooth transition algorithms using cubic bezier curves for brightness/temperature changes, making adjustments imperceptible during normal activities. Added adaptive scheduling that automatically adjusts based on sunrise/sunset times for the user's location, eliminating manual seasonal reconfiguration.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="journey-phase">
+                    <div class="phase-marker">
+                        <div class="phase-number">05</div>
+                        <div class="phase-icon">🔬</div>
+                    </div>
+                    <div class="phase-content">
+                        <h3 class="phase-title">Testing, Validation & Refinement</h3>
+                        <div class="phase-skills">
+                            <span class="skill-tag">Spectral Analysis</span>
+                            <span class="skill-tag">Thermal Testing</span>
+                            <span class="skill-tag">User Studies</span>
+                            <span class="skill-tag">Safety Validation</span>
+                        </div>
+                        <p class="phase-insight">
+                            <strong>💡 Key Insight:</strong> Three-week user testing with multiple participants revealed unexpected usage patterns. Many users wanted brighter output for task lighting (reading, working) beyond the initially planned circadian-optimized levels. Added a "boost mode" that temporarily increases brightness while maintaining appropriate color temperature for the time of day. This feature dramatically improved user satisfaction without compromising the core circadian regulation functionality.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
     <!-- Footer with F1 Racing Road Guide Navigation -->
@@ -1342,7 +1945,7 @@
             
             <!-- Pit Stop (All Projects) -->
             <a href="Home_Darker.html#projects" class="pit-stop">
-                <div class="pit-stop-icon">🏠</div>
+                <div class="pit-stop-icon">⏰</div>
                 <span class="pit-stop-text">ALL PROJECTS</span>
                 <div class="pit-stop-lights">
                     <span class="light"></span>
@@ -1352,20 +1955,20 @@
             </a>
             
             <!-- Next Project Checkpoint -->
-            <a href="Project-four_foot_spider_robot.html" class="track-checkpoint checkpoint-right">
+            <a href="Project-motorized_maze.html" class="track-checkpoint checkpoint-right">
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
-                    <span class="checkpoint-title">Spider Robot</span>
+                    <span class="checkpoint-title">Motorized Maze</span>
                 </div>
-                <div class="checkpoint-flag">🕷️</div>
+                <div class="checkpoint-flag">🧩</div>
             </a>
         </div>
 
         <!-- Racing Divider -->
         <div class="racing-divider">
             <div class="divider-line"></div>
-            <span class="race-finish">🏆</span>
+            <span class="race-finish">⏰</span>
             <div class="divider-line"></div>
         </div>
 
@@ -1423,6 +2026,191 @@
         document.querySelectorAll('.content-section').forEach(section => {
             observer.observe(section);
         });
+
+        // ========================================
+        // 3D CAROUSEL SYSTEM
+        // ========================================
+        
+        const carousels = {
+            circadianCarousel: { currentIndex: 0, totalSlides: 6 },
+        };
+
+        // AUTO-ROTATION SETTINGS
+        let autoRotateTimer = null;
+        const AUTO_ROTATE_DELAY = 5000;
+        let isUserInteracting = false;
+        let isMouseOverCarousel = false;
+
+        function scheduleNextAutoRotate(carouselId) {
+            if (autoRotateTimer) {
+                clearTimeout(autoRotateTimer);
+                autoRotateTimer = null;
+            }
+
+            autoRotateTimer = setTimeout(() => {
+                if (!isUserInteracting && !isMouseOverCarousel) {
+                    nextSlide(carouselId);
+                }
+                scheduleNextAutoRotate(carouselId);
+            }, AUTO_ROTATE_DELAY);
+        }
+
+        function startAutoRotate(carouselId) {
+            stopAutoRotate();
+            scheduleNextAutoRotate(carouselId);
+        }
+
+        function stopAutoRotate() {
+            if (autoRotateTimer) {
+                clearTimeout(autoRotateTimer);
+                autoRotateTimer = null;
+            }
+        }
+
+        function pauseAutoRotate() {
+            isUserInteracting = true;
+            setTimeout(() => {
+                isUserInteracting = false;
+            }, 5000);
+        }
+
+        function initCarousels() {
+            Object.keys(carousels).forEach(carouselId => {
+                updateCarousel(carouselId);
+                createDots(carouselId);
+            });
+        }
+
+        function updateCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const currentIndex = carousels[carouselId].currentIndex;
+            const total = slides.length;
+            
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'left', 'right', 'hidden');
+                
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else if (index === (currentIndex - 1 + total) % total) {
+                    slide.classList.add('left');
+                } else if (index === (currentIndex + 1) % total) {
+                    slide.classList.add('right');
+                } else {
+                    slide.classList.add('hidden');
+                }
+            });
+            
+            updateDots(carouselId);
+        }
+
+        function createDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            dotsContainer.innerHTML = '';
+            const total = carousels[carouselId].totalSlides;
+            
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(carouselId, i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots(carouselId) {
+            const dotsContainer = document.getElementById(carouselId.replace('Carousel', 'Dots'));
+            if (!dotsContainer) return;
+            
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carousels[carouselId].currentIndex);
+            });
+        }
+
+        function nextSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
+            updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
+        }
+
+        function prevSlide(carouselId) {
+            pauseAutoRotate();
+            const total = carousels[carouselId].totalSlides;
+            carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
+            updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
+        }
+
+        function goToSlide(carouselId, index) {
+            pauseAutoRotate();
+            carousels[carouselId].currentIndex = index;
+            updateCarousel(carouselId);
+            scheduleNextAutoRotate(carouselId); 
+        }
+
+        // Initialize carousel on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousels();
+            
+            // Start auto-rotation
+            startAutoRotate('circadianCarousel');
+            
+            // Click on side images to navigate
+            document.querySelectorAll('.carousel-slide').forEach(slide => {
+                slide.addEventListener('click', function() {
+                    if (this.classList.contains('left')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        prevSlide(carouselId);
+                    } else if (this.classList.contains('right')) {
+                        const carouselId = this.closest('.carousel-container').id;
+                        nextSlide(carouselId);
+                    }
+                });
+            });
+            
+            // Pause auto-rotation when user hovers over carousel
+            document.querySelectorAll('.carousel-container').forEach(carousel => {
+                carousel.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                });
+                
+                carousel.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                });
+            });
+            
+            // Also pause when hovering over carousel controls
+            document.querySelectorAll('.carousel-controls').forEach(controls => {
+                controls.addEventListener('mouseenter', () => {
+                    isMouseOverCarousel = true;
+                });
+                
+                controls.addEventListener('mouseleave', () => {
+                    isMouseOverCarousel = false;
+                });
+            });
+        });
+
+        // Toggle caption expansion
+        function toggleCaption(event) {
+            event.stopPropagation();
+            const caption = event.target.closest('.carousel-caption');
+            caption.classList.toggle('expanded');
+            
+            const btn = event.target;
+            if (caption.classList.contains('expanded')) {
+                btn.textContent = '📕 Show Less';
+            } else {
+                btn.textContent = '📖 Read More';
+            }
+        }
     </script>
 
 </body>
