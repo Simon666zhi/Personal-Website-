@@ -5212,8 +5212,9 @@
             <div class="terminal-id">COMM-ID: YZ-2025</div>
         </div>
 
-        <form class="contact-form" action="https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b" method="POST">
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
             <!-- FormSubmit Configuration -->
+            <input type="hidden" name="access_key" value="418f7c5d-266e-4231-b530-53d77f73ef06">
             <input type="hidden" name="_subject" value="🚀 New Mission Contact from Yiqing's Portfolio">
             <input type="hidden" name="_template" value="box">
             <input type="hidden" name="_captcha" value="false">
@@ -6172,6 +6173,7 @@
                 const emailDomainSelect = document.getElementById('emailDomain');
                 const customDomainInput = document.getElementById('customDomain');
                 const message = document.getElementById('message').value.trim();
+                const form = this; // keep a reference to the form
                 
                 // Validation
                 if (!name) {
@@ -6201,7 +6203,7 @@
                 const fullEmail = `${emailUsername}@${finalDomain}`;
                 
                 // Disable submit button during submission
-                const submitBtn = this.querySelector('.submit-btn');
+                const submitBtn = form.querySelector('.submit-btn');
                 const originalBtnText = submitBtn.innerHTML;
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span>Launching...</span><div class="btn-glow"></div>';
@@ -6210,28 +6212,48 @@
                 formData.append('Name', name);
                 formData.append('Email', fullEmail);
                 formData.append('Message', message);
-                formData.append('Submission Time', document.getElementById('torontoTime').value);
-                formData.append('_subject', '🚀 New Mission Contact from Yiqing\'s Portfolio');
-                formData.append('_template', 'table');
-                formData.append('_captcha', 'false');
-                
+                formData.append('access_key', '418f7c5d-266e-4231-b530-53d77f73ef06');
+
+                // Safely handle torontoTime (in case the element is missing)
+                const torontoTimeEl = document.getElementById('torontoTime');
+                formData.append(
+                    'Submission Time',
+                    torontoTimeEl ? torontoTimeEl.value : ''
+                );
+
+                // --- TIMEOUT + ABORT CONTROLLER ---
+                const controller = new AbortController();
+                const timeoutMs = 10000; // 10 seconds, tweak if you want
+                const timeoutId = setTimeout(() => {
+                    controller.abort(); // this will make fetch reject with AbortError
+                }, timeoutMs);
+
                 // Submit via AJAX
-                fetch('https://formsubmit.co/1d8a5bcbe0ce5f699e866eb5590f9c1b', {
+                fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     body: formData,
                     headers: {
                         'Accept': 'application/json'
-                    }
+                    },
+                    signal: controller.signal
                 })
                 .then(response => {
+                    clearTimeout(timeoutId);
+
                     if (response.ok) {
                         // Success!
-                        alert(`🚀 Transmission Launched!\n\nFrom: ${name}\nChannel: ${fullEmail}\n\nMessage received at Mission Control. We'll respond shortly!`);
+                        alert(
+                            `🚀 Transmission Launched!\n\n` +
+                            `From: ${name}\nChannel: ${fullEmail}\n\n` +
+                            `Message received at Mission Control. We'll respond shortly!`
+                        );
                         
                         // Reset form
-                        this.reset();
-                        document.getElementById('charCount').textContent = '0';
-                        document.getElementById('customDomain').style.display = 'none';
+                        form.reset();
+                        const charCountEl = document.getElementById('charCount');
+                        const customDomainEl = document.getElementById('customDomain');
+                        if (charCountEl) charCountEl.textContent = '0';
+                        if (customDomainEl) customDomainEl.style.display = 'none';
                         
                         // Reset form touched flag
                         formTouched = false;
@@ -6240,7 +6262,13 @@
                     }
                 })
                 .catch(error => {
-                    alert('⚠️ Transmission error! Please try again or email directly at y9zhi@uwaterloo.ca');
+                    clearTimeout(timeoutId);
+
+                    if (error.name === 'AbortError') {
+                        alert('⚠️ Transmission timeout! Please try again or email directly at y9zhi@uwaterloo.ca');
+                    } else {
+                        alert('⚠️ Transmission error! Please try again or email directly at y9zhi@uwaterloo.ca');
+                    }
                     console.error('Form submission error:', error);
                 })
                 .finally(() => {
@@ -6249,6 +6277,7 @@
                     submitBtn.innerHTML = originalBtnText;
                 });
             });
+
         }
     });
     // ========================================
