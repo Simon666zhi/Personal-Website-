@@ -757,6 +757,11 @@
             transition: all 0.3s ease;
         }
 
+        .carousel-swipe-hint {
+            display: block; /* ← SHOWN on mobile */
+            margin-top: 5rem;
+        }
+
         .carousel-dot.active {
             background: #667eea;
             box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
@@ -788,10 +793,7 @@
         @media (max-width: 768px) {
             .carousel-container {
                 height: 450px;
-            }
-
-            .carousel-container::after {
-                content: '← Swipe left or right to see more →';
+                margin-bottom: 0; 
             }
             
             .carousel-slide {
@@ -822,6 +824,11 @@
                 width: 45px;
                 height: 45px;
                 font-size: 1.2rem;
+            }
+
+            .carousel-swipe-hint {
+                display: block !important; /* Show on mobile */
+                margin-top: 0rem;
             }
         }       
 
@@ -2007,6 +2014,29 @@
                 font-size: 2.5rem;
             }
         }
+
+        /* Swipe hint - HIDDEN on desktop by default */
+        .carousel-swipe-hint {
+            display: none;
+            text-align: center;
+            margin: 6rem auto 2rem auto; /* More top margin to clear carousel controls */
+            padding: 1rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-swipe-hint p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
     </style>
 </head>
 <body>
@@ -2222,6 +2252,11 @@
                 <button class="carousel-btn" onclick="prevSlide('dashboardCarousel')">❮</button>
                 <div class="carousel-dots" id="dashboardDots"></div>
                 <button class="carousel-btn" onclick="nextSlide('dashboardCarousel')">❯</button>
+            </div>
+
+            <!-- ✨ Mobile swipe hint -->
+            <div class="carousel-swipe-hint">
+                <p>💡 Swipe left or right to see more images</p>
             </div>
 
             <div class="section-content">
