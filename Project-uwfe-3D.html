@@ -2512,9 +2512,12 @@
 
             scene3D = new THREE.Scene();
             camera3D = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-            
+
             // FIXED: Camera at an angle to see the horizontal dashboard better
-            camera3D.position.set(0, 80, 0); 
+            // Zoom out more on mobile devices
+            const isMobile = window.innerWidth <= 768;
+            const cameraDistance = isMobile ? 120 : 80; // Zoom out more on mobile
+            camera3D.position.set(0, cameraDistance, 0);
             camera3D.lookAt(0, 0, 0);
 
             renderer3D = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -2681,9 +2684,11 @@
             });
             
             // Reset camera position
+            const isMobile = window.innerWidth <= 768;
+            const cameraDistance = isMobile ? 120 : 80;
             gsap.to(camera3D.position, { 
                 x: 0, 
-                y: 80, 
+                y: cameraDistance, 
                 z: 0, 
                 duration: 1.5, 
                 ease: "power2.inOut",
