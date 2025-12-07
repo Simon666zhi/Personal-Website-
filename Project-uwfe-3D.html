@@ -2023,7 +2023,7 @@
             <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">
                 <img src="Images/favicon.ico" alt="Yiqing Zhi Logo" class="nav-logo">
             </div>
-            <a href="Home_Darker.html#projects" class="back-btn">
+            <a href="index.html#projects" class="back-btn">
                 <span>← Back to Portfolio</span>
             </a>
         </div>
@@ -2799,6 +2799,44 @@
             });
         }
 
+        // ========================================
+        // MOBILE SWIPE GESTURES FOR CAROUSEL
+        // ========================================
+
+        function initCarouselSwipe() {
+            const carouselContainers = document.querySelectorAll('.carousel-container');
+            
+            carouselContainers.forEach(container => {
+                let touchStartX = 0;
+                let touchEndX = 0;
+                const carouselId = container.id;
+                
+                container.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                container.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe(carouselId);
+                }, { passive: true });
+                
+                function handleSwipe(carouselId) {
+                    const swipeThreshold = 50; // Minimum distance for a swipe
+                    const difference = touchStartX - touchEndX;
+                    
+                    if (Math.abs(difference) > swipeThreshold) {
+                        if (difference > 0) {
+                            // Swiped left - go to next slide
+                            nextSlide(carouselId);
+                        } else {
+                            // Swiped right - go to previous slide
+                            prevSlide(carouselId);
+                        }
+                    }
+                }
+            });
+        }
+
         function updateCarousel(carouselId) {
             const carousel = document.getElementById(carouselId);
             if (!carousel) return;
@@ -2872,6 +2910,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             initCarousels();
+            initCarouselSwipe(); 
             
             // 🔄 START AUTO-ROTATION
             startAutoRotate('dashboardCarousel');
