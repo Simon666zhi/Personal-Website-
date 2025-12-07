@@ -1,1 +1,5 @@
- cd OneDrive/Desktop/Personal_Website
+cd OneDrive/Desktop/Personal_Website
+git pull origin main
+git add .
+git commit -m "Dec.th Updates"
+git push origin main

@@ -789,6 +789,10 @@
             .carousel-container {
                 height: 450px;
             }
+
+            .carousel-container::after {
+                content: '← Swipe left or right to see more →';
+            }
             
             .carousel-slide {
                 width: 320px;
@@ -2911,7 +2915,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initCarousels();
             initCarouselSwipe(); 
-            
+
             // 🔄 START AUTO-ROTATION
             startAutoRotate('dashboardCarousel');
             
