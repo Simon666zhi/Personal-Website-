@@ -4780,7 +4780,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="Images/Me100.jpeg" alt="Motorized Maze">
+                <img src="Images/Me100.jpeg" alt="Motorized Maze" loading="lazy">
                 <div class="carousel-content">
                     <h1>Engineering a Path Through Complexity</h1>
                     <p>Exploring motion control and mechanical design through a self-powered maze mechanism</p>
@@ -4789,7 +4789,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="Images/Me101.jpeg" alt="Circadian Rhythm Regulating Device">
+                <img src="Images/Me101.jpeg" alt="Circadian Rhythm Regulating Device" loading="lazy">
                 <div class="carousel-content">
                     <h1>Innovation & Design</h1>
                     <p>Exploring sensory stimulation through tickling and water spray to promote balanced circadian rhythms</p>
@@ -4798,7 +4798,7 @@
             </div>
             
             <div class="carousel-slide">
-                <img src="Images/MechDay.jpeg" alt="Ping-ris Wheel">
+                <img src="Images/MechDay.jpeg" alt="Ping-ris Wheel" loading="lazy">
                 <div class="carousel-content">
                     <h1>Precision in Mechanical Motion</h1>
                     <p>Innovating weight-driven system demonstrating energy transfer through mechanical design and motion control</p>
@@ -4807,7 +4807,7 @@
             </div>
 
             <div class="carousel-slide">
-                <img src="Images/Casi-1.jpg" alt="Casi Level 1 Instructor">
+                <img src="Images/Casi-1.jpg" alt="Casi Level 1 Instructor" loading="lazy">
                 <div class="carousel-content">
                     <h1>Leadership & Applied Mechanics</h1>
                     <p>Certified snowboard instructor with hands-on understanding of motion mechanics and human-centered design</p>
@@ -4838,7 +4838,7 @@
         <div class="carousel-corner corner-br"></div>
         <h2>About Me</h2>
         <div class="about-content">
-            <img src="Images/Profile.jpg" alt="Profile" class="profile-img">
+            <img src="Images/Profile.jpg" alt="Profile" class="profile-img" loading="lazy">
             <div>
                 <p>Hi there! I'm Yiqing (Simon) Zhi, a passionate mechanical engineering student at the University of Waterloo with a love for creating innovative and functional designs. I specialize in CAD modeling, engineering analysis, and enjoy turning complex problems into simple, elegant solutions.</p>
                 <p style="margin-top: 1rem;">When I'm not designing, you can find me exploring new engineering technologies, working on personal projects, or collaborating with teams on challenging mechanical systems. I also enjoy traveling around the world with 
@@ -5084,7 +5084,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="Images/UWFE_CAR.jpeg" alt="Waterloo Formula Electric" class="project-img">
+                        <img src="Images/UWFE_CAR.jpeg" alt="Waterloo Formula Electric" class="project-img" loading="lazy">
                         <div class="project-title-overlay">
                             <h3>Waterloo Formula Electric</h3>
                             <span class="project-status">🏁 Active</span>
@@ -5108,7 +5108,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="Images/Overall2.png" alt="Four Foot Spider Robot" class="project-img">
+                        <img src="Images/Overall2.png" alt="Four Foot Spider Robot" class="project-img" loading="lazy">
                         <div class="project-title-overlay">
                             <h3>Four Foot Spider Robot</h3>
                             <span class="project-status">✅ Completed</span>
@@ -5132,7 +5132,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="Images/ME101_Project-1.png" alt="Circadian Rhythm Device" class="project-img">
+                        <img src="Images/ME101_Project-1.png" alt="Circadian Rhythm Device" class="project-img" loading="lazy">
                         <div class="project-title-overlay">
                             <h3>Circadian Rhythm Regulating Device</h3>
                             <span class="project-status">✅ Completed</span>
@@ -5156,7 +5156,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img">
+                        <img src="Images/ME100_Project.jpeg" alt="Motorized Maze" class="project-img" loading="lazy">
                         <div class="project-title-overlay">
                             <h3>Motorized Maze</h3>
                             <span class="project-status">✅ Completed</span>
@@ -5180,7 +5180,7 @@
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
-                        <img src="Images/MechDay_Project.jpeg" alt="Ping-ris Wheel" class="project-img">
+                        <img src="Images/MechDay_Project.jpeg" alt="Ping-ris Wheel" class="project-img" loading="lazy">
                         <div class="project-title-overlay">
                             <h3>Ping-ris Wheel</h3>
                             <span class="project-status">✅ Completed</span>
@@ -6148,6 +6148,135 @@
                 } else {
                     charCount.style.color = '#667eea';
                 }
+            });
+        }
+
+        // ===== SMART EMAIL PARSING =====
+        // Add this code AFTER the "Handle custom domain visibility" section in your JavaScript
+
+        const emailUsername = document.getElementById('emailUsername');
+        const emailDomainSelect = document.getElementById('emailDomain');
+        const customDomainInput = document.getElementById('customDomain');
+
+        if (emailUsername && emailDomainSelect) {
+            // Function to parse email and split into username + domain
+            function parseEmail(input) {
+                // Check if input contains @ symbol
+                if (input.includes('@')) {
+                    const parts = input.split('@');
+                    const username = parts[0].trim();
+                    const domain = parts[1] ? parts[1].trim().toLowerCase() : '';
+                    
+                    return { username, domain };
+                }
+                return { username: input.trim(), domain: '' };
+            }
+            
+            // Function to check if domain exists in dropdown
+            function findDomainInDropdown(domain) {
+                const options = emailDomainSelect.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === domain && options[i].value !== 'custom') {
+                        return options[i].value;
+                    }
+                }
+                return null;
+            }
+            
+            // Handle paste event (when user pastes full email)
+            emailUsername.addEventListener('paste', function(e) {
+                e.preventDefault();
+                
+                // Get pasted text
+                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                const parsed = parseEmail(pastedText);
+                
+                // Set username (the part before @)
+                this.value = parsed.username;
+                
+                // If domain was found, try to match it in dropdown
+                if (parsed.domain) {
+                    const matchedDomain = findDomainInDropdown(parsed.domain);
+                    
+                    if (matchedDomain) {
+                        // Domain exists in dropdown - select it
+                        emailDomainSelect.value = matchedDomain;
+                        customDomainInput.style.display = 'none';
+                        customDomainInput.required = false;
+                    } else {
+                        // Domain not in dropdown - use custom
+                        emailDomainSelect.value = 'custom';
+                        customDomainInput.style.display = 'block';
+                        customDomainInput.value = parsed.domain;
+                        customDomainInput.required = true;
+                    }
+                }
+                
+                markFormAsTouched();
+            });
+            
+            // Handle manual typing (check when user leaves the field)
+            emailUsername.addEventListener('blur', function() {
+                const value = this.value;
+                
+                // Only parse if @ symbol exists
+                if (value.includes('@')) {
+                    const parsed = parseEmail(value);
+                    
+                    // Update username field (remove everything after @)
+                    this.value = parsed.username;
+                    
+                    // Try to match domain
+                    if (parsed.domain) {
+                        const matchedDomain = findDomainInDropdown(parsed.domain);
+                        
+                        if (matchedDomain) {
+                            emailDomainSelect.value = matchedDomain;
+                            customDomainInput.style.display = 'none';
+                            customDomainInput.required = false;
+                        } else {
+                            emailDomainSelect.value = 'custom';
+                            customDomainInput.style.display = 'block';
+                            customDomainInput.value = parsed.domain;
+                            customDomainInput.required = true;
+                        }
+                    }
+                }
+            });
+            
+            // Also check on input (real-time as user types)
+            let typingTimer;
+            emailUsername.addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                
+                // Wait 500ms after user stops typing
+                typingTimer = setTimeout(() => {
+                    const value = this.value;
+                    
+                    // Only parse if @ symbol exists
+                    if (value.includes('@')) {
+                        const parsed = parseEmail(value);
+                        
+                        // Update username field (remove everything after @)
+                        this.value = parsed.username;
+                        
+                        // Try to match domain
+                        if (parsed.domain) {
+                            const matchedDomain = findDomainInDropdown(parsed.domain);
+                            
+                            if (matchedDomain) {
+                                emailDomainSelect.value = matchedDomain;
+                                customDomainInput.style.display = 'none';
+                                customDomainInput.required = false;
+                            } else {
+                                emailDomainSelect.value = 'custom';
+                                customDomainInput.style.display = 'block';
+                                customDomainInput.value = parsed.domain;
+                                customDomainInput.required = true;
+                            }
+                        }
+                    }
+                }, 500);
             });
         }
         
