@@ -757,11 +757,6 @@
             transition: all 0.3s ease;
         }
 
-        .carousel-swipe-hint {
-            display: block; /* ← SHOWN on mobile */
-            margin-top: 5rem;
-        }
-
         .carousel-dot.active {
             background: #667eea;
             box-shadow: 0 0 15px rgba(102, 126, 234, 0.9);
@@ -791,6 +786,40 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+
+            /* Remove SIDE padding from container */
+            .container {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            
+            /* Make content sections edge-to-edge (KEEP rounded corners) */
+            .content-section {
+                border-left: none !important;
+                border-right: none !important;
+                /* border-radius stays - keeps rounded corners */
+            }
+            
+            /* Hide animated border on mobile */
+            .content-section::before {
+                display: none !important;
+            }
+            
+            /* Full-width gallery items (KEEP rounded corners) */
+            .gallery-item,
+            .gallery-item.featured {
+                border-left: none !important;
+                border-right: none !important;
+                /* border-radius stays - keeps rounded corners */
+            }
+            
+            /* Full-width phase content (KEEP rounded corners) */
+            .phase-content {
+                border-left: none !important;
+                border-right: none !important;
+                /* border-radius stays - keeps rounded corners */
+            }
+
             .carousel-container {
                 height: 450px;
                 margin-bottom: 0; 
@@ -2019,7 +2048,7 @@
         .carousel-swipe-hint {
             display: none;
             text-align: center;
-            margin: 6rem auto 2rem auto; /* More top margin to clear carousel controls */
+            margin: 1rem auto 0; /* More top margin to clear carousel controls */
             padding: 1rem 1.5rem;
             background: rgba(102, 126, 234, 0.15);
             border: 2px solid rgba(102, 126, 234, 0.4);
