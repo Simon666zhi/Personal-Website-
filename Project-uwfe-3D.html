@@ -24,10 +24,13 @@
             background: #000000;
             position: relative;
             overflow-x: hidden;
+            max-width: 100vw;
         }
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            max-width: 100%;
         }
 
         /* Enhanced Galaxy Background */
@@ -858,6 +861,23 @@
             .carousel-swipe-hint {
                 display: block !important; /* Show on mobile */
                 margin-top: 0rem;
+            }
+
+            /* Make gallery caption text smaller on mobile */
+            .carousel-caption h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .caption-expand-btn {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
             }
         }       
 
@@ -2042,6 +2062,45 @@
             .stat-number {
                 font-size: 2.5rem;
             }
+
+            /* Make 3D model control button smaller on mobile */
+            .model-control-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            /* Global text size reduction for mobile */
+            body {
+                font-size: 14px;
+            }
+
+            h1, .hero-title {
+                font-size: 2.8rem !important;
+            }
+
+            h2 {
+                font-size: 2rem !important;
+            }
+
+            h3 {
+                font-size: 1.5rem !important;
+            }
+
+            h4 {
+                font-size: 1.1rem !important;
+            }
+
+            p, li, span {
+                font-size: 0.9rem !important;
+            }
+
+            .gallery-caption h4 {
+                font-size: 0.95rem !important;
+            }
+
+            .gallery-caption p {
+                font-size: 0.75rem !important;
+            }
         }
 
         /* Swipe hint - HIDDEN on desktop by default */
@@ -2483,7 +2542,7 @@
                 </div>
                 <div class="speed-arrow">←</div>
             </a>
-            
+
             <!-- Pit Stop (All Projects) -->
             <a href="index.html#projects" class="pit-stop">
                 <div class="pit-stop-icon">🏠</div>
@@ -2546,6 +2605,12 @@
         const lightboxImg = document.getElementById('lightbox-img');
 
         galleryItems.forEach(item => {
+            // Skip electrical enclosure images - don't open them in lightbox
+            if (item.src.includes('Electrical_Enclosure.png') || 
+                item.src.includes('Electrical_Enclosure2.png')) {
+                return; // Skip adding click handler
+            }
+            
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
                 lightbox.classList.add('active');
