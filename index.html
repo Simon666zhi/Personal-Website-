@@ -4647,6 +4647,121 @@
             }
         }
 
+        /* ========================================
+           SMALL PHONES - Extra adjustments for very small screens
+           ======================================== */
+        @media (max-width: 480px) {
+            
+            /* Hero Carousel - smaller on small phones */
+            .hero-carousel {
+                height: 450px;
+            }
+
+            .carousel-content h1 {
+                font-size: 1.2rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .carousel-content p {
+                font-size: 0.75rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .see-more-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+            }
+
+            /* Carousel 1 - even smaller for small phones */
+            .carousel-slide:nth-child(1) .carousel-content h1 {
+                font-size: 0.6rem;
+            }
+
+            .carousel-slide:nth-child(1) .carousel-content p {
+                font-size: 0.35rem;
+            }
+
+            /* Skills grid - ensure full width */
+            .skills-grid {
+                grid-template-columns: 1fr;
+                padding: 0 0.5rem;
+            }
+
+            .skill-card {
+                padding: 1.5rem 1rem;
+            }
+
+            /* Projects - single column */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            /* Parallax Journey - smaller planets */
+            .milestone-planet {
+                width: 80px;
+                height: 80px;
+            }
+
+            .milestone-planet.left {
+                margin-left: -100px;
+            }
+
+            .milestone-planet.right {
+                margin-left: 10px;
+            }
+
+            .planet-info {
+                width: 140px;
+                padding: 0.6rem;
+            }
+
+            .planet-info h3 {
+                font-size: 0.8rem;
+            }
+
+            .planet-info p {
+                font-size: 0.65rem;
+            }
+
+            .journey-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .journey-title p {
+                font-size: 0.85rem;
+            }
+
+            /* Contact form - full width */
+            .contact-terminal {
+                padding: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+
+            /* Footer - adjust for small screens */
+            .mission-control-panel {
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            /* Navigation */
+            nav ul {
+                width: 70%;
+                max-width: 240px;
+            }
+        }
+
        /* Hamburger Menu */
         .hamburger {
             display: flex;
