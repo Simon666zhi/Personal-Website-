@@ -24,13 +24,10 @@
             background: #000000;
             position: relative;
             overflow-x: hidden;
-            max-width: 100vw;
         }
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
-            max-width: 100%;
         }
 
         /* Enhanced Galaxy Background */
@@ -863,21 +860,22 @@
                 margin-top: 0rem;
             }
 
-            /* Make gallery caption text smaller on mobile */
-            .carousel-caption h4 {
+            /* Slightly larger base text for better readability on mobile */
+            body {
+                font-size: 16px;
+            }
+
+            p, li, span {
                 font-size: 1rem;
-                margin-bottom: 0.3rem;
             }
 
-            .carousel-caption p {
-                font-size: 0.8rem;
-                line-height: 1.4;
+            /* Nudge gallery caption sizes up a bit */
+            .gallery-caption h4 {
+                font-size: 1.35rem;
             }
 
-            .caption-expand-btn {
-                padding: 0.25rem 0.6rem;
-                font-size: 0.7rem;
-                margin-top: 0.4rem;
+            .gallery-caption p {
+                font-size: 1.05rem;
             }
         }       
 
@@ -961,6 +959,20 @@
         }
 
         .gallery-caption p {
+
+                        /* Mobile-only: Collapsible caption for electrical enclosure */
+                        .electrical-enclosure-item .gallery-caption {
+                            transform: translateY(100%);
+                            cursor: pointer;
+                        }
+
+                        .electrical-enclosure-item .gallery-caption.expanded {
+                            transform: translateY(0);
+                        }
+
+                        .electrical-enclosure-item img {
+                            cursor: pointer;
+                        }
             font-size: 1rem;
             color: rgba(255, 255, 255, 0.9);
             line-height: 1.5;
@@ -2062,45 +2074,6 @@
             .stat-number {
                 font-size: 2.5rem;
             }
-
-            /* Make 3D model control button smaller on mobile */
-            .model-control-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.7rem;
-            }
-
-            /* Global text size reduction for mobile */
-            body {
-                font-size: 14px;
-            }
-
-            h1, .hero-title {
-                font-size: 2.8rem !important;
-            }
-
-            h2 {
-                font-size: 2rem !important;
-            }
-
-            h3 {
-                font-size: 1.5rem !important;
-            }
-
-            h4 {
-                font-size: 1.1rem !important;
-            }
-
-            p, li, span {
-                font-size: 0.9rem !important;
-            }
-
-            .gallery-caption h4 {
-                font-size: 0.95rem !important;
-            }
-
-            .gallery-caption p {
-                font-size: 0.75rem !important;
-            }
         }
 
         /* Swipe hint - HIDDEN on desktop by default */
@@ -2354,7 +2327,7 @@
 
             <div class="image-gallery">
                 <!-- Electrical Board Enclosure CAD -->
-                <div class="gallery-item">
+                <div class="gallery-item electrical-enclosure-item">
                     <span class="gallery-badge">⚡ Electrical Design</span>
                     <img src="Images/Electrical_Enclosure.png" alt="Electrical Board Enclosure CAD Design">
                     <div class="gallery-caption">
@@ -2364,7 +2337,7 @@
                 </div>
 
                 <!-- Electrical Board Enclosure Bottom View -->
-                <div class="gallery-item">
+                <div class="gallery-item electrical-enclosure-item">
                     <span class="gallery-badge">🔧 Modular Design</span>
                     <img src="Images/Electrical_Enclosure2.png" alt="Electrical Enclosure Bottom View">
                     <div class="gallery-caption">
@@ -2542,7 +2515,7 @@
                 </div>
                 <div class="speed-arrow">←</div>
             </a>
-
+            
             <!-- Pit Stop (All Projects) -->
             <a href="index.html#projects" class="pit-stop">
                 <div class="pit-stop-icon">🏠</div>
@@ -2605,12 +2578,34 @@
         const lightboxImg = document.getElementById('lightbox-img');
 
         galleryItems.forEach(item => {
-            // Skip electrical enclosure images - don't open them in lightbox
+            // Check if mobile (screen width <= 768px)
+            const isMobile = window.innerWidth <= 768;
+            
+            // Electrical enclosure images - toggle caption on mobile, lightbox on desktop
             if (item.src.includes('Electrical_Enclosure.png') || 
                 item.src.includes('Electrical_Enclosure2.png')) {
-                return; // Skip adding click handler
+                
+                if (isMobile) {
+                    // Mobile: toggle caption
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const caption = this.parentElement.querySelector('.gallery-caption');
+                        if (caption) {
+                            caption.classList.toggle('expanded');
+                        }
+                    });
+                } else {
+                    // Desktop: open lightbox
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        lightbox.classList.add('active');
+                        lightboxImg.src = this.src;
+                    });
+                }
+                return;
             }
             
+            // Other images - always open in lightbox
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
                 lightbox.classList.add('active');
