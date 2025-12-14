@@ -3171,9 +3171,39 @@
                     e.preventDefault();
                     e.stopPropagation();
 
-                    // Toggle the mobile-active class
-                    this.classList.toggle('mobile-active');
+                    // Check if this item is already active
+                    const isCurrentlyActive = this.classList.contains('mobile-active');
+
+                    // Close all other electrical enclosure items first
+                    electricalItems.forEach(otherItem => {
+                        if (otherItem !== this) {
+                            otherItem.classList.remove('mobile-active');
+                        }
+                    });
+
+                    // Toggle the current item
+                    if (isCurrentlyActive) {
+                        this.classList.remove('mobile-active');
+                    } else {
+                        this.classList.add('mobile-active');
+                    }
                 });
+            });
+
+            // Close electrical enclosure overlay when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!isMobile()) return;
+
+                // Check if the click was outside all electrical enclosure items
+                const isClickInside = Array.from(electricalItems).some(item => 
+                    item.contains(e.target)
+                );
+
+                if (!isClickInside) {
+                    electricalItems.forEach(item => {
+                        item.classList.remove('mobile-active');
+                    });
+                }
             });
 
             // Re-initialize on window resize
