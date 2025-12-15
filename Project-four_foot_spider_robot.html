@@ -971,6 +971,7 @@
         @media (max-width: 768px) {
             .carousel-container {
                 height: 450px;
+                margin-bottom: 0; 
             }
             
             .carousel-slide {
@@ -1001,6 +1002,23 @@
                 width: 45px;
                 height: 45px;
                 font-size: 1.2rem;
+            }
+
+            /* Make gallery caption text smaller on mobile */
+            .carousel-caption h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .caption-expand-btn {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
             }
         }
 
@@ -1654,14 +1672,27 @@
             }
 
             .model-controls {
+                flex-direction: row;
                 flex-wrap: wrap;
-                padding: 0.8rem 1rem;
-                gap: 0.5rem;
+                justify-content: center;
+                padding: 0.4rem 0.3rem;
+                gap: 0.3rem;
+                width: auto;
+                max-width: none;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: auto;
             }
 
             .model-control-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
+                padding: 0.35rem 0.6rem;
+                font-size: 0.65rem;
+                flex: 0 1 auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-width: auto;
             }
 
             .racing-track-nav {
@@ -1705,17 +1736,26 @@
                 font-size: 0.7rem;
             }
 
+            /* Reorder navigation: Previous -> All Projects -> Next */
+            .checkpoint-left {
+                order: 1;
+            }
+
             .pit-stop {
-                order: -1;
-                padding: 1.2rem 2rem;
+                order: 2;
+                padding: 1rem 1.5rem;
+            }
+
+            .checkpoint-right {
+                order: 3;
             }
 
             .pit-stop-icon {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 
             .pit-stop-text {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
             .racing-divider {
