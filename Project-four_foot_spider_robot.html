@@ -24,10 +24,14 @@
             background: #000000;
             position: relative;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            max-width: 100vw;
         }
 
         /* Enhanced Galaxy Background */
@@ -1668,6 +1672,32 @@
         }
 
         @media (max-width: 768px) {
+            html, body {
+                width: 100%;
+                max-width: 100vw;
+            }
+
+            nav {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .project-hero {
+                border-radius: 0 0 20px 20px;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 0 3rem;
+            }
+
+            .content-section {
+                margin-left: 0;
+                margin-right: 0;
+                border-radius: 15px;
+            }
+
             .project-hero {
                 height: 400px;
                 min-height: 400px;
