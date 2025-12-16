@@ -967,6 +967,28 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
         }
 
+        /* Swipe hint - hidden on desktop by default */
+        .carousel-swipe-hint {
+            display: none;
+            text-align: center;
+            margin: 1rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-swipe-hint p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         /* Mobile Responsive Carousel */
         @media (max-width: 768px) {
             .carousel-container {
@@ -1019,6 +1041,12 @@
                 padding: 0.25rem 0.6rem;
                 font-size: 0.7rem;
                 margin-top: 0.4rem;
+            }
+
+            /* Show swipe hint on mobile */
+            .carousel-swipe-hint {
+                display: block !important;
+                margin-top: 0rem;
             }
         }
 
@@ -2201,6 +2229,11 @@
                 <button class="carousel-btn" onclick="nextSlide('robotCarousel')">❯</button>
             </div>
 
+            <!-- Mobile swipe hint -->
+            <div class="carousel-swipe-hint">
+                <p>💡 Swipe left or right to see more images</p>
+            </div>
+
         </div>
 
         <!-- My Contributions -->
@@ -2892,17 +2925,51 @@
             scheduleNextAutoRotate(carouselId); 
         }
 
+        // Mobile swipe gestures (mirrors UWFE implementation)
+        function initCarouselSwipe() {
+            const carouselContainers = document.querySelectorAll('.carousel-container');
+            carouselContainers.forEach(container => {
+                let touchStartX = 0;
+                let touchEndX = 0;
+                const carouselId = container.id;
+
+                container.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    pauseAutoRotate();
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe(carouselId);
+                }, { passive: true });
+
+                function handleSwipe(carouselId) {
+                    const swipeThreshold = 50; // Minimum distance for a swipe
+                    const difference = touchStartX - touchEndX;
+                    if (Math.abs(difference) > swipeThreshold) {
+                        if (difference > 0) {
+                            nextSlide(carouselId);
+                        } else {
+                            prevSlide(carouselId);
+                        }
+                    }
+                }
+            });
+        }
+
         // Initialize carousel on page load
         document.addEventListener('DOMContentLoaded', () => {
             initCarousels();
+            initCarouselSwipe();
             
             // Start auto-rotation
             startAutoRotate('robotCarousel');
             playVideoInActiveSlide('robotCarousel');
             
-            // Click on side images to navigate
+            // Click on side images to navigate (skip caption expand clicks)
             document.querySelectorAll('.carousel-slide').forEach(slide => {
-                slide.addEventListener('click', function() {
+                slide.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('caption-expand-btn')) return;
                     if (this.classList.contains('left')) {
                         const carouselId = this.closest('.carousel-container').id;
                         prevSlide(carouselId);
@@ -2913,20 +2980,17 @@
                 });
             });
             
-            // FIXED: Pause auto-rotation when user hovers over carousel
+            // Pause auto-rotation when user hovers over carousel/controls
             document.querySelectorAll('.carousel-container').forEach(carousel => {
                 carousel.addEventListener('mouseenter', () => {
                     isMouseOverCarousel = true;
-                    console.log('Mouse entered carousel - auto-rotation paused');
                 });
                 
                 carousel.addEventListener('mouseleave', () => {
                     isMouseOverCarousel = false;
-                    console.log('Mouse left carousel - auto-rotation resumed');
                 });
             });
             
-            // BONUS: Also pause when hovering over carousel controls
             document.querySelectorAll('.carousel-controls').forEach(controls => {
                 controls.addEventListener('mouseenter', () => {
                     isMouseOverCarousel = true;
