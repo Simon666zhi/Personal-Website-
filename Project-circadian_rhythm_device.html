@@ -419,26 +419,7 @@
             position: relative;
             overflow: hidden;
         }
-
-        .content-section::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, 
-                #667eea 0%, 
-                #764ba2 25%, 
-                #f093fb 50%, 
-                #667eea 75%, 
-                #764ba2 100%);
-            background-size: 300% 300%;
-            border-radius: 15px;
-            z-index: -1;
-            animation: borderGlow 6s linear infinite;
-            opacity: 0.3;
-        }
+    
 
         @keyframes borderGlow {
             0% { background-position: 0% 50%; }
@@ -824,6 +805,7 @@
         @media (max-width: 768px) {
             .carousel-container {
                 height: 450px;
+                margin-bottom: 0;
             }
             
             .carousel-slide {
@@ -854,6 +836,28 @@
                 width: 45px;
                 height: 45px;
                 font-size: 1.2rem;
+            }
+
+            /* Make gallery caption text smaller on mobile */
+            .carousel-caption h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .caption-expand-btn {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
+            }
+
+            .carousel-swipe-hint {
+                display: block !important;
+                margin-top: 0rem;
             }
         }
 
@@ -1422,6 +1426,28 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Swipe hint - HIDDEN on desktop by default */
+        .carousel-swipe-hint {
+            display: none;
+            text-align: center;
+            margin: 1rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-swipe-hint p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
         @media (max-width: 768px) {
             .project-hero {
                 height: 400px;
@@ -1436,8 +1462,22 @@
                 font-size: 1.1rem;
             }
 
+            /* Remove SIDE padding from container */
+            .container {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            
+            /* Make content sections edge-to-edge */
             .content-section {
                 padding: 2rem 1.5rem;
+                border-left: none !important;
+                border-right: none !important;
+            }
+            
+            /* Hide animated border on mobile */
+            .content-section::before {
+                display: none !important;
             }
 
             .section-title {
@@ -1498,17 +1538,26 @@
                 font-size: 0.7rem;
             }
 
+            /* Reorder navigation: Previous -> All Projects -> Next */
+            .checkpoint-left {
+                order: 1;
+            }
+
             .pit-stop {
-                order: -1;
-                padding: 1.2rem 2rem;
+                order: 2;
+                padding: 1rem 1.5rem;
+            }
+
+            .checkpoint-right {
+                order: 3;
             }
 
             .pit-stop-icon {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 
             .pit-stop-text {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
             .racing-divider {
@@ -1757,6 +1806,11 @@
                 <button class="carousel-btn" onclick="prevSlide('circadianCarousel')">❮</button>
                 <div class="carousel-dots" id="circadianDots"></div>
                 <button class="carousel-btn" onclick="nextSlide('circadianCarousel')">❯</button>
+            </div>
+
+            <!-- ✨ Mobile swipe hint -->
+            <div class="carousel-swipe-hint">
+                <p>💡 Swipe left or right to see more images</p>
             </div>
 
         </div>
