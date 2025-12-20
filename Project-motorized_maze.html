@@ -689,6 +689,15 @@
             transform: scale(1.05);
         }
 
+        /* Control System Slide - Zoom Out for Better Visibility */
+        .control-system-slide img {
+            object-fit: contain !important;
+        }
+
+        .control-system-slide:hover.active img {
+            transform: scale(1.02);
+        }
+
         /* Caption - only show on active slide */
         .carousel-caption {
             position: absolute;
@@ -1711,7 +1720,7 @@
                         <div class="carousel-caption">
                             <h4>Complete Motorized Wooden Maze</h4>
                             <p class="short-desc">Fully assembled 2-player board game with motorized rotating and vertical wall mechanisms.</p>
-                            <p class="long-desc">The 300×300 mm maze combines three simple subsystems: a stepper-driven rotating center wall, two crank-driven vertical wall segments, and an ultrasonic sensor with a buzzer for win detection. Players guide figurines through precision-cut tracks toward the raised center goal, supported by 3D-printed bridges. All electronics are safely housed inside the wooden structure with tidy cable management for the 8–12 year age group.</p>
+                            <p class="long-desc">This 300×300 mm wooden maze combines a stepper-driven rotating center wall, two crank-driven vertical walls, and an ultrasonic win-detection system. Players guide figurines through precision-cut tracks toward a raised central goal supported by 3D-printed bridges. All electronics are enclosed inside the structure with clean cable management, designed for safe and reliable play for ages 8–12.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1719,11 +1728,11 @@
                     <!-- Slide 2: Revolving Wall Mechanism -->
                     <div class="carousel-slide" data-index="1">
                         <span class="carousel-badge">🔄 Rotating Center</span>
-                        <img src="Images/maze-revolving-mechanism.jpg" alt="Stepper Motor Revolving Wall">
+                        <img src="Images/Revolving_Wall.png" alt="Stepper Motor Revolving Wall">
                         <div class="carousel-caption">
                             <h4>Revolving Center Wall Mechanism</h4>
                             <p class="short-desc">Stepper motor-driven rotating wall with Arduino speed control.</p>
-                            <p class="long-desc">The revolving mechanism represents the primary gameplay challenge—a continuously rotating wall segment that players must time their movement through. The 28BYJ-48 stepper motor offers precise positioning control impossible with AC or standard DC motors, with 32 steps per revolution in full-step mode and 64:1 gear reduction providing 2048 steps per complete rotation. The Arduino Uno executes programmed code setting motor speed at 4 RPM (programmable between 2-4 cycles/second per specifications), using the ULN2003 motor driver to interface with stepper motor coils. Initial prototypes used AC motors (insufficient speed control) and DC motors (unstable, inconsistent), but stepper motors proved ideal for smooth predictable rotation essential for fair gameplay. The rotating wall is firmly mounted to the stepper motor shaft and enclosed in protective housing preventing player contact with moving mechanical parts. This design ensures consistent challenging obstacle speed throughout extended play sessions without motor wear issues encountered in early DC motor testing.</p>
+                            <p class="long-desc">The rotating center wall creates the main gameplay challenge by continuously turning at a controlled speed. A 28BYJ-48 stepper motor with gear reduction provides smooth, predictable motion, controlled by an Arduino Uno and ULN2003 driver. Earlier DC and AC motor designs lacked stability, making the stepper motor the most reliable solution. The mechanism is enclosed for safety and consistent performance.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1731,23 +1740,23 @@
                     <!-- Slide 3: Vertical Wall Mechanism -->
                     <div class="carousel-slide" data-index="2">
                         <span class="carousel-badge">⬆️⬇️ Piston System</span>
-                        <img src="Images/maze-vertical-mechanism.jpg" alt="Crankshaft Vertical Moving Walls">
+                        <img src="Images/Priston_Moving.png" alt="Crankshaft Vertical Moving Walls">
                         <div class="carousel-caption">
                             <h4>Vertical Moving Wall Mechanism</h4>
                             <p class="short-desc">Crankshaft-inspired piston system driven by DC gearmotor.</p>
-                            <p class="long-desc">The vertical movement mechanism employs engineering principles adapted from automotive crankshaft systems to convert rotary motor motion into linear vertical displacement. A 9V DC motor with attached gearbox (modifying speed/torque to match load requirements) drives a rotating platform with two offset connection points. These "piston" points connect via linkages to two separate wall segments, creating alternating up-down motion as the platform rotates—when one wall rises, the other descends. This series configuration provides synchronized motion using only one motor (reducing cost and complexity versus independent motor per wall). The mechanism is supported by cardboard stilts maintaining platform stability while minimizing friction during rotation. Circular cardboard pieces visible in assembly photos show the crankshaft-inspired rotating elements. Initial prototypes experienced piston instability and falling issues, resolved through addition of cardboard support structures that constrain motion without introducing friction. The final wooden construction's rigidity required careful calibration to prevent mechanism binding—a challenge noted in remaining work. This elegant mechanical solution demonstrates efficient motion conversion appropriate for the target age group's understanding of cause-effect relationships.</p>
+                            <p class="long-desc">This mechanism converts rotary motion from a DC gearmotor into vertical movement using a crankshaft-inspired linkage. Two wall segments move alternately—one rising while the other falls—using a single motor to reduce complexity. Added support structures improved stability and prevented binding, resulting in a compact and efficient motion system.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
                     <!-- Slide 4: Arduino Control System -->
-                    <div class="carousel-slide" data-index="3">
+                    <div class="carousel-slide control-system-slide" data-index="3">
                         <span class="carousel-badge">🎛️ Electronics</span>
-                        <img src="Images/maze-arduino-setup.jpg" alt="Arduino and Motor Control Electronics">
+                        <img src="Images/Control_system.png" alt="Arduino and Motor Control Electronics">
                         <div class="carousel-caption">
                             <h4>Arduino Control System & Programming</h4>
                             <p class="short-desc">Dual Arduino setup controlling motors and sensors with custom firmware.</p>
-                            <p class="long-desc">The electronics architecture employs two Arduino microcontrollers for distinct functions: Arduino Uno R3 controls the stepper motor driving the revolving center wall through ULN2003 driver, while Arduino Mega 2560 R3 manages ultrasonic sensors and victory buzzer. The Arduino Uno executes programmed code (Arduino IDE) setting stepper motor parameters: 2048 steps per revolution (accounting for 32-step motor with 64:1 gear reduction), pins 8/10/9/11 initialized for motor driver interface, and speed set to 4 RPM in continuous loop. The Arduino Mega processes HC-SR04 ultrasonic sensor inputs by triggering ultrasound waves, measuring return time via pulseIn() function, calculating distance using speed of sound (34 cm/ms divided by 2 for round-trip), and activating the active buzzer when figurines come within 3cm of goal locations. Separate power supplies prevent voltage sag—motors use dedicated power while Arduinos use USB/battery logic power with proper insulation. The Fritzing electrical schematics document all connections for reproducibility. This embedded software/electrical integration transforms mechanical motion into intelligent responsive gameplay, demonstrating interdisciplinary engineering appropriate for ME 100 course objectives.</p>
+                            <p class="long-desc">Two Arduinos divide system control: an Arduino Uno manages the stepper motor, while an Arduino Mega handles ultrasonic sensors and the buzzer. The software controls motor speed, detects player victory, and triggers audio feedback. Separate power supplies ensure stable operation, and all wiring is documented for clarity and reproducibility.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1755,11 +1764,11 @@
                     <!-- Slide 5: Wooden Construction -->
                     <div class="carousel-slide" data-index="4">
                         <span class="carousel-badge">🪵 Materials</span>
-                        <img src="Images/maze-wood-construction.jpg" alt="Plywood Structure and Tracks">
+                        <img src="Images/Wood_structure.jpeg" alt="Plywood Structure and Tracks">
                         <div class="carousel-caption">
                             <h4>Wooden Structure & Fabrication</h4>
                             <p class="short-desc">Plywood construction with laser-cut precision tracks and sanded finish.</p>
-                            <p class="long-desc">The final design transitioned from cardboard prototypes to plywood construction for enhanced durability, aesthetic appeal, and improved gameplay experience. Plywood offers consistent material properties compared to cardboard's tendency to warp, crush, or delaminate under repeated use. All maze walls and tracks were laser-cut ensuring precise slot widths for figurine movement—consistency critical for fair competitive gameplay where both players must experience identical friction/resistance. The track surfaces underwent extensive sanding to minimize friction to 0-5N range (per specifications with ±3N tolerance), enabling smooth figurine sliding without excessive resistance that would frustrate younger players. The wooden surface provides natural aesthetic appeal appropriate for the 8-12 year target demographic, contrasting with the "toy-like" appearance of cardboard while maintaining cost-effectiveness versus injection-molded plastic alternatives. 3D-printed bridges support the stationary goal area above the rotating center wall, demonstrating hybrid manufacturing approach combining traditional woodworking with additive manufacturing. Cable routing channels and motor mounting platforms were integrated into the wooden structure maintaining clean appearance while ensuring child safety through proper insulation and component enclosure. This material selection successfully balances manufacturing feasibility, safety requirements, durability needs, and cost constraints typical of undergraduate design projects.</p>
+                            <p class="long-desc">The final maze is built from plywood for durability, consistency, and improved aesthetics. Laser-cut tracks ensure uniform movement, while sanding reduces friction for smooth gameplay. The design integrates 3D-printed bridges, hidden wiring channels, and secure motor mounts, balancing safety, durability, and visual appeal.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1767,11 +1776,11 @@
                     <!-- Slide 6: Ultrasonic Sensors & Victory System -->
                     <div class="carousel-slide" data-index="5">
                         <span class="carousel-badge">🎵 Goal Detection</span>
-                        <img src="Images/maze-sensor-system.jpg" alt="Ultrasonic Sensors and Buzzer">
+                        <img src="Images/Sensor_control.png" alt="Ultrasonic Sensors and Buzzer">
                         <div class="carousel-caption">
                             <h4>Goal Detection & Celebration Sound</h4>
                             <p class="short-desc">HC-SR04 ultrasonic sensors trigger active buzzer for victory feedback.</p>
-                            <p class="long-desc">The goal detection system employs HC-SR04 ultrasonic sensors positioned at maze finish locations to automatically detect player victory. These sensors operate by emitting ultrasonic pulses and measuring echo return time, calculating distance via speed of sound (34cm/ms). When a figurine enters within 3cm proximity, the Arduino Mega triggers an active buzzer producing celebration sound at safe 2-5dB volume level (within specified 2-5dB range, ±1dB tolerance). This audio feedback provides immediate positive reinforcement enhancing players' sense of accomplishment without excessive noise that could annoy caregivers or violate toy safety standards. Two sensors enable independent detection for 2-player competitive races, clearly signaling which player reached the goal first. The current implementation has identified areas for refinement: buzzer duration extends longer than ideal, and sound continues if figurine remains at finish (requiring logic improvement to trigger only once). Despite these minor issues noted in constraints validation, the system successfully demonstrates sensor integration and provides core victory detection functionality. Future improvements could include adjustable volume control, varied celebration sounds for replay value, and LED visual feedback (planned but not implemented due to time constraints). The ultrasonic sensor choice over alternatives (pressure switches, optical sensors) provides non-contact detection suitable for wooden maze construction without complex track modifications.</p>
+                           <p class="long-desc">HC-SR04 ultrasonic sensors detect when a player reaches the goal by measuring distance to the figurine. Once detected, an Arduino triggers a buzzer to signal victory. The system supports two-player competition and provides clear feedback, with planned improvements for shorter sound duration and visual indicators.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
