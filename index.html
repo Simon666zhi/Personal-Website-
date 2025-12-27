@@ -2182,11 +2182,80 @@
             z-index: 1;
         }
 
+        /* Coming Soon Card Styling */
+        .coming-soon-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coming-soon-card .project-card-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, 
+                rgba(20, 20, 50, 0.95) 0%,
+                rgba(30, 30, 60, 0.95) 100%);
+        }
+
+        .coming-soon-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            animation: rocketFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes rocketFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .coming-soon-content h3 {
+            font-size: 1.8rem;
+            color: #667eea;
+            text-shadow: 
+                0 0 10px rgba(102, 126, 234, 0.6),
+                0 0 20px rgba(102, 126, 234, 0.3);
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+            max-width: 280px;
+            line-height: 1.4;
+        }
+
+        .coming-soon-content p {
+            font-size: 1.2rem;
+            color: rgba(102, 126, 234, 0.9);
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            .coming-soon-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .coming-soon-content p {
+                font-size: 1rem;
+            }
+
+            .coming-soon-icon {
+                font-size: 3rem;
             }
             
             .project-card {
@@ -5298,6 +5367,26 @@
                                 <span>View Project</span>
                                 <span>→</span>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: More Projects Coming Soon -->
+            <div class="project-card coming-soon-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <div class="coming-soon-content">
+                            <div class="coming-soon-icon">🚀</div>
+                            <h3>More Projects Coming Soon</h3>
+                            <p>Stay Tuned!</p>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <div class="project-back-icon">⭐</div>
+                            <h3>Exciting Things Ahead</h3>
+                            <p>I'm working on some amazing projects. Check back soon to see what's next in my engineering journey!</p>
                         </div>
                     </div>
                 </div>
