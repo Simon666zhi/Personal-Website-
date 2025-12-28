@@ -1864,6 +1864,11 @@
             transform: rotateY(180deg);
         }
 
+        /* Mobile: Click to flip */
+        .project-card.flipped .project-card-inner {
+            transform: rotateY(180deg);
+        }
+
         /* Front and Back faces */
         .project-card-front,
         .project-card-back {
@@ -5770,6 +5775,43 @@
     </footer>
 
     <script>
+        // ========================================
+        // PROJECT CARD FLIP FUNCTIONALITY FOR MOBILE
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            projectCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Don't flip if clicking on a button or link inside the card
+                    if (e.target.closest('a, button')) {
+                        return;
+                    }
+                    // Toggle flipped class
+                    card.classList.toggle('flipped');
+                    e.stopPropagation();
+                });
+                
+                // Remove flipped state when leaving card on desktop
+                card.addEventListener('mouseleave', () => {
+                    if (window.innerWidth > 768) {
+                        card.classList.remove('flipped');
+                    }
+                });
+            });
+            
+            // For mobile, click anywhere else to unflip
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.project-card')) {
+                    if (window.innerWidth <= 768) {
+                        projectCards.forEach(card => {
+                            card.classList.remove('flipped');
+                        });
+                    }
+                }
+            });
+        });
+
         let currentSlide = 0;
         let autoPlayInterval;
         let formTouched = false;
