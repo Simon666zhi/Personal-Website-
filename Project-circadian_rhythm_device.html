@@ -1992,6 +1992,11 @@
         <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
     </footer>
 
+    <!-- Loading Screen -->
+    <div id="loading" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); color: white; display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <h1>Loading Video...</h1>
+    </div>
+
     <script>
         // Progress Bar Update on Scroll
         window.addEventListener('scroll', function() {
@@ -2285,6 +2290,11 @@
                 btn.textContent = '📖 Read More';
             }
         }
+
+        // Hide loading screen once the window has loaded
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
     </script>
 
 </body>
