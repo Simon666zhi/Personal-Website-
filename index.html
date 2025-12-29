@@ -3676,7 +3676,7 @@
 
         @media (max-width: 768px) {
             .nav-logo {
-                height: 35px;
+                height: 40px;
                 width: auto;
                 border-radius: 8px;
                 filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.5));
@@ -4104,24 +4104,25 @@
             }
             
             .milestone-planet {
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
             }
             
             .milestone-planet.left {
                 left: 50%;
-                margin-left: -120px;  /* ← Offset from center */
+                margin-left: -170px;  /* Push further left so cards are visible */
             }
             
             .milestone-planet.right {
                 left: 50%;
-                margin-left: 20px;    /* ← Offset from center */
+                margin-left: 40px;    /* Push further right for breathing room */
             }
             
             .planet-info {
-                width: 160px;
-                bottom: -90px;
-                padding: 0.75rem;
+                width: 200px;
+                bottom: -110px;
+                padding: 0.85rem;
+                z-index: 8; /* Ensure text stays above planets */
             }
 
             .planet-info h3 {
@@ -4334,7 +4335,7 @@
             }
             
             .nav-logo {
-                height: 28px;            /* ← Smaller logo (was 32px) */
+                height: 40px;            /* Slightly larger for mobile */
             }
             
             .back-btn {

@@ -214,16 +214,74 @@
             border-radius: 0 0 20px 20px;
         }
 
-        /* Video Background */
-        #hero-video {
+        /* Video Background with Blur Effect */
+        .video-bg-blur {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .video-bg-blur video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.4);
-            z-index: 0;
+            filter: blur(50px) brightness(0.3);
+            transform: scale(1.2);
+        }
+
+        /* Main Video - Centered with Glow */
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 85%;
+            max-height: 85%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(0.75) drop-shadow(0 0 80px rgba(102, 126, 234, 1));
+            z-index: 1;
+            border-radius: 16px;
+            border: 3px solid rgba(102, 126, 234, 0.6);
+            box-shadow: 
+                0 0 80px rgba(102, 126, 234, 0.8),
+                0 0 120px rgba(118, 75, 162, 0.6),
+                0 0 160px rgba(240, 147, 251, 0.4),
+                inset 0 0 30px rgba(102, 126, 234, 0.3);
+            animation: videoGlow 4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        #hero-video:hover {
+            filter: brightness(0.9) drop-shadow(0 0 100px rgba(102, 126, 234, 1));
+            box-shadow: 
+                0 0 100px rgba(102, 126, 234, 1),
+                0 0 150px rgba(118, 75, 162, 0.8),
+                0 0 200px rgba(240, 147, 251, 0.6),
+                inset 0 0 40px rgba(102, 126, 234, 0.4);
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        @keyframes videoGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 80px rgba(102, 126, 234, 0.8),
+                    0 0 120px rgba(118, 75, 162, 0.6),
+                    0 0 160px rgba(240, 147, 251, 0.4),
+                    inset 0 0 30px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 100px rgba(102, 126, 234, 1),
+                    0 0 150px rgba(118, 75, 162, 0.8),
+                    0 0 180px rgba(240, 147, 251, 0.5),
+                    inset 0 0 40px rgba(102, 126, 234, 0.4);
+            }
         }
 
         .hero-overlay {
@@ -233,10 +291,10 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg,
-                rgba(102, 126, 234, 0.3) 0%,
+                rgba(102, 126, 234, 0.15) 0%,
                 transparent 50%,
-                rgba(118, 75, 162, 0.3) 100%);
-            z-index: 1;
+                rgba(118, 75, 162, 0.15) 100%);
+            z-index: 2;
         }
 
         .hero-content {
@@ -1576,7 +1634,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Video -->
+    <!-- Hero Section -->
     <section class="project-hero">
         <div class="carousel-corner corner-tl"></div>
         <div class="carousel-corner corner-tr"></div>
@@ -1588,22 +1646,22 @@
             <div class="info-card" style="animation-delay: 0.2s;">
                 <div class="info-icon">🎡</div>
                 <div class="info-text">
-                    <h4>Wheel Diameter</h4>
-                    <p>1.2m (4 feet)</p>
+                    <h4>Wheel Type</h4>
+                    <p>Gravity-Driven Ferris Wheel</p>
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.4s;">
-                <div class="info-icon">💡</div>
+                <div class="info-icon">⚙️</div>
                 <div class="info-text">
-                    <h4>LED Matrix</h4>
-                    <p>32×32 RGB (1024)</p>
+                    <h4>Mechanism</h4>
+                    <p>Passive Lift & Release</p>
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.6s;">
-                <div class="info-icon">🎮</div>
+                <div class="info-icon">🎯</div>
                 <div class="info-text">
-                    <h4>Games</h4>
-                    <p>Pong + Tetris</p>
+                    <h4>Objective</h4>
+                    <p>Ball Transport & Delivery</p>
                 </div>
             </div>
         </div>
@@ -1611,57 +1669,75 @@
         <!-- Right Side Info Cards -->
         <div class="side-info-cards right">
             <div class="info-card" style="animation-delay: 0.3s;">
-                <div class="info-icon">🔄</div>
+                <div class="info-icon">⬇️</div>
                 <div class="info-text">
-                    <h4>Rotation Speed</h4>
-                    <p>0-12 RPM Variable</p>
+                    <h4>Power Source</h4>
+                    <p>Falling Mass (Gravity)</p>
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.5s;">
-                <div class="info-icon">⚡</div>
+                <div class="info-icon">🧱</div>
                 <div class="info-text">
-                    <h4>Power</h4>
-                    <p>120W (5V 24A)</p>
+                    <h4>Materials</h4>
+                    <p>Tetrix + Cardboard</p>
                 </div>
             </div>
             <div class="info-card" style="animation-delay: 0.7s;">
-                <div class="info-icon">👥</div>
+                <div class="info-icon">⏱️</div>
                 <div class="info-text">
-                    <h4>Players</h4>
-                    <p>Up to 4 Concurrent</p>
+                    <h4>Operation</h4>
+                    <p>Fully Mechanical</p>
                 </div>
             </div>
         </div>
+
         
-        <!-- Video Background -->
+        <!-- Blurred Background Video Layer -->
+        <div class="video-bg-blur">
+            <video autoplay loop muted playsinline>
+                <source src="Images/Ping-ris.mov" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Main Video -->
         <video id="hero-video" autoplay loop muted playsinline>
-            <source src="Images/pingris-wheel-demo.mp4" type="video/mp4">
+            <source src="Images/Ping-ris.mov" type="video/mp4">
         </video>
         
         <!-- Gradient Overlay -->
         <div class="hero-overlay"></div>
         
-        <!-- Hero Content -->
+         <!-- Hero Content -->
         <div class="hero-content">
-            <h1>Ping-ris Wheel</h1>
-            <p class="subtitle">An Interactive LED Ferris Wheel Gaming Platform Combining Pong & Tetris</p>
+            <h1>Gravity Ferris Wheel Transport System</h1>
+            <p class="subtitle">
+                A purely mechanical, gravity-powered system for lifting and delivering ping pong balls
+            </p>
         </div>
     </section>
 
     <!-- Content -->
     <div class="container">
-        
-        <!-- Project Overview -->
         <div class="content-section">
             <h2 class="section-title">
                 <span>🎯</span>
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>The Ping-ris Wheel is a unique interactive art installation that transforms a 1.2-meter diameter Ferris wheel into a dynamic gaming platform. By mounting a 32×32 RGB LED matrix display on the rotating structure and implementing real-time game physics that account for rotation and gravity, this project creates an engaging multiplayer gaming experience unlike traditional flat-screen displays.</p>
-                <p>The name "Ping-ris" combines Pong (the classic arcade game) and Tetris, as the platform supports both games with physics adjusted for the circular, rotating display. Players control their games using wireless controllers while the wheel rotates, creating a challenging and visually spectacular experience. The project showcases integration of mechanical design, LED matrix control, real-time embedded programming, and game physics adaptation.</p>
+                <p>
+                    This project is a gravity-powered mechanical system designed to lift and transport ping pong balls
+                    using a rotating Ferris-wheel-style mechanism. The system operates without motors, electronics,
+                    or active control, relying entirely on the gravitational potential energy of a falling mass.
+                </p>
+                <p>
+                    As the wheel rotates, curved cutouts capture balls at the base, lift them upward, and passively
+                    release them near the top onto a sloped exit ramp. The design emphasizes mechanical simplicity,
+                    geometric timing, and energy efficiency, demonstrating how controlled motion can be achieved
+                    using only gravity and mechanical design.
+                </p>
             </div>
         </div>
+
 
         <!-- Project Gallery -->
         <div class="content-section">
@@ -1670,11 +1746,16 @@
                 Project Gallery
             </h2>
             <div class="section-content">
-                <p>Explore the complete design and build process of the Ping-ris Wheel—from structural fabrication to LED integration and game development.</p>
-                
-                <h3>🎡 Design, Build & Interactive Gameplay</h3>
-                <p>Interactive gallery showcasing the mechanical structure, electronics integration, game programming, and public demonstration.</p>
+                <p>
+                    This gallery documents the design evolution, fabrication process, and final demonstration
+                    of the gravity-powered Ferris wheel mechanism.
+                </p>
+                <h3>🎡 Design, Build & Testing</h3>
+                <p>
+                    From early hand sketches to full-scale testing during Mechanical Engineering Design Days.
+                </p>
             </div>
+
             
             <!-- 3D Rotating Carousel -->
             <div class="carousel-container" id="wheelCarousel">
@@ -1682,71 +1763,75 @@
                     <!-- Slide 1: Complete Wheel in Action -->
                     <div class="carousel-slide" data-index="0">
                         <span class="carousel-badge">🏆 Complete System</span>
-                        <img src="Images/pingris-complete-night.jpg" alt="Ping-ris Wheel at Night">
+                        <img src="Images/Wheel_BackView.png" alt="Gravity Ferris Wheel System">
                         <div class="carousel-caption">
-                            <h4>Ping-ris Wheel in Operation</h4>
-                            <p class="short-desc">1.2m diameter Ferris wheel with 32×32 RGB LED matrix display.</p>
-                            <p class="long-desc">The completed Ping-ris Wheel features a 1.2-meter diameter structure with six evenly-spaced gondolas and a central 32×32 RGB LED matrix (1024 individually addressable LEDs). The wheel rotates continuously at variable speeds from 0-12 RPM via a DC gear motor with encoder feedback for precise position tracking. The LED matrix displays classic arcade games (Pong and Tetris) with game physics dynamically adjusted to account for the rotating reference frame and effective gravity vector that changes with wheel position. Structural components are powder-coated steel for weather resistance, enabling both indoor and outdoor installations. The entire system draws 120W at peak brightness and supports wireless controller connectivity for up to four simultaneous players.</p>
+                            <h4>Gravity Ferris Wheel in Operation</h4>
+                            <p class="short-desc">
+                                Fully mechanical system lifting and releasing ping pong balls using gravity.
+                            </p>
+                            <p class="long-desc">
+                                The completed system uses a Ferris-wheel-style rotating disk driven by a falling mass.
+                                Curved cutouts capture ping pong balls at the bottom, lift them upward, and release them
+                                passively onto a sloped ramp. The mechanism operates without motors or electronics.
+                            </p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
+
 
                     <!-- Slide 2: Structural Design -->
                     <div class="carousel-slide" data-index="1">
                         <span class="carousel-badge">🔧 Structure</span>
-                        <img src="Images/pingris-structure-build.jpg" alt="Ferris Wheel Structure">
+                        <img src="Images/Wheel_FrontView.png" alt="Tetrix Frame and Wheel Support">
                         <div class="carousel-caption">
-                            <h4>Mechanical Structure & Fabrication</h4>
-                            <p class="short-desc">Steel frame construction with precision hub and spoke design.</p>
-                            <p class="long-desc">The Ferris wheel structure was fabricated from 1-inch square steel tubing for the rim and spokes, with a custom-machined aluminum hub providing the central mounting point and motor attachment. The six-spoke radial design distributes loads evenly and provides mounting points for gondolas at 60° intervals. Critical design considerations included: balancing the structure by placing the heavy LED matrix opposite the motor and electronics gondola, ensuring sufficient rigidity to prevent wobble at maximum RPM (12), and maintaining clearances for 360° rotation without cable interference. The rim was constructed in six curved segments TIG-welded together, with precision jigs ensuring true circular geometry. All structural components were powder-coated matte black for a professional appearance and corrosion resistance. Total structural weight: 18kg, carefully balanced to minimize vibration.</p>
+                            <h4>Mechanical Structure & Frame</h4>
+                            <p class="short-desc">
+                                Tetrix-based frame supporting wheel, axle, pulleys, and ramp.
+                            </p>
+                            <p class="long-desc">
+                                The structure was assembled using Tetrix components to provide rigidity and alignment.
+                                Vertical supports hold the wheel axle while pulleys guide the string connected to the
+                                falling mass. Proper alignment was critical for smooth rotation and consistent release.
+                            </p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 3: LED Matrix Integration -->
+
+                    <!-- Slide 3: Wheel Geometry & Ball Retention -->
                     <div class="carousel-slide" data-index="2">
-                        <span class="carousel-badge">💡 LED System</span>
-                        <img src="Images/pingris-led-matrix.jpg" alt="32×32 RGB LED Matrix">
+                        <span class="carousel-badge">⚙️ Wheel</span>
+                        <img src="Images/Wheel_Model.jpeg" alt="Wheel Cutout Geometry">
                         <div class="carousel-caption">
-                            <h4>LED Matrix Display System</h4>
-                            <p class="short-desc">32×32 RGB addressable LED matrix with real-time game rendering.</p>
-                            <p class="long-desc">The display uses four 16×16 RGB LED matrix panels (WS2812B-based) arranged in a 32×32 configuration, totaling 1024 individually addressable LEDs. Each LED contains an integrated driver chip enabling independent color control (16.7 million colors) via a single data line. The panels are mounted in a custom aluminum frame with a frosted diffuser to soften individual pixel visibility and improve viewing angles. Power distribution required careful design—at maximum brightness (white), the entire display draws 60A at 5V. This is managed through: a high-capacity 5V 24A power supply, multiple parallel power injection points across the matrix to prevent voltage drop, and programmatic brightness limiting to keep average current draw below 20A during gameplay. Data is driven by a Teensy 4.1 microcontroller (600 MHz ARM Cortex-M7) running the FastLED library, capable of achieving 120 FPS refresh rates for smooth animation even during wheel rotation.</p>
+                            <h4>Wheel Geometry & Ball Retention</h4>
+                            <p class="short-desc">
+                                Curved cutouts designed to cradle balls during rotation.
+                            </p>
+                            <p class="long-desc">
+                                The wheel profile was iterated using cardboard prototypes.
+                                Each curved cutout securely holds a ping pong ball during lifting
+                                while allowing gravity-based release near the top of rotation.
+                                Small geometric changes strongly affected release timing.
+                            </p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Slide 4: Game Logic & Physics -->
+                    <!-- Slide 4: Testing & Demonstration -->
                     <div class="carousel-slide" data-index="3">
-                        <span class="carousel-badge">🎮 Software</span>
-                        <img src="Images/pingris-game-code.jpg" alt="Game Code on Screen">
-                        <div class="carousel-caption">
-                            <h4>Rotation-Aware Game Physics</h4>
-                            <p class="short-desc">Custom game engines accounting for rotating reference frame.</p>
-                            <p class="long-desc">The most technically challenging aspect was adapting classic game physics to work correctly on a rotating display. For Pong: the ball's trajectory must account for Coriolis effects in the rotating frame—when the wheel rotates, the ball's apparent path curves. This required implementing physics that calculates ball position in both the rotating frame (for display) and inertial frame (for true motion), then applies appropriate coordinate transformations. For Tetris: gravity direction changes continuously as the wheel rotates—when the LED matrix is at the top of the rotation, "down" points toward the hub; at the side, "down" points radially. The game logic uses encoder feedback to determine current wheel orientation and applies gravity vector accordingly. Additional features include: difficulty scaling (faster rotation = harder gameplay), score tracking across rotations, and game state persistence through full wheel revolutions. All game logic runs at 60 FPS independent of display refresh rate to ensure consistent physics behavior.</p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 5: Multiplayer Controllers -->
-                    <div class="carousel-slide" data-index="4">
-                        <span class="carousel-badge">🕹️ Controllers</span>
-                        <img src="Images/pingris-controllers.jpg" alt="Wireless Game Controllers">
-                        <div class="carousel-caption">
-                            <h4>Wireless Controller System</h4>
-                            <p class="short-desc">Custom wireless controllers supporting 4-player simultaneous gameplay.</p>
-                            <p class="long-desc">Player control is handled through four custom-built wireless controllers communicating via 2.4 GHz RF (using nRF24L01+ modules). Each controller features: a joystick for directional input, action buttons for game-specific controls (ball serve in Pong, rotate/drop in Tetris), RGB LED status indicators showing controller pairing and battery level, and a rechargeable LiPo battery providing 8+ hours of continuous use. The wireless communication protocol implements: low-latency polling (1000 Hz) to ensure responsive controls, automatic controller pairing via unique IDs, and redundant packet transmission to prevent input drops. The base station (mounted on the wheel structure) receives all controller inputs and forwards them to the Teensy microcontroller. Controller enclosures were 3D printed in ergonomic designs with rubberized grips. The system supports hot-swapping controllers during gameplay, allowing players to join or leave without interrupting others.</p>
-                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 6: Public Demonstration -->
-                    <div class="carousel-slide" data-index="5">
                         <span class="carousel-badge">🌟 Demo</span>
-                        <img src="Images/pingris-public-demo.jpg" alt="Crowd Playing Ping-ris">
+                        <img src="Images/Wheel_Demo.png" alt="Testing During Mech Days">
                         <div class="carousel-caption">
-                            <h4>Public Exhibition & User Experience</h4>
-                            <p class="short-desc">Successfully demonstrated at campus events with hundreds of players.</p>
-                            <p class="long-desc">The Ping-ris Wheel has been showcased at multiple university events and public demonstrations, engaging over 500 players across various installations. User testing revealed fascinating insights: players initially struggled with the rotating reference frame but quickly adapted after 30-60 seconds of play. The constantly changing gravity direction in Tetris proved more challenging than anticipated, with even experienced Tetris players needing practice to master the rotation-aware gameplay. Most popular mode: competitive 2-player Pong where rotation speed increases with each rally, creating increasingly chaotic physics. The installation proved highly photogenic, with the illuminated spinning wheel creating striking visual effects in evening demonstrations. Lessons learned include: the importance of clear on-screen instructions (added an attract mode with gameplay tutorials), need for variable difficulty settings to accommodate skill ranges, and value of real-time score displays visible to spectators. Future enhancements planned include additional game modes, online leaderboards, and smartphone controller support via Bluetooth.</p>
+                            <h4>Testing & Demonstration</h4>
+                            <p class="short-desc">
+                                Tested and demonstrated during Mechanical Engineering Design Days.
+                            </p>
+                            <p class="long-desc">
+                                The system was tested repeatedly under different mass values.
+                                Multiple balls were successfully lifted and delivered per run.
+                                Observed inconsistencies at higher loads informed proposed design
+                                improvements for future iterations.
+                            </p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
@@ -1769,49 +1854,29 @@
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>🔧 Mechanical Design & Structural Fabrication</h3>
-                <p>Designed and built the entire Ferris wheel structure from raw materials to working installation.</p>
+
+                <h3>🔧 Mechanical Design & Fabrication</h3>
                 <ul>
-                    <li>Designed 1.2m diameter Ferris wheel structure with six-spoke radial layout providing gondola mounting points at 60° intervals.</li>
-                    <li>Fabricated rim from curved steel tubing sections TIG-welded with precision jigs to maintain true circular geometry.</li>
-                    <li>Machined custom aluminum hub providing central mounting point, motor attachment, and slip-ring electrical connection for rotating components.</li>
-                    <li>Balanced entire structure by strategically positioning counterweights opposite LED matrix and electronics to minimize vibration at operating speeds.</li>
+                    <li>Designed the Ferris wheel profile with curved cutouts for ball retention and timed release.</li>
+                    <li>Prototyped multiple wheel iterations in cardboard to quickly refine pocket shape, spacing, and release point.</li>
+                    <li>Built and reinforced the wheel assembly (two-layer disk + center hub) to improve stiffness and reduce wobble.</li>
+                    <li>Assembled the Tetrix frame supporting the wheel, axle, pulleys, and ramp with careful alignment for smooth rotation.</li>
                 </ul>
 
-                <h3>💡 LED Matrix Integration & Power Distribution</h3>
-                <p>Engineered the complete LED display system with power management for 1024 addressable RGB LEDs.</p>
+                <h3>⚙️ Energy Transfer & Motion Control</h3>
                 <ul>
-                    <li>Integrated four 16×16 WS2812B LED matrix panels into unified 32×32 display with custom mounting frame and frosted diffuser.</li>
-                    <li>Designed power distribution system with multiple parallel injection points handling peak currents of 60A at 5V without voltage drop.</li>
-                    <li>Implemented brightness limiting and current monitoring to prevent power supply overload during peak usage scenarios.</li>
-                    <li>Created LED driver interface using Teensy 4.1 with FastLED library achieving 120 FPS refresh rates for smooth animation.</li>
+                    <li>Implemented gravity-powered rotation using a falling mass and string-and-pulley drive system.</li>
+                    <li>Selected and tuned mass values to balance rotational speed, lifting strength, and release consistency.</li>
+                    <li>Improved energy efficiency by minimizing friction at the axle and reducing string rubbing through rerouting and spacing.</li>
+                    <li>Stabilized motion by correcting wheel balance and adjusting load placement to reduce vibration during faster runs.</li>
                 </ul>
 
-                <h3>💻 Game Development & Physics Programming</h3>
-                <p>Programmed rotation-aware game engines adapting classic arcade physics to rotating reference frame.</p>
+                <h3>🔬 Testing & Iteration</h3>
                 <ul>
-                    <li>Developed Pong game engine accounting for Coriolis effects in rotating frame—implemented coordinate transformations between inertial and rotating reference frames.</li>
-                    <li>Created Tetris game engine with dynamic gravity vector that adjusts based on wheel orientation using encoder position feedback.</li>
-                    <li>Programmed 60 FPS game logic independent of display refresh to ensure consistent physics across variable rotation speeds.</li>
-                    <li>Implemented difficulty scaling algorithms where gameplay challenge increases with wheel rotation speed, creating dynamic competitive environment.</li>
-                </ul>
-
-                <h3>🎮 Wireless Controller System & Multiplayer Infrastructure</h3>
-                <p>Designed and built complete wireless controller system supporting 4-player simultaneous gameplay.</p>
-                <ul>
-                    <li>Designed custom wireless controllers with joysticks, buttons, status LEDs, and rechargeable batteries providing 8+ hours operation.</li>
-                    <li>Implemented low-latency 2.4 GHz RF communication protocol (1000 Hz polling) using nRF24L01+ modules for responsive controls.</li>
-                    <li>Created controller pairing system with automatic device recognition and hot-swap capability allowing join/leave without gameplay interruption.</li>
-                    <li>Designed and 3D printed ergonomic controller enclosures with rubberized grips optimized for extended play sessions.</li>
-                </ul>
-
-                <h3>🔬 Testing, Public Demonstration & User Experience</h3>
-                <p>Conducted extensive testing and public demonstrations to refine gameplay and validate user engagement.</p>
-                <ul>
-                    <li>Performed mechanical stress testing at various rotation speeds to validate structural integrity and identify resonant frequencies.</li>
-                    <li>Conducted user experience testing with 500+ players across multiple public demonstrations at campus events.</li>
-                    <li>Analyzed player learning curves and difficulty progression, implementing tutorial modes and difficulty adjustments based on feedback.</li>
-                    <li>Documented installation setup procedures and maintenance requirements for reliable operation across multiple deployment locations.</li>
+                    <li>Ran repeated trials to identify jamming, early release, over-launching, and ramp misalignment issues.</li>
+                    <li>Adjusted wheel pocket geometry and ramp angle/height to improve ball capture and reduce bounce-outs.</li>
+                    <li>Validated consistency by testing under different loads and observing performance changes across multiple cycles.</li>
+                    <li>Documented key failure modes and proposed next-step fixes (better axle support, guided ramp walls, cleaner release edge).</li>
                 </ul>
 
             </div>
@@ -1839,15 +1904,18 @@
                         <div class="phase-icon">💡</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Concept Development & Physics Analysis</h3>
+                        <h3 class="phase-title">Concept & Constraint Planning</h3>
                         <div class="phase-skills">
                             <span class="skill-tag">Concept Design</span>
-                            <span class="skill-tag">Physics Modeling</span>
-                            <span class="skill-tag">Rotating Frames</span>
-                            <span class="skill-tag">Feasibility Study</span>
+                            <span class="skill-tag">Mechanism Selection</span>
+                            <span class="skill-tag">Constraints</span>
+                            <span class="skill-tag">Sketching</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Initial concept simply displayed static images on a rotating LED matrix. However, analyzing the physics revealed that with position tracking, we could create games where the rotation itself becomes part of the gameplay mechanics. Realizing that gravity direction (from the player's perspective) changes continuously as the wheel rotates led to the breakthrough idea of implementing rotation-aware game physics where the challenge scales with rotation speed. This transformed the concept from passive art installation into interactive gaming platform.
+                            <strong>💡 Key Insight:</strong> The biggest challenge was achieving reliable ball transport with no motors.
+                            A Ferris-wheel-style lifter stood out because it naturally combines three steps—capture, lift, and release—
+                            using only geometry. Early sketches focused on pocket shape, ramp placement, and how to use a falling mass
+                            to drive smooth rotation.
                         </p>
                     </div>
                 </div>
@@ -1859,15 +1927,18 @@
                         <div class="phase-icon">🔧</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Structural Design & Fabrication</h3>
+                        <h3 class="phase-title">Build & Structural Assembly</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">Steel Fabrication</span>
-                            <span class="skill-tag">Welding</span>
-                            <span class="skill-tag">Load Analysis</span>
-                            <span class="skill-tag">Balancing</span>
+                            <span class="skill-tag">Tetrix Assembly</span>
+                            <span class="skill-tag">Alignment</span>
+                            <span class="skill-tag">Rigidity</span>
+                            <span class="skill-tag">Rapid Prototyping</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> First structural prototype used a four-spoke design which proved insufficient—the structure flexed noticeably during rotation causing LED matrix misalignment. Switching to six spokes dramatically improved rigidity with minimal weight penalty. More critically, initial assembly had severe vibration at 8 RPM—discovered this was due to LED matrix weight creating imbalance. Solving this required strategic placement of battery packs and electronics as counterweights, followed by dynamic balancing with the wheel spinning. The final balanced structure runs smoothly across entire 0-12 RPM range.
+                            <strong>💡 Key Insight:</strong> Small alignment errors caused big performance issues.
+                            The wheel needed to stay rigid and centered so the pockets could meet the ball smoothly at the bottom
+                            and drop cleanly onto the ramp at the top. Reinforcing the wheel and squaring the Tetrix frame reduced
+                            wobble and improved repeatability.
                         </p>
                     </div>
                 </div>
@@ -1876,18 +1947,21 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">03</div>
-                        <div class="phase-icon">💡</div>
+                        <div class="phase-icon">⚙️</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">LED Matrix Integration & Power Management</h3>
+                        <h3 class="phase-title">Gravity Drive & Motion Tuning</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">WS2812B LEDs</span>
-                            <span class="skill-tag">Power Distribution</span>
-                            <span class="skill-tag">Current Management</span>
-                            <span class="skill-tag">FastLED Library</span>
+                            <span class="skill-tag">Energy Transfer</span>
+                            <span class="skill-tag">Pulley System</span>
+                            <span class="skill-tag">Friction Reduction</span>
+                            <span class="skill-tag">Speed Control</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Initial LED wiring used single power injection point at corner—this caused severe brightness fall-off across the matrix and warm LEDs at the far end. Measuring voltage revealed 0.8V drop across 1 meter of power bus at 15A. Solution required multiple power injection points (one per 16×16 panel) with heavy gauge wire (12 AWG) forming a power distribution grid. Additionally, discovered that enabling all LEDs at full white would draw 60A—way beyond power supply capacity. Implemented intelligent brightness limiting that monitors total current draw and dynamically adjusts per-pixel brightness to stay within 24A limit while maintaining good visual appearance.
+                            <strong>💡 Key Insight:</strong> More weight did not always mean better performance.
+                            Higher loads increased rotation speed, but also increased bounce-outs and inconsistent releases.
+                            Tuning the falling mass, reducing string slip, and lowering friction at the axle helped keep the wheel
+                            rotating smoothly without “launching” the balls.
                         </p>
                     </div>
                 </div>
@@ -1896,58 +1970,21 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">04</div>
-                        <div class="phase-icon">🎮</div>
-                    </div>
-                    <div class="phase-content">
-                        <h3 class="phase-title">Game Physics & Rotation-Aware Algorithms</h3>
-                        <div class="phase-skills">
-                            <span class="skill-tag">C++ Programming</span>
-                            <span class="skill-tag">Coordinate Transforms</span>
-                            <span class="skill-tag">Real-time Systems</span>
-                            <span class="skill-tag">Game Logic</span>
-                        </div>
-                        <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> First Pong implementation simply drew the game on rotating display—but ball trajectory looked wrong, it curved unnaturally. The issue: wasn't accounting for the rotating reference frame. Ball moves in straight lines in inertial frame, but appears to curve when viewed from rotating frame (Coriolis effect). Solution required implementing dual coordinate systems: calculating physics in inertial frame, then transforming to rotating frame for display. For Tetris, the big challenge was dynamically rotating gravity—tried applying gravity relative to wheel position but pieces moved erratically during fast rotation. Final solution: smooth gravity vector interpolation that gradually rotates as wheel turns, giving players predictable piece motion even at 12 RPM.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Phase 5 -->
-                <div class="journey-phase">
-                    <div class="phase-marker">
-                        <div class="phase-number">05</div>
-                        <div class="phase-icon">🕹️</div>
-                    </div>
-                    <div class="phase-content">
-                        <h3 class="phase-title">Wireless Controllers & Multiplayer System</h3>
-                        <div class="phase-skills">
-                            <span class="skill-tag">RF Communication</span>
-                            <span class="skill-tag">nRF24L01+</span>
-                            <span class="skill-tag">Protocol Design</span>
-                            <span class="skill-tag">3D Printing</span>
-                        </div>
-                        <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Initial controller design used Bluetooth for simplicity—but Bluetooth latency (50-100ms) made gameplay feel sluggish, especially during fast wheel rotation where input timing is critical. Switching to 2.4 GHz RF with nRF24L01+ modules reduced latency to <5ms, dramatically improving responsiveness. However, discovered packet loss issues when multiple controllers transmitted simultaneously. Solution: implemented time-division multiplexing where each controller transmits in designated time slots, coordinated by base station. This eliminated collisions while maintaining low latency. Also learned that ergonomic controller design matters—early 3D printed enclosures were uncomfortable for extended play; final iteration includes rounded edges, rubberized grips, and thumb-rest contouring based on user feedback.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Phase 6 -->
-                <div class="journey-phase">
-                    <div class="phase-marker">
-                        <div class="phase-number">06</div>
                         <div class="phase-icon">🌟</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">User Testing & Public Demonstrations</h3>
+                        <h3 class="phase-title">Testing, Failure Modes & Iteration</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">User Experience</span>
-                            <span class="skill-tag">Public Installation</span>
-                            <span class="skill-tag">Feedback Analysis</span>
-                            <span class="skill-tag">Feature Iteration</span>
+                            <span class="skill-tag">Testing</span>
+                            <span class="skill-tag">Failure Analysis</span>
+                            <span class="skill-tag">Iteration</span>
+                            <span class="skill-tag">Performance Tuning</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Public demonstrations revealed surprising user behavior: first-time players struggled significantly more than expected with the rotating gameplay, often taking 2-3 minutes before understanding how gravity direction changes. This led to implementing an interactive tutorial mode that slows rotation initially and uses on-screen arrows showing current gravity direction. Also discovered that spectators found it difficult to follow gameplay from ground level—added large score displays and player indicators that remain readable from any viewing angle. Most valuable feedback: players wanted competitive modes with escalating difficulty. Implemented "rally mode" for Pong where rotation speed increases with each successful hit, and "survival mode" for Tetris where gravity strength increases over time. These modes dramatically increased engagement and replayability.
+                            <strong>💡 Key Insight:</strong> Consistency came down to controlling the handoff between wheel and ramp.
+                            Most failures happened during capture (jamming) or release (ball bouncing out or missing the ramp).
+                            Iterations focused on refining pocket geometry, adjusting ramp angle/position, and improving axle support
+                            to reduce tilt during rotation.
                         </p>
                     </div>
                 </div>
@@ -2060,7 +2097,7 @@
         // ========================================
         
         const carousels = {
-            wheelCarousel: { currentIndex: 0, totalSlides: 6 },
+            wheelCarousel: { currentIndex: 0, totalSlides: 4 },
         };
 
         // AUTO-ROTATION SETTINGS
