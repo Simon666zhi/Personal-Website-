@@ -907,13 +907,6 @@
                 display: block !important; /* Show on mobile */
                 margin-top: 0rem;
             }
-            /* Disable hover reveal/zoom on mobile to avoid sticky states */
-            .carousel-slide.active:hover .carousel-caption {
-                transform: translateY(100%);
-            }
-            .carousel-slide.active:hover img {
-                transform: none;
-            }
             /* On mobile, show caption only when explicitly activated */
             .carousel-slide.mobile-caption-active .carousel-caption {
                 transform: translateY(0);
@@ -940,6 +933,22 @@
             font-size: 0.95rem;
             font-weight: 600;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Overlay to capture outside taps when mobile caption is open */
+        .caption-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 999; /* Above carousel, below sticky nav */
+        }
+
+        .caption-overlay.active {
+            display: block;
         }
 
         /* ========================================
@@ -2085,6 +2094,9 @@
         <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
     </footer>
 
+    <!-- Overlay to capture outside taps when caption is open on mobile -->
+    <div id="captionOverlay" class="caption-overlay"></div>
+
     <script>
         // Progress Bar Update on Scroll
         window.addEventListener('scroll', function() {
@@ -2146,19 +2158,15 @@
             mazeCarousel: { currentIndex: 0, totalSlides: 6 },
         };
 
-        // Helper: close all mobile captions and collapse expanded states
-        function closeMobileCaptions() {
-            // Hide mobile captions
-            document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
-                slide.classList.remove('mobile-caption-active');
-            });
-            // Collapse any expanded caption content
-            document.querySelectorAll('.carousel-caption.expanded').forEach(cap => {
-                cap.classList.remove('expanded');
-                const btn = cap.querySelector('.caption-expand-btn');
-                if (btn) btn.textContent = '📖 Read More';
-            });
+        // Overlay controller for mobile caption closing
+        const captionOverlay = document.getElementById('captionOverlay');
+        function setOverlayActive(active) {
+            if (!captionOverlay) return;
+            if (active) captionOverlay.classList.add('active');
+            else captionOverlay.classList.remove('active');
         }
+
+        // (Reverted) No global mobile caption closer; use per-event logic
 
         // AUTO-ROTATION SETTINGS
         let autoRotateTimer = null;
@@ -2214,8 +2222,7 @@
             const currentIndex = carousels[carouselId].currentIndex;
             const total = slides.length;
 
-            // Always close mobile captions when updating positions (mobile consistency)
-            closeMobileCaptions();
+            // (Reverted) Do not forcibly close captions on update
             
             slides.forEach((slide, index) => {
                 slide.classList.remove('active', 'left', 'right', 'hidden');
@@ -2264,7 +2271,6 @@
             pauseAutoRotate();
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
-            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2273,7 +2279,6 @@
             pauseAutoRotate();
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
-            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2281,7 +2286,6 @@
         function goToSlide(carouselId, index) {
             pauseAutoRotate();
             carousels[carouselId].currentIndex = index;
-            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2364,6 +2368,8 @@
                         // On mobile, toggle caption visibility for active slide
                         e.stopPropagation();
                         this.classList.toggle('mobile-caption-active');
+                        // Toggle overlay based on caption state
+                        setOverlayActive(this.classList.contains('mobile-caption-active'));
                     }
                 });
             });
@@ -2373,10 +2379,24 @@
                 if (window.innerWidth <= 768) {
                     const clickedInsideCarousel = e.target.closest('.carousel-container');
                     if (!clickedInsideCarousel) {
-                        closeMobileCaptions();
+                        document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
+                            slide.classList.remove('mobile-caption-active');
+                        });
+                        setOverlayActive(false);
                     }
                 }
             });
+
+            // Overlay specific click to close captions (prevents image hover/zoom)
+            if (captionOverlay) {
+                captionOverlay.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
+                        slide.classList.remove('mobile-caption-active');
+                    });
+                    setOverlayActive(false);
+                });
+            }
             
             // Pause auto-rotation when user hovers over carousel
             document.querySelectorAll('.carousel-container').forEach(carousel => {
