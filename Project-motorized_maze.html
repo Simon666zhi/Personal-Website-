@@ -885,6 +885,33 @@
                 height: 45px;
                 font-size: 1.2rem;
             }
+
+            .carousel-swipe-hint {
+                display: block !important; /* Show on mobile */
+                margin-top: 0rem;
+            }
+        }
+
+        /* Swipe hint - HIDDEN on desktop by default */
+        .carousel-swipe-hint {
+            display: none;
+            text-align: center;
+            margin: 1rem auto 0; /* More top margin to clear carousel controls */
+            padding: 1rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .carousel-swipe-hint p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         /* ========================================
@@ -1466,8 +1493,22 @@
                 font-size: 1.1rem;
             }
 
+            /* Remove SIDE padding from container */
+            .container {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            /* Make content sections edge-to-edge */
             .content-section {
                 padding: 2rem 1.5rem;
+                border-left: none !important;
+                border-right: none !important;
+            }
+
+            /* Hide animated border on mobile */
+            .content-section::before {
+                display: none !important;
             }
 
             .section-title {
@@ -1485,6 +1526,28 @@
             .specs-table th,
             .specs-table td {
                 padding: 0.8rem;
+            }
+
+            /* Make gallery caption text smaller on mobile */
+            .carousel-caption h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .caption-expand-btn {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
+            }
+
+            .carousel-swipe-hint {
+                display: block !important;
+                margin-top: 0rem;
             }
 
             .racing-track-nav {
@@ -1528,17 +1591,26 @@
                 font-size: 0.7rem;
             }
 
+            /* Reorder navigation: Previous -> All Projects -> Next */
+            .checkpoint-left {
+                order: 1;
+            }
+
             .pit-stop {
-                order: -1;
-                padding: 1.2rem 2rem;
+                order: 2;
+                padding: 1rem 1.5rem;
+            }
+
+            .checkpoint-right {
+                order: 3;
             }
 
             .pit-stop-icon {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 
             .pit-stop-text {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
             .racing-divider {
@@ -1794,6 +1866,11 @@
                 <button class="carousel-btn" onclick="nextSlide('mazeCarousel')">❯</button>
             </div>
 
+            <!-- ✨ Mobile swipe hint -->
+            <div class="carousel-swipe-hint">
+                <p>💡 Swipe left or right to see more images</p>
+            </div>
+
         </div>
 
         <!-- My Contributions -->
@@ -1802,46 +1879,33 @@
                 <span>⚡</span>
                 My Contributions
             </h2>
-            <div class="section-content">
-                <h3>🔧 Mechanical Design & CAD Modeling</h3>
-                <ul>
-                    <li>Contributed to maze layout design planning track paths, wall placement, and obstacle positioning to create engaging gameplay balancing challenge with achievability for 8-12 year demographic</li>
-                    <li>Participated in material selection evaluation comparing cardboard prototyping versus final plywood construction, analyzing tradeoffs in cost, durability, manufacturability, and aesthetic appeal</li>
-                    <li>Assisted with dimensional planning ensuring 300mm × 300mm board size accommodated motor mechanisms, electronics housing, and player movement space within manufacturing constraints</li>
-                    <li>Supported integration of 3D-printed bridge components connecting stationary goal area above rotating center wall, validating structural support under gameplay loading conditions</li>
-                </ul>
 
-                <h3>🏗️ Fabrication & Assembly</h3>
+            <div class="section-content">
+
+                <h3>🔧 Mechanical Design & Fabrication</h3>
                 <ul>
-                    <li>Executed laser cutting of plywood maze walls, tracks, and structural components following CAD specifications with precision tolerances ensuring consistent slot widths for figurine movement</li>
-                    <li>Performed extensive sanding of track surfaces reducing friction to specified 0-5N range (±3N tolerance) through iterative testing with figurines and force measurement</li>
-                    <li>Assembled motor mounting structures integrating stepper motor housing for revolving wall and DC motor platform for vertical wall mechanism, ensuring secure attachment preventing vibration-induced loosening</li>
-                    <li>Implemented cable management routing wiring through wooden structure maintaining clean appearance while ensuring proper insulation and child-safe operation meeting toy safety standards</li>
+                    <li>Planned maze layout including track paths, wall placement, and obstacle positioning to balance challenge and playability for ages 8–12</li>
+                    <li>Evaluated material options from cardboard prototypes to final plywood construction, considering durability, cost, and manufacturability</li>
+                    <li>Laser-cut and assembled plywood components following CAD dimensions, ensuring smooth figurine movement and precise fit</li>
+                    <li>Integrated 3D-printed bridge structures to support the elevated goal area above the rotating center wall</li>
                 </ul>
 
                 <h3>💻 Electronics & Programming</h3>
                 <ul>
-                    <li>Wired electrical connections between Arduino Uno, ULN2003 stepper motor driver, and 28BYJ-48 stepper motor following Fritzing schematics, validating continuity and proper pin assignments</li>
-                    <li>Configured Arduino Mega circuit integrating two HC-SR04 ultrasonic sensors and active buzzer with appropriate power distribution and signal conditioning</li>
-                    <li>Tested and validated Arduino IDE code for stepper motor control verifying 2048 steps per revolution calculation, pin initialization (8, 10, 9, 11), and 4 RPM speed setting produced specified 2-4 cycles/second rotation</li>
-                    <li>Debugged ultrasonic sensor firmware troubleshooting distance calculation algorithms (speed of sound 34cm/ms, halving for round-trip), trigger logic (3cm proximity threshold), and buzzer activation timing</li>
+                    <li>Wired Arduino boards, stepper motor drivers, motors, ultrasonic sensors, and buzzer following circuit schematics</li>
+                    <li>Configured and tested stepper motor control logic, verifying correct pin assignments, step counts, and rotation speeds</li>
+                    <li>Programmed ultrasonic sensor distance detection and buzzer activation logic for reliable goal detection</li>
+                    <li>Debugged firmware issues related to timing, sensor accuracy, and motor responsiveness through iterative testing</li>
                 </ul>
 
-                <h3>🔬 Testing & Validation</h3>
+                <h3>🔬 Testing, Validation & Team Coordination</h3>
                 <ul>
-                    <li>Conducted friction testing measuring force required for figurine movement through tracks using spring scales, iterating sanding process until achieving 0-5N specification across all track sections</li>
-                    <li>Performed motor speed calibration timing revolving wall rotation cycles and vertical wall movement cycles, adjusting Arduino code and mechanical gearing to meet 2-4 cycles/second and 0.5-1 cycle/second specifications respectively</li>
-                    <li>Validated ultrasonic sensor accuracy testing detection range, response time, and false-positive/negative rates across various figurine positions and orientations at goal locations</li>
-                    <li>Executed gameplay testing with multiple users from target demographic (8-12 years) gathering feedback on difficulty balance, clarity of rules, movement smoothness, and overall engagement level</li>
+                    <li>Conducted friction testing on maze tracks and refined sanding process to achieve smooth, consistent movement</li>
+                    <li>Calibrated motor speeds and verified system performance met design specifications through repeated trials</li>
+                    <li>Participated in gameplay testing sessions with users, collecting feedback on difficulty, engagement, and usability</li>
+                    <li>Contributed to documentation, component tracking, and team coordination throughout design iterations</li>
                 </ul>
 
-                <h3>📋 Documentation & Project Management</h3>
-                <ul>
-                    <li>Contributed to ME 100 final report documentation including technical drawings, mechanism descriptions, constraints/criteria validation, and remaining challenges assessment</li>
-                    <li>Participated in team meetings coordinating task assignments across revolving wall subsystem, vertical wall subsystem, electronics integration, and structural fabrication workstreams</li>
-                    <li>Maintained component inventory tracking Arduino boards, motors, sensors, power supplies, hardware fasteners, and material stock ensuring availability for iterative prototyping cycles</li>
-                    <li>Assisted with timeline management adapting to challenges including motor selection changes (AC → DC → stepper), piston instability issues requiring support structure additions, and roof sturdiness concerns addressed through 3D-printed bridges</li>
-                </ul>
             </div>
         </div>
 
@@ -1851,36 +1915,36 @@
                 <span>💡</span>
                 Design Journey
             </h2>
-            
+
             <div class="section-content">
                 <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    From mechanical puzzle to precision control system - the evolution of an interactive motorized maze
+                    From mechanical puzzle to precision-controlled interactive maze
                 </p>
             </div>
 
             <div class="journey-timeline">
 
-                <!-- Phase 1: Concept & Requirements -->
+                <!-- Phase 1 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">01</div>
                         <div class="phase-icon">🎬</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Concept Development & Requirements Definition</h3>
+                        <h3 class="phase-title">Concept Development & Requirements</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">Maze Runner Inspiration</span>
-                            <span class="skill-tag">Target Demographics</span>
-                            <span class="skill-tag">Constraints & Criteria</span>
+                            <span class="skill-tag">Inspiration</span>
+                            <span class="skill-tag">Target Users</span>
+                            <span class="skill-tag">Constraints</span>
                             <span class="skill-tag">Function Prioritization</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The team drew inspiration from The Maze Runner series to create a competitive 2-player board game where mechanically moving walls create dynamic obstacles unlike traditional static mazes. The target demographic of 8-12 years informed design decisions prioritizing safety (no sharp edges, insulated electronics, safe sound/light levels) while maintaining engaging challenge. Key required functions were prioritized: revolving center wall (primary), vertical moving walls (secondary), goal detection sensors, and celebration sound, with LED lights deprioritized due to time constraints. The constraints table established measurable targets: 0-5N friction for smooth movement, 2-4 cycles/second for revolving wall, 0.5-1 cycle/second for vertical walls, 2-5dB sound level, and less than 3Hz flashing lights (safety). This structured requirements definition provided clear success criteria guiding subsequent design decisions.
+                            <strong>💡 Key Insight:</strong> Inspired by *The Maze Runner*, the team designed a competitive 2-player maze with dynamically moving walls. Requirements were defined around safety and engagement for ages 8–12, prioritizing the revolving wall, vertical obstacles, and goal detection while setting measurable constraints for friction, speed, sound, and safety.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Motor Selection & Mechanism Design -->
+                <!-- Phase 2 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">02</div>
@@ -1890,17 +1954,17 @@
                         <h3 class="phase-title">Motor Selection & Mechanism Design</h3>
                         <div class="phase-skills">
                             <span class="skill-tag">Motor Evaluation</span>
-                            <span class="skill-tag">Stepper vs DC Motors</span>
-                            <span class="skill-tag">Crankshaft Mechanics</span>
-                            <span class="skill-tag">Arduino Integration</span>
+                            <span class="skill-tag">Stepper Control</span>
+                            <span class="skill-tag">Crank Mechanisms</span>
+                            <span class="skill-tag">Design Iteration</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Initial revolving wall prototypes using AC motors failed due to insufficient speed control precision, while DC motors proved unstable with inconsistent rotation speeds—critical failures for fair competitive gameplay. Switching to 28BYJ-48 stepper motor with ULN2003 driver solved these issues providing 2048 steps per revolution (32-step motor × 64:1 gear reduction) enabling precise Arduino-controlled speed. For vertical walls, the team adapted crankshaft principles from automotive engines: a 9V DC gearmotor drives rotating platform with offset connection points, converting rotary motion to linear vertical displacement in two wall segments connected in series. This elegant solution uses one motor for two obstacles, reducing cost/complexity. Early piston mechanism suffered instability (falling off platform), resolved by adding cardboard support structures constraining motion without introducing friction. The motor selection and mechanical design iteration demonstrated engineering problem-solving: recognizing failures, analyzing root causes (lack of control precision, mechanical instability), and implementing targeted solutions.
+                            <strong>💡 Key Insight:</strong> AC and DC motors lacked the precision needed for fair gameplay, leading to adoption of a stepper motor for the revolving wall. Vertical walls used a crankshaft mechanism driven by a single DC motor, converting rotation into linear motion while minimizing complexity and cost.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 3: Material Transition & Fabrication -->
+                <!-- Phase 3 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">03</div>
@@ -1909,59 +1973,40 @@
                     <div class="phase-content">
                         <h3 class="phase-title">Material Transition & Fabrication</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">Cardboard Prototyping</span>
-                            <span class="skill-tag">Plywood Construction</span>
+                            <span class="skill-tag">Prototyping</span>
                             <span class="skill-tag">Laser Cutting</span>
-                            <span class="skill-tag">Friction Reduction</span>
+                            <span class="skill-tag">Plywood Build</span>
+                            <span class="skill-tag">Friction Control</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Cardboard prototypes enabled rapid iteration and mechanism testing but exhibited warping, crushing, and inconsistent friction—unsuitable for final product durability and gameplay fairness. Transitioning to plywood provided dimensional stability, smooth consistent surface finish, and professional aesthetic appealing to 8-12 year target demographic. Laser cutting ensured precision slot widths critical for fair gameplay (both players experience identical resistance). However, wood's rigidity introduced new challenges: the piston mechanism had higher binding/sticking potential compared to flexible cardboard, requiring careful calibration documented as "remaining challenge." Extensive track sanding reduced friction to specified 0-5N range, a labor-intensive but essential step for smooth figurine movement. The roof sturdiness concern (rotating wall torque causing flex/wobble) was addressed through 3D-printed bridge supports connecting stationary goal area above moving center wall—demonstrating hybrid manufacturing combining woodworking with additive manufacturing. This material evolution illustrates engineering iteration: prototyping with accessible materials, identifying limitations, and upgrading to production-appropriate materials while managing new constraints introduced.
+                            <strong>💡 Key Insight:</strong> Cardboard enabled fast prototyping but lacked durability, prompting a transition to laser-cut plywood. Precision cutting ensured consistent gameplay, while extensive sanding reduced friction. Structural issues were solved using 3D-printed bridge supports, combining subtractive and additive manufacturing.
                         </p>
                     </div>
                 </div>
 
-                <!-- Phase 4: Electronics Integration & Programming -->
+                <!-- Phase 4 -->
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">04</div>
                         <div class="phase-icon">💻</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">Electronics Integration & Arduino Programming</h3>
+                        <h3 class="phase-title">Electronics Integration & Programming</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">Arduino IDE</span>
-                            <span class="skill-tag">Stepper Motor Control</span>
+                            <span class="skill-tag">Arduino</span>
+                            <span class="skill-tag">Stepper Control</span>
                             <span class="skill-tag">Ultrasonic Sensors</span>
                             <span class="skill-tag">Circuit Design</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> The dual-Arduino architecture separated motor control (Arduino Uno + stepper motor) from sensor/sound functions (Arduino Mega + ultrasonics + buzzer) enabling parallel development and troubleshooting. Programming the stepper motor required understanding motor specifications: 32 steps per revolution in full-step mode with 64:1 gear reduction yielding 2048 steps per complete rotation. Arduino IDE code initializes pins (8, 10, 9, 11) for ULN2003 driver communication and sets speed to 4 RPM producing specified 2-4 cycles/second rotation. The ultrasonic sensor code demonstrates distance calculation: trigger 10μs pulse, measure echo return time with pulseIn(), calculate distance using speed of sound (34cm/ms), divide by 2 for round-trip, activate buzzer when figurine within 3cm. Power management proved critical: separate motor power supply prevents voltage sag affecting Arduino logic, with proper insulation ensuring child safety. The Fritzing electrical schematics document all connections for reproducibility. Two buzzer issues identified during testing (duration too long, continuous sound if figurine remains at finish) represent software refinement opportunities but don't compromise core victory detection functionality demonstrating practical engineering: delivering working solution acknowledging areas for improvement.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Phase 5: Testing & Validation -->
-                <div class="journey-phase">
-                    <div class="phase-marker">
-                        <div class="phase-number">05</div>
-                        <div class="phase-icon">🎮</div>
-                    </div>
-                    <div class="phase-content">
-                        <h3 class="phase-title">Testing, Validation & Gameplay Refinement</h3>
-                        <div class="phase-skills">
-                            <span class="skill-tag">Constraints Verification</span>
-                            <span class="skill-tag">User Testing</span>
-                            <span class="skill-tag">Safety Validation</span>
-                            <span class="skill-tag">Performance Tuning</span>
-                        </div>
-                        <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> Comprehensive testing validated that most constraints/criteria were met: friction achieved 0-5N specification through iterative sanding, revolving wall maintained consistent 2-4 cycles/second speed via stepper motor precision, vertical walls operated at 0.5-1 cycle/second through DC motor gearbox tuning, and sensors reliably detected figurine arrival triggering celebration sound at safe 2-5dB level. The team successfully demonstrated all primary functions (revolving wall, vertical walls, sensors, sound) with smooth player movement through precision-sanded wooden tracks. However, testing identified areas for improvement: buzzer duration extended beyond ideal length and continued sounding if figurine remained at finish (annoying rather than celebratory)—representing software logic refinement opportunity. LED lights were not implemented due to time constraints but deemed non-critical since they wouldn't affect core gameplay. User testing with target demographic revealed the "sweet spot" between challenging and achievable: motor speeds fast enough to create tension but slow enough to allow success with practice. Safety validation confirmed no sharp edges (all sanded), proper electrical insulation, and appropriate sound levels. The team documented "remaining challenges" honestly: piston mechanism binding potential in wood (versus flexible cardboard), wire routing/hiding for cleaner appearance, and buzzer logic improvements—demonstrating mature engineering: delivering functional product while identifying opportunities for next iteration.
+                            <strong>💡 Key Insight:</strong> A dual-Arduino setup separated motor control from sensing and sound, simplifying debugging. Stepper motor code enabled precise speed control, while ultrasonic sensors reliably detected goal completion. Power isolation and insulation ensured stable operation and child safety.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
+
 
     <!-- Footer with F1 Racing Road Guide Navigation -->
     <footer>
@@ -2250,6 +2295,52 @@
                 btn.textContent = '📖 Read More';
             }
         }
+
+        (function() {
+            const mq = window.matchMedia('(max-width: 768px)');
+            function initNavSwipe() {
+                const nav = document.querySelector('.racing-track-nav');
+                if (!nav) return;
+                let startX = 0;
+                let startY = 0;
+                let startTime = 0;
+                nav.addEventListener('touchstart', function(e) {
+                    const t = e.changedTouches[0];
+                    startX = t.clientX;
+                    startY = t.clientY;
+                    startTime = Date.now();
+                }, { passive: true });
+                nav.addEventListener('touchend', function(e) {
+                    const t = e.changedTouches[0];
+                    const dx = t.clientX - startX;
+                    const dy = t.clientY - startY;
+                    const dt = Date.now() - startTime;
+                    if (Math.abs(dx) < 50) return;
+                    if (Math.abs(dy) > 30) return;
+                    if (dt > 1000) return;
+                    const prev = document.querySelector('.track-checkpoint.checkpoint-left');
+                    const next = document.querySelector('.track-checkpoint.checkpoint-right');
+                    if (dx < 0 && next && next.href) {
+                        window.location.href = next.href;
+                    } else if (dx > 0 && prev && prev.href) {
+                        window.location.href = prev.href;
+                    }
+                });
+            }
+            function setup() {
+                if (mq.matches) initNavSwipe();
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setup);
+            } else {
+                setup();
+            }
+            if (mq.addEventListener) {
+                mq.addEventListener('change', setup);
+            } else if (mq.addListener) {
+                mq.addListener(setup);
+            }
+        })();
     </script>
 
 </body>
