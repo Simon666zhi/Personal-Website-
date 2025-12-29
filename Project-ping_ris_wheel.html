@@ -882,6 +882,7 @@
         @media (max-width: 768px) {
             .carousel-container {
                 height: 450px;
+                margin-bottom: 4rem;
             }
             
             .carousel-slide {
@@ -913,6 +914,8 @@
                 height: 45px;
                 font-size: 1.2rem;
             }
+
+            /* Swipe hint positioning handled by margins; no absolute offsets needed */
         }
 
         /* ========================================
@@ -1494,8 +1497,25 @@
                 font-size: 1.1rem;
             }
 
+            /* Full-width containers on mobile */
+            .container {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 4rem;
+            }
+
             .content-section {
                 padding: 2rem 1.5rem;
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                background: rgba(10, 14, 35, 0.95);
+                border-left: none !important;
+                border-right: none !important;
+            }
+
+            .content-section::before {
+                display: none !important;
             }
 
             .section-title {
@@ -1513,6 +1533,13 @@
             .specs-table th,
             .specs-table td {
                 padding: 0.8rem;
+            }
+
+            /* Carousel full-width on mobile */
+            .carousel-container {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
             }
 
             .racing-track-nav {
@@ -1556,9 +1583,18 @@
                 font-size: 0.7rem;
             }
 
+            /* Reorder navigation: Previous -> All Projects -> Next */
+            .checkpoint-left {
+                order: 1;
+            }
+
             .pit-stop {
-                order: -1;
+                order: 2;
                 padding: 1.2rem 2rem;
+            }
+
+            .checkpoint-right {
+                order: 3;
             }
 
             .pit-stop-icon {
@@ -1607,6 +1643,50 @@
                 font-size: 0.8rem;
                 padding: 0.4rem 1rem;
             }
+
+            /* Mobile: match circadian hero video behavior */
+            .video-bg-blur { display: none; }
+            #hero-video {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: none;
+                max-width: none;
+                max-height: none;
+                object-fit: cover;
+                filter: brightness(0.4);
+                z-index: 0;
+                border: none;
+                box-shadow: none;
+                animation: none;
+            }
+            .hero-overlay { z-index: 1; }
+            .hero-content { z-index: 2; }
+        }
+
+        /* Swipe hint - hidden on desktop, shown on mobile */
+        .carousel-swipe-hint {
+            display: none;
+            text-align: center;
+            margin: 1rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .carousel-swipe-hint p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        @media (max-width: 768px) {
+            .carousel-swipe-hint { display: block; }
         }
     </style>
 </head>
@@ -1845,6 +1925,11 @@
                 <button class="carousel-btn" onclick="nextSlide('wheelCarousel')">❯</button>
             </div>
 
+            <!-- ✨ Mobile swipe hint -->
+            <div class="carousel-swipe-hint">
+                <p>💡 Swipe left or right to see more images</p>
+            </div>
+
         </div>
 
         <!-- My Contributions -->
@@ -1888,12 +1973,6 @@
                 <span>💡</span>
                 Design Journey
             </h2>
-            
-            <div class="section-content">
-                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    From arcade classics to rotating reality - the evolution of an interactive LED gaming platform
-                </p>
-            </div>
 
             <div class="journey-timeline">
 
@@ -2041,6 +2120,11 @@
         <!-- Copyright Info -->
         <p style="font-size: 0.95rem; letter-spacing: 1px;">Copyright © 2025 Yiqing Zhi</p>
     </footer>
+
+    <!-- Loading Screen -->
+    <div id="loading" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); color: white; display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <h1>Loading Video...</h1>
+    </div>
 
     <script>
         // Progress Bar Update on Scroll
@@ -2226,6 +2310,9 @@
             
             // Start auto-rotation
             startAutoRotate('wheelCarousel');
+
+            // Enable touch swipe on mobile
+            initSwipeHandlers('wheelCarousel');
             
             // Click on side images to navigate
             document.querySelectorAll('.carousel-slide').forEach(slide => {
@@ -2263,6 +2350,67 @@
             });
         });
 
+        // TOUCH SWIPE FUNCTIONALITY
+        function initSwipeHandlers(carouselId) {
+            const container = document.getElementById(carouselId);
+            if (!container) return;
+            let startX = 0;
+            let deltaX = 0;
+            let isSwiping = false;
+            const threshold = 40;
+
+            container.addEventListener('touchstart', (e) => {
+                if (!e.touches || e.touches.length === 0) return;
+                isMouseOverCarousel = true;
+                pauseAutoRotate();
+                startX = e.touches[0].clientX;
+                deltaX = 0;
+                isSwiping = true;
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isSwiping || !e.touches || e.touches.length === 0) return;
+                deltaX = e.touches[0].clientX - startX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', () => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                if (Math.abs(deltaX) > threshold) {
+                    if (deltaX < 0) nextSlide(carouselId);
+                    else prevSlide(carouselId);
+                }
+                isMouseOverCarousel = false;
+            }, { passive: true });
+
+            // Desktop mouse drag support
+            container.addEventListener('mousedown', (e) => {
+                isMouseOverCarousel = true;
+                pauseAutoRotate();
+                startX = e.clientX;
+                deltaX = 0;
+                isSwiping = true;
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isSwiping) return;
+                deltaX = e.clientX - startX;
+            });
+
+            const endMouseSwipe = () => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                if (Math.abs(deltaX) > threshold) {
+                    if (deltaX < 0) nextSlide(carouselId);
+                    else prevSlide(carouselId);
+                }
+                isMouseOverCarousel = false;
+            };
+
+            container.addEventListener('mouseup', endMouseSwipe);
+            container.addEventListener('mouseleave', () => { isSwiping = false; isMouseOverCarousel = false; });
+        }
+
         // Toggle caption expansion
         function toggleCaption(event) {
             event.stopPropagation();
@@ -2276,6 +2424,12 @@
                 btn.textContent = '📖 Read More';
             }
         }
+
+        // Hide loading screen once the window has loaded
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            if (loading) loading.style.display = 'none';
+        });
     </script>
 
 </body>
