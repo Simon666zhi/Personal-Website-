@@ -720,6 +720,11 @@
             transform: translateY(0);
         }
 
+        /* Mobile: show caption when slide has mobile-caption-active class */
+        .carousel-slide.mobile-caption-active .carousel-caption {
+            transform: translateY(0);
+        }
+
         .carousel-caption h4 {
             font-size: 1.3rem;
             color: #667eea;
@@ -889,6 +894,11 @@
             .carousel-swipe-hint {
                 display: block !important; /* Show on mobile */
                 margin-top: 0rem;
+            }
+
+            /* On mobile, disable hover and use tap instead */
+            .carousel-slide.active:hover .carousel-caption {
+                transform: translateY(100%);
             }
         }
 
@@ -1918,7 +1928,6 @@
 
             <div class="section-content">
                 <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    From mechanical puzzle to precision-controlled interactive maze
                 </p>
             </div>
 
@@ -2239,6 +2248,59 @@
             scheduleNextAutoRotate(carouselId); 
         }
 
+        // ========================================
+        // TOUCH SWIPE FUNCTIONALITY
+        // ========================================
+        
+        const swipeState = {};
+
+        function initSwipeHandlers(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let isSwiping = false;
+
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isSwiping = true;
+                pauseAutoRotate();
+            }, { passive: true });
+
+            carousel.addEventListener('touchmove', (e) => {
+                // Allow page scroll if user is scrolling vertically
+                const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+                const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+                
+                if (deltaY > deltaX) {
+                    isSwiping = false;
+                }
+            }, { passive: true });
+
+            carousel.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                
+                const touchEndX = e.changedTouches[0].clientX;
+                const swipeDistance = touchStartX - touchEndX;
+                const minSwipeDistance = 50; // minimum pixels to count as swipe
+
+                if (Math.abs(swipeDistance) > minSwipeDistance) {
+                    if (swipeDistance > 0) {
+                        // Swiped left - go to next slide
+                        nextSlide(carouselId);
+                    } else {
+                        // Swiped right - go to previous slide
+                        prevSlide(carouselId);
+                    }
+                }
+                
+                isSwiping = false;
+                scheduleNextAutoRotate(carouselId);
+            }, { passive: true });
+        }
+
         // Initialize carousel on page load
         document.addEventListener('DOMContentLoaded', () => {
             initCarousels();
@@ -2246,17 +2308,39 @@
             // Start auto-rotation
             startAutoRotate('mazeCarousel');
             
-            // Click on side images to navigate
+            // Initialize swipe handlers for all carousels
+            Object.keys(carousels).forEach(carouselId => {
+                initSwipeHandlers(carouselId);
+            });
+            
+            // Click on side images to navigate, tap active slide to toggle caption on mobile
             document.querySelectorAll('.carousel-slide').forEach(slide => {
-                slide.addEventListener('click', function() {
+                slide.addEventListener('click', function(e) {
                     if (this.classList.contains('left')) {
                         const carouselId = this.closest('.carousel-container').id;
                         prevSlide(carouselId);
                     } else if (this.classList.contains('right')) {
                         const carouselId = this.closest('.carousel-container').id;
                         nextSlide(carouselId);
+                    } else if (this.classList.contains('active') && window.innerWidth <= 768) {
+                        // On mobile, toggle caption visibility for active slide
+                        e.stopPropagation();
+                        this.classList.toggle('mobile-caption-active');
                     }
                 });
+            });
+
+            // Close caption when clicking outside carousel on mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    const clickedInsideCarousel = e.target.closest('.carousel-container');
+                    if (!clickedInsideCarousel) {
+                        // Remove mobile-caption-active from all slides
+                        document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
+                            slide.classList.remove('mobile-caption-active');
+                        });
+                    }
+                }
             });
             
             // Pause auto-rotation when user hovers over carousel
