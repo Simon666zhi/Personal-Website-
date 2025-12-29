@@ -720,11 +720,6 @@
             transform: translateY(0);
         }
 
-        /* Mobile: show caption when slide has mobile-caption-active class */
-        .carousel-slide.mobile-caption-active .carousel-caption {
-            transform: translateY(0);
-        }
-
         .carousel-caption h4 {
             font-size: 1.3rem;
             color: #667eea;
@@ -891,13 +886,35 @@
                 font-size: 1.2rem;
             }
 
+            /* Make gallery caption text smaller on mobile */
+            .carousel-caption h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .caption-expand-btn {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
+            }
+
             .carousel-swipe-hint {
                 display: block !important; /* Show on mobile */
                 margin-top: 0rem;
             }
 
-            /* On mobile, disable hover and use tap instead */
-            .carousel-slide.active:hover .carousel-caption {
+            /* On mobile, show caption on active slide by default (tap to toggle) */
+            .carousel-slide.active .carousel-caption {
+                transform: translateY(0);
+            }
+
+            /* Hide caption when mobile-caption-hidden class is added */
+            .carousel-slide.mobile-caption-hidden .carousel-caption {
                 transform: translateY(100%);
             }
         }
@@ -2325,7 +2342,7 @@
                     } else if (this.classList.contains('active') && window.innerWidth <= 768) {
                         // On mobile, toggle caption visibility for active slide
                         e.stopPropagation();
-                        this.classList.toggle('mobile-caption-active');
+                        this.classList.toggle('mobile-caption-hidden');
                     }
                 });
             });
@@ -2335,9 +2352,9 @@
                 if (window.innerWidth <= 768) {
                     const clickedInsideCarousel = e.target.closest('.carousel-container');
                     if (!clickedInsideCarousel) {
-                        // Remove mobile-caption-active from all slides
-                        document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
-                            slide.classList.remove('mobile-caption-active');
+                        // Hide captions by adding mobile-caption-hidden class
+                        document.querySelectorAll('.carousel-slide.active').forEach(slide => {
+                            slide.classList.add('mobile-caption-hidden');
                         });
                     }
                 }
