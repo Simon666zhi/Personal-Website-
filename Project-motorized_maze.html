@@ -907,6 +907,13 @@
                 display: block !important; /* Show on mobile */
                 margin-top: 0rem;
             }
+            /* Disable hover reveal/zoom on mobile to avoid sticky states */
+            .carousel-slide.active:hover .carousel-caption {
+                transform: translateY(100%);
+            }
+            .carousel-slide.active:hover img {
+                transform: none;
+            }
             /* On mobile, show caption only when explicitly activated */
             .carousel-slide.mobile-caption-active .carousel-caption {
                 transform: translateY(0);
@@ -2139,6 +2146,20 @@
             mazeCarousel: { currentIndex: 0, totalSlides: 6 },
         };
 
+        // Helper: close all mobile captions and collapse expanded states
+        function closeMobileCaptions() {
+            // Hide mobile captions
+            document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
+                slide.classList.remove('mobile-caption-active');
+            });
+            // Collapse any expanded caption content
+            document.querySelectorAll('.carousel-caption.expanded').forEach(cap => {
+                cap.classList.remove('expanded');
+                const btn = cap.querySelector('.caption-expand-btn');
+                if (btn) btn.textContent = '📖 Read More';
+            });
+        }
+
         // AUTO-ROTATION SETTINGS
         let autoRotateTimer = null;
         const AUTO_ROTATE_DELAY = 5000;
@@ -2192,6 +2213,9 @@
             const slides = carousel.querySelectorAll('.carousel-slide');
             const currentIndex = carousels[carouselId].currentIndex;
             const total = slides.length;
+
+            // Always close mobile captions when updating positions (mobile consistency)
+            closeMobileCaptions();
             
             slides.forEach((slide, index) => {
                 slide.classList.remove('active', 'left', 'right', 'hidden');
@@ -2240,6 +2264,7 @@
             pauseAutoRotate();
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex + 1) % total;
+            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2248,6 +2273,7 @@
             pauseAutoRotate();
             const total = carousels[carouselId].totalSlides;
             carousels[carouselId].currentIndex = (carousels[carouselId].currentIndex - 1 + total) % total;
+            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2255,6 +2281,7 @@
         function goToSlide(carouselId, index) {
             pauseAutoRotate();
             carousels[carouselId].currentIndex = index;
+            closeMobileCaptions();
             updateCarousel(carouselId);
             scheduleNextAutoRotate(carouselId); 
         }
@@ -2346,10 +2373,7 @@
                 if (window.innerWidth <= 768) {
                     const clickedInsideCarousel = e.target.closest('.carousel-container');
                     if (!clickedInsideCarousel) {
-                        // Hide captions by removing mobile-caption-active class
-                        document.querySelectorAll('.carousel-slide.mobile-caption-active').forEach(slide => {
-                            slide.classList.remove('mobile-caption-active');
-                        });
+                        closeMobileCaptions();
                     }
                 }
             });
