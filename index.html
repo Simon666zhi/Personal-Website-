@@ -904,6 +904,168 @@
             box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
         }
 
+        /* XXL desktop > 1920px */
+        @media (min-width: 1920px) {
+            .nav-container {
+                max-width: 1650px;
+                padding: 1.2rem 2.5rem;
+            }
+
+            .hero-carousel {
+                max-width: 1650px;
+                height: 700px;
+            }
+
+            .carousel-content h1 {
+                font-size: 3.4rem;
+            }
+
+            .carousel-content p {
+                font-size: 1.4rem;
+            }
+
+            section {
+                max-width: 1400px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            }
+
+            .experience-orbit {
+                max-width: 1150px;
+                min-height: 880px;
+            }
+        }
+
+        /* Large desktop 1440px–1919px */
+        @media (min-width: 1440px) and (max-width: 1919px) {
+            .nav-container {
+                max-width: 1500px;
+            }
+
+            .hero-carousel {
+                height: 640px;
+            }
+
+            .carousel-content h1 {
+                font-size: 3rem;
+            }
+
+            section {
+                max-width: 1300px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            }
+
+            .experience-orbit {
+                max-width: 1050px;
+                min-height: 820px;
+            }
+        }
+
+        /* Mid desktop 1024px–1439px (tablets in landscape / smaller laptops) */
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .nav-container {
+                gap: 1rem;
+                padding: 0.9rem 1.25rem;
+                max-width: 1200px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.25rem;
+            }
+
+            .social-links {
+                transform: none;
+                padding: 0.45rem 0.6rem;
+                gap: 0.4rem;
+            }
+
+            .social-link {
+                width: 36px;
+                height: 36px;
+            }
+
+            .hero-carousel {
+                max-width: 1200px;
+                height: 560px;
+                border-radius: 16px;
+            }
+
+            .carousel-content h1 {
+                font-size: 2.4rem;
+            }
+
+            .carousel-content p {
+                font-size: 1.05rem;
+            }
+
+            section {
+                max-width: 1150px;
+                padding: 4rem 1.5rem;
+            }
+
+            .about-content {
+                gap: 2.2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .experience-orbit {
+                max-width: 900px;
+                min-height: 720px;
+            }
+
+            .orbit-ring-1 {
+                width: 340px;
+                height: 340px;
+            }
+
+            .orbit-ring-2 {
+                width: 500px;
+                height: 500px;
+            }
+
+            .mission-card {
+                width: 320px;
+            }
+
+            .mission-card-1 {
+                top: 12%;
+                left: 55%;
+            }
+
+            .mission-card-2 {
+                bottom: 12%;
+                left: 8%;
+            }
+
+            .parallax-journey {
+                max-width: 1050px;
+                padding: 0 1.5rem;
+            }
+
+            .milestone-planet {
+                width: 170px;
+                height: 170px;
+            }
+
+            .milestone-planet.left {
+                margin-left: -240px;
+            }
+
+            .milestone-planet.right {
+                margin-left: 240px;
+            }
+        }
+
         @media (max-width: 768px) {
 
             .personal-signature {
