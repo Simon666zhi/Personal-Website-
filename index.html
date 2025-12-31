@@ -126,13 +126,20 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
+            display: flex;
             grid-template-columns: auto 1fr auto;
             align-items: center;
             gap: 2rem;
+            justify-content: space-between;
             padding: 1rem 2rem;
             position: relative;
             z-index: 2;
+        }
+
+        #navMenu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
         .nav-left {
@@ -353,7 +360,7 @@
             border-radius: 25px;
             border: 1px solid rgba(102, 126, 234, 0.2);
             transition: all 0.3s ease;
-            transform: translateX(110px);
+            /* transform: translateX(110px); */
         }
 
         .social-links:hover {
@@ -408,7 +415,11 @@
 
         /* RESUME BUTTON */
         .resume-btn {
-            padding: 0.7rem 1.8rem !important;
+            /* padding: 0.7rem 1.5rem !important; */
+            /* -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical; */
+
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white !important;
             border-radius: 25px;
@@ -425,6 +436,8 @@
             position: relative;
             overflow: hidden;
         }
+
+
 
         .resume-btn::before {
             content: '';
@@ -936,10 +949,19 @@
                 max-width: 1150px;
                 min-height: 880px;
             }
+
+            /* Meteor widths for large desktop */
+            .meteor-shower-left {
+                width: 14%;
+            }
+
+            .meteor-shower-right {
+                width: 16%;
+            }
         }
 
         /* Large desktop 1440px–1919px */
-        @media (min-width: 1440px) and (max-width: 1919px) {
+        @media (min-width: 1601px) and (max-width: 1919px) {
             .nav-container {
                 max-width: 1500px;
             }
@@ -971,7 +993,43 @@
             }
 
             .meteor-shower-right {
-                width: 16%;
+                width: 14%;
+            }
+        }
+
+        @media (min-width: 1440px) and (max-width: 1600px) {
+            .nav-container {
+                max-width: 1500px;
+            }
+
+            .hero-carousel {
+                height: 640px;
+            }
+
+            .carousel-content h1 {
+                font-size: 3rem;
+            }
+
+            section {
+                max-width: 1300px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            }
+
+            .experience-orbit {
+                max-width: 1050px;
+                min-height: 820px;
+            }
+
+            /* Meteor widths for large desktop */
+            .meteor-shower-left {
+                width: 11%;
+            }
+
+            .meteor-shower-right {
+                width: 11%;
             }
         }
 
@@ -990,7 +1048,7 @@
 
             nav a {
                 padding: 0.7rem 1rem;
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .social-links {
@@ -1002,21 +1060,12 @@
             .social-link {
                 width: 34px;
                 height: 34px;
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .resume-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.85rem;
-            }
-
-            /* Reduce meteor widths to prevent overlap */
-            .meteor-shower-left {
-                width: 10%;
-            }
-
-            .meteor-shower-right {
-                width: 12%;
+                padding: 0.4rem 0rem;
+                font-size: 0.75rem;
             }
 
             .hero-carousel {
@@ -1095,11 +1144,11 @@
 
             /* Reduce meteor widths to prevent overlap */
             .meteor-shower-left {
-                width: 12%;
+                width: 5%;
             }
 
             .meteor-shower-right {
-                width: 13%;
+                width: 5%;
             }
         }
 
@@ -1175,7 +1224,7 @@
 
             nav a {
                 padding: 0.55rem 0.7rem;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
 
             .social-links {
@@ -1187,12 +1236,12 @@
             .social-link {
                 width: 30px;
                 height: 30px;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
 
             .resume-btn {
                 padding: 0.5rem 0.9rem;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
 
             /* Very narrow meteor widths */
@@ -3802,7 +3851,7 @@
         /* NEW: Meteor Shower Effect - Left and Right Containers */
         .meteor-shower-left {
             position: fixed;
-            width: 14%;
+            /* width: 14%; */
             height: 100%;
             top: 0;
             left: 0;
@@ -3815,7 +3864,7 @@
 
         .meteor-shower-right {
             position: fixed;
-            width: 14%;
+            /* width: 14%; */
             height: 100%;
             top: 0;
             right: 0;
@@ -5047,10 +5096,11 @@
             cursor: pointer;
             padding: 8px;
             z-index: 101;
+            display: none;  /* ← Hidden on desktop */
         }
 
         /* Responsive Navigation - Dropdown on Small Screens */
-        @media (max-width: 968px) {
+        @media (max-width: 1280px) {
 
             .hamburger {
                 display: flex;  /* ← Shows on mobile screens */
