@@ -1012,7 +1012,7 @@
 
             .hero-carousel {
                 max-width: 1200px;
-                height: 560px;
+                height: 500px;
                 border-radius: 16px;
             }
 
@@ -1136,6 +1136,78 @@
             .meteor-shower-right {
                 width: 11%;
             }
+
+            /* Smaller carousel for MacBooks and tablets */
+            .hero-carousel {
+                height: 420px;
+                border-radius: 14px;
+            }
+
+            .carousel-content h1 {
+                font-size: 2rem;
+            }
+
+            .carousel-content p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Extra small laptops 800px–899px */
+        @media (min-width: 800px) and (max-width: 899px) {
+            .nav-container {
+                gap: 0.5rem;
+                padding: 0.65rem 0.7rem;
+            }
+
+            nav ul {
+                flex-wrap: nowrap;
+                gap: 0.15rem;
+            }
+
+            nav a {
+                padding: 0.55rem 0.7rem;
+                font-size: 0.75rem;
+            }
+
+            .social-links {
+                transform: none;
+                padding: 0.3rem 0.35rem;
+                gap: 0.25rem;
+            }
+
+            .social-link {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+
+            .resume-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.75rem;
+            }
+
+            /* Very narrow meteor widths */
+            .meteor-shower-left {
+                width: 8%;
+            }
+
+            .meteor-shower-right {
+                width: 9%;
+            }
+
+            /* Smaller carousel for very small screens */
+            .hero-carousel {
+                height: 360px;
+                border-radius: 12px;
+            }
+
+            .carousel-content h1 {
+                font-size: 1.7rem;
+            }
+
+            .carousel-content p {
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1170,8 +1242,8 @@
             }
 
             .hero-carousel {
-                height: 550px;
-                border-radius: 15px;
+                height: 420px;
+                border-radius: 14px;
             }
 
             /* ADD THESE STYLES */
