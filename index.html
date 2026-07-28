@@ -1111,17 +1111,21 @@
             }
 
             .mission-card {
-                width: 320px;
+                width: 300px;
             }
 
-            .mission-card-1 {
-                top: 12%;
-                left: 55%;
+            .mission-card-top {
+                top: 0%;
             }
 
-            .mission-card-2 {
-                bottom: 12%;
-                left: 8%;
+            .mission-card-left {
+                bottom: 6%;
+                left: 3%;
+            }
+
+            .mission-card-right {
+                bottom: 6%;
+                right: 3%;
             }
 
             .parallax-journey {
@@ -1807,9 +1811,11 @@
                 inset 0 2px 0 rgba(255, 255, 255, 0.4),
                 0 0 60px rgba(102, 126, 234, 0.6);
         }
-/* ========================================
-   EXPERIENCES - ORBITAL MISSION CARDS
-   ======================================== */
+
+
+        /* ========================================
+        EXPERIENCES - ORBITAL MISSION CARDS
+        ======================================== */
 
         #experience {
             position: relative;
@@ -1958,24 +1964,92 @@
             }
         }
 
-        /* Position cards around the orbit */
-        .mission-card-1 {
-            top: 10%;
-            left: 60%;
+        /* Position cards in a triangle around the orbit */
+        .mission-card-top {
+            top: 0%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .mission-card-2 {
-            bottom: 10%;
-            left: 5%;
+        .mission-card-left {
+            bottom: 4%;
+            left: 2%;
+        }
+
+        .mission-card-right {
+            bottom: 4%;
+            right: 2%;
         }
 
         .mission-card:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: translateY(-8px);
             box-shadow: 
                 0 20px 60px rgba(0, 0, 0, 0.6),
                 0 0 50px rgba(102, 126, 234, 0.6);
             border-color: rgba(102, 126, 234, 0.8);
         }
+
+        /* Full details (icon+status+description) stay hidden on the compact card itself --
+        only rendered once cloned into the modal via JS */
+        .mission-card > .mission-header,
+        .mission-card > .mission-description {
+            display: none;
+        }
+
+
+        /* ============ MODAL ============ */
+        .mission-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 15, 0.85);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1.5rem;
+        }
+        .mission-modal-overlay.show { opacity: 1; visibility: visible; }
+
+        .mission-modal {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(20,20,40,0.98) 0%, rgba(30,30,50,0.98) 100%);
+            border: 2px solid rgba(102,126,234,0.5);
+            border-radius: 15px;
+            padding: 2.5rem 2rem 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 60px rgba(102,126,234,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .mission-modal-overlay.show .mission-modal { transform: scale(1); }
+
+        .mission-modal-close {
+            position: absolute;
+            top: 1rem; right: 1.2rem;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.7rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .mission-modal-close:hover { color: #667eea; }
+
+        .mission-modal .mission-header,
+        .mission-modal .mission-description { display: block; }
+        .mission-modal .mission-header { display: flex; }
+        .mission-modal .hover-hint { display: none; }
+        .mission-modal .mission-date { margin-bottom: 1.2rem; }
+
 
         /* Corner brackets for mission cards */
         .mission-card::before,
@@ -2067,27 +2141,40 @@
         }
 
         .mission-location {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
         }
-
         .mission-date {
             display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
-            color: rgba(102, 126, 234, 0.9);
-            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.3);
+            color: #e0e5ff;
+            padding: 0.4rem 0.9rem;
             border-radius: 20px;
             font-size: 0.85rem;
+            font-weight: 600;
             font-family: 'Courier New', monospace;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(102, 126, 234, 0.4);
+            border: 1px solid rgba(102, 126, 234, 0.55);
+        }
+        .hover-hint {
+            display: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #a5b4fc;
+            margin-top: 1.6rem;
+            margin-left: 0.4rem;
         }
 
-        .mission-description {
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.7;
-            font-size: 0.95rem;
+        @media (min-width: 969px) {
+            .hover-hint { display: block; }
+        }
+
+        .mission-description { 
+            color: rgba(255, 255, 255, 0.92); 
+            line-height: 1.75; 
+            font-size: 1.02rem; 
         }
 
         /* Connection Lines between cards and center */
@@ -2100,20 +2187,6 @@
             transform-origin: left center;
             pointer-events: none;
             z-index: 1;
-        }
-
-        .connection-1 {
-            top: 20%;
-            left: 50%;
-            width: 200px;
-            transform: rotate(-30deg);
-        }
-
-        .connection-2 {
-            bottom: 35%;
-            left: 30%;
-            width: 250px;
-            transform: rotate(35deg);
         }
 
         /* Responsive Design */
@@ -2131,7 +2204,19 @@
                 left: auto !important;
                 bottom: auto !important;
                 right: auto !important;
+                cursor: default;
             }
+            .mission-card:hover {
+                transform: none !important;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(102,126,234,0.3) !important;
+                border-color: rgba(102,126,234,0.5) !important;
+            }
+            .mission-card > .mission-header,
+            .mission-card > .mission-description {
+                display: block !important;
+                margin-top: 1.2rem;
+            }
+            .mission-card > .mission-header { display: flex !important; }
             
             .orbit-center {
                 position: relative;
@@ -3236,7 +3321,7 @@
             margin-bottom: 2rem;
         }
 
-        .mission-title {
+        .briefing-title {
             margin-bottom: 1.5rem;
             padding: 1rem;
             background: rgba(102, 126, 234, 0.1);
@@ -3244,7 +3329,7 @@
             border-radius: 5px;
         }
 
-        .mission-title h3 {
+        .briefing-title h3 {
             margin: 0;
             color: white;
             font-size: 1.3rem;
@@ -5591,48 +5676,53 @@
         <h2>Experiences</h2>
         
         <div class="experience-orbit">
-            <!-- Central Hub -->
-            <div class="orbit-center">
-                <span>🚀</span>
-            </div>
-            
-            <!-- Orbital Rings -->
+            <div class="orbit-center"><span>🚀</span></div>
             <div class="orbit-ring orbit-ring-1"></div>
             <div class="orbit-ring orbit-ring-2"></div>
-            
-            <!-- Connection Lines -->
-            <div class="orbit-connection connection-1"></div>
-            <div class="orbit-connection connection-2"></div>
-            
-            <!-- Mission Card 1 -->
-            <div class="mission-card mission-card-1">
+
+            <!-- Card 1: newest co-op -->
+            <div class="mission-card mission-card-top" data-mission="Saint-Gobain Abrasives">
+                <h3 class="mission-title">Quality/Lab Assistant Engineer</h3>
+                <h4 class="mission-company">Saint-Gobain Abrasives</h4>
+                <p class="mission-location">📍 Plattsville, Ontario</p>
+                <div class="mission-date">May 2026 - Sept 2026</div>
+                <span class="hover-hint">Click for details</span>
                 <div class="mission-header">
-                    <div class="mission-icon">📏</div>
-                    <div class="mission-status">● Completed</div>
+                    <div class="mission-icon">🟫</div>
+                    <div class="mission-status">● Current</div>
                 </div>
-                
+                <p class="mission-description">
+                    [Swap in what you actually worked on for your newest co-op.]
+                </p>
+            </div>
+
+            <!-- Card 2: Linamar -->
+            <div class="mission-card mission-card-left" data-mission="linamar">
                 <h3 class="mission-title">Quality Assurance Engineering</h3>
                 <h4 class="mission-company">Linamar Corporation</h4>
                 <p class="mission-location">📍 Guelph, Ontario</p>
                 <div class="mission-date">SEPT 2025 - DEC 2025</div>
-                
+                <span class="hover-hint">Click for details</span>
+                <div class="mission-header">
+                    <div class="mission-icon">📏</div>
+                    <div class="mission-status">● Completed</div>
+                </div>
                 <p class="mission-description">
                     Worked hands-on with precision inspection tools and data analysis to ensure automotive component reliability. Gained experience with CMM machines, profile projectors, and gear analyzers. Used Minitab for data interpretation and collaborated across departments to strengthen quality control.
                 </p>
             </div>
-            
-            <!-- Mission Card 2 -->
-            <div class="mission-card mission-card-2">
-                <div class="mission-header">
-                    <div class="mission-icon">⚙️</div>
-                    <div class="mission-status">● Completed</div>
-                </div>
-                
+
+            <!-- Card 3: PWO -->
+            <div class="mission-card mission-card-right" data-mission="pwo">
                 <h3 class="mission-title">Production Process Engineering</h3>
                 <h4 class="mission-company">PWO Canada Inc.</h4>
                 <p class="mission-location">📍 Kitchener, Ontario</p>
                 <div class="mission-date">JAN 2025 - APR 2025</div>
-                
+                <span class="hover-hint">Click for details</span>
+                <div class="mission-header">
+                    <div class="mission-icon">⚙️</div>
+                    <div class="mission-status">● Completed</div>
+                </div>
                 <p class="mission-description">
                     Supported Process Engineering teams in optimizing production systems. Developed Excel VBA tools boosting productivity by 20%. Used SolidEdge and Kister 3D to optimize equipment, increasing stamping press speed by 30%. Led cost-reduction projects improving efficiency.
                 </p>
@@ -6042,7 +6132,7 @@
         </div>
         
         <div class="briefing-body">
-            <div class="mission-title">
+            <div class="briefing-title">
                 <h3>MISSION OBJECTIVE: PORTFOLIO EXPLORATION</h3>
             </div>
             
@@ -7098,6 +7188,40 @@
         
         // Start the animation loop
     animate();
+    </script>
+
+    <div class="mission-modal-overlay" id="missionModalOverlay">
+        <div class="mission-modal" id="missionModal">
+            <button class="mission-modal-close" id="missionModalClose">&times;</button>
+            <div id="missionModalContent"></div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const overlay = document.getElementById('missionModalOverlay');
+        const content = document.getElementById('missionModalContent');
+        const closeBtn = document.getElementById('missionModalClose');
+
+        document.querySelectorAll('.mission-card').forEach(card => {
+            card.addEventListener('click', () => {
+                if (window.innerWidth < 969) return;
+                content.innerHTML = card.innerHTML;
+                overlay.classList.add('show');
+            });
+        });
+
+        function closeModal() {
+            overlay.classList.remove('show');
+        }
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', e => {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
     </script>
 </body>
 </html>
