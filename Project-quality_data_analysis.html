@@ -1455,7 +1455,7 @@
     <!-- Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar">
-            <div class="progress-car">[EMOJI]</div>
+            <div class="progress-car">🏎️</div>
         </div>
     </div>
 
@@ -1484,24 +1484,24 @@
     <!-- Left Side Info Cards -->
     <div class="side-info-cards left">
         <div class="info-card" style="animation-delay: 0.2s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">🧪</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Measurements Analyzed</h4>
+                <p>159</p>
             </div>
         </div>
         <div class="info-card" style="animation-delay: 0.4s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">📐</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Candidates Compared</h4>
+                <p>4 (1 Control + 3 Trial)</p>
             </div>
         </div>
         <div class="info-card" style="animation-delay: 0.6s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">📊</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Statistical Tests Run</h4>
+                <p>16</p>
             </div>
         </div>
     </div>
@@ -1509,39 +1509,36 @@
     <!-- Right Side Info Cards -->
     <div class="side-info-cards right">
         <div class="info-card" style="animation-delay: 0.3s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">✅</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Confidence Level</h4>
+                <p>95%</p>
             </div>
         </div>
         <div class="info-card" style="animation-delay: 0.5s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">🐍</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Cross-Validated With</h4>
+                <p>Python (SciPy/statsmodels)</p>
             </div>
         </div>
         <div class="info-card" style="animation-delay: 0.7s;">
-            <div class="info-icon">[EMOJI]</div>
+            <div class="info-icon">🏆</div>
             <div class="info-text">
-                <h4>[Metric Name]</h4>
-                <p>[Value]</p>
+                <h4>Recommended Candidate</h4>
+                <p>Identified</p>
             </div>
         </div>
     </div>
         
-        <!-- Video Background (replace with your actual video) -->
-        <video id="hero-video" autoplay loop muted playsinline>
-            <source src="Images/[VIDEO_FILE].mp4" type="video/mp4">
-        </video>
+        <!-- No video for this project - galaxy background + overlay carries the hero -->
         
         <!-- Gradient Overlay -->
         <div class="hero-overlay"></div>
         
         <div class="hero-content">
-            <h1>[PROJECT TITLE]</h1>
-            <p class="subtitle">[Project Subtitle - Brief Description of What This Project Does]</p>
+            <h1>Quality Data Analysis</h1>
+            <p class="subtitle">Statistically validating candidate abrasive backing papers against a production control — using Minitab and a Python cross-check to turn raw tensile and fold test data into a defensible engineering recommendation.</p>
         </div>
     </section>
 
@@ -1551,27 +1548,27 @@
         <!-- Project Overview -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>[EMOJI]</span>
+                <span>🧪</span>
                 Project Overview
             </h2>
             <div class="section-content">
-                <p>[Main project description paragraph 1 - explain the problem/context]</p>
+                <p>Abrasive backing paper is the substrate every grit particle gets bonded to — if it tears or folds through during production or use, the whole product fails. When a supplier proposes new candidate papers to qualify against the existing production control, "does it feel about the same" isn't good enough; the decision needs to hold up to quality, R&D, and procurement scrutiny. This project builds that evidence base: a full statistical comparison of one control paper against three trial candidates, across both tensile strength and fold endurance, tested in both the machine direction (MD) and cross direction (CD) of the paper.</p>
                 
-                <p>[Main project description paragraph 2 - explain your solution]</p>
+                <p>Rather than eyeballing four sets of averages, I ran a complete hypothesis-testing workflow in Minitab for each of the four response variables (CD Tensile, MD Tensile, CD Fold, MD Fold): normality testing, equal-variance testing, one-way ANOVA, and Tukey HSD pairwise comparisons — then independently re-ran every test in Python (SciPy/statsmodels) as a cross-check before trusting the conclusions. Along the way, the equal-variance test caught a real violated assumption in the MD Fold data, which changed which test I reported rather than defaulting to the standard ANOVA output.</p>
                 
-                <h3>[Optional Subheading]</h3>
-                <p><em>"[Optional quote or need statement]"</em></p>
+                <h3>Why Statistics, Not Just Averages</h3>
+                <p><em>"With only 9–10 replicates per candidate, a couple of unusual readings can shift a mean enough to look like a real difference when it's just noise — or hide a real difference behind natural variation. ANOVA and Tukey HSD exist to tell those two cases apart, and to say so with a confidence level, not a gut feeling."</em></p>
             </div>
         </div>
 
         <!-- Project Gallery -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>[EMOJI]</span>
-                [Gallery Section Title]
+                <span>📊</span>
+                The Statistical Workflow
             </h2>
             <div class="section-content">
-                <p>[Gallery introduction text]</p>
+                <p>Five stages, run identically across all four response variables — a snapshot of the methodology from raw group comparison through to the final pairwise conclusions.</p>
             </div>
             
             <!-- 3D Rotating Carousel -->
@@ -1579,41 +1576,63 @@
                 <div class="carousel-track">
                     <!-- Slide 1 -->
                     <div class="carousel-slide" data-index="0">
-                        <span class="carousel-badge">[EMOJI] [Badge Text]</span>
-                        <img src="Images/[image1].png" alt="[Alt text]">
+                        <span class="carousel-badge">📈 Group Comparison</span>
+                        <img src="Images/interval-plot-cd-tensile.png" alt="Interval plot of CD Tensile by sample group">
                         <div class="carousel-caption">
-                            <h4>[Image Title]</h4>
-                            <p class="short-desc">[Short description]</p>
-                            <p class="long-desc">[Longer detailed description with more technical information]</p>
+                            <h4>Interval Plot — CD Tensile vs. Sample</h4>
+                            <p class="short-desc">95% confidence intervals for the mean, one per candidate.</p>
+                            <p class="long-desc">The starting point for every response variable: plot the mean and 95% CI for Control and all three trial candidates side by side. Here all three trials sit visibly above Control with non-overlapping intervals — a strong early signal, though it still needs ANOVA and Tukey to confirm formally rather than eyeballing the gap.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
                     <!-- Slide 2 -->
                     <div class="carousel-slide" data-index="1">
-                        <span class="carousel-badge">[EMOJI] [Badge Text]</span>
-                        <img src="Images/[image2].png" alt="[Alt text]">
+                        <span class="carousel-badge">✅ Normality Check</span>
+                        <img src="Images/probability-plot-cd-fold.png" alt="Probability plot of CD Fold by sample group">
                         <div class="carousel-caption">
-                            <h4>[Image Title]</h4>
-                            <p class="short-desc">[Short description]</p>
-                            <p class="long-desc">[Longer detailed description]</p>
+                            <h4>Probability Plot — CD Fold by Group</h4>
+                            <p class="short-desc">Anderson-Darling normality test, paneled by candidate.</p>
+                            <p class="long-desc">Before trusting an ANOVA, each group's data needs to look reasonably normal. Three of the four candidates passed cleanly; Control came back borderline (AD p = 0.027), traced to two unusually high fold-count readings. Rather than ignore it, I documented the departure and proceeded, since ANOVA is fairly robust to mild non-normality at this sample size.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
                     <!-- Slide 3 -->
                     <div class="carousel-slide" data-index="2">
-                        <span class="carousel-badge">[EMOJI] [Badge Text]</span>
-                        <img src="Images/[image3].png" alt="[Alt text]">
+                        <span class="carousel-badge">⚠️ Assumption Check</span>
+                        <img src="Images/equal-variances-md-fold.png" alt="Test for equal variances of MD Fold by sample group">
                         <div class="carousel-caption">
-                            <h4>[Image Title]</h4>
-                            <p class="short-desc">[Short description]</p>
-                            <p class="long-desc">[Longer detailed description]</p>
+                            <h4>Test for Equal Variances — MD Fold</h4>
+                            <p class="short-desc">Levene's test caught a real assumption violation.</p>
+                            <p class="long-desc">Levene's test came back significant here (p = 0.044) — Control's variance was noticeably larger than the three trial candidates'. That meant defaulting to a standard ANOVA would have been the wrong call; instead I re-ran the one-way ANOVA with the "assume equal variances" option unchecked and reported Welch's test, which is the statistically defensible choice when this assumption fails.</p>
                             <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
                         </div>
                     </div>
 
-                    <!-- Add more slides as needed -->
+                    <!-- Slide 4 -->
+                    <div class="carousel-slide" data-index="3">
+                        <span class="carousel-badge">🏅 Statistical Conclusion</span>
+                        <img src="Images/tukey-ci-md-tensile.png" alt="Tukey simultaneous confidence intervals for MD Tensile">
+                        <div class="carousel-caption">
+                            <h4>Tukey Simultaneous CIs — MD Tensile</h4>
+                            <p class="short-desc">Pairwise comparisons pinpointing exactly which candidates differ.</p>
+                            <p class="long-desc">An overall significant ANOVA only says "something differs" — Tukey HSD says what. Any interval that doesn't cross zero marks a statistically significant pairwise difference at the 95% simultaneous confidence level, letting me rank the candidates against Control and against each other in one chart instead of running six separate t-tests.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5 -->
+                    <div class="carousel-slide" data-index="4">
+                        <span class="carousel-badge">🔍 Model Diagnostics</span>
+                        <img src="Images/residual-plots-cd-tensile.png" alt="Residual plots for the CD Tensile ANOVA model">
+                        <div class="carousel-caption">
+                            <h4>Residual Plots — CD Tensile ANOVA</h4>
+                            <p class="short-desc">The last check: does the ANOVA model itself hold up?</p>
+                            <p class="long-desc">A significant p-value means little if the underlying model is misspecified. The four-panel residual plot — normal probability, versus fits, histogram, versus order — confirms residuals are reasonably random and normally distributed with no obvious pattern tied to run order, supporting that the ANOVA assumptions held for this response.</p>
+                            <div class="caption-expand-btn" onclick="toggleCaption(event)">📖 Read More</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -1634,29 +1653,29 @@
         <!-- My Contributions -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>[EMOJI]</span>
+                <span>🛠️</span>
                 My Contributions
             </h2>
             <div class="section-content">
-                <h3>[Category 1]</h3>
+                <h3>Experimental Data Preparation</h3>
                 <ul>
-                    <li>[Contribution item 1]</li>
-                    <li>[Contribution item 2]</li>
-                    <li>[Contribution item 3]</li>
+                    <li>Structured raw tensile and fold test results (Control + 3 trial candidates, ~10 replicates each) into stacked Minitab worksheets suitable for one-way ANOVA</li>
+                    <li>Identified and correctly handled a missing CD Fold reading rather than silently dropping or zero-filling it</li>
+                    <li>Anonymized supplier identities to Control / Trial A / B / C at the worksheet level, ahead of any external sharing</li>
                 </ul>
 
-                <h3>[Category 2]</h3>
+                <h3>Statistical Analysis in Minitab</h3>
                 <ul>
-                    <li>[Contribution item 1]</li>
-                    <li>[Contribution item 2]</li>
-                    <li>[Contribution item 3]</li>
+                    <li>Ran Anderson-Darling normality tests, Levene's equal-variance tests, one-way ANOVA, and Tukey HSD pairwise comparisons across all 4 response variables</li>
+                    <li>Recognized when the equal-variance assumption failed (MD Fold) and switched to Welch's test instead of defaulting to the standard output</li>
+                    <li>Interpreted residual plots to confirm each ANOVA model's assumptions held, not just its p-value</li>
                 </ul>
 
-                <h3>[Category 3]</h3>
+                <h3>Validation &amp; Communication</h3>
                 <ul>
-                    <li>[Contribution item 1]</li>
-                    <li>[Contribution item 2]</li>
-                    <li>[Contribution item 3]</li>
+                    <li>Independently re-implemented every test in Python (SciPy/statsmodels) to cross-check Minitab's output before trusting the conclusions</li>
+                    <li>Synthesized four separate ANOVA results into a single candidate recommendation grounded in statistical evidence</li>
+                    <li>Packaged the analysis into a sanitized, portfolio-ready format suitable for external review</li>
                 </ul>
             </div>
         </div>
@@ -1664,13 +1683,13 @@
        <!-- Design Journey -->
         <div class="content-section">
             <h2 class="section-title">
-                <span>[EMOJI]</span>
+                <span>🧭</span>
                 Design Journey
             </h2>
             
             <div class="section-content">
                 <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: rgba(255, 255, 255, 0.9);">
-                    [Journey introduction text]
+                    From raw replicate data to a defensible recommendation — the four stages every response variable passed through.
                 </p>
             </div>
 
@@ -1680,17 +1699,17 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">01</div>
-                        <div class="phase-icon">[EMOJI]</div>
+                        <div class="phase-icon">🗂️</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">[Phase Title]</h3>
+                        <h3 class="phase-title">Data Auditing &amp; Setup</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">[Skill 1]</span>
-                            <span class="skill-tag">[Skill 2]</span>
-                            <span class="skill-tag">[Skill 3]</span>
+                            <span class="skill-tag">Minitab Worksheets</span>
+                            <span class="skill-tag">Data Cleaning</span>
+                            <span class="skill-tag">Missing Data Handling</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> [Detailed insight or learning from this phase]
+                            <strong>💡 Key Insight:</strong> A missing CD Fold reading (noted in the raw comments as "forgot to copy down") could have been zero-filled or silently ignored. Structuring the data as a true blank instead let Minitab correctly report n=9 rather than corrupting the mean — a small decision that mattered for every downstream test.
                         </p>
                     </div>
                 </div>
@@ -1699,17 +1718,17 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">02</div>
-                        <div class="phase-icon">[EMOJI]</div>
+                        <div class="phase-icon">📐</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">[Phase Title]</h3>
+                        <h3 class="phase-title">Assumption Testing</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">[Skill 1]</span>
-                            <span class="skill-tag">[Skill 2]</span>
-                            <span class="skill-tag">[Skill 3]</span>
+                            <span class="skill-tag">Anderson-Darling Test</span>
+                            <span class="skill-tag">Levene's Test</span>
+                            <span class="skill-tag">Probability Plots</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> [Detailed insight or learning from this phase]
+                            <strong>💡 Key Insight:</strong> Levene's test on MD Fold came back significant (p = 0.044) — Control's variance was meaningfully larger than the trial candidates'. Rather than run the default ANOVA anyway, this flagged that Welch's test was the statistically correct choice for that one response variable, while the standard ANOVA remained valid for the other three.
                         </p>
                     </div>
                 </div>
@@ -1718,17 +1737,17 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">03</div>
-                        <div class="phase-icon">[EMOJI]</div>
+                        <div class="phase-icon">📊</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">[Phase Title]</h3>
+                        <h3 class="phase-title">ANOVA &amp; Tukey HSD</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">[Skill 1]</span>
-                            <span class="skill-tag">[Skill 2]</span>
-                            <span class="skill-tag">[Skill 3]</span>
+                            <span class="skill-tag">One-Way ANOVA</span>
+                            <span class="skill-tag">Tukey HSD</span>
+                            <span class="skill-tag">Welch's Test</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> [Detailed insight or learning from this phase]
+                            <strong>💡 Key Insight:</strong> All four response variables came back significant overall (p ≤ 0.001), but the Tukey groupings told different stories: for CD/MD Fold, Control was the clear outlier and the three trials didn't separate from each other; for CD/MD Tensile, the trials themselves ranked differently from one another — meaning the "best" candidate depends on which property matters most for the end application.
                         </p>
                     </div>
                 </div>
@@ -1737,17 +1756,17 @@
                 <div class="journey-phase">
                     <div class="phase-marker">
                         <div class="phase-number">04</div>
-                        <div class="phase-icon">[EMOJI]</div>
+                        <div class="phase-icon">🐍</div>
                     </div>
                     <div class="phase-content">
-                        <h3 class="phase-title">[Phase Title]</h3>
+                        <h3 class="phase-title">Cross-Validation &amp; Reporting</h3>
                         <div class="phase-skills">
-                            <span class="skill-tag">[Skill 1]</span>
-                            <span class="skill-tag">[Skill 2]</span>
-                            <span class="skill-tag">[Skill 3]</span>
+                            <span class="skill-tag">Python (SciPy/statsmodels)</span>
+                            <span class="skill-tag">Reproducibility</span>
+                            <span class="skill-tag">Technical Writing</span>
                         </div>
                         <p class="phase-insight">
-                            <strong>💡 Key Insight:</strong> [Detailed insight or learning from this phase]
+                            <strong>💡 Key Insight:</strong> Re-implementing every test independently in Python wasn't busywork — it's what makes the conclusions trustworthy to someone who wasn't in the room when Minitab produced them. When two independent tools built on different underlying code agree on every p-value and grouping, that's real evidence the result is a property of the data, not an artifact of one piece of software.
                         </p>
                     </div>
                 </div>
@@ -1762,9 +1781,9 @@
             <!-- Racing Track Line -->
             <div class="track-line"></div>
             
-            <!-- Previous Project Checkpoint -->
+            <!-- TODO: replace [previous-project].html with your actual adjacent project's filename -->
             <a href="[previous-project].html" class="track-checkpoint checkpoint-left">
-                <div class="checkpoint-flag">[EMOJI]</div>
+                <div class="checkpoint-flag">🏁</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">PREVIOUS PROJECT</span>
                     <span class="checkpoint-title">[Previous Project Name]</span>
@@ -1774,7 +1793,7 @@
             
             <!-- Pit Stop (All Projects) -->
             <a href="index.html#projects" class="pit-stop">
-                <div class="pit-stop-icon">[EMOJI]</div>
+                <div class="pit-stop-icon">🏎️</div>
                 <span class="pit-stop-text">ALL PROJECTS</span>
                 <div class="pit-stop-lights">
                     <span class="light"></span>
@@ -1783,21 +1802,21 @@
                 </div>
             </a>
             
-            <!-- Next Project Checkpoint -->
+            <!-- TODO: replace [next-project].html with your actual adjacent project's filename -->
             <a href="[next-project].html" class="track-checkpoint checkpoint-right">
                 <div class="speed-arrow">→</div>
                 <div class="checkpoint-content">
                     <span class="checkpoint-label">NEXT PROJECT</span>
                     <span class="checkpoint-title">[Next Project Name]</span>
                 </div>
-                <div class="checkpoint-flag">[EMOJI]</div>
+                <div class="checkpoint-flag">🏁</div>
             </a>
         </div>
 
         <!-- Racing Divider -->
         <div class="racing-divider">
             <div class="divider-line"></div>
-            <span class="race-finish">[EMOJI]</span>
+            <span class="race-finish">🏆</span>
             <div class="divider-line"></div>
         </div>
 
@@ -2102,4 +2121,3 @@
 
 </body>
 </html>
- 

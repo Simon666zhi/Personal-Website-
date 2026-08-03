@@ -2494,16 +2494,17 @@
             z-index: 3;
         }
 
-        /* Move Card 2 & 3 titles UP */
+        /* Move Card 2 & 5 & 6 titles UP */
         .project-card:nth-child(2) .project-title-overlay,
-        .project-card:nth-child(4) .project-title-overlay,
-        .project-card:nth-child(5) .project-title-overlay{
+        .project-card:nth-child(3) .project-title-overlay,
+        .project-card:nth-child(5) .project-title-overlay,
+        .project-card:nth-child(6) .project-title-overlay{
             justify-content: flex-start;  /* ← Align to top instead of center */
             height: 155px;  /* ← Add padding to control how far from top */
         }
 
-        /* NEW - Center Card 3 (Circadian Rhythm) */
-        .project-card:nth-child(3) .project-title-overlay {
+        /* NEW - Center Card 4 (Circadian Rhythm) */
+        .project-card:nth-child(4) .project-title-overlay {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -2589,12 +2590,16 @@
             font-weight: 700;
         }
 
+        .project-card:nth-child(3) .project-back-content h3 {
+            font-size: 1.35rem;  /* ← Adjust title size */
+        }
+
         /* Card 3 specific text sizing */
-        .project-card:nth-child(4) .project-back-content h3 {
+        .project-card:nth-child(5) .project-back-content h3 {
             font-size: 1.7rem;  /* ← Adjust title size */
         }
 
-        .project-card:nth-child(4) .project-back-content p {
+        .project-card:nth-child(5) .project-back-content p {
             font-size: 1rem;  /* ← Adjust description size */
         }
 
@@ -2637,8 +2642,15 @@
             padding: 0 0 15px 0;  /* ← Bottom padding to shift visual up */
         }
 
+        .project-card:nth-child(3) .project-back-icon {
+            padding-left: 3px;    /* ← Shifts icon RIGHT */
+            padding-bottom: 6px;  /* ← Shifts icon UP */
+            padding-right: 0;
+            padding-top: 0;
+        }
+
         /* Move card 3 icon right and up using padding */
-        .project-card:nth-child(4) .project-back-icon {
+        .project-card:nth-child(5) .project-back-icon {
             padding-left: 3px;    /* ← Shifts icon RIGHT */
             padding-bottom: 3px;  /* ← Shifts icon UP */
             padding-right: 0;
@@ -5061,7 +5073,7 @@
             }
             
             /* Move title UP for Card 4 (Circadian Rhythm Device) */
-            .project-card:nth-child(4) .project-title-overlay {
+            .project-card:nth-child(5) .project-title-overlay {
                 padding-top: 3.5rem;  
                 display: flex;
                 flex-direction: column;
@@ -5071,16 +5083,16 @@
             }
 
             /* Reset Card 3 to match other cards */
-            .project-card:nth-child(4) .project-back-content h3 {
+            .project-card:nth-child(5) .project-back-content h3 {
                 font-size: 1.3rem;  
             }
             
-            .project-card:nth-child(4) .project-back-content p {
+            .project-card:nth-child(5) .project-back-content p {
                 font-size: 0.85rem;  
                 line-height: 1.5;
             }
             
-            .project-card:nth-child(4) .view-more-btn {
+            .project-card:nth-child(5) .view-more-btn {
                 padding: 0.7rem 1.8rem;  
                 font-size: 0.85rem;      
             }
@@ -5095,7 +5107,7 @@
             }
             
             /* Shift image UP for Card 4 (Circadian Rhythm Device) */
-            .project-card:nth-child(4) .project-img {
+            .project-card:nth-child(5) .project-img {
                 object-position: center 20%;  
                 transform: scale(1.1);        
             }
@@ -5142,7 +5154,7 @@
                 font-size: 0.85rem;
             }
 
-            .project-card:nth-child(3) .view-more-btn {
+            .project-card:nth-child(4) .view-more-btn {
                 padding: 0.9rem 2.2rem;  
                 font-size: 0.85rem;      
             }
@@ -5604,7 +5616,7 @@
         </div>
         <div class="skill-card" onmouseenter="flipCard(this)">
             <div class="skill-icon">📋</div>
-            <h3>Quality Systems & Data</h3>
+            <h3>Quality Systems</h3>
             <p>Control Plan, PFMEA, RCA/CAPA, Process Capability, Traceability, SPC (Minitab), SAP, Excel (VBA), MATLAB, Python</p>
         </div>
     </section>
@@ -5724,65 +5736,71 @@
         
     </section>
 
-    <!-- Experience Section -->
+   <!-- Experience Section -->
     <section id="experience">
         <div class="carousel-corner corner-tl"></div>
         <div class="carousel-corner corner-tr"></div>
         <div class="carousel-corner corner-bl"></div>
         <div class="carousel-corner corner-br"></div>
-        
-        <h2>Experiences</h2>
-        
+
+        <h2>Experience</h2>
+
         <div class="experience-orbit">
             <div class="orbit-center"><span>🚀</span></div>
             <div class="orbit-ring orbit-ring-1"></div>
             <div class="orbit-ring orbit-ring-2"></div>
 
-            <!-- Card 1: newest co-op -->
-            <div class="mission-card mission-card-top" data-mission="Saint-Gobain Abrasives">
-                <h3 class="mission-title">Quality/Lab Assistant Engineer</h3>
+            <!-- Card 1: Saint-Gobain -->
+            <div class="mission-card mission-card-top" data-mission="saint-gobain">
+                <h3 class="mission-title">Lab/Quality Assistant Engineer Intern</h3>
                 <h4 class="mission-company">Saint-Gobain Abrasives</h4>
                 <p class="mission-location">📍 Plattsville, Ontario</p>
-                <div class="mission-date">May 2026 - Sept 2026</div>
+                <div class="mission-date">May 2026 – September 2026</div>
                 <span class="hover-hint">Click for details</span>
+
                 <div class="mission-header">
                     <div class="mission-icon">🟫</div>
                     <div class="mission-status">● Current</div>
                 </div>
+
                 <p class="mission-description">
-                    Incoming...
+                    Investigated customer complaints and tested coated abrasive products to better understand performance issues and process variation. Used Minitab to analyze test results, compare material conditions, and support quality and product development decisions.
                 </p>
             </div>
 
             <!-- Card 2: Linamar -->
             <div class="mission-card mission-card-left" data-mission="linamar">
-                <h3 class="mission-title">Quality Assurance Engineering</h3>
-                <h4 class="mission-company">Linamar Corporation</h4>
+                <h3 class="mission-title">Quality Engineer Intern</h3>
+                <h4 class="mission-company">Linamar Vehcom Manufacturing</h4>
                 <p class="mission-location">📍 Guelph, Ontario</p>
-                <div class="mission-date">SEPT 2025 - DEC 2025</div>
+                <div class="mission-date">September 2025 – December 2025</div>
                 <span class="hover-hint">Click for details</span>
+
                 <div class="mission-header">
                     <div class="mission-icon">📏</div>
                     <div class="mission-status">● Completed</div>
                 </div>
+
                 <p class="mission-description">
-                    Worked hands-on with precision inspection tools and data analysis to ensure automotive component reliability. Gained experience with CMM machines, profile projectors, and gear analyzers. Used Minitab for data interpretation and collaborated across departments to strengthen quality control.
+                    Inspected automotive components using CMM machines, gear analyzers, profile projectors, and contour tracers. Analyzed measurement data in Minitab, completed material testing, and worked with production teams to investigate quality concerns and improve process consistency.
                 </p>
             </div>
 
             <!-- Card 3: PWO -->
             <div class="mission-card mission-card-right" data-mission="pwo">
-                <h3 class="mission-title">Production Process Engineering</h3>
+                <h3 class="mission-title">Process Engineering Assistant Intern</h3>
                 <h4 class="mission-company">PWO Canada Inc.</h4>
                 <p class="mission-location">📍 Kitchener, Ontario</p>
-                <div class="mission-date">JAN 2025 - APR 2025</div>
+                <div class="mission-date">January 2025 – April 2025</div>
                 <span class="hover-hint">Click for details</span>
+
                 <div class="mission-header">
                     <div class="mission-icon">⚙️</div>
                     <div class="mission-status">● Completed</div>
                 </div>
+
                 <p class="mission-description">
-                    Supported Process Engineering teams in optimizing production systems. Developed Excel VBA tools boosting productivity by 20%. Used SolidEdge and Kister 3D to optimize equipment, increasing stamping press speed by 30%. Led cost-reduction projects improving efficiency.
+                    Supported process improvements across stamping and tooling operations by combining hands-on production work with data analysis. Developed Excel VBA tools, completed time studies, improved inventory tracking, and helped increase press speed from 50 to 60 strokes per minute.
                 </p>
             </div>
         </div>
@@ -5847,7 +5865,31 @@
                 </div>
             </div>
 
-            <!-- Project 3: Circadian Rhythm Device -->
+            <!-- Project 3: Quality Data Analysis -->
+            <div class="project-card">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="Images/Quality.png" alt="Quality Data Analysis" class="project-img" loading="lazy">
+                        <div class="project-title-overlay">
+                            <h3>Quality Data Analysis</h3>
+                            <span class="project-status">✅ Completed</span>
+                        </div>
+                    </div>
+                    <div class="project-card-back">
+                        <div class="project-back-content">
+                            <div class="project-back-icon">🔬</div>
+                            <h3>Quality Data Analysis</h3>
+                            <p>Conducted comprehensive analysis of quality data to identify trends and areas for improvement in manufacturing processes.</p>
+                            <a href="#" class="view-more-btn" onclick="alert('Simon is working hard to build the project page, sorry about that please stay in tune!'); return false;">
+                                <span>View Project</span>
+                                <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Circadian Rhythm Device -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
@@ -5871,7 +5913,7 @@
                 </div>
             </div>
 
-            <!-- Project 4: Motorized Maze -->
+            <!-- Project 5: Motorized Maze -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
@@ -5895,7 +5937,7 @@
                 </div>
             </div>
 
-            <!-- Project 5: Ping-ris Wheel -->
+            <!-- Project 6: Ping-ris Wheel -->
             <div class="project-card">
                 <div class="project-card-inner">
                     <div class="project-card-front">
@@ -5914,26 +5956,6 @@
                                 <span>View Project</span>
                                 <span>→</span>
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 6: More Projects Coming Soon -->
-            <div class="project-card coming-soon-card">
-                <div class="project-card-inner">
-                    <div class="project-card-front">
-                        <div class="coming-soon-content">
-                            <div class="coming-soon-icon">🚀</div>
-                            <h3>More Projects Coming Soon</h3>
-                            <p>Stay Tuned!</p>
-                        </div>
-                    </div>
-                    <div class="project-card-back">
-                        <div class="project-back-content">
-                            <div class="project-back-icon">⭐</div>
-                            <h3>Exciting Things Ahead</h3>
-                            <p>I'm working on some amazing projects. Check back soon to see what's next in my engineering journey!</p>
                         </div>
                     </div>
                 </div>

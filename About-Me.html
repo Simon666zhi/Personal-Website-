@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Off-Duty - Yiqing Zhi</title>
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 
     <meta property="og:title" content="Off-Duty - Yiqing Zhi">
     <meta property="og:description" content="A look at what Yiqing gets up to outside of engineering -- snowboarding, sports, and travel.">
@@ -286,6 +286,7 @@
         .mission-plate:nth-child(3) { transform: rotate(-2deg); }
         .mission-plate:nth-child(4) { transform: rotate(5deg); }
         .mission-plate:nth-child(5) { transform: rotate(-5deg); }
+        .mission-plate:nth-child(6) { transform: rotate(4deg); }
 
         .mission-plate:hover {
             transform: rotate(0deg) scale(1.06) translateY(-6px);
@@ -374,6 +375,32 @@
         .plate-nav:hover { background: rgba(102,126,234,0.85); }
         .plate-nav.plate-prev { left: 6px; }
         .plate-nav.plate-next { right: 6px; }
+
+        .plate-pause {
+            position: absolute;
+            top: 6px; right: 6px;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(10,14,35,0.65);
+            color: white;
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.55;
+            transition: opacity 0.25s ease, background 0.25s ease;
+            z-index: 4;
+        }
+        .plate-pause:hover { opacity: 1; background: rgba(102,126,234,0.85); }
+        .mission-plate:hover .plate-pause { opacity: 1; }
+
+        /* Touch devices have no hover state to reveal the pause button,
+           so show it clearly (not dimmed) by default there instead. */
+        @media (hover: none) and (pointer: coarse) {
+            .plate-pause { opacity: 0.85; }
+        }
 
         .plate-dots {
             position: absolute;
@@ -503,11 +530,13 @@
             margin-top: 0.2rem;
         }
         .lightbox-story {
+            font-family: 'Kalam', cursive;
+            font-weight: 400;
             color: rgba(255,255,255,0.85);
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             text-align: center;
             margin-top: 0.7rem;
-            line-height: 1.7;
+            line-height: 1.75;
             padding: 0 0.5rem;
         }
         .lightbox-close {
@@ -686,40 +715,58 @@
         const plateConfig = [
             {
                 caption: 'Snowboarding',
-                subcaption: 'CASI Level 1',
+                subcaption: 'Park Rider | Burton Fan',
                 images: [
                     {
                         src: 'Images/Casi-1.jpg',
                         alt: 'Snowboarding certification photo',
-                        story: 'Certified as a CASI Level 1 snowboard instructor, teaching beginners the fundamentals of balance, edge control, and confidence on the slopes.'
+                        story: 'CASI Level 1 Certified 🎓'
                     },
 
                     {
                         src: 'Images/Snowboard2.jpeg',
-                        alt: 'Snowboarding certification photo',
-                        story: 'Certified as a CASI Level 1 snowboard instructor, teaching beginners the fundamentals of balance, edge control, and confidence on the slopes.'
-                    }
+                        alt: 'Young snowboarders learning at Cypress Mountain',
+                        story: 'Where it all started 🏂'
+                    }, 
+
+                    {
+                        src: 'Images/Snowboard3.jpeg',
+                        alt: 'Group Picture at Union Station going to Mont Tremblant for snowboarding',
+                        story: 'Mont Tremblant with the crew ✈️🏔️'
+                    }, 
                 ]
             },
             {
                 caption: 'Basketball',
-                subcaption: 'Intramural Team',
+                subcaption: 'Hoop for Life',
                 images: [
                     {
                         src: 'Images/Basketball1.jpeg',
                         alt: 'Basketball team photo',
-                        story: 'Participate in semi-competitive intramural basketball with a team of friends, developing teamwork, strategy, and basketball skills. Won the Tier 2 championship in Winter 2026 with a 7–2 record.'
+                        story: 'Semi-competitive intramural basketball with friends. Tier 2 champions with a 7–2 record in Winter 2026 🏆'
+                    }, 
+
+                    {
+                        src: 'Images/Basketball2.jpeg',
+                        alt: 'Basketball team photo2',
+                        story: 'Locked in with the team 🏀'
+                    }, 
+
+                    {
+                        src: 'Images/Basketball4.jpeg',
+                        alt: 'ARC World 2025',
+                        story: 'Met the goat Jeremy Lin! 🐐'
                     }
                 ]
             },
             {
                 caption: 'Badminton',
-                subcaption: 'Waterloo Badminton Club',
+                subcaption: 'Smash, Rally, Repeat',
                 images: [
                     {
                         src: 'Images/Badminton1.jpeg',
                         alt: 'Badminton tournament medals',
-                        story: 'Won the Waterloo Badminton Club’s EOT (End of Term) tournament in Summer 2026.'
+                        story: 'Summer 2026 EOT Champion 🏆'
                     },
                     {
                         src: 'Images/Badminton3.jpg',
@@ -729,12 +776,18 @@
                     {
                         src: 'Images/Badminton2.png',
                         alt: 'Badminton junior doubles ranking certificate',
-                        story: 'Ranked as No. 4 in the BC U17 boys’ doubles junior rankings in 2022 for 20 consecutive weeks.'
+                        story: 'Ranked No. 4 in BC U17 Boys’ Doubles for 20 straight weeks in 2022🏸'
                     },
                     {
                         src: 'Images/Badminton4.jpeg',
                         alt: 'Met professional player at the airport',
-                        story: 'I was so lucky to meet Kodai Naraoka, a professional badminton player from Japan, ranked No. 2 in the world!'
+                        story: 'So lucky to meet Kodai Naraoka, who was ranked No. 2 in the world!'
+                    }, 
+
+                    {
+                        src: 'Images/Badminton5.jpeg',
+                        alt: 'Group picture at new year party',
+                        story: 'Badminton nights with the squad 😄'
                     }
                 ]
             },
@@ -745,10 +798,52 @@
                     {
                         src: 'Images/Bluejays.jpeg',
                         alt: 'Toronto Blue Jays Back to Back World Series Champions',
-                        story: 'Diehard Toronto Blue Jays supporter -- [add favorite memories, players, games attended, etc.]'
+                        story: 'Cheering for the back-to-back 1992 & 1993 World Series champions! ⚾🏆'
+                    }, 
+
+                    {
+                        src: 'Images/Bluejays2.jpeg',
+                        alt: 'Kevin Gausman',
+                        story: 'Kevin Gausman supporter! 🔥'
                     }
                 ]
             },
+            {
+                caption: 'Food Adventures',
+                subcaption: 'Tasting My Way Around The World',
+                images: [
+                    {
+                        src: 'Images/Food1.jpeg',
+                        alt: 'Montreal Poutine',
+                        story: 'Best poutine ever at La Banquise! 😋'
+                    }, 
+
+                    {
+                        src: 'Images/Food2.jpeg',
+                        alt: 'Chengdu Street Food',
+                        story: 'Amazing Sichuan food 🌶️'
+                    }, 
+
+                    {
+                        src: 'Images/Food3.jpeg',
+                        alt: 'Beijing Breakfast',
+                        story: 'Classic Beijing breakfast 👍'
+                    }, 
+
+                    {
+                        src: 'Images/Food4.jpeg',
+                        alt: 'New Year’s Dinner',
+                        story: 'Self cooked dinner to celebrate New Year’s! 🥳🍽️'
+                    },
+
+                    {
+                        src: 'Images/Food5.jpeg',
+                        alt: 'Baking Buns',
+                        story: 'Freshly baked buns in the making 🍞'
+                    }
+                ]
+            },
+
             {
                 caption: 'Traveling',
                 subcaption: 'With Friends & Family',
@@ -756,7 +851,37 @@
                     {
                         src: 'Images/Montreal1.jpeg',
                         alt: 'Quebec City and Montreal trip photo',
-                        story: '[List countries/cities visited, a favorite trip, or a travel goal for the future.]'
+                        story: 'Exploring Québec City and Montréal with friends! ✈️🏙️'
+                    }, 
+
+                    {
+                        src: 'Images/Travel2.jpeg',
+                        alt: 'Quebec City and Montreal trip photo2',
+                        story: 'Winter streets of Old Québec ❄️'
+                    }, 
+
+                    {
+                        src: 'Images/Travel3.jpeg',
+                        alt: 'Forbidden City',
+                        story: 'Overlooking the Forbidden City 🏯🇨🇳'
+                    }, 
+
+                    {
+                        src: 'Images/Travel4.jpeg',
+                        alt: 'Dujiangyan at night',
+                        story: 'Dujiangyan glowing at night 🌊✨'
+                    }, 
+
+                    {
+                        src: 'Images/Travel5.jpeg',
+                        alt: 'Chengdu bronze museum',
+                        story: 'Ancient bronze artistry in Chengdu 🏺✨'
+                    }, 
+
+                    {
+                        src: 'Images/Travel6.jpeg',
+                        alt: 'Terracotta Warriors',
+                        story: 'Face to face with the Terracotta Warriors 🏺⚔️'
                     }
                 ]
             }
@@ -780,8 +905,15 @@
             /* ===================== BUILD PLATES ===================== */
             const photoWall = document.getElementById('photoWall');
 
+            // Respect the user's OS-level motion preference -- if they've
+            // asked for reduced motion, we never auto-advance photos for
+            // them. They can still browse manually via the nav arrows.
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
             // Track which photo is currently shown on each plate's mini carousel
             const plateState = plateConfig.map(() => ({ current: 0 }));
+
+
 
             plateConfig.forEach((plate, plateIdx) => {
                 const card = document.createElement('div');
@@ -864,20 +996,32 @@
                         preload.src = data.src;
                     }
 
-                    // Auto-advance to the next photo every 5 seconds.
+                    // Auto-advance to the next photo, but give each card its
+                    // own rhythm (slightly different interval + a staggered
+                    // first tick) so the whole wall doesn't blink in unison
+                    // like a synced dashboard -- real photo walls feel more
+                    // alive when each frame moves independently.
                     // Pauses while the mouse is over the card, and resets
                     // its timing whenever the person navigates manually.
+                    const autoplayInterval = 4500 + Math.random() * 2500; // 4.5s - 7s
                     let autoplayTimer = null;
+                    let autoplayTimeout = null;
+                    let hasStartedOnce = false;
                     function startAutoplay() {
                         stopAutoplay();
-                        autoplayTimer = setInterval(() => {
-                            const state = plateState[plateIdx];
-                            state.current = (state.current + 1) % plate.images.length;
-                            renderPlatePhoto();
-                        }, 5000);
+                        const initialDelay = hasStartedOnce ? 0 : (plateIdx * 350 + Math.random() * 400);
+                        autoplayTimeout = setTimeout(() => {
+                            hasStartedOnce = true;
+                            autoplayTimer = setInterval(() => {
+                                const state = plateState[plateIdx];
+                                state.current = (state.current + 1) % plate.images.length;
+                                renderPlatePhoto();
+                            }, autoplayInterval);
+                        }, initialDelay);
                     }
                     function stopAutoplay() {
                         if (autoplayTimer) clearInterval(autoplayTimer);
+                        if (autoplayTimeout) clearTimeout(autoplayTimeout);
                     }
 
                     startAutoplay();
